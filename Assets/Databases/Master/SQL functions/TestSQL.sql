@@ -1,0 +1,1 @@
+select * from HamenTheInnkeeper where type like 'S' and active like '1'

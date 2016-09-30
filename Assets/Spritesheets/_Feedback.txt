@@ -1,0 +1,3 @@
+title screen pulse limited to red - purple - black 
+changes randomly, pulses in and out
+
