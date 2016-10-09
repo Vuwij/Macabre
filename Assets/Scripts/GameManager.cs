@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
 /// </summary>
-public partial class GameManager : Manager {
+public partial class GameManager {
 	public static GameManager main = null;
 
     public static bool gamePaused = false;

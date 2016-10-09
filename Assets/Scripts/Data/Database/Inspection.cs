@@ -14,63 +14,66 @@ namespace Data.Database
     /// </summary>
     public partial class DatabaseManager
     {
-        const int inspectTextVariations = 3;
-        enum InspectType { RANDOM, ORDER, ONCE, WAIT };
-        static InspectType inspectType = InspectType.RANDOM;
-        
-        //FOR INSPECTING AND INTERACTING WITH OBJECTS
-        public static string GetInspectText(string location, string objectName, out int viewCount)
+        public class Inspection
         {
-            StartDatabase(inspectLocation);
+            const int inspectTextVariations = 3;
+            enum InspectType { RANDOM, ORDER, ONCE, WAIT };
+            static InspectType inspectType = InspectType.RANDOM;
 
-            string[] inspectText = new string[inspectTextVariations];
-            int inspectTextCount = inspectText.Length;
-
-            string returnInspectText = "";
-            viewCount = new int();
-
-            //CLEARS INSPECT TEXT VALUES
-            for (int i = 0; i < inspectText.Length; i++) inspectText[i] = "";
-
-            //GETS INSPECT TEXT FROM DATABASE AND PUTS INTO STRING ARRAY
-            ExecuteSQLQuery("SELECT Id,Name,Inspect_Text,Inspect_Text_Alt,Inspect_Text_Alt_2,Inspect_Text_Type FROM '" + location + "' WHERE Name Like '" + objectName + "'");
-
-            while (reader.Read())
+            //FOR INSPECTING AND INTERACTING WITH OBJECTS
+            public static string GetInspectText(string location, string objectName, out int viewCount)
             {
-                inspectText[0] = getReaderString(2);
-                inspectText[1] = getReaderString(3);
-                inspectText[2] = getReaderString(4);
+                StartDatabase(inspectLocation);
+
+                string[] inspectText = new string[inspectTextVariations];
+                int inspectTextCount = inspectText.Length;
+
+                string returnInspectText = "";
+                viewCount = new int();
+
+                //CLEARS INSPECT TEXT VALUES
+                for (int i = 0; i < inspectText.Length; i++) inspectText[i] = "";
+
+                //GETS INSPECT TEXT FROM DATABASE AND PUTS INTO STRING ARRAY
+                ExecuteSQLQuery("SELECT Id,Name,Inspect_Text,Inspect_Text_Alt,Inspect_Text_Alt_2,Inspect_Text_Type FROM '" + location + "' WHERE Name Like '" + objectName + "'");
+
+                while (reader.Read())
+                {
+                    inspectText[0] = getReaderString(2);
+                    inspectText[1] = getReaderString(3);
+                    inspectText[2] = getReaderString(4);
+                }
+
+                //COUNT FOR EMPTY ARRAYS
+                for (int i = 0; i < inspectText.Length; i++)
+                {
+                    if (inspectText[i] == "") inspectTextCount--;
+                }
+
+                switch (inspectType)
+                {
+                    case InspectType.RANDOM:
+                        int choice = UnityEngine.Random.Range(0, inspectTextCount);
+                        returnInspectText = inspectText[choice];
+                        break;
+                    case InspectType.ORDER:
+                        if (viewCount < inspectTextCount) returnInspectText = inspectText[viewCount];
+                        else returnInspectText = inspectText[inspectText.Length - 1];
+                        break;
+                    case InspectType.ONCE:
+                        if (viewCount < inspectTextCount) returnInspectText = inspectText[viewCount];
+                        else returnInspectText = "";
+                        break;
+                    case InspectType.WAIT:
+                        returnInspectText = inspectText[0];
+                        break;
+                }
+
+                viewCount++;
+
+                CloseDatabase();
+                return returnInspectText;
             }
-
-            //COUNT FOR EMPTY ARRAYS
-            for (int i = 0; i < inspectText.Length; i++)
-            {
-                if (inspectText[i] == "") inspectTextCount--;
-            }
-
-            switch (inspectType)
-            {
-                case InspectType.RANDOM:
-                    int choice = UnityEngine.Random.Range(0, inspectTextCount);
-                    returnInspectText = inspectText[choice];
-                    break;
-                case InspectType.ORDER:
-                    if (viewCount < inspectTextCount) returnInspectText = inspectText[viewCount];
-                    else returnInspectText = inspectText[inspectText.Length - 1];
-                    break;
-                case InspectType.ONCE:
-                    if (viewCount < inspectTextCount) returnInspectText = inspectText[viewCount];
-                    else returnInspectText = "";
-                    break;
-                case InspectType.WAIT:
-                    returnInspectText = inspectText[0];
-                    break;
-            }
-
-            viewCount++;
-
-            CloseDatabase();
-            return returnInspectText;
         }
     }
 }

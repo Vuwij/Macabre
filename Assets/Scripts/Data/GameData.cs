@@ -5,20 +5,22 @@ using System.Xml;
 using System.Linq;
 using System.Xml.Serialization;
 
-/// <summary>
-/// Everything object that you want to save will first
-/// 1. Inherit the ISavable Interface. So you can load, save and get the save data
-/// 2. If the object is a moving object it will have a name, an objectTransform
-/// 3. loadData and saveData must be virtual methods
-/// 4. to save the game. The save manager will go through every ISavable, and get component T, and serialize that gameobject
-/// 5. Save Data will be the class
-/// </summary>
+namespace Data {
 
-public interface ISavable
-{
-	void saveInfo ();
-	void loadInfo ();
-}
+    /// <summary>
+    /// Everything object that you want to save will first
+    /// 1. Inherit the ISavable Interface. So you can load, save and get the save data
+    /// 2. If the object is a moving object it will have a name, an objectTransform
+    /// 3. loadData and saveData must be virtual methods
+    /// 4. to save the game. The save manager will go through every ISavable, and get component T, and serialize that gameobject
+    /// 5. Save Data will be the class
+    /// </summary>
+
+    public interface ISavable
+    {
+        void saveInfo();
+        void loadInfo();
+    }
 
 /*
 [System.Serializable]
@@ -163,3 +165,5 @@ public class Player : Character
 }
 }
 */
+
+}

@@ -11,13 +11,13 @@ namespace Conversations
     /// <summary>
     /// A single conversation, a simple statement said by a single person
     /// </summary>
-    public struct singleConversation
+    public struct SingleConversation
     {
 
         /// <param name="char1_"> The name of the person who is speaking </param>
         /// <param name="char2_"> The name of the person who is spoken to </param>
         /// <param name="conversation_"> The actual conversation</param>
-        public singleConversation(string speaker_, string spoken_, string conversation_, bool options_, string[] response_)
+        public SingleConversation(string speaker_, string spoken_, string conversation_, bool options_, string[] response_)
         {
             speaker = speaker_;
             spoken = spoken_;
@@ -27,10 +27,10 @@ namespace Conversations
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="singleConversation"/> struct. Do not use the default contructor for the struct
+        /// Initializes a new instance of the <see cref="SingleConversation"/> struct. Do not use the default contructor for the struct
         /// </summary>
         /// <param name="reset">If set to <c>true</c> reset.</param>
-        public singleConversation(bool reset)
+        public SingleConversation(bool reset)
         {
             speaker = "";
             spoken = "";
