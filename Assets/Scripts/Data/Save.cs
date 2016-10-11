@@ -6,21 +6,14 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 
+using Environment.Time;
+
+//TODO fix saving system
 namespace Data
 {
-
-    [XmlRoot("Save Info")]
-    [XmlInclude(typeof(Save))]
-    public struct SaveInfo
-    {
-        public int saveNumber { get; set; }
-        public List<Save> saveList { get; set; }
-        public Save currentSave { get; set; }       // The current save, last loaded
-    }
-
     [System.Serializable]
     [XmlInclude(typeof(MacabreDateTime))]
-    public class Save : IDisposable
+    public class Save
     {
         private static string saveURI = Application.dataPath + "/Databases/Saves";
         private static string masterURI = Application.dataPath + "/Databases/Master";
@@ -29,105 +22,50 @@ namespace Data
         public static bool saveInfoLock = false;
 
         // The current save informaiton
-        public int saveID;
-        public System.DateTime saveTime;
-        public MacabreDateTime gameTime;
-        public string saveLocation;
-        public string saveName;
+        public int saveID
+        {
+            get
+            {
+                return Save.saveInfo.saveNumber;
+            }
+            set { }
+        }
+        public System.DateTime saveTime
+        {
+            get { return GetSaveTime(); }
+            set { }
+        }
+        public string saveLocation
+        {
+            get { return GetSaveURI(); }
+            set { }
+        }
+        public string saveName
+        {
+            get { return "Save" + saveID; }
+            set { }
+        }
 
         // The information saved
         [XmlIgnore]
         private XmlSerializer gameDataSerializer;
-
-        [XmlIgnore]
-        public GameData gameData;
-
-        #region Constructors and Destructors
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Save"/> class.
         /// </summary>
-        private Save()
+        private Save(string saveName_ = "", bool newSave = false)
         {
             Save.saveInfo.saveNumber++;
-            saveID = Save.saveInfo.saveNumber;
-            saveLocation = GetSaveURI();
-            saveTime = GetSaveTime();
-            gameTime = GameClock.time;
-            saveName = "Save" + saveID;
             Debug.Log("Getting information for " + saveID);
 
-            if (!saveInfoLock) saveInfo.saveList.Add(this);
-            if (!saveInfoLock) saveInfo.currentSave = this;
-            if (!saveInfoLock) this.copyDatabases();
-        }
-
-        /// <summary>
-        /// Creates a new game
-        /// </summary>
-        public Save(bool newSave)
-        {
-            Save.saveInfo.saveNumber++;
-            saveID = Save.saveInfo.saveNumber;
-            saveLocation = GetSaveURI();
-            saveTime = GetSaveTime();
-            gameTime = new MacabreDateTime(true);
-            saveName = "Save" + saveID;
-            if (!saveInfoLock) saveInfo.saveList.Add(this);
-            if (!saveInfoLock) saveInfo.currentSave = this;
-            if (!saveInfoLock) this.copyDatabases();
-            if (!saveInfoLock) this.newGameData();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Save"/> class.
-        /// </summary>
-        public Save(string saveName_)
-        {
-            Save.saveInfo.saveNumber++;
-            saveID = Save.saveInfo.saveNumber;
-            saveLocation = GetSaveURI();
-            saveTime = GetSaveTime();
-            gameTime = new MacabreDateTime(true);
-            saveName = saveName_;
+            if (saveName != "") saveName_ = saveName;
 
             if (!saveInfoLock) saveInfo.saveList.Add(this);
             if (!saveInfoLock) saveInfo.currentSave = this;
             if (!saveInfoLock) this.copyDatabases();
+            if (newSave) this.newGameData();
         }
-
-        bool disposed = false;
-
-        /// <summary>
-        /// Releases all resource used by the <see cref="T:Save"/> object.
-        /// </summary>
-        /// <remarks>Call <see cref="Dispose"/> when you are finished using the <see cref="T:Save"/>. The <see cref="Dispose"/> method
-        /// leaves the <see cref="T:Save"/> in an unusable state. After calling <see cref="Dispose"/>, you must release all
-        /// references to the <see cref="T:Save"/> so the garbage collector can reclaim the memory that the
-        /// <see cref="T:Save"/> was occupying.</remarks>
-        public void Dispose()
-        {
-            this.deleteDatabases();
-            saveInfo.saveList.Remove(this);
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposed)
-                return;
-
-            if (disposing)
-            {
-            }
-            // Free any unmanaged objects here.
-            disposed = true;
-        }
-
-
-        #endregion
-
+        
         #region Manipulation
 
         public static void lockSaveInfo()
@@ -149,20 +87,9 @@ namespace Data
 
         #region Saving
 
-        public static Save NewGame()
-        {
-            if (Save.saveInfo.saveList.IsNullOrEmpty())
-            {
-                Save.saveInfo.saveList = new List<Save>();
-            }
-            Debug.Log("New Game");
-            return new Save(true);
-        }
-
         public static Save NewSave()
         {
-            if (Save.saveInfo.saveList.IsNullOrEmpty())
-                Save.saveInfo.saveList = new List<Save>();
+            Save.saveInfo.saveList = new List<Save>();
 
             Debug.Log("New Save");
             return new Save();

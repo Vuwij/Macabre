@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace UI
 {
-    class WarningPanel
+    public static class WarningPanel
     {
         /// <summary>
         /// Played after the warning
@@ -25,7 +24,7 @@ namespace Assets.Scripts.UI
         /// <param name="a">The void function that is called when the correction option is chosen</param>
         public static void Warning(string message, string[] options, UnityEngine.Events.UnityAction[] a)
         {
-            main.ToggleScreen("Confirmation Screen");
+            UIManager.ToggleScreen("Confirmation Screen");
             var cScreen = UIScreen.screenList.Find(g => g.getScreenName() == "Confirmation Screen").getScreen();
             cScreen.transform.FindChild("Text").GetComponent<Text>().text = message;
 
@@ -42,11 +41,11 @@ namespace Assets.Scripts.UI
                 var y = cScreen.transform.FindChild("Yes").GetComponentInChildren<Button>().onClick;
                 var n = cScreen.transform.FindChild("No").GetComponentInChildren<Button>().onClick;
                 y.RemoveAllListeners();
-                y.AddListener(() => { main.ToggleScreen("Confirmation Screen"); });
+                y.AddListener(() => { UIManager.ToggleScreen("Confirmation Screen"); });
                 y.AddListener(a[0]);
 
                 n.RemoveAllListeners();
-                n.AddListener(() => { main.ToggleScreen("Confirmation Screen"); });
+                n.AddListener(() => { UIManager.ToggleScreen("Confirmation Screen"); });
                 n.AddListener(a[1]);
 
             }
@@ -67,10 +66,6 @@ namespace Assets.Scripts.UI
         {
             //TODO Complete the warning label
         }
-
-        private void OpenWarningPanel()
-        {
-
-        }
+        
     }
 }

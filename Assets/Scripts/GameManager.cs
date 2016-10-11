@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Environment;
+using Environment.Time;
+using Environment.Audio;
+using UI;
+using Data;
 
 /// <summary>
 /// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
 /// </summary>
-public partial class GameManager {
+public partial class GameManager : MonoBehaviour {
 	public static GameManager main = null;
 
     public static bool gamePaused = false;
@@ -18,7 +23,7 @@ public partial class GameManager {
 
     void Start()
     {
-        GameClock.main = new GameClock();
+        SaveManager.Initialize();
     }
     
     void Update()
@@ -44,11 +49,16 @@ public partial class GameManager {
 			UIManager.ToggleDarkenScreen ();
 
 			string [] options = { "Yes", "No" };
-			UIManager.ToggleWarning ("Warning, Current Save being deleted, do you wish to continue", options, new UnityEngine.Events.UnityAction [] {
+			WarningPanel.Warning("Warning, Current Save being deleted, do you wish to continue", options, new UnityEngine.Events.UnityAction [] {
 				() => { Application.Quit (); },
 				() => { }
 			});
 		}
 	}
+
+    public void OnApplicationQuit()
+    {
+        SaveManager.OnApplicationQuit();
+    }
 
 }

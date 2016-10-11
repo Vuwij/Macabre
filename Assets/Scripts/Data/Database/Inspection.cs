@@ -14,13 +14,19 @@ namespace Data.Database
     /// </summary>
     public partial class DatabaseManager
     {
-        public class Inspection
+        public static class Inspection
         {
             const int inspectTextVariations = 3;
             enum InspectType { RANDOM, ORDER, ONCE, WAIT };
             static InspectType inspectType = InspectType.RANDOM;
 
-            //FOR INSPECTING AND INTERACTING WITH OBJECTS
+            /// <summary>
+            /// For inspection and getting information for objects
+            /// </summary>
+            /// <param name="location"></param>
+            /// <param name="objectName"></param>
+            /// <param name="viewCount"></param>
+            /// <returns></returns>
             public static string GetInspectText(string location, string objectName, out int viewCount)
             {
                 StartDatabase(inspectLocation);

@@ -98,13 +98,6 @@ namespace Data.Database {
                 return newConversation;
             }
 
-            /// <summary>
-            /// Continues a single conversation, used for single reponses
-            /// </summary>
-            /// <returns>The o continue.</returns>
-            /// <param name="characterName">Name of interacting character</param>
-            /// <param name="playerChoice">The character</param>
-            /// <param name="openChoice">If set to <c>true</c> the thing looks for a choice (NOT FINISHED, implement later, set to true for now</param>
             public static SingleConversation Continue(string characterName, int playerChoice, bool openChoice)
             {
                 char playerChoiceChar = (char)(playerChoice + 64);
@@ -368,7 +361,7 @@ namespace Data.Database {
                 return false;
             }
 
-            public static void PrintPrerequsites()
+            public static void PrintPrerequisites()
             {
                 return;
 

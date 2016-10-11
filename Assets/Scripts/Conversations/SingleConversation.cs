@@ -30,7 +30,7 @@ namespace Conversations
         /// Initializes a new instance of the <see cref="SingleConversation"/> struct. Do not use the default contructor for the struct
         /// </summary>
         /// <param name="reset">If set to <c>true</c> reset.</param>
-        public SingleConversation(bool reset)
+        public SingleConversation(bool reset = false)
         {
             speaker = "";
             spoken = "";
@@ -44,14 +44,21 @@ namespace Conversations
         public bool options;
         public string[] response;
 
-        public void print()
+        public void PrintConversation()
         {
-            if (!Settings.debugCONVO)
-                return;
-
             if (speaker == "")
-                Debug.Log("CONVERSATION EMPTY");
-            else Debug.Log("CONVERSATION| " + speaker + " - " + spoken + ": " + conversation);
+                Debug.Log("Conversation Is Empty");
+            else Debug.Log("Conversation between | " + speaker + " - " + spoken + ": " + conversation);
         }
+
+        private void Clear()
+        {
+            this.conversation = "";
+            this.speaker = "";
+            this.spoken = "";
+            //		for (int i = 0; i < 4; i++)
+            //			convo.response [i] = "";
+        }
+
     }
 }

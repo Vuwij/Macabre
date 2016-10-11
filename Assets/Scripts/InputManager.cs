@@ -4,7 +4,7 @@ using System.Collections;
 using Objects.Movable;
 using Objects.Movable.Characters;
 
-public class InputManager {
+public static class InputManager {
 	private static float inspectRadius
     {
         get { return GameSettings.inspectRadius; }

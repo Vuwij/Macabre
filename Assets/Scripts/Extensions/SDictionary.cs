@@ -11,7 +11,6 @@ namespace Extensions
     public class SDictionary<TKey, TValue>
             : Dictionary<TKey, TValue>, IXmlSerializable
     {
-        #region IXmlSerializable Members
         public System.Xml.Schema.XmlSchema GetSchema()
         {
             return null;
@@ -69,6 +68,5 @@ namespace Extensions
                 writer.WriteEndElement();
             }
         }
-        #endregion
-
     }
+}
