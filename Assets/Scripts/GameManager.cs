@@ -5,6 +5,7 @@ using Environment.Time;
 using Environment.Audio;
 using UI;
 using Data;
+using Objects;
 
 /// <summary>
 /// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
@@ -24,6 +25,7 @@ public partial class GameManager : MonoBehaviour {
     void Start()
     {
         SaveManager.Initialize();
+        Loader.LoadGame();
     }
     
     void Update()

@@ -21,7 +21,10 @@ namespace Data.Database {
             public static int characterLimit { get { return GameSettings.conversationCharacterLimit; } }
             private static bool[] prerequisites = new bool[characterLimit];
 
-            public static bool TestCharacterConversation(string character)
+            /// <summary>
+            /// Tests if the character exists
+            /// </summary>
+            public static bool TestIfCharacterExistsInDatabase(string character)
             {
                 try
                 {
@@ -37,7 +40,7 @@ namespace Data.Database {
                 return true;
             }
             
-            public static SingleConversation Start(string characterName)
+            public static SingleConversation FindConversationForCharacter(string characterName)
             {
                 //0. Start Database Connection
                 StartDatabase(conversations);
@@ -98,6 +101,11 @@ namespace Data.Database {
                 return newConversation;
             }
 
+            internal static void RetrieveConversationForCharacter(object character, ConversationState state)
+            {
+                throw new NotImplementedException();
+            }
+            
             public static SingleConversation Continue(string characterName, int playerChoice, bool openChoice)
             {
                 char playerChoiceChar = (char)(playerChoice + 64);
@@ -339,7 +347,7 @@ namespace Data.Database {
                 return false;
             }
 
-            public static bool CheckEndConversation(string characterName)
+            public static bool CheckIfConverationHasEnded(string characterName)
             {
                 for (int i = 0; i < characterLimit; i++)
                 {

@@ -11,26 +11,213 @@ namespace Objects.Movable.Characters
 {
     public abstract partial class CharacterController : MovingObjectController
     {
-        //S = Start, R = Character Response, C = Player Closed Response, O = Player Open Response, E = End Conversation
-        ConversationStatus CONVO_status_next = ConversationStatus.Start;
-        ConversationStatus CONVO_status_current;
-
-        private CharacterController characterSpokenTo;
-        SingleConversation convo = new SingleConversation();
-        string selectedResponse;
+        private ConversationState conversationState;
         
-        // TODO enable multiple character conversation
-        // Starts a conversation between the character and the player
-        public void StartConversation()
+        // Invoked everytime when the spacebar is pressed or an decision is made
+        public void Dialogue(int decision = 0)
         {
-            if (!DatabaseManager.Conversation.TestCharacterConversation(this.name)) return;
-            
-            LockMovement();
-            player.LockMovement();
+            // Starts a new conversation
+            if (conversationState == null)
+                DialogueStart();
+             
 
-            Dialogue();
+            // If it is a character reponse then close dialogue screen and continue
+            if ((currentConversationState == ConversationViewStatus.CharacterResponse && nextConversationState != ConversationViewStatus.End) ||
+                (currentConversationState == ConversationViewStatus.PlayerClosedResponse && nextConversationState != ConversationViewStatus.End)
+            )
+            {
+                if (DatabaseManager.Conversation.CheckIfConverationHasEnded(name))
+                {
+                    nextConversationState = ConversationViewStatus.End;
+
+                }
+            }
+
+            /* Clears the dialogue */
+            ClearDialogue();
+
+            /* Retrieves the correct message */
+            if (nextConversationState == ConversationViewStatus.Empty)
+            {
+                convo = DatabaseManager.main.CONVO_start(name);
+            }
+            if (nextConversationState == ConversationViewStatus.PlayerMultipleReponse)
+            {
+                convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
+            }
+            if (nextConversationState == ConversationViewStatus.PlayerClosedResponse)
+            {
+                if (currentConversationState == ConversationViewStatus.PlayerMultipleReponse)
+                {
+                    convo = DatabaseManager.main.CONVO_finishresponse(convo, name, decision);
+                    if (Settings.debugCONVO)
+                        Debug.Log("5. Last Decision is " + decision);
+                }
+                else
+                {
+                    convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
+                }
+            }
+            DatabaseManager.main.CONVO_printAllPrerequisites();
+            if (nextConversationState == ConversationViewStatus.CharacterResponse)
+            {
+                convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
+            }
+            if (nextConversationState == ConversationViewStatus.End)
+            {
+                convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
+            }
+
+            /* Displays the correct message */
+            convo.PrintConversation();
+            if (nextConversationState == ConversationViewStatus.PlayerMultipleReponse)
+            {
+                InputManager.LockInspection();
+                InputManager.LockPendingDecision();
+                UIManager.main.DisplayMultipleResponse(
+                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite,
+                    convo.speaker,                  // string characterName,
+                    convo.response,                 // string textEntry,
+                    true                            // bool continueText
+                );
+            }
+            if (nextConversationState == ConversationViewStatus.PlayerClosedResponse)
+            {
+                InputManager.UnlockInspection();
+                InputManager.UnlockPendingDecision();
+                UIManager.main.DisplaySingleResponse(
+                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite,
+                    convo.speaker,                  // string characterName,
+                    convo.conversation,             // string textEntry,
+                    true                            // bool continueText
+                );
+            }
+            if (nextConversationState == ConversationViewStatus.Empty)
+            {
+                UIManager.main.DisplaySingleResponse(
+                    (convo.speaker == "Player") ?   // Sprite mainImageEntry,
+                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite :
+                    this.GetComponentInChildren<SpriteRenderer>().sprite,
+                    convo.speaker,                  // string characterName,
+                    convo.conversation,             // string textEntry,
+                    true                            // bool continueText
+                );
+            }
+            if (nextConversationState == ConversationViewStatus.CharacterResponse)
+            {
+                InputManager.UnlockInspection();
+                InputManager.UnlockPendingDecision();
+                UIManager.main.DisplayCharacterText(
+                    this.GetComponentInChildren<SpriteRenderer>().sprite,
+                    convo.speaker,                  // string characterName,
+                    convo.conversation,             // string textEntry,
+                    true                            // bool continueText
+                );
+            }
+            if (nextConversationState == ConversationViewStatus.End)
+            {
+                UIManager.main.DisplaySingleResponse(
+                    (convo.speaker == "Player") ?   // Sprite mainImageEntry,
+                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite :
+                    this.GetComponentInChildren<SpriteRenderer>().sprite,
+                    convo.speaker,                  // string characterName,
+                    convo.conversation,             // string textEntry,
+                    true                            // bool continueText
+                );
+            }
+
+            currentConversationState = nextConversationState;
+
+            /* Checks the next conversation */
+            if (currentConversationState == ConversationViewStatus.Empty)
+            {
+                if (convo.speaker == "Player")
+                {
+                    nextConversationState = ConversationViewStatus.CharacterResponse;
+                }
+                else
+                {
+                    if (convo.options == true)
+                    {
+                        nextConversationState = ConversationViewStatus.PlayerMultipleReponse;
+                    }
+                    else
+                    {
+                        nextConversationState = ConversationViewStatus.PlayerClosedResponse;
+                    }
+                }
+            }
+            if (currentConversationState == ConversationViewStatus.CharacterResponse)
+            {
+                if (convo.speaker == "Player")
+                {
+                    nextConversationState = ConversationViewStatus.CharacterResponse;
+                }
+                else
+                {
+                    if (convo.options == true)
+                    {
+                        nextConversationState = ConversationViewStatus.PlayerMultipleReponse;
+                    }
+                    else
+                    {
+                        nextConversationState = ConversationViewStatus.PlayerClosedResponse;
+                    }
+                }
+            }
+            if (currentConversationState == ConversationViewStatus.End)
+            {
+                nextConversationState = ConversationViewStatus.End;
+            }
+            if (currentConversationState == ConversationViewStatus.PlayerClosedResponse)
+            {
+                if (convo.speaker == "Player")
+                {
+                    nextConversationState = ConversationViewStatus.CharacterResponse;
+                }
+                else
+                {
+                    if (convo.options == true)
+                    {
+                        nextConversationState = ConversationViewStatus.PlayerMultipleReponse;
+                    }
+                    else
+                    {
+                        nextConversationState = ConversationViewStatus.PlayerClosedResponse;
+                    }
+                }
+            }
+            if (currentConversationState == ConversationViewStatus.PlayerMultipleReponse)
+            {
+                nextConversationState = ConversationViewStatus.PlayerClosedResponse;
+            }
+
+            DatabaseManager.main.CONVO_printAllPrerequisites();
+
         }
 
+        public void DialogueStart()
+        {
+            conversationState = new ConversationState(this);
+            if (!DatabaseManager.Conversation.TestIfCharacterExistsInDatabase(this.name)) return;
+
+
+
+            // If current & next = END, then next = start
+            if (currentConversationState == ConversationViewStatus.End &&
+                nextConversationState == ConversationViewStatus.End)
+            {
+                nextConversationState = ConversationViewStatus.Empty;
+
+                UIManager.CloseDialogueScreen();
+                player.UnlockMovement();
+                UnlockMovement();
+                Debug.Log("5. Conversation Ended");
+                return;
+            }
+
+        }
+        
         public void FindCharacterAndContinueConversation(int choice)
         {
             characterSpokenTo.SendMessage("DialogueDecision", choice);
@@ -60,196 +247,6 @@ namespace Objects.Movable.Characters
             InputManager.UnlockPendingDecision();
             characterSpokenTo.Dialogue(decision);
         }
-
-
-        public void Dialogue(int decision = 0)
-        {
-            // If current & next = END, then next = start
-            if (CONVO_status_current == ConversationStatus.EndConversation &&
-                CONVO_status_next == ConversationStatus.EndConversation)
-            {
-                CONVO_status_next = ConversationStatus.Start;
-
-                UIManager.main.CloseDialogueScreen();
-                player.UnlockMovement();
-                UnlockMovement();
-                Debug.Log("5. Conversation Ended");
-                return;
-            }
-
-            // If it is a character reponse then close dialogue screen and continue
-            if ((CONVO_status_current == ConversationStatus.CharacterResponse && CONVO_status_next != ConversationStatus.EndConversation) ||
-                (CONVO_status_current == ConversationStatus.PlayerClosedResponse && CONVO_status_next != ConversationStatus.EndConversation)
-            )
-            {
-                if (DatabaseManager.main.CONVO_checkEndConversations(name))
-                {
-                    CONVO_status_next = ConversationStatus.EndConversation;
-
-                }
-            }
-
-            /* Clears the dialogue */
-            ClearDialogue();
-
-            /* Retrieves the correct message */
-            if (CONVO_status_next == ConversationStatus.Start)
-            {
-                convo = DatabaseManager.main.CONVO_start(name);
-            }
-            if (CONVO_status_next == ConversationStatus.PlayerOpenResponse)
-            {
-                convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
-            }
-            if (CONVO_status_next == ConversationStatus.PlayerClosedResponse)
-            {
-                if (CONVO_status_current == ConversationStatus.PlayerOpenResponse)
-                {
-                    convo = DatabaseManager.main.CONVO_finishresponse(convo, name, decision);
-                    if (Settings.debugCONVO)
-                        Debug.Log("5. Last Decision is " + decision);
-                }
-                else
-                {
-                    convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
-                }
-            }
-            DatabaseManager.main.CONVO_printAllPrerequisites();
-            if (CONVO_status_next == ConversationStatus.CharacterResponse)
-            {
-                convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
-            }
-            if (CONVO_status_next == ConversationStatus.EndConversation)
-            {
-                convo = DatabaseManager.main.CONVO_continue(name, decision, true);  // Decision goes here
-            }
-
-            /* Displays the correct message */
-            convo.PrintConversation();
-            if (CONVO_status_next == ConversationStatus.PlayerOpenResponse)
-            {
-                InputManager.LockInspection();
-                InputManager.LockPendingDecision();
-                UIManager.main.DisplayMultipleResponse(
-                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite,
-                    convo.speaker,                  // string characterName,
-                    convo.response,                 // string textEntry,
-                    true                            // bool continueText
-                );
-            }
-            if (CONVO_status_next == ConversationStatus.PlayerClosedResponse)
-            {
-                InputManager.UnlockInspection();
-                InputManager.UnlockPendingDecision();
-                UIManager.main.DisplaySingleResponse(
-                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite,
-                    convo.speaker,                  // string characterName,
-                    convo.conversation,             // string textEntry,
-                    true                            // bool continueText
-                );
-            }
-            if (CONVO_status_next == ConversationStatus.Start)
-            {
-                UIManager.main.DisplaySingleResponse(
-                    (convo.speaker == "Player") ?   // Sprite mainImageEntry,
-                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite :
-                    this.GetComponentInChildren<SpriteRenderer>().sprite,
-                    convo.speaker,                  // string characterName,
-                    convo.conversation,             // string textEntry,
-                    true                            // bool continueText
-                );
-            }
-            if (CONVO_status_next == ConversationStatus.CharacterResponse)
-            {
-                InputManager.UnlockInspection();
-                InputManager.UnlockPendingDecision();
-                UIManager.main.DisplayCharacterText(
-                    this.GetComponentInChildren<SpriteRenderer>().sprite,
-                    convo.speaker,                  // string characterName,
-                    convo.conversation,             // string textEntry,
-                    true                            // bool continueText
-                );
-            }
-            if (CONVO_status_next == ConversationStatus.EndConversation)
-            {
-                UIManager.main.DisplaySingleResponse(
-                    (convo.speaker == "Player") ?   // Sprite mainImageEntry,
-                    GameObject.FindGameObjectWithTag("PlayerSprite").GetComponentInChildren<SpriteRenderer>().sprite :
-                    this.GetComponentInChildren<SpriteRenderer>().sprite,
-                    convo.speaker,                  // string characterName,
-                    convo.conversation,             // string textEntry,
-                    true                            // bool continueText
-                );
-            }
-
-            CONVO_status_current = CONVO_status_next;
-
-            /* Checks the next conversation */
-            if (CONVO_status_current == ConversationStatus.Start)
-            {
-                if (convo.speaker == "Player")
-                {
-                    CONVO_status_next = ConversationStatus.CharacterResponse;
-                }
-                else
-                {
-                    if (convo.options == true)
-                    {
-                        CONVO_status_next = ConversationStatus.PlayerOpenResponse;
-                    }
-                    else
-                    {
-                        CONVO_status_next = ConversationStatus.PlayerClosedResponse;
-                    }
-                }
-            }
-            if (CONVO_status_current == ConversationStatus.CharacterResponse)
-            {
-                if (convo.speaker == "Player")
-                {
-                    CONVO_status_next = ConversationStatus.CharacterResponse;
-                }
-                else
-                {
-                    if (convo.options == true)
-                    {
-                        CONVO_status_next = ConversationStatus.PlayerOpenResponse;
-                    }
-                    else
-                    {
-                        CONVO_status_next = ConversationStatus.PlayerClosedResponse;
-                    }
-                }
-            }
-            if (CONVO_status_current == ConversationStatus.EndConversation)
-            {
-                CONVO_status_next = ConversationStatus.EndConversation;
-            }
-            if (CONVO_status_current == ConversationStatus.PlayerClosedResponse)
-            {
-                if (convo.speaker == "Player")
-                {
-                    CONVO_status_next = ConversationStatus.CharacterResponse;
-                }
-                else
-                {
-                    if (convo.options == true)
-                    {
-                        CONVO_status_next = ConversationStatus.PlayerOpenResponse;
-                    }
-                    else
-                    {
-                        CONVO_status_next = ConversationStatus.PlayerClosedResponse;
-                    }
-                }
-            }
-            if (CONVO_status_current == ConversationStatus.PlayerOpenResponse)
-            {
-                CONVO_status_next = ConversationStatus.PlayerClosedResponse;
-            }
-
-            DatabaseManager.main.CONVO_printAllPrerequisites();
-
-        }
+        
     }
 }

@@ -56,8 +56,8 @@ namespace Conversations
             this.conversation = "";
             this.speaker = "";
             this.spoken = "";
-            //		for (int i = 0; i < 4; i++)
-            //			convo.response [i] = "";
+            for (int i = 0; i < 4; i++)
+            	response [i] = "";
         }
 
     }

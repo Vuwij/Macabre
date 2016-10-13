@@ -15,7 +15,7 @@ namespace Objects.Movable.Characters
         
         public void InspectionAction(RaycastHit2D raycastHit)
         {
-            StartConversation();
+            DialogueStart();
         }
 
         public void Inspect()

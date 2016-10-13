@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Conversations" targetNamespace="http://tempuri.org/Conversations.xsd" xmlns:mstns="http://tempuri.org/Conversations.xsd" xmlns="http://tempuri.org/Conversations.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Conversations" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Conversations" msprop:Generator_UserDSName="Conversations">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CharacterConversation" msprop:Generator_TableClassName="CharacterConversationDataTable" msprop:Generator_TableVarName="tableCharacterConversation" msprop:Generator_TablePropName="CharacterConversation" msprop:Generator_RowDeletingName="CharacterConversationRowDeleting" msprop:Generator_RowChangingName="CharacterConversationRowChanging" msprop:Generator_RowEvHandlerName="CharacterConversationRowChangeEventHandler" msprop:Generator_RowDeletedName="CharacterConversationRowDeleted" msprop:Generator_UserTableName="CharacterConversation" msprop:Generator_RowChangedName="CharacterConversationRowChanged" msprop:Generator_RowEvArgName="CharacterConversationRowChangeEvent" msprop:Generator_RowClassName="CharacterConversationRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="StateName" msprop:Generator_ColumnVarNameInTable="columnStateName" msprop:Generator_ColumnPropNameInRow="StateName" msprop:Generator_ColumnPropNameInTable="StateNameColumn" msprop:Generator_UserColumnName="StateName" type="xs:string" />
+              <xs:element name="CurrentSpeaker" msprop:Generator_ColumnVarNameInTable="columnCurrentSpeaker" msprop:Generator_ColumnPropNameInRow="CurrentSpeaker" msprop:Generator_ColumnPropNameInTable="CurrentSpeakerColumn" msprop:Generator_UserColumnName="CurrentSpeaker" type="xs:string" />
+              <xs:element name="DecisionIndex" msprop:Generator_ColumnVarNameInTable="columnDecisionIndex" msprop:Generator_ColumnPropNameInRow="DecisionIndex" msprop:Generator_ColumnPropNameInTable="DecisionIndexColumn" msprop:Generator_UserColumnName="DecisionIndex" type="xs:string" minOccurs="0" />
+              <xs:element name="NextStateName" msprop:Generator_ColumnVarNameInTable="columnNextStateName" msprop:Generator_ColumnPropNameInRow="NextStateName" msprop:Generator_ColumnPropNameInTable="NextStateNameColumn" msprop:Generator_UserColumnName="NextStateName" type="xs:string" minOccurs="0" />
+              <xs:element name="Action" msprop:Generator_ColumnVarNameInTable="columnAction" msprop:Generator_ColumnPropNameInRow="Action" msprop:Generator_ColumnPropNameInTable="ActionColumn" msprop:Generator_UserColumnName="Action" type="xs:string" minOccurs="0" />
+              <xs:element name="AddEvent" msprop:Generator_ColumnVarNameInTable="columnAddEvent" msprop:Generator_ColumnPropNameInRow="AddEvent" msprop:Generator_ColumnPropNameInTable="AddEventColumn" msprop:Generator_UserColumnName="AddEvent" type="xs:string" minOccurs="0" />
+              <xs:element name="RemoveEvent" msprop:Generator_ColumnVarNameInTable="columnRemoveEvent" msprop:Generator_ColumnPropNameInRow="RemoveEvent" msprop:Generator_ColumnPropNameInTable="RemoveEventColumn" msprop:Generator_UserColumnName="RemoveEvent" type="xs:string" minOccurs="0" />
+              <xs:element name="AddStates" msprop:Generator_ColumnVarNameInTable="columnAddStates" msprop:Generator_ColumnPropNameInRow="AddStates" msprop:Generator_ColumnPropNameInTable="AddStatesColumn" msprop:Generator_UserColumnName="AddStates" type="xs:string" minOccurs="0" />
+              <xs:element name="StateStatus" msprop:Generator_ColumnVarNameInTable="columnStateStatus" msprop:Generator_ColumnPropNameInRow="StateStatus" msprop:Generator_ColumnPropNameInTable="StateStatusColumn" msprop:Generator_UserColumnName="StateStatus" type="xs:string" minOccurs="0" />
+              <xs:element name="ConversationText" msprop:Generator_ColumnVarNameInTable="columnConversationText" msprop:Generator_ColumnPropNameInRow="ConversationText" msprop:Generator_ColumnPropNameInTable="ConversationTextColumn" msprop:Generator_UserColumnName="ConversationText" type="xs:string" minOccurs="0" />
+              <xs:element name="RequireEvent" msprop:Generator_ColumnVarNameInTable="columnRequireEvent" msprop:Generator_ColumnPropNameInRow="RequireEvent" msprop:Generator_ColumnPropNameInTable="RequireEventColumn" msprop:Generator_UserColumnName="RequireEvent" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Events" msprop:Generator_TableClassName="EventsDataTable" msprop:Generator_TableVarName="tableEvents" msprop:Generator_TablePropName="Events" msprop:Generator_RowDeletingName="EventsRowDeleting" msprop:Generator_RowChangingName="EventsRowChanging" msprop:Generator_RowEvHandlerName="EventsRowChangeEventHandler" msprop:Generator_RowDeletedName="EventsRowDeleted" msprop:Generator_UserTableName="Events" msprop:Generator_RowChangedName="EventsRowChanged" msprop:Generator_RowEvArgName="EventsRowChangeEvent" msprop:Generator_RowClassName="EventsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EventName" msprop:Generator_ColumnVarNameInTable="columnEventName" msprop:Generator_ColumnPropNameInRow="EventName" msprop:Generator_ColumnPropNameInTable="EventNameColumn" msprop:Generator_UserColumnName="EventName" type="xs:string" />
+              <xs:element name="EventDescription" msprop:Generator_ColumnVarNameInTable="columnEventDescription" msprop:Generator_ColumnPropNameInRow="EventDescription" msprop:Generator_ColumnPropNameInTable="EventDescriptionColumn" msprop:Generator_UserColumnName="EventDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="EventStatus" msprop:Generator_ColumnVarNameInTable="columnEventStatus" msprop:Generator_ColumnPropNameInRow="EventStatus" msprop:Generator_ColumnPropNameInTable="EventStatusColumn" msprop:Generator_UserColumnName="EventStatus" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Characters" msprop:Generator_TableClassName="CharactersDataTable" msprop:Generator_TableVarName="tableCharacters" msprop:Generator_TablePropName="Characters" msprop:Generator_RowDeletingName="CharactersRowDeleting" msprop:Generator_RowChangingName="CharactersRowChanging" msprop:Generator_RowEvHandlerName="CharactersRowChangeEventHandler" msprop:Generator_RowDeletedName="CharactersRowDeleted" msprop:Generator_UserTableName="Characters" msprop:Generator_RowChangedName="CharactersRowChanged" msprop:Generator_RowEvArgName="CharactersRowChangeEvent" msprop:Generator_RowClassName="CharactersRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="EventKey">
+      <xs:selector xpath=".//mstns:CharacterConversation" />
+      <xs:field xpath="mstns:AddEvent" />
+      <xs:field xpath="mstns:RemoveEvent" />
+      <xs:field xpath="mstns:RequireEvent" />
+    </xs:unique>
+    <xs:unique name="SpeakerKey">
+      <xs:selector xpath=".//mstns:CharacterConversation" />
+      <xs:field xpath="mstns:CurrentSpeaker" />
+    </xs:unique>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:CharacterConversation" />
+      <xs:field xpath="mstns:StateName" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:CharacterConversation" />
+      <xs:field xpath="mstns:AddEvent" />
+    </xs:unique>
+    <xs:unique name="Constraint3">
+      <xs:selector xpath=".//mstns:CharacterConversation" />
+      <xs:field xpath="mstns:RemoveEvent" />
+    </xs:unique>
+    <xs:unique name="Constraint4">
+      <xs:selector xpath=".//mstns:CharacterConversation" />
+      <xs:field xpath="mstns:RequireEvent" />
+    </xs:unique>
+    <xs:unique name="EventsKey" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Events" />
+      <xs:field xpath="mstns:EventName" />
+    </xs:unique>
+    <xs:unique name="Characters_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Characters" />
+      <xs:field xpath="mstns:Name" />
+    </xs:unique>
+    <xs:keyref name="FK_CharacterConversation_Characters" refer="SpeakerKey" msprop:rel_Generator_UserChildTable="Characters" msprop:rel_Generator_ChildPropName="GetCharactersRows" msprop:rel_Generator_UserRelationName="FK_CharacterConversation_Characters" msprop:rel_Generator_ParentPropName="CharacterConversationRow" msprop:rel_Generator_RelationVarName="relationFK_CharacterConversation_Characters" msprop:rel_Generator_UserParentTable="CharacterConversation">
+      <xs:selector xpath=".//mstns:Characters" />
+      <xs:field xpath="mstns:Name" />
+    </xs:keyref>
+    <xs:keyref name="FK_CharacterConversation_Events2" refer="Constraint4" msprop:rel_Generator_UserChildTable="Events" msprop:rel_Generator_ChildPropName="GetEventsRowsByFK_CharacterConversation_Events2" msprop:rel_Generator_UserRelationName="FK_CharacterConversation_Events2" msprop:rel_Generator_ParentPropName="CharacterConversationRowByFK_CharacterConversation_Events2" msprop:rel_Generator_RelationVarName="relationFK_CharacterConversation_Events2" msprop:rel_Generator_UserParentTable="CharacterConversation">
+      <xs:selector xpath=".//mstns:Events" />
+      <xs:field xpath="mstns:EventName" />
+    </xs:keyref>
+    <xs:keyref name="FK_CharacterConversation_Events1" refer="Constraint3" msprop:rel_Generator_UserChildTable="Events" msprop:rel_Generator_ChildPropName="GetEventsRowsByFK_CharacterConversation_Events1" msprop:rel_Generator_UserRelationName="FK_CharacterConversation_Events1" msprop:rel_Generator_ParentPropName="CharacterConversationRowByFK_CharacterConversation_Events1" msprop:rel_Generator_RelationVarName="relationFK_CharacterConversation_Events1" msprop:rel_Generator_UserParentTable="CharacterConversation">
+      <xs:selector xpath=".//mstns:Events" />
+      <xs:field xpath="mstns:EventName" />
+    </xs:keyref>
+    <xs:keyref name="FK_CharacterConversation_Events" refer="Constraint2" msprop:rel_Generator_UserChildTable="Events" msprop:rel_Generator_ChildPropName="GetEventsRowsByFK_CharacterConversation_Events" msprop:rel_Generator_UserRelationName="FK_CharacterConversation_Events" msprop:rel_Generator_ParentPropName="CharacterConversationRowByFK_CharacterConversation_Events" msprop:rel_Generator_RelationVarName="relationFK_CharacterConversation_Events" msprop:rel_Generator_UserParentTable="CharacterConversation">
+      <xs:selector xpath=".//mstns:Events" />
+      <xs:field xpath="mstns:EventName" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>
