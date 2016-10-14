@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Assets.Databases {
+namespace Assets.Databases.DataSet {
     
     
     /// <summary>

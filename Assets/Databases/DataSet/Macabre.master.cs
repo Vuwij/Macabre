@@ -1,4 +1,8 @@
-﻿namespace Assets.Databases
+﻿namespace Assets.Databases.DataSet
+{
+}
+
+namespace Assets.Databases
 {
 }
 
