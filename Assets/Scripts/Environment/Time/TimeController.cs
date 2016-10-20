@@ -17,7 +17,10 @@ namespace Environment.Time
         /// </summary>
         public const int ClockRate = 60;
 
-        public static MacabreDateTime time = new MacabreDateTime(true);
+        public static Time time
+        {
+            get { return MacabreWorld.current.gameTime; }
+        }
 
         // We need a list of events that the gameclock invokes
         public delegate void UpdateTime();
@@ -36,27 +39,12 @@ namespace Environment.Time
         
         static void IncrementTime()
         {
-            MacabreDateTime newTime = new MacabreDateTime(ref time);
-            time.AddSecond(1);
-
-            if (newTime.second != time.second) UpdateSecondEvent();
-            if (newTime.minute != time.minute) UpdateMinuteEvent();
-            if (newTime.hour != time.hour) UpdateHourEvent();
-            if (newTime.day != time.day) UpdateDayEvent();
-            if (newTime.week != time.second) UpdateWeekEvent();
-
-            time.PrintTime();
+            time.Tick();
         }
 
-        static void ResetGameClock()
+        static void ResetTime()
         {
-            IncrementTime();
-            UpdateTimeEvent();
-        }
-
-        public static MacabreDateTime GetTime()
-        {
-            return time;
+            time.totalSeconds = 0;
         }
     }
 }

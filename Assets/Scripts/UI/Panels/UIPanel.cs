@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
 
-namespace UI.Panels
-{
-    abstract class UIPanel : MonoBehaviour
+namespace UI.Panels {
+
+    public abstract class UIPanel : UIObject
     {
     }
 }

@@ -9,42 +9,68 @@ using System.Xml.Serialization;
 
 namespace Data
 {
+    // The controller of the SaveManger controls
+    //      AllSaveInformation - A xml list of all the saves
+    //      Save - a data model of a save information
     public static class SaveManager
     {
-        public static bool autoSerialize = GameSettings.autoSerializeGame;
+        private static bool autoSerialize = GameSettings.autoSerializeGame;
+        public static AllSaveInformation allSaveInformation;
+        public static Save currentSave;
 
+        // Sets up and deserializes the save file
         public static void Initialize()
         {
-            // Sets up and deserializes the save file
-            if (GameSettings.enableSaving)
-            {
-                Debug.Log("Saving Enabled ... Attempting to retrieve save file");
+            if (!GameSettings.enableSaving) return;
 
-                // Make an attempt to deserialize the save file, otherwise create a new save
-                if (DeserializeSaveFile()) Debug.Log("Save file retrieved");
-                else Debug.Log("Save file doesn't exist or is corrupt, please fix code");
-            }
-        }
-
-        public static void NewGame()
-        {
-            Save.NewGame();
-        }
-
-        public static void LoadGame()
-        {
-            Save.saveInfo.currentSave.load();
-        }
-
-        public static void OnApplicationQuit()
-        {
-            if (autoSerialize)
-            {
-                SerializeSaveFile();
-            }
+            Debug.Log("Saving Enabled ... Attempting to retrieve save file");
+            DeserializeSaveFile();
         }
         
-        private static XmlSerializer x = new XmlSerializer(typeof(SaveInfo));
+        // Auto Serializes the save file when you quit
+        public static void OnApplicationQuit()
+        {
+            if (!autoSerialize) return;
+            SerializeSaveFile();
+        }
+        
+        // Creates a new save
+        public static Save NewSave(string name = "")
+        {
+            if (name == "") name = "Save " + allSaveInformation.SaveCount;
+            allSaveInformation.HighestSaveID++;
+
+            currentSave = new Save(name);
+            allSaveInformation.saveList.Add(currentSave);
+            return currentSave;
+        }
+
+        // If the name is empty then get the last save used
+        public static Save LoadSave(string name = "")
+        {
+            if (name == "") name =  allSaveInformation.lastSaveUsed;
+            currentSave = allSaveInformation.saveList.Find(x => x.name == name);
+            if (currentSave == null) throw new Exception("Save " + name + " not found");
+            return currentSave;
+        }
+
+        // Deletes a save
+        public static void DeleteSave(string name)
+        {
+            if(name == currentSave.name)
+            {
+                // TODO: Don't allow deletion when you are in the current save
+                return;
+            }
+
+            Save s = allSaveInformation.saveList.Find(x => x.name == name);
+            allSaveInformation.saveList.Remove(s);
+            s = null;
+        }
+
+        #region Save Serializer portion
+
+        private static XmlSerializer x = new XmlSerializer(typeof(AllSaveInformation));
         private static string serializationURI
         {
             get
@@ -53,68 +79,27 @@ namespace Data
             }
         }
         
-        /// <summary>
-        /// Deserializes the save file.
-        /// </summary>
-        /// <returns><c>true</c>, if save file exists, <c>false</c> If save file is corrupt or doesn't exist</returns>
-        private static bool DeserializeSaveFile()
+        private static void DeserializeSaveFile()
         {
-
             // Check if the file exists
             if (!File.Exists(serializationURI))
-            {
-                Debug.LogWarning("Attempting to deserialize save file, but Save File not found");
-                return false;
-            }
+                throw new UnityException("Cannot find SaveInfo.xml");
 
-            // Make an attempt to deserialize the Save class
-            try
-            {
-                Save.lockSaveInfo();
-                using (var stream = File.OpenRead(serializationURI))
-                {
-                    Debug.Log("Save File Deserialized successfully at: " + serializationURI);
-                    Save.saveInfo = (SaveInfo)(x.Deserialize(stream));
-                }
-                Save.unlockSaveInfo();
-                return true;
-            }
-            catch (IOException)
-            {
-                Debug.LogError("Error when deserializing save file");
-                return false;
-            }
+            // Deserialize the Save class
+            using (var stream = File.OpenRead(serializationURI))
+                allSaveInformation = (AllSaveInformation)(x.Deserialize(stream));
         }
 
-        /// <summary>
-        /// Serializes the save file.
-        /// </summary>
-        /// <returns><c>true</c>, if save file was serialized, <c>false</c> otherwise.</returns>
-        private static bool SerializeSaveFile()
+        private static void SerializeSaveFile()
         {
-            // Delete the save file for assurance
+            // Delete the save file
             File.Delete(serializationURI);
 
             // Make an attempt to serialize the Save class
-            try
-            {
-                using (var stream = File.OpenWrite(serializationURI))
-                {
-                    x.Serialize(stream, Save.saveInfo);
-                }
-                return true;
-            }
-            catch (IOException)
-            {
-                Debug.LogError("Error when serializing save file");
-                return false;
-            }
+            using (var stream = File.OpenWrite(serializationURI))
+                x.Serialize(stream, allSaveInformation);
         }
         
-        private static Save GetCurrentSave()
-        {
-            return Save.saveInfo.currentSave;
-        }
-
+        #endregion
     }
 }

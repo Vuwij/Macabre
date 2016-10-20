@@ -1,0 +1,8 @@
+StateName,AddStates,CurrentSpeaker,Dialogue,Action,AddEvents,RemoveEvents,RequireEvents
+S1OtDr,"C1A,C1B",OtDr,"Hey there buddy, howsh about you buy me a mug of ale?",,,,
+C1A,R1A,Player,Innkeeper! Another mug of ale for this fine gentleman over here! And one for me too! [order more ale],Player: Places (Gold) on (Counter),,,
+C1B,R1B,Player,I think you’ve had enough. [don’t order more ale],Player: Places (Gold) on (Counter),,,
+R1A,,OtDr,"HA! Now theeere’s a man who knows how to enjoy himself! C’mon friend, let’s drink!",Player: Places (Gold) on (Counter),,,
+R1B,,OtDr,Whatever. You ain't living unless you got ale in ya.,"Hamen: Takes (Gold),
+Hamen: Gives (key),
+Player: +5 Suspicion",,,

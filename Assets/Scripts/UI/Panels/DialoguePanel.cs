@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI.Panels
 {
-    class DialoguePanel
+    public static class DialoguePanel : UIPanel
     {
         private GameObject dialogueScreen;
         private CanvasGroup dialogueScreenGroup;

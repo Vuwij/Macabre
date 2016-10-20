@@ -1,4 +1,5 @@
-﻿using Objects.Items.Inventory;
+﻿using System.Xml.Serialization;
+using Objects.Items.Inventory;
 
 namespace Objects.Movable.Characters
 {
@@ -23,5 +24,6 @@ namespace Objects.Movable.Characters
 
         // Movement
         public bool lockMovement = false;
+        
     }
 }

@@ -1,14 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace Data
 {
-    [XmlRoot("Save Info")]
+    [XmlRoot("All Save Information")]
     [XmlInclude(typeof(Save))]
-    public struct SaveInfo
+    public class AllSaveInformation
     {
-        public int saveNumber { get; set; }
-        public List<Save> saveList { get; set; }
-        public Save currentSave { get; set; }       // The current save, last loaded
+        // The total number of saves so far
+        public int SaveCount
+        {
+            get { return saveList.Count; }
+        }
+
+        // The current save ID
+        public uint HighestSaveID = 0;
+
+        // A current list of all the saves
+        public List<Save> saveList = new List<Save>();
+
+        // The last save that is being used
+        // TODO test if this works
+        public string lastSaveUsed
+        {
+            get
+            {
+                if (SaveManager.currentSave == null) throw new UnityException("Cannot find the last save used");
+                return SaveManager.currentSave.name;
+            }
+        }
+        
     }
 }

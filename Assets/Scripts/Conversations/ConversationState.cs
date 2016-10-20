@@ -8,67 +8,47 @@ using Data.Database;
 
 namespace Conversations
 {
-    /// <summary>
-    /// The current state of the conversation, contains the current state and next state and previous state
-    /// </summary>
-    public class ConversationState
+    // Contains the current state and controller to the next state
+    public partial class ConversationState
     {
-        public ConversationViewStatus previousState = ConversationViewStatus.Empty;
-        public ConversationViewStatus currentState = ConversationViewStatus.Empty;
-        public ConversationViewStatus nextState = ConversationViewStatus.Empty;
-
-        public CharacterController currentSpeaker;  // The current speaker
-        public CharacterController nextSpeaker;
-        public CharacterController[] speakers;    // Multiple people can be in the same conversation
-        public CharacterController primarySpeaker
+        // The characters and character controller remains the same for each conversation
+        private CharacterController characterController;
+        private Character character
         {
-            get { return speakers[0]; }
+            get { return characterController.character; }
         }
 
+        // A tree of next states
+        private ConversationState previousState;
+        private List<ConversationState> nextStates
+        {
+            get
+            {
+                List<ConversationState> next = new List<ConversationState>();
+                foreach(string stateName in addStates)
+                {
+                    ConversationState s = new ConversationState(characterController);
+                    DatabaseManager.Conversation.UpdateConversationForCharacter(stateName, character, s);
+                    next.Add(s);
+                }
+                return next;
+            }
+        }
+        
         // Creates a conversation for the speaker
-        public ConversationState(CharacterController speaker)
+        public ConversationState(CharacterController speakerController, ConversationState previousState = null)
         {
-            speakers = new CharacterController[1];
-            speakers[0] = speaker;
-            InitializeConversationFromDatabase();
-        }
-
-        // Initializing the conversation from information from the database
-        private void InitializeConversationFromDatabase()
-        {
-            DatabaseManager.Conversation.RetrieveConversationForCharacter(primarySpeaker, this);
-        }
-
-        // Finds out the next state
-        public void DetermineNextState()
-        {
-
+            this.characterController = speakerController;
+            DatabaseManager.Conversation.FindAndUpdateConversationForCharacter(character, this);
+            SetCurrentViewFromPreviousState(previousState);
         }
 
         // Update the next state and speaker with the current state
-        public void UpdateNextState()
+        public ConversationState GetNextStateAndDisplay(int decision = 0)
         {
-            currentState = nextState;
-            previousState = currentState;
-            currentSpeaker = nextSpeaker;
-        }
-        
-        private void LockAllCharacterPosition()
-        {
-            foreach (CharacterController character in speakers)
-                character.LockMovement();
-        }
-
-        private void UnlockAllCharacterPosition()
-        {
-            foreach (CharacterController character in speakers)
-                character.UnlockMovement();
-        }
-        
-        // TODO 
-        private void PrintCurrentState()
-        {
-
+            return nextStates[decision];
+            DisplayNextState();
         }
     }
+}
 }

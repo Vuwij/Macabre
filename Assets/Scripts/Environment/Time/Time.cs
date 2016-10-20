@@ -3,146 +3,80 @@ using UnityEngine;
 
 namespace Environment.Time
 {
-
-    public enum MIndicator { AM, PM };
-    public enum DayOfWeek { Monday, Tuesday, Wednesday, Thrusday, Friday, Saturday, Sunday };
-
     /// <summary>
     /// The MacabreDate Time contains methods that is similar the the UNIX clock
     /// </summary>
-    public struct MacabreDateTime
+    public class Time
     {
-        // The current gametime
-        public int second;
-        public int minute;
-        public int hour;
-
-        public int day;
-        public MIndicator cycle;
-
-        public int week;
-        public DayOfWeek dayOfWeek;
-
-        public void AddSecond(int second_)
+        public enum MIndicator
         {
-            second += second_;
-            if (second >= 60)
-            {
-                second -= 60;
-                AddMinute(1);
-            }
+            AM = 0,
+            PM = 1
         }
 
-        public void AddMinute(int minute_)
+        public enum DayOfWeek {
+            Monday = 0,
+            Tuesday = 1,
+            Wednesday = 2,
+            Thrusday = 3,
+            Friday = 4,
+            Saturday = 5,
+            Sunday = 6
+        };
+
+        public int totalSeconds = 0;
+
+        // The current gametime in 24 hour time
+        public int second
         {
-            minute += minute_;
-            if (minute >= 60)
-            {
-                minute -= 60;
-                AddHour(1);
-            }
+            get { return totalSeconds % 60; }
+        }
+        public int minute
+        {
+            get { return totalSeconds % 3600; }
+        }
+        public int hour
+        {
+            get { return totalSeconds % (3600 * 24); }
+        }
+        public int day
+        {
+            get { return totalSeconds % (3600 * 24 * 365); }
+        }
+        public int week
+        {
+            get { return day % 7; }
+        }
+        public int month
+        {
+            get { return week % 4; }
+        }
+        public int year
+        {
+            get { return week % 52; }
         }
 
-        public void AddHour(int Ahour)
+        public MIndicator cycle
         {
-            hour += Ahour;
-            if (hour >= 12)
-            {
-                hour -= 12;
-                if (cycle == MIndicator.PM)
-                {
-                    cycle = MIndicator.AM;
-                    AddDay(1);
-
-                }
-                if (cycle == MIndicator.AM)
-                {
-                    cycle = MIndicator.PM;
-                }
-            }
-            if (hour >= 12)
-            {
-                hour -= 12;
-                if (cycle == MIndicator.PM)
-                {
-                    cycle = MIndicator.AM;
-                    AddDay(1);
-                }
-                if (cycle == MIndicator.AM)
-                {
-                    cycle = MIndicator.PM;
-                }
-            }
-
+            get { return (MIndicator)(hour % 12); }
+        }
+        public DayOfWeek dayOfWeek
+        {
+            get { return (DayOfWeek)(day % 7); }
+        }
+        
+        public void Tick()
+        {
+            totalSeconds += 1;
         }
 
-        public void AddDaySingle()
-        {
-            switch (dayOfWeek)
-            {
-                case DayOfWeek.Monday: dayOfWeek = DayOfWeek.Tuesday; break;
-                case DayOfWeek.Tuesday: dayOfWeek = DayOfWeek.Wednesday; break;
-                case DayOfWeek.Wednesday: dayOfWeek = DayOfWeek.Thrusday; break;
-                case DayOfWeek.Thrusday: dayOfWeek = DayOfWeek.Friday; break;
-                case DayOfWeek.Friday: dayOfWeek = DayOfWeek.Saturday; break;
-                case DayOfWeek.Saturday: dayOfWeek = DayOfWeek.Sunday; break;
-                case DayOfWeek.Sunday:
-                    dayOfWeek = DayOfWeek.Monday;
-                    week += 1;
-                    break;
-            }
-        }
-        public void AddDay(int day)
-        {
-            for (int i = 0; i < day; i++) AddDaySingle();
-        }
-
-        public void AddWeek(int week_)
-        {
-            week += week_;
-        }
-
-        public MacabreDateTime AddTime(ref MacabreDateTime t)
-        {
-            AddSecond(t.second);
-            AddMinute(t.minute);
-            AddHour(t.hour);
-            AddDay(t.day);
-            AddWeek(t.week);
-
-            return this;
-        }
-
-        public string GetTimeString()
+        public override string ToString()
         {
             return "Current Time Week " + week + ", " + dayOfWeek + " " + day + ", Hour " + hour + ":" + minute + ":" + second + " " + cycle;
         }
-
         public void PrintTime()
         {
-            Debug.Log(GetTimeString());
-        }
-
-        public MacabreDateTime(bool newDateTime)
-        {
-            second = 0;
-            minute = 0;
-            hour = 0;
-            day = 0;
-            week = 0;
-            cycle = MIndicator.AM;
-            dayOfWeek = DayOfWeek.Monday;
-        }
-
-        public MacabreDateTime(ref MacabreDateTime m)
-        {
-            second = m.second;
-            minute = m.minute;
-            hour = m.hour;
-            day = m.day;
-            week = m.week;
-            cycle = m.cycle;
-            dayOfWeek = m.dayOfWeek;
+            Debug.Log(ToString());
         }
     }
 }

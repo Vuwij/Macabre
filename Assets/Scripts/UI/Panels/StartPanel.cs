@@ -9,7 +9,7 @@ namespace UI.Panels
     /// <summary>
     /// Start Game Screen is the UI Screen at the beginning of the game
     /// </summary>
-    class StartPanel
+    class StartPanel : UIPanel
     {
         private Slider loadingSlider;
 

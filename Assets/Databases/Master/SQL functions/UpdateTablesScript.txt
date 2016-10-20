@@ -1,0 +1,9 @@
+.open ../MacabreDB.master.db3
+.mode csv
+.import ../Conversations/Conversations_GerdnesAberdeen.csv Conversations_GerdnesAberdeen
+.import ../Conversations/Conversations_OenyusTheDrunk.csv Conversations_OenyusTheDrunk
+.import ../Conversations/Conversations_HamenTheInnkeeper.csv Conversations_HamenTheInnkeeper
+.import ../Conversations/Conversations_OwinThePardoner.csv Conversations_OwinThePardoner
+.import ../Conversations/Conversations_RohezAberdeen.csv Conversations_RohezAberdeen
+.import ../Conversations/Game_Characters.csv Game_Characters
+.import ../Conversations/Game_Events.csv Game_Events

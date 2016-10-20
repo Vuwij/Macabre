@@ -80,6 +80,7 @@
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Resources\test.txt" />
+    <None Include="Assets\Scripts\Objects\ObjectClassDiagram.cd" />
     <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>

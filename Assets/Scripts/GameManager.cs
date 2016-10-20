@@ -62,5 +62,4 @@ public partial class GameManager : MonoBehaviour {
     {
         SaveManager.OnApplicationQuit();
     }
-
 }
