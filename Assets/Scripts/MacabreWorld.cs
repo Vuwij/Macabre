@@ -28,5 +28,4 @@ public class MacabreWorld
 
     // The list of characters contains all information about characters
     public CharacterControllers characterControllers = new CharacterControllers();
-
 }

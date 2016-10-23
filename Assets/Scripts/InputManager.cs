@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using UI;
+using UI.Screens;
 using Objects.Movable;
-using Objects.Movable.Characters;
+using Objects.Movable.Characters.Individuals;
+
 
 public static class InputManager {
 	private static float inspectRadius
@@ -18,16 +21,9 @@ public static class InputManager {
     public static void LockPendingDecision() { pendingDecision = true; }
     public static void UnlockPendingDecision() { pendingDecision = false; }
     
-	private static Player player
+	private static PlayerController player
     {
-        get
-        {
-            return Character.player;
-        }
-        set
-        {
-            Character.player = value;
-        }
+        get { return Objects.Movable.Characters.CharacterController.playerController; }
     }
 
 	public static void Update() {
@@ -43,8 +39,8 @@ public static class InputManager {
 
         // Key Maps for Inventory
         if (Input.GetButtonDown ("Inventory")) {
-			UIManager.ToggleDarkenScreen ();
-			UIManager.ToggleScreen("Inventory");
+			UIManager.FadeBackground = true;
+			UIManager.Find<UIScreen>("Inventory").TurnOn();
 		}
 
         // Key Maps for Inspection
@@ -57,16 +53,16 @@ public static class InputManager {
 			if (pendingDecision) Debug.LogWarning("0 is not a valid decision for conversations decision");
         }
 		else if(Input.GetKeyDown(KeyCode.Alpha1)) {
-			if (pendingDecision) player.DialogueDecision(1);
+			if (pendingDecision) player.Dialogue(1);
         }
 		else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-			if (pendingDecision) player.DialogueDecision(2);
+			if (pendingDecision) player.Dialogue(2);
         }
 		else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-			if (pendingDecision) player.DialogueDecision(3);
+			if (pendingDecision) player.Dialogue(3);
         }
 		else if(Input.GetKeyDown(KeyCode.Alpha4)) {
-			if (pendingDecision) player.DialogueDecision(4);
+			if (pendingDecision) player.Dialogue(4);
         }
 	}
 

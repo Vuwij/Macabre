@@ -6,7 +6,6 @@ namespace Objects.Inanimate.World.Structures.Buildings
     // TODO fix door script
     public class Door
     {
-
         //[Header("Door Settings")]
         //public bool hasDoor = true;
         //public bool isMainDoor = false;

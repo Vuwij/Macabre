@@ -28,6 +28,7 @@ namespace UI.Dialogues
         public static void Open(string message, List<Button> warningButtons)
         {
             // TODO : Finish the warning dialogue information
+            throw new NotImplementedException();
         }
     }
 }

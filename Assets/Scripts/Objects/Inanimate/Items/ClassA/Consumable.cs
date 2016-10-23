@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace MItem {
+namespace Objects.Inanimate.Items.ClassA {
 
 	public class Consumable : Item
 	{
-		#region Consume
-		public virtual void Consume ()
-		{
-			
-		}
-		#endregion
-	}
+        public virtual void Consume()
+        {
 
+        }
+    }
 }

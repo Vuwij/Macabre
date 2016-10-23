@@ -11,7 +11,7 @@ namespace Objects.Inanimate
         [XmlIgnore]
         private GameObject gameObject;
        
-        private string objectName;
-        private string inspectionText;
+        public string name;
+        public string description;
     }
 }

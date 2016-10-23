@@ -7,3 +7,7 @@
 .import ../Conversations/Conversations_RohezAberdeen.csv Conversations_RohezAberdeen
 .import ../Conversations/Game_Characters.csv Game_Characters
 .import ../Conversations/Game_Events.csv Game_Events
+
+.import ../Items/Items_ClassA.csv Items_ClassA
+.import ../Items/Items_ClassB.csv Items_ClassB
+.import ../Items/Items_Combine.csv Items_Combine

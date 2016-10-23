@@ -13,7 +13,8 @@ public struct GameSettings {
     public static int characterInventorySize = 20;
     public static int conversationCharacterLimit = 500;
     public static int conversationChoiceOptions = 4;
-    public static float moveMovementSpeed = 3.0f;
+    public static float characterWalkingSpeed = 3.0f;
+    public static float characterRunningSpeed = 6.0f;
     public static float inspectRadius = 0.2f;
 
     // Controls

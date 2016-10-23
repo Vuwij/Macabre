@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Objects.Items.ClassA
+namespace Objects.Inanimate.Items.ClassA
 {
-	public class Key : InventoryObjectClassA
+	public class Key : Item
 	{
 		public int keyCode;
 	}

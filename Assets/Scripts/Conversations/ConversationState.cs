@@ -47,8 +47,6 @@ namespace Conversations
         public ConversationState GetNextStateAndDisplay(int decision = 0)
         {
             return nextStates[decision];
-            DisplayNextState();
         }
     }
-}
 }

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using Environment;
-using Environment.Time;
-using Environment.Audio;
+using System.Collections.Generic;
 using UI;
 using Data;
 using Objects;
+using UI.Panels;
+using UI.Dialogues;
 
 /// <summary>
 /// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
@@ -34,27 +33,27 @@ public partial class GameManager : MonoBehaviour {
     }
 
     public static void PauseGame() {
-        if (!gamePaused) {
-			UIManager.ToggleDarkenScreen();
-			UIManager.ToggleScreen ("Pause Screen");
-			gamePaused = true;
-		} else {
-			UIManager.HideAllScreens ();
-			gamePaused = false;
-		}
-	}
+        gamePaused = true;
+        UIPanel panel = UIManager.Find<UIPanel>("Pause Screen");
+        panel.TurnOn();
+    }
+
+    public static void ResumeGame()
+    {
+        gamePaused = false;
+        UIPanel panel = UIManager.Find<UIPanel>("Pause Screen");
+        panel.TurnOff();
+    }
     
 	public void QuitGame () {
 		if (!gamePaused)
 			Debug.LogError ("Game must be paused before you quit game");
 		else {
-			UIManager.ToggleDarkenScreen ();
+            string message = "Warning, Current Save being deleted, do you wish to continue";
+            WarningDialogue.Button yes = new WarningDialogue.Button("Yes", OnApplicationQuit);
+            WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => { });
 
-			string [] options = { "Yes", "No" };
-			WarningPanel.Warning("Warning, Current Save being deleted, do you wish to continue", options, new UnityEngine.Events.UnityAction [] {
-				() => { Application.Quit (); },
-				() => { }
-			});
+            WarningDialogue.Open(message, new List<WarningDialogue.Button>() { yes, no });
 		}
 	}
 

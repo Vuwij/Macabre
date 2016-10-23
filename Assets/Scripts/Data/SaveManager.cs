@@ -12,7 +12,7 @@ namespace Data
     // The controller of the SaveManger controls
     //      AllSaveInformation - A xml list of all the saves
     //      Save - a data model of a save information
-    public static class SaveManager
+    public static partial class SaveManager
     {
         private static bool autoSerialize = GameSettings.autoSerializeGame;
         public static AllSaveInformation allSaveInformation;

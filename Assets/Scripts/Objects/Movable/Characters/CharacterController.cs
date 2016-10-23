@@ -15,7 +15,7 @@ namespace Objects.Movable.Characters
         private string characterName { get { return mObject.name; } }
 
         // A simple reference to the player for interaction in conversation
-        public static PlayerController player
+        public static PlayerController playerController
         {
             get { return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(); }
         }

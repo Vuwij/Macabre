@@ -4,8 +4,5 @@ using UnityEngine.UI;
 
 namespace UI.Dialogues
 {
-    public abstract class UIDialogue : UIObject
-    {
-
-    }
+    public abstract class UIDialogue : UIObject { }
 }

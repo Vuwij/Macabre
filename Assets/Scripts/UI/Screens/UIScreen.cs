@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace UI.Panels {
+namespace UI.Screens {
 
-    public abstract class UIPanel : UIObject { }
+    public abstract class UIScreen : UIObject { }
 }

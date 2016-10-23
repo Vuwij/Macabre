@@ -24,7 +24,7 @@ namespace Objects.Movable.Characters
             animator.SetBool(Animator.StringToHash("Die"), true);
         }
 
-        partial void AnimateMovement(bool isMoving)
+        protected void AnimateMovement()
         {
             int xDir = 0, yDir = 0;
 

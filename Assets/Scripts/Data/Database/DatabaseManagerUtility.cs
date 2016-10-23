@@ -27,14 +27,20 @@ namespace Data.Database
             }
 
             // Returns a list of strings
-            public static String[] StringToStringList(string str)
+            public static string[] StringToStringList(string str)
             {
-                String[] stringList = str.Split(',');
+                string[] stringList = str.Split(',');
                 for (int i = 0; i < stringList.Count(); i++)
                     stringList[i] = stringList[i].Trim();
                 return stringList;
             }
 
+            public static List<string> StringToStringArray(string str)
+            {
+                String[] stringArray = str.Split(',');
+                return new List<string>(stringArray);
+            }
+            
             public static string getReaderString(int col)
             {
                 if (reader.IsDBNull(col)) return "";

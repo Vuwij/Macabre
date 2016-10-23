@@ -76,10 +76,10 @@
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\PixelPerfectSprite.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
     <None Include="Assets\Databases\SaveInfo.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
-    <None Include="Assets\Resources\test.txt" />
     <None Include="Assets\Scripts\Objects\ObjectClassDiagram.cd" />
     <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />

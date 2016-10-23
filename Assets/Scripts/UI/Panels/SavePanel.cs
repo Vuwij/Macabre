@@ -1,50 +1,72 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 using Data;
 using Extensions.Buttons;
+using System;
+using UI.Dialogues;
 
 namespace UI.Panels
 {
-    public static class SavePanel
+    public class SavePanel : UIPanel
     {
-        public static void ToggleSaveMenu()
+        private const int saveIconWidth = 40;
+        private int saveCount
         {
-            UIManager.ToggleScreen("Save Screen");
-            UIManager.ToggleScreen("Pause Screen");
-            DisplaySaveScreen();
+            get
+            {
+                int c = SaveManager.allSaveInformation.SaveCount;
+                if (c <= 0) throw new Exception("Save count too small");
+                return c;
+            }
+        }
+        private List<Save> saveList
+        {
+            get { return SaveManager.allSaveInformation.saveList; }
         }
 
-        /// <summary>
-        /// Displays the entire save screen
-        /// </summary>
-        private static void DisplaySaveScreen()
+        public override string name
         {
-            GameObject SaveBackground = GameObject.Find("Save Background");
-            if (SaveBackground == null)
-            {
-                Debug.LogError("Error: Save Content not found, unable to load saves on save manager");
-            }
+            get { return "Save Panel"; }
+        }
+        
+        private Transform saveIconParent
+        {
+            get { return GameObject.Find("Save Background").transform; }
+        }
+        private RectTransform saveBackgroundBox
+        {
+            get { return saveIconParent.GetComponent<RectTransform>(); }
+        }
+        
+        private string selectedSaveName;
+        public Save selectedSave
+        {
+            get { return saveList.Find(x => x.name == selectedSaveName); }
+        }
+        public void SelectSave(object obj, EventArgs args)
+        {
+            // TODO select save action attach to button
+            throw new NotImplementedException();
+        }
 
-            // Resize the size of the save background based on the number of entries
-            var saveBox = SaveBackground.GetComponent<RectTransform>();
-            Debug.Log(Save.saveInfo.saveList.Count);
-            if (Save.saveInfo.saveList.Count != 0)
-                saveBox.sizeDelta = new Vector2(saveBox.sizeDelta.x, Save.saveInfo.saveList.Count * 40);
-            
-            // Delete all the saves
-            foreach (Transform child in SaveBackground.transform)
-                GameObject.Destroy(child.gameObject);
+        private void Refresh()
+        {
+            saveBackgroundBox.sizeDelta = new Vector2(saveBackgroundBox.sizeDelta.x, saveCount * saveIconWidth);
+
+            // Delete all the saves in the transform
+            foreach (Transform child in saveIconParent)
+                UnityEngine.Object.Destroy(child.gameObject);
 
             // Now load all the saves one by one
             int yPosition = -40;
-            foreach (Save s in Save.saveInfo.saveList)
+            foreach (Save s in saveList)
             {
-
                 // The position of the new position
-                GameObject save = (GameObject)GameObject.Instantiate(Resources.Load("Save"));
-                save.transform.SetParent(SaveBackground.transform);
-                save.GetComponent<ButtonExtensionSave>().saveID = s.saveID; // Matches the two saveIDs
+                GameObject save = UnityEngine.Object.Instantiate(Resources.Load("Save")) as GameObject;
+                save.transform.SetParent(saveBackgroundBox.transform);
+                save.GetComponent<ButtonExtensionSave>().saveID = s.ID;
 
                 // Set the position of the save
                 var rectTransform = save.GetComponent<RectTransform>();
@@ -63,107 +85,52 @@ namespace UI.Panels
                 foreach (Text t in textList)
                 {
                     if (t.gameObject.name == "Save Name")
-                        t.text = s.saveName;
+                        t.text = s.name;
                     if (t.gameObject.name == "Save Date")
-                        t.text = s.saveTime.ToString();
+                        t.text = s.time.ToString();
                 }
             }
         }
 
-        /// <summary>
-        /// Create a new save, does not override
-        /// </summary>
-        //TODO Start the save numbering by 1
-        public static void CreateSavePauseScreen()
+        public void CreateNewSave()
         {
-            var currentSave = Save.NewSave();
-            currentSave.save();
-
-            DisplaySaveScreen();
+            SaveManager.NewSave();
+            Refresh();
         }
 
-        /// <summary>
-        /// Saves the game data into the current save
-        /// </summary>
-        public static void SaveSavePauseScreen()
+        public void SaveSelectedSave()
         {
-            // Checks if the no save has been selected
-            if (ButtonExtensionSave.selectedSaveID == 0)
-            {
-                Debug.Log("No save selected");
-                return;
-            }
-            Save s = Save.GetSaveFromID(ButtonExtensionSave.selectedSaveID);
-            if (s == null) Debug.LogError("Error - Save does not exist");
-            s.save();
+            if (selectedSave == null) return;
+            selectedSave.SaveGame();
         }
 
-        /// <summary>
-        /// Takes the current save and load it into the game
-        /// </summary>
-        public static void LoadSavePauseScreen()
+        public void LoadSave()
         {
-            // Checks if the no save has been selected
-            if (ButtonExtensionSave.selectedSaveID == 0)
-            {
-                Debug.Log("No save selected");
-                return;
-            }
-            Save s = Save.GetSaveFromID(ButtonExtensionSave.selectedSaveID);
-            if (s == null) Debug.LogError("Error - Save does not exist");
-            s.load();
+            if (selectedSave == null) return;
+            selectedSave.LoadGame();
         }
 
-        /// <summary>
-        /// Takes a save and renames it
-        /// </summary>
-        //	HACK Need to add prompt where user inputs the save name
-        //	HACK Currently used to create a new save
-        public static void RenameSavePauseScreen()
+        public void RenameSave()
         {
-            // Checks if the no save has been selected
-            if (ButtonExtensionSave.selectedSaveID == 0)
-            {
-                Debug.Log("No save selected");
-                return;
-            }
-            SaveSavePauseScreen();
-            DisplaySaveScreen();
+            if (selectedSave == null) return;
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Deletes the current save selected
-        /// </summary>
-        public static void DeleteSavePauseScreen()
+        public void DeleteSave()
         {
-            // Checks if the no save has been selected
-            if (ButtonExtensionSave.selectedSaveID == 0)
-            {
-                Debug.Log("No save selected");
-                return;
-            }
-            Save s = Save.GetSaveFromID(ButtonExtensionSave.selectedSaveID);
-            if (s == null) Debug.LogError("Error - Save does not exist");
+            if (selectedSave == null) return;
+            
+            string message = "Warning, Current Save being deleted, do you wish to continue";
+            WarningDialogue.Button yes = new WarningDialogue.Button("Yes", () => { DeleteSaveConfirm(selectedSave); });
+            WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => {});
 
-            //TODO need stuff here lol, put s.Dispose into itå
-            string[] options = { "Yes", "No" };
-            WarningPanel.Warning("Warning, Current Save being deleted, do you wish to continue", options, new UnityEngine.Events.UnityAction[] {
-            () => { DeleteSavePauseScreenConfirm(s); },
-            () => { Debug.Log("Game Not Saved"); return; }
-        });
-
-            ButtonExtensionSave.selectedSaveID = 0;
+            WarningDialogue.Open(message, new List<WarningDialogue.Button>() { yes, no });
         }
 
-        private static void DeleteSavePauseScreenConfirm(Save s)
+        private void DeleteSaveConfirm(Save s)
         {
-            Debug.Log("Disposing Game");
-            s.Dispose();
-            DisplaySaveScreen();
-            if (Save.saveInfo.currentSave.saveID == s.saveID)
-            {
-                s.Dispose();
-            }
+            SaveManager.DeleteSave(s.name);
+            Refresh();
         }
     }
 }

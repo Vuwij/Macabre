@@ -1,5 +1,6 @@
-﻿using System.Xml.Serialization;
-using Objects.Items.Inventory;
+﻿using System;
+using System.Xml.Serialization;
+using Objects.Inanimate.Items.Inventory.Individual;
 
 namespace Objects.Movable.Characters
 {
@@ -10,17 +11,14 @@ namespace Objects.Movable.Characters
         public string name;
         public string location // TODO Get location of character automatically
         {
-            get
-            {
-                return "";
-            }
+            get { throw new NotImplementedException(); }
         }
 
         // Animation
         // Conversation
         // Inspection
         // Inventory
-        public Inventory inventory = new Inventory();
+        public CharacterInventory inventory = new CharacterInventory();
 
         // Movement
         public bool lockMovement = false;

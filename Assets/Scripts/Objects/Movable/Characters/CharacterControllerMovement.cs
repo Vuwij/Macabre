@@ -15,25 +15,43 @@ namespace Objects.Movable.Characters
         {
             get { return GameSettings.useMoouseMovement; }
         }
-        
-        private bool startedMovement = false;
-        private bool lockMovement {
+
+        protected float walkingSpeed
+        {
+            get { return GameSettings.characterWalkingSpeed; }
+        }
+        protected float runningSpeeed
+        {
+            get { return GameSettings.characterRunningSpeed; }
+        }
+        protected float movementSpeed
+        {
+            get { return isRunning ? runningSpeeed : walkingSpeed; }
+        }
+
+        protected bool lockMovement {
             get { return character.lockMovement; }
             set { character.lockMovement = value; }
         }
-        private bool isMoving
-        {
-            get
-            {
-                return (rb2D.velocity.sqrMagnitude <= float.Epsilon);
-            }
-        } // TODO Check if this value works
 
-        protected Vector2 movementVelocity;
-
-        public void MoveToDestination(Vector3 destination, MovementAnimation movementAnimation = MovementAnimation.Smooth)
+        protected bool isRunning
         {
-            if (startedMovement) return;
+            get { return Input.GetButton("SpeedUp"); }
+        }
+        private bool isMoving // HACK Check if this value works
+        {
+            get { return (rb2D.velocity.sqrMagnitude <= float.Epsilon); }
+        }
+
+        protected Vector2 movementVelocity
+        {
+            get { return new Vector2(movementSpeed, movementSpeed * 2.0f); }
+        }
+
+        public void ShowMovementAnimation(Vector3 destination, MovementAnimation movementAnimation = MovementAnimation.Smooth)
+        {
+            if (!isMoving) return;
+
             switch (movementAnimation)
             {
                 case MovementAnimation.Fade:
@@ -53,7 +71,7 @@ namespace Objects.Movable.Characters
         public void LockMovement()
         {
             rb2D.velocity.Set(0, 0);
-            AnimateMovement(false);
+            AnimateMovement();
             lockMovement = true;
         }
 
@@ -61,9 +79,7 @@ namespace Objects.Movable.Characters
         {
             lockMovement = false;
         }
-
-        partial void AnimateMovement(bool isMoving);
-
+        
         // TODO create the move to destination types
         private IEnumerator MoveToDestinationFade(Vector3 destination)
         {
@@ -119,12 +135,12 @@ namespace Objects.Movable.Characters
         void OnCollisionEnter2D(Collision2D other)
         {
             destinationPosition = transform.position;
-            AnimateMovement(false);
+            AnimateMovement();
         }
 
         void OnCollisionStay2D(Collision2D other)
         {
-            AnimateMovement(false);
+            AnimateMovement();
         }
     }
 }
