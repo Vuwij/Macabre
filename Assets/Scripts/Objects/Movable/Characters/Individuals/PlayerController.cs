@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Objects.Movable.Characters.Individuals
 {
-    public partial class PlayerController : CharacterController
+    public sealed partial class PlayerController : CharacterController
     {
         void Update()
         {

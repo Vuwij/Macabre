@@ -7,10 +7,10 @@ namespace Events
 {
     public class EventKey
     {
-        readonly string key;
-        public EventKey(string key_)
+        public string key = "";
+        public EventKey(string key)
         {
-            this.key = key_;
+            this.key = key;
         }
         public static implicit operator string(EventKey e)
         {
@@ -20,7 +20,5 @@ namespace Events
         {
             return new EventKey(s);
         }
-        EventAction e = new EventAction();
     }
-
 }

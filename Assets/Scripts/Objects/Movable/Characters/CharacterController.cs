@@ -9,7 +9,7 @@ namespace Objects.Movable.Characters
     public abstract partial class CharacterController : MovingObjectController
     {
         // This is the object for the character controller
-        new private Character mObject;
+        new private Character mObject = null;
         public Character character { get { return mObject; } }
 
         private string characterName { get { return mObject.name; } }
@@ -17,7 +17,10 @@ namespace Objects.Movable.Characters
         // A simple reference to the player for interaction in conversation
         public static PlayerController playerController
         {
-            get { return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>(); }
+            get {
+                if (GameObject.FindGameObjectWithTag("Player") == null) return null;
+                return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            }
         }
 
         // The child object is the one that contains the sprite

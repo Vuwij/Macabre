@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Objects.Inanimate.World.Structures
+namespace Objects.Inanimate.World.Structures.Buildings
 {
-    public class Structure : InanimateObject
+    public class Building : Structure
     {
 
     }

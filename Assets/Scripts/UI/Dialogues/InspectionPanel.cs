@@ -18,8 +18,9 @@ namespace UI.Dialogues
         public Image inspectionImage
         {
             set {
-                var obj = gameObject.GetComponentInChildren<Image>();
+                Image obj = gameObject.GetComponentInChildren<Image>();
                 obj = value;
+                obj.ToString();
             }
         }
         public string inspectionText

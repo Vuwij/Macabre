@@ -15,7 +15,7 @@ namespace UI.Screens
         {
             get { return "Start Screen"; }
         }
-
+        
         public void NewGame()
         {
             TurnOff();
@@ -26,7 +26,7 @@ namespace UI.Screens
             SaveManager.NewSave();
         }
 
-        public void ResumeGame()
+        public void ContinueGame()
         {
             TurnOff();
 

@@ -23,7 +23,6 @@ namespace Data
         {
             if (!GameSettings.enableSaving) return;
 
-            Debug.Log("Saving Enabled ... Attempting to retrieve save file");
             DeserializeSaveFile();
         }
         
@@ -83,11 +82,20 @@ namespace Data
         {
             // Check if the file exists
             if (!File.Exists(serializationURI))
-                throw new UnityException("Cannot find SaveInfo.xml");
+            {
+                allSaveInformation = new AllSaveInformation();
+                SerializeSaveFile();
+            }
 
             // Deserialize the Save class
             using (var stream = File.OpenRead(serializationURI))
                 allSaveInformation = (AllSaveInformation)(x.Deserialize(stream));
+
+            if (allSaveInformation == null)
+            {
+                allSaveInformation = new AllSaveInformation();
+                SerializeSaveFile();
+            }
         }
 
         private static void SerializeSaveFile()

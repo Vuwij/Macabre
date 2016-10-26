@@ -7,7 +7,7 @@ using Extensions;
 // This class manages everything UI related
 namespace UI
 {
-    public abstract class UIObject
+    public abstract class UIObject : MonoBehaviour
     {
         private static GameObject UIScreen
         {
@@ -18,20 +18,8 @@ namespace UI
         }
 
         // Needs to be inherited by the upper objects
-        public abstract string name { get; }
+        public abstract new string name { get; }
         
-        protected GameObject gameObject
-        {
-            get
-            {
-                return UIScreen.GetGameObjectWithinChildren(name);
-            }
-            set
-            {
-                value.transform.parent = UIScreen.transform;
-            }
-        }
-
         protected CanvasGroup canvasGroup {
             get { return gameObject.GetComponent<CanvasGroup>(); }
         }

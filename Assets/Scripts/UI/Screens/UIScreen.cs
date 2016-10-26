@@ -5,5 +5,6 @@ using System;
 
 namespace UI.Screens {
 
-    public abstract class UIScreen : UIObject { }
+    public abstract class UIScreen : UIObject {
+    }
 }

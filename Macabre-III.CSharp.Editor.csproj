@@ -109,7 +109,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\MacabreTools.cs" />
+    <Compile Include="Assets\Editor\MacabreCollider.cs" />
     <Compile Include="Assets\Scripts\Editor\CharacterConversation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +117,6 @@
     <None Include="Assets\Databases\SaveInfo.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
-    <None Include="Assets\Scripts\Objects\ObjectClassDiagram.cd" />
     <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>

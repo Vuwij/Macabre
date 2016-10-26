@@ -25,7 +25,7 @@ namespace Conversations
         public string dialogue;
 
         public delegate void Action();
-        public event Action action;
+        //public event Action action;
 
         public string addEvents;
         public string removeEvents;

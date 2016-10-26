@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MacabreWorld">
+    <Position X="1" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAgAABAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MacabreWorld.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="overWorld" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Objects.Inanimate.World.Overworld">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEIAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Objects\Inanimate\World\Overworld.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

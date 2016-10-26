@@ -11,11 +11,8 @@ using Events;
 /// </summary>
 public static class EventManager
 {
-
-	/* ---------------------------------
-	 *  	THE DICTIONARY OF EVENTS
-	 * ---------------------------------*/
-	static EventDictionary<EventKey, EventAction> events = new EventDictionary<EventKey, EventAction>();
+    //todo
+    //static EventDictionary<EventKey, EventAction> events = new EventDictionary<EventKey, EventAction>();
 
 	static void Start ()
 	{

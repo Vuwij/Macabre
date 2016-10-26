@@ -25,7 +25,8 @@ public class MacabreWorld
 
     // The gameclock contains informations about the date and time
     public Environment.Time.Time gameTime = new Environment.Time.Time();
+    
+    // The characters is the one you want to 
+    public Characters characters = new Characters();
 
-    // The list of characters contains all information about characters
-    public CharacterControllers characterControllers = new CharacterControllers();
 }

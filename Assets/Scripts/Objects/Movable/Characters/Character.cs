@@ -22,6 +22,6 @@ namespace Objects.Movable.Characters
 
         // Movement
         public bool lockMovement = false;
-        
+
     }
 }

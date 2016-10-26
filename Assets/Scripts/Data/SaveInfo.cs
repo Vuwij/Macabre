@@ -15,7 +15,7 @@ namespace Data
         }
 
         // The current save ID
-        public uint HighestSaveID = 0;
+        public int HighestSaveID = 0;
 
         // A current list of all the saves
         public List<Save> saveList = new List<Save>();
@@ -30,6 +30,5 @@ namespace Data
                 return SaveManager.currentSave.name;
             }
         }
-        
     }
 }

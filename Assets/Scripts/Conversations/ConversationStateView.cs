@@ -27,7 +27,16 @@ namespace Conversations
 
         private void DisplayNextState()
         {
-
+            // TODO - Finish view
+            switch (conversationViewStatus)
+            {
+                case ConversationViewStatus.CharacterResponse:
+                case ConversationViewStatus.Empty:
+                case ConversationViewStatus.PlayerMultipleReponse:
+                case ConversationViewStatus.PlayerReponse:
+                default:
+                    return;
+            }
         }
     }
 }

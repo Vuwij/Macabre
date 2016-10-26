@@ -40,7 +40,6 @@ namespace Data.Database {
             // Finds the single response for a character and responds with a singleConversation
             public static void FindAndUpdateConversationForCharacter(Character characterTable, ConversationState conversationStateToUpdate)
             {
-                string name = characterTable.name;
                 string table = "Conversations_" + characterTable.name;
 
                 // Select all conversations with no prerequisites
@@ -53,7 +52,6 @@ namespace Data.Database {
             // When you found a response, just update the table
             public static void UpdateConversationForCharacter(string stateName, Character characterTable, ConversationState conversationStateToUpdate)
             {
-                string name = characterTable.name;
                 string table = "Conversations_" + characterTable.name;
 
                 // Execute the query
@@ -68,7 +66,7 @@ namespace Data.Database {
                 reader.Read();
                 s.stateName = reader.GetString(0);
                 s.addStates = DatabaseManager.Utility.StringToStringList(reader.GetString(1));
-                s.currentSpeaker = MacabreWorld.current.characterControllers.controllers.Find(x => x.character.name == reader.GetString(2));
+                s.currentSpeaker = MacabreWorld.current.characterControllers.Find(x => x.character.name == reader.GetString(2));
                 s.dialogue = reader.GetString(3);
 
                 // TODO Link action with string

@@ -39,7 +39,7 @@ namespace Data.Database
                 reader.Read();
 
                 int finalItemID = reader.GetInt32(0);
-                string combinationText = reader.GetString(3);
+                //string combinationText = reader.GetString(3);
 
                 return Items.GetItemFromID(finalItemID);
             }

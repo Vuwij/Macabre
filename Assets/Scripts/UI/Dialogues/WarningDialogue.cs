@@ -15,7 +15,7 @@ namespace UI.Dialogues
         public delegate void WarningAction();
         public class Button
         {
-            string buttonName;
+            public string buttonName;
             event WarningAction buttonPressedAction;
 
             public Button(string buttonName, WarningAction action)

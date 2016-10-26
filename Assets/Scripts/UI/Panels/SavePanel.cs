@@ -40,7 +40,7 @@ namespace UI.Panels
             get { return saveIconParent.GetComponent<RectTransform>(); }
         }
         
-        private string selectedSaveName;
+        private string selectedSaveName = "";
         public Save selectedSave
         {
             get { return saveList.Find(x => x.name == selectedSaveName); }
@@ -66,7 +66,7 @@ namespace UI.Panels
                 // The position of the new position
                 GameObject save = UnityEngine.Object.Instantiate(Resources.Load("Save")) as GameObject;
                 save.transform.SetParent(saveBackgroundBox.transform);
-                save.GetComponent<ButtonExtensionSave>().saveID = s.ID;
+ 
 
                 // Set the position of the save
                 var rectTransform = save.GetComponent<RectTransform>();

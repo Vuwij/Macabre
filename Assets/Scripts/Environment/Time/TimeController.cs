@@ -21,21 +21,6 @@ namespace Environment.Time
         {
             get { return MacabreWorld.current.gameTime; }
         }
-
-        // We need a list of events that the gameclock invokes
-        public delegate void UpdateTime();
-        public delegate void UpdateSecond();
-        public delegate void UpdateMinute();
-        public delegate void UpdateHour();
-        public delegate void UpdateDay();
-        public delegate void UpdateWeek();
-
-        public static event UpdateTime UpdateTimeEvent;
-        public static event UpdateSecond UpdateSecondEvent;
-        public static event UpdateMinute UpdateMinuteEvent;
-        public static event UpdateHour UpdateHourEvent;
-        public static event UpdateDay UpdateDayEvent;
-        public static event UpdateWeek UpdateWeekEvent;
         
         static void IncrementTime()
         {

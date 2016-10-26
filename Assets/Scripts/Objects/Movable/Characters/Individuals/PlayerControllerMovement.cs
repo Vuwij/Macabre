@@ -4,16 +4,16 @@ using System.Collections;
 
 namespace Objects.Movable.Characters.Individuals
 {
-    public partial class PlayerController : CharacterController
+    public sealed partial class PlayerController : CharacterController
     {
         Vector2 inputDirection;
         
-        protected new bool isRunning
+        new bool isRunning
         {
             get { return Input.GetButton("SpeedUp"); }
         }
 
-        new protected Vector2 movementVelocity
+        new Vector2 movementVelocity
         {
             get { return new Vector2(
                 movementSpeed * Input.GetAxisRaw("Horizontal"),

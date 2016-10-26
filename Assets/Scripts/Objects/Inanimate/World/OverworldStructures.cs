@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using Objects.Inanimate.World.Structures;
 
 namespace Objects.Inanimate.World
 {
     public partial class Overworld : InanimateObject {
-        [XmlIgnore]
-        public GameObject map = Resources.Load("Environment/Overworld") as GameObject;
         
-        public void InstantiateMap()
+
+        private void InstantiateStructures()
         {
             Object.Instantiate(map);
         }

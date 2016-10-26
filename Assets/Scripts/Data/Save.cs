@@ -17,14 +17,14 @@ namespace Data
         private static string masterURI = Application.dataPath + "/Databases/Master";
 
         // Save information auto increments
-        public int ID;                  // Used to index the save information
-        public System.DateTime time;    // Date and time of the save
+        private int id;
+        public System.DateTime time;
         public string name;
 
         // The location of the file on file
         public string fileLocation
         {
-            get { return saveURI + "/Save " + ID; }
+            get { return saveURI + "/Save " + id; }
         }
         public string databaseLocation
         {
@@ -32,9 +32,13 @@ namespace Data
         }
 
         // The information saved
-        public Save(string name_ = "")
+        protected Save() { }
+        public Save(string name = "")
         {
-            name = name_;
+            id = SaveManager.allSaveInformation.HighestSaveID;
+            time = System.DateTime.Now;
+            if (name != "") this.name = name;
+            else this.name = "Save " + System.DateTime.Now;
             InitializeDatabase();
             SaveGame();
         }
@@ -47,7 +51,7 @@ namespace Data
         private void InitializeDatabase()
         {
             Directory.CreateDirectory(fileLocation);
-            File.Copy(masterURI + "/MacabreDB.master.db", fileLocation + "/MacabreDB.db");
+            File.Copy(masterURI + "/MacabreDB.master.db3", fileLocation + "/MacabreDB.db3");
         }
         
         [XmlIgnore]
@@ -59,7 +63,7 @@ namespace Data
         }
         [XmlIgnore]
         public MacabreWorld world = new MacabreWorld();
-
+        
         public void SaveGame()
         {
             Debug.Log("Saving Game...");
@@ -83,6 +87,6 @@ namespace Data
             // Make an attempt to serialize the Save class
             using (var stream = File.OpenRead(gameDataURI))
                 world = (MacabreWorld)(gameDataSerializer.Deserialize(stream));
-        }
+        }   
     }
 }
