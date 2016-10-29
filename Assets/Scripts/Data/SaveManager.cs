@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
+using Exceptions;
 
 namespace Data
 {
@@ -16,8 +17,20 @@ namespace Data
     {
         private static bool autoSerialize = GameSettings.autoSerializeGame;
         public static AllSaveInformation allSaveInformation;
-        public static Save currentSave;
+        private static Save currentSave;
 
+        public static Save CurrentSave
+        {
+            get {
+                return currentSave;
+            }
+            set
+            {
+                currentSave = value;
+                allSaveInformation.lastSaveUsed = currentSave.name;
+            }
+        }
+        
         // Sets up and deserializes the save file
         public static void Initialize()
         {
@@ -36,35 +49,51 @@ namespace Data
         // Creates a new save
         public static Save NewSave(string name = "")
         {
-            if (name == "") name = "Save " + allSaveInformation.SaveCount;
             allSaveInformation.HighestSaveID++;
-
-            currentSave = new Save(name);
-            allSaveInformation.saveList.Add(currentSave);
-            return currentSave;
+            if (name == "") name = "Save " + (allSaveInformation.SaveCount + 1);
+            
+            CurrentSave = new Save(name);
+            CurrentSave.NewGame();
+            allSaveInformation.saveList.Add(CurrentSave);
+            SerializeSaveFile();
+            return CurrentSave;
         }
 
         // If the name is empty then get the last save used
         public static Save LoadSave(string name = "")
         {
             if (name == "") name =  allSaveInformation.lastSaveUsed;
-            currentSave = allSaveInformation.saveList.Find(x => x.name == name);
-            if (currentSave == null) throw new Exception("Save " + name + " not found");
-            return currentSave;
+            CurrentSave = allSaveInformation.saveList.Find(x => x.name == name);
+            if (CurrentSave == null) throw new Exception("Save " + name + " not found");
+            CurrentSave.LoadGame();
+            SerializeSaveFile();
+            return CurrentSave;
         }
 
         // Deletes a save
         public static void DeleteSave(string name)
         {
-            if(name == currentSave.name)
-            {
-                // TODO: Don't allow deletion when you are in the current save
-                return;
-            }
+            if(name == CurrentSave.name)
+                throw new MacabreUIException("You are not allowed to delete the save when you are in the game");
 
             Save s = allSaveInformation.saveList.Find(x => x.name == name);
             allSaveInformation.saveList.Remove(s);
+            SerializeSaveFile();
             s = null;
+        }
+
+        // Delete all the saves, including the folder
+        public static void Reset()
+        {
+            DirectoryInfo di = new DirectoryInfo(Save.saveURI);
+            foreach (DirectoryInfo dir in di.GetDirectories()) dir.Delete(true);
+            File.Delete(serializationURI);
+        }
+
+        // Saves the current as Master (WARNING Do not Use)
+        public static void SaveCurrentAsMaster()
+        {
+            File.Copy(CurrentSave.worldXMLLocation, Save.masterURI + "/world.xml", true);
         }
 
         #region Save Serializer portion

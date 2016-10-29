@@ -7,10 +7,8 @@ using System;
 
 namespace UI.Screens
 {
-    public class StartScreen : UIScreen
+    public sealed class StartScreen : UIScreen, UIGameObject
     {
-        private Slider loadingSlider;
-
         public override string name
         {
             get { return "Start Screen"; }

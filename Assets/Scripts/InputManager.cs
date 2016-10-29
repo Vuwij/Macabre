@@ -34,7 +34,10 @@ public static class InputManager {
 	static void KeyboardInput() {
         // Checks if the game is paused or else return
         if (Input.GetButtonDown ("Pause"))
-            GameManager.PauseGame();
+        {
+            if (!GameManager.gamePaused) GameManager.PauseGame();
+            else GameManager.ResumeGame();
+        }
         if (GameManager.gamePaused) return;
 
         // Key Maps for Inventory

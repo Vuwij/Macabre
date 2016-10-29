@@ -26,25 +26,17 @@ namespace Objects.Movable.Characters
 
         protected void AnimateMovement()
         {
-            int xDir = 0, yDir = 0;
+            float xDir = 0, yDir = 0;
 
             if (isMoving)
             {
-                if (mouseMovement)
-                {
-                    if (destinationPosition.x > transform.position.x) xDir = 1;
-                    else if (destinationPosition.x < transform.position.x) xDir = -1;
-
-                    if (destinationPosition.y > transform.position.y) yDir = 1;
-                    else if (destinationPosition.y < transform.position.y) yDir = -1;
-                }
                 if (keyboardMovement)
                 {
-                    if (movementVelocity.x > 0) xDir = 1;
-                    else if (movementVelocity.x < 0) xDir = -1;
+                    if (movementVelocity.x > 0) xDir = movementSpeed;
+                    else if (movementVelocity.x < 0) xDir = -movementSpeed;
 
-                    if (movementVelocity.y > 0) yDir = 1;
-                    else if (movementVelocity.y < 0) yDir = -1;
+                    if (movementVelocity.y > 0) yDir = movementSpeed;
+                    else if (movementVelocity.y < 0) yDir = -movementSpeed;
                 }
 
                 animator.SetBool(Animator.StringToHash("IsActive"), false);
@@ -52,7 +44,6 @@ namespace Objects.Movable.Characters
 
                 if (xDir != 0) animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), xDir);
                 if (yDir != 0) animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), yDir);
-
             }
             else
             {

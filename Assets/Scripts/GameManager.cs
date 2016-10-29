@@ -24,7 +24,6 @@ public partial class GameManager : MonoBehaviour {
     void Start()
     {
         SaveManager.Initialize();
-        Loader.LoadGame();
     }
     
     void Update()
@@ -32,16 +31,17 @@ public partial class GameManager : MonoBehaviour {
         InputManager.Update();
     }
 
+    // TODO : sometimes pausing doesn't show the pause screen, sometimes the inventory screen
     public static void PauseGame() {
         gamePaused = true;
-        UIPanel panel = UIManager.Find<UIPanel>("Pause Screen");
+        UIPanel panel = UIManager.Find<UIPanel>("Pause Panel");
         panel.TurnOn();
     }
 
     public static void ResumeGame()
     {
         gamePaused = false;
-        UIPanel panel = UIManager.Find<UIPanel>("Pause Screen");
+        UIPanel panel = UIManager.Find<UIPanel>("Pause Panel");
         panel.TurnOff();
     }
     
@@ -53,7 +53,7 @@ public partial class GameManager : MonoBehaviour {
             WarningDialogue.Button yes = new WarningDialogue.Button("Yes", OnApplicationQuit);
             WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => { });
 
-            WarningDialogue.Open(message, new List<WarningDialogue.Button>() { yes, no });
+            WarningDialogue.Warning(message, new List<WarningDialogue.Button>() { yes, no });
 		}
 	}
 

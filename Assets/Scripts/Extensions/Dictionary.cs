@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Linq;
 using System.Text;
@@ -8,8 +7,8 @@ namespace Extensions
 {
 
     [XmlRoot("dictionary")]
-    public class SDictionary<TKey, TValue>
-            : Dictionary<TKey, TValue>, IXmlSerializable
+    public class Dictionary<TKey, TValue>
+            : System.Collections.Generic.Dictionary<TKey, TValue>, IXmlSerializable
     {
         public System.Xml.Schema.XmlSchema GetSchema()
         {

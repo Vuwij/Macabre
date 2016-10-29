@@ -66,7 +66,7 @@ namespace Data.Database {
                 reader.Read();
                 s.stateName = reader.GetString(0);
                 s.addStates = DatabaseManager.Utility.StringToStringList(reader.GetString(1));
-                s.currentSpeaker = MacabreWorld.current.characterControllers.Find(x => x.character.name == reader.GetString(2));
+                s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == reader.GetString(2));
                 s.dialogue = reader.GetString(3);
 
                 // TODO Link action with string

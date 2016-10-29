@@ -9,7 +9,7 @@ using UI.Dialogues;
 
 namespace UI.Panels
 {
-    public class SavePanel : UIPanel
+    public sealed class SavePanel : UIPanel, UIGameObject
     {
         private const int saveIconWidth = 40;
         private int saveCount
@@ -124,7 +124,7 @@ namespace UI.Panels
             WarningDialogue.Button yes = new WarningDialogue.Button("Yes", () => { DeleteSaveConfirm(selectedSave); });
             WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => {});
 
-            WarningDialogue.Open(message, new List<WarningDialogue.Button>() { yes, no });
+            WarningDialogue.Warning(message, new List<WarningDialogue.Button>() { yes, no });
         }
 
         private void DeleteSaveConfirm(Save s)

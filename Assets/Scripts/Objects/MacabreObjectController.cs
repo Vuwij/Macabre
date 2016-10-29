@@ -3,7 +3,8 @@
 namespace Objects
 {
     public abstract partial class MacabreObjectController : MonoBehaviour {
-        protected MacabreObject mObject;
+        // This is the field that allows editing
+        protected abstract MacabreObject model { get; }
 
         protected T GetNearestMacabreObject<T>()
             where T : MacabreObjectController

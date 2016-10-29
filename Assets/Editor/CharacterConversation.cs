@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using NUnit.Framework;
 
-public class CharacterConversation {
+public class CharacterConversationTests {
 
 	[Test]
 	public void Test ()

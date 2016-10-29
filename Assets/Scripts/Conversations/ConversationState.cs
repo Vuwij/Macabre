@@ -19,7 +19,6 @@ namespace Conversations
         }
 
         // A tree of next states
-        private ConversationState previousState;
         private List<ConversationState> nextStates
         {
             get

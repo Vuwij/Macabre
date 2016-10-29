@@ -9,7 +9,7 @@ using Extensions;
 
 namespace UI.Dialogues
 {
-    public class ConversationDialogue : UIDialogue
+    public sealed class ConversationDialogue : UIDialogue, UIGameObject
     {
         public override string name
         {

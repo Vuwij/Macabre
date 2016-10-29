@@ -5,7 +5,7 @@ using System;
 
 namespace UI.Screens {
 
-    public class UIParentScreen : UIScreen {
+    public sealed class UIParentScreen : UIScreen {
         public static UIParentScreen main = null;
 
         public override string name

@@ -17,5 +17,9 @@ namespace Objects.Inanimate.Items
         new public string description;
         public List<string> properties = new List<string>();
         
+        public override void CreateCollisionBox()
+        {
+
+        }
     }
 }

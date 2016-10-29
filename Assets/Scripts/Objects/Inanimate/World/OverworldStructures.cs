@@ -6,11 +6,8 @@ using Objects.Inanimate.World.Structures;
 namespace Objects.Inanimate.World
 {
     public partial class Overworld : InanimateObject {
-        
-
         private void InstantiateStructures()
         {
-            Object.Instantiate(map);
         }
     }
 }

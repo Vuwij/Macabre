@@ -13,20 +13,20 @@ namespace Objects.Movable.Characters
         }
         public bool mouseMovement
         {
-            get { return GameSettings.useMoouseMovement; }
+            get { return GameSettings.useMouseMovement; }
         }
 
         protected float walkingSpeed
         {
             get { return GameSettings.characterWalkingSpeed; }
         }
-        protected float runningSpeeed
+        protected float runningSpeed
         {
             get { return GameSettings.characterRunningSpeed; }
         }
-        protected float movementSpeed
+        public float movementSpeed
         {
-            get { return isRunning ? runningSpeeed : walkingSpeed; }
+            get { return isRunning ? runningSpeed : walkingSpeed; }
         }
 
         protected bool lockMovement {
@@ -40,10 +40,10 @@ namespace Objects.Movable.Characters
         }
         private bool isMoving // HACK Check if this value works
         {
-            get { return (rb2D.velocity.sqrMagnitude <= float.Epsilon); }
+            get { return (rb2D.velocity.sqrMagnitude >= float.Epsilon); }
         }
 
-        protected Vector2 movementVelocity
+        protected virtual Vector2 movementVelocity
         {
             get { return new Vector2(movementSpeed, movementSpeed * 2.0f); }
         }
@@ -129,18 +129,6 @@ namespace Objects.Movable.Characters
                 else if (spriteRenderer.sortingLayerName == "Character - Front 1") otherSpriteRenderer.sortingLayerName = "Objects - Front 1";
                 else if (spriteRenderer.sortingLayerName == "Character - Front 2") otherSpriteRenderer.sortingLayerName = "Objects - Front 2";
             }
-        }
-
-        // When the object collides what actions to do
-        void OnCollisionEnter2D(Collision2D other)
-        {
-            destinationPosition = transform.position;
-            AnimateMovement();
-        }
-
-        void OnCollisionStay2D(Collision2D other)
-        {
-            AnimateMovement();
         }
     }
 }

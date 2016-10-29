@@ -109,14 +109,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\CharacterConversation.cs" />
     <Compile Include="Assets\Editor\MacabreCollider.cs" />
-    <Compile Include="Assets\Scripts\Editor\CharacterConversation.cs" />
+    <Compile Include="Assets\Editor\MacabreWorldLoadTest.cs" />
+    <Compile Include="Assets\Editor\SaveManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
+    <None Include="Assets\Databases\Master\world.xml" />
     <None Include="Assets\Databases\SaveInfo.xml" />
+    <None Include="Assets\Databases\Saves\Save 1\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 2\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 3\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 4\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 5\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 6\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 7\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 8\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
+    <None Include="Assets\Scripts\MacabreWorld.cd" />
     <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>

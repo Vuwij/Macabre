@@ -28,6 +28,7 @@ namespace Objects.Movable.Characters
                 IInspectable[] mObj = raycastHit.collider.GetComponentsInChildren<IInspectable>();
                 if (mObj.Length != 0)
                 {
+                    Debug.Log(raycastHit.collider.name);
                     foreach (IInspectable obj in mObj)
                         obj.InspectionAction(raycastHit);
                     return;
@@ -35,11 +36,20 @@ namespace Objects.Movable.Characters
             }
         }
 
+        // Cannot Raycast Hit anything on this opject
         public bool InspectionIsInvalid(RaycastHit2D raycastHit)
         {
-            if (raycastHit.collider.GetComponent<Character>() != null)
-                if (!(raycastHit.collider is CircleCollider2D)) return false;
-            return true;
+            // If hit a character
+            if (raycastHit.collider.GetComponent<CharacterController>() != null)
+            {
+                // Cannot hit itself
+                if (raycastHit.collider.GetComponent<CharacterController>() == this) return true;
+                
+                // Can only get circle collider
+                if (!(raycastHit.collider is CircleCollider2D)) return true;
+            }   
+            
+            return false;
         }
     }
 }

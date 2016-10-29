@@ -8,15 +8,18 @@ using UnityEngine;
 
 namespace Objects.Inanimate.World
 {
-    public partial class Overworld : InanimateObject
+    public partial class Overworld : InanimateObject, ILoadable
     {
-        public Overworld()
+        public void CreateNew() { }
+ 
+        public void LoadAll()
         {
-            // Creates the background map for the game
-            InstantiateMap();
+            LoadAllMap();
+        }
 
-            // Loads all the buildings
-            InstantiateStructures();
+        public override void CreateCollisionBox()
+        {
+
         }
     }
 }

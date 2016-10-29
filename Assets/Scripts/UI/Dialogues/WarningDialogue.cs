@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UI.Dialogues
 {
-    public class WarningDialogue : UIDialogue
+    public sealed class WarningDialogue : UIDialogue, UIGameObject
     {
         public override string name
         {
@@ -25,7 +25,12 @@ namespace UI.Dialogues
             }
         }
         
-        public static void Open(string message, List<Button> warningButtons)
+        public static void Warning(string message, List<Button> warningButtons)
+        {
+            WarningDialogue warning = UIManager.Find<WarningDialogue>();
+            warning.TurnOn();
+        }
+        public void TurnOn(string message, List<Button> warningButtons)
         {
             // TODO : Finish the warning dialogue information
             throw new NotImplementedException();

@@ -18,7 +18,7 @@ namespace Data.Database
         // We only use one databse now
         static string MacabreDatabaseLocation
         {
-            get { return SaveManager.currentSave.databaseLocation; }
+            get { return SaveManager.CurrentSave.databaseLocation; }
         }
 
         static void StartDatabase()

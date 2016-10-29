@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using System.Xml.Serialization;
 using Objects.Inanimate.Items.Inventory.Individual;
 
@@ -8,7 +9,7 @@ namespace Objects.Movable.Characters
     public class Character : MovingObject
     {
         // General
-        public string name;
+        public string name = "Unnamed";
         public string location // TODO Get location of character automatically
         {
             get { throw new NotImplementedException(); }

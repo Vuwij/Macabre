@@ -21,14 +21,7 @@ namespace Data
         public List<Save> saveList = new List<Save>();
 
         // The last save that is being used
-        // TODO test if this works
-        public string lastSaveUsed
-        {
-            get
-            {
-                if (SaveManager.currentSave == null) throw new UnityException("Cannot find the last save used");
-                return SaveManager.currentSave.name;
-            }
-        }
+        public string lastSaveUsed;
+        
     }
 }

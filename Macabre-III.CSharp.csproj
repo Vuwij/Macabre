@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -90,8 +88,6 @@
     <Compile Include="Assets\Scripts\Data\Database\DatabaseManagerItemCombine.cs" />
     <Compile Include="Assets\Scripts\Data\Database\DatabaseManagerUtility.cs" />
     <Compile Include="Assets\Scripts\Data\GameData.cs" />
-    <Compile Include="Assets\Scripts\Data\GameLoader.cs" />
-    <Compile Include="Assets\Scripts\Data\Loader.cs" />
     <Compile Include="Assets\Scripts\Data\Save.cs" />
     <Compile Include="Assets\Scripts\Data\SaveInfo.cs" />
     <Compile Include="Assets\Scripts\Data\SaveManager.cs" />
@@ -103,16 +99,20 @@
     <Compile Include="Assets\Scripts\Events\EventAction.cs" />
     <Compile Include="Assets\Scripts\Events\EventDictionary.cs" />
     <Compile Include="Assets\Scripts\Events\EventKey.cs" />
+    <Compile Include="Assets\Scripts\Exceptions\MacabreException.cs" />
+    <Compile Include="Assets\Scripts\Exceptions\MacabreUIException.cs" />
     <Compile Include="Assets\Scripts\Extensions\Buttons\Button.cs" />
     <Compile Include="Assets\Scripts\Extensions\Buttons\Save.cs" />
+    <Compile Include="Assets\Scripts\Extensions\Dictionary.cs" />
+    <Compile Include="Assets\Scripts\Extensions\EllipseCollider2D.cs" />
     <Compile Include="Assets\Scripts\Extensions\GameObjectExtension.cs" />
     <Compile Include="Assets\Scripts\Extensions\IEnumerable.cs" />
-    <Compile Include="Assets\Scripts\Extensions\SDictionary.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameSettings.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\MacabreWorld.cs" />
     <Compile Include="Assets\Scripts\Objects\IInspectable.cs" />
+    <Compile Include="Assets\Scripts\Objects\ILoadable.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectController.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectOpacityController.cs" />
@@ -146,22 +146,24 @@
     <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Door.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Structure.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\StructureControllers.cs" />
+    <Compile Include="Assets\Scripts\Objects\Loader.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObject.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObjectController.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObjectLayerSorting.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Character.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerAnimation.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerCollision.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerConversation.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerInspection.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerInventory.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerMovement.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Characters.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Elismi.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Guard.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\HoodedFarmer.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\InnKeeper.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Merchant.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\ElismiController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\GuardController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\HoodedFarmerController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\InnkeeperController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\MerchantController.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Player.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\PlayerControllerInventory.cs" />
@@ -169,14 +171,17 @@
     <Compile Include="Assets\Scripts\Objects\Movable\MovementAnimation.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectController.cs" />
+    <Compile Include="Assets\Scripts\Objects\ObjectGroup.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\ExitPoint.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Scene.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\SceneManager.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\ConversationDialogue.cs" />
-    <Compile Include="Assets\Scripts\UI\Dialogues\InspectionPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\Dialogues\InspectionDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\UIDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\WarningDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\InventoryPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\Panels\OptionsPanel.cs" />
+    <Compile Include="Assets\Scripts\UI\Panels\PausePanel.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\SavePanel.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\UIPanel.cs" />
     <Compile Include="Assets\Scripts\UI\Screens\DarkScreen.cs" />
@@ -189,10 +194,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
+    <None Include="Assets\Databases\Master\world.xml" />
     <None Include="Assets\Databases\SaveInfo.xml" />
+    <None Include="Assets\Databases\Saves\Save 1\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 2\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 3\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 4\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 5\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 6\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 7\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 8\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
-    <None Include="Assets\Spritesheets\Jack's Nonsense\Punames.txt" />
+    <None Include="Assets\Scripts\MacabreWorld.cd" />
+    <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

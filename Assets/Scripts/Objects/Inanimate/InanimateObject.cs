@@ -13,5 +13,8 @@ namespace Objects.Inanimate
        
         public string name;
         public string description;
+        
+        // Creates a collision box of the MacabreObject
+        public abstract void CreateCollisionBox();
     }
 }

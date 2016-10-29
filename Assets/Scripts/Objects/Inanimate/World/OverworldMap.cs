@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Xml.Serialization;
+using Extensions;
 
 namespace Objects.Inanimate.World
 {
     public partial class Overworld : InanimateObject {
-        [XmlIgnore]
-        public GameObject map = Resources.Load("Environment/Overworld") as GameObject;
-        
-        public void InstantiateMap()
+        public GameObject map;
+
+        private void LoadAllMap()
         {
-            Object.Instantiate(map);
+            map = Loader.Load("Environment/Overworld");
         }
     }
 }

@@ -8,18 +8,31 @@ namespace Objects.Movable.Characters
 {
     public abstract partial class CharacterController : MovingObjectController
     {
-        // This is the object for the character controller
-        new private Character mObject = null;
-        public Character character { get { return mObject; } }
+        // The character associated with the controller, found in the data structure
+        public Character character
+        {
+            get
+            {
+                return Characters.CharacterDictionary[name];
+            }
+        }
+        
+        // You get the character from the characterName defined in individual controllers
+        public new abstract string name { get; }
 
-        private string characterName { get { return mObject.name; } }
+        // This is the object for the character controller
+        protected override MacabreObject model {
+            get
+            {
+                return character;
+            }
+        }
 
         // A simple reference to the player for interaction in conversation
         public static PlayerController playerController
         {
             get {
-                if (GameObject.FindGameObjectWithTag("Player") == null) return null;
-                return GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+                return Characters.playerController;
             }
         }
 
@@ -29,5 +42,11 @@ namespace Objects.Movable.Characters
             get { return gameObject.transform.FindChild(gameObject.name + "Sprite").gameObject; }
         }
         
+        // What is called when the character gets loaded
+        protected virtual void Start()
+        {
+            // Creates the collision box if it doesn't exist
+            CreateCollisionBox();
+        }
     }
 }

@@ -33,6 +33,11 @@ namespace UI
             get { return UIFolder.GetComponentsInChildren<UIScreen>(); }
         }
 
+        public static UIObject[] uiObjects
+        {
+            get { return UIFolder.GetComponentsInChildren<UIObject>(); }
+        }
+
         public static T Find<T>(string name)
             where T : UIObject
         {
@@ -42,8 +47,22 @@ namespace UI
             foreach (T t in tList)
                 if (t.name == name)
                     return t;
-            throw new UnityException("Cannot Find UI Object of type" + name);
+            throw new UnityException("Cannot Find UI Object of type " + name);
         }
 
+        public static T Find<T>()
+            where T : UIGameObject
+        {
+            return UIFolder.GetComponentInChildren<T>();
+        }
+
+        public static UIObject Find(string name)
+        {
+            UIObject[] objs = UIFolder.GetComponentsInChildren<UIObject>();
+            foreach (UIObject obj in objs)
+                if (obj.name == name)
+                    return obj;
+            throw new UnityException("Cannot Find UI Object of type " + name);
+        }
     }
 }

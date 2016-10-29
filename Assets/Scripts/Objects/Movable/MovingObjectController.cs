@@ -3,7 +3,6 @@
 namespace Objects.Movable
 {
     public abstract class MovingObjectController : MacabreObjectController {
-        new protected MovingObject mObject;
 
         protected BoxCollider2D boxCollider
         {
@@ -14,5 +13,6 @@ namespace Objects.Movable
             get { return gameObject.GetComponent<Rigidbody2D>(); }
         }
 
+        public abstract void CreateCollisionBox();
     }
 }

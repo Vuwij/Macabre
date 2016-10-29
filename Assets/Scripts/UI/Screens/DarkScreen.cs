@@ -7,7 +7,7 @@ using System;
 
 namespace UI.Screens
 {
-    public class DarkScreen : UIScreen
+    public sealed class DarkScreen : UIScreen, UIGameObject
     {
         public override string name
         {

@@ -5,8 +5,11 @@ using System.Text;
 
 namespace UI.Panels
 {
-    public class InventoryPanel
+    public sealed class InventoryPanel : UIPanel, UIGameObject
     {
-
+        public override string name
+        {
+            get { return "Inventory Panel"; }
+        }
     }
 }

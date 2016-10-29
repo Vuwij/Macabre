@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI.Dialogues
 {
-    public class InspectionDialogue : UIDialogue
+    public sealed class InspectionDialogue : UIDialogue, UIGameObject
     {
         public override string name
         {

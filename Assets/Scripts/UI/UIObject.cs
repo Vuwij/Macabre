@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Extensions;
+using Exceptions;
 
 // This class manages everything UI related
 namespace UI
@@ -13,7 +14,7 @@ namespace UI
         {
             get
             {
-                return GameObject.Find("UI Screen") ?? (GameObject)Object.Instantiate(Resources.Load("UI/UI Screen"));
+                return GameObject.Find("UI Screen");
             }
         }
 
@@ -40,4 +41,9 @@ namespace UI
             canvasGroup.ignoreParentGroups = true;
         }   
     }
+
+    /// <summary>
+    /// Interface that forces the UI Object to exist in game
+    /// </summary>
+    public interface UIGameObject { }
 }
