@@ -20,5 +20,10 @@ namespace Objects
             Debug.Log("No objects within radius");
             return null;
         }
+
+        protected virtual void Start()
+        {
+            SetupBackEdgeCollider();
+        }
     }
 }

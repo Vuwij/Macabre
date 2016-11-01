@@ -27,7 +27,7 @@ namespace Objects.Movable.Characters
         }
 
         // Character Controllers
-        [DataMember(IsRequired = true, Order = 1)]
+        [IgnoreDataMember]
         public List<CharacterController> characterControllers = new List<CharacterController>();
         [IgnoreDataMember]
         public static List<CharacterController> CharacterControllers
@@ -57,6 +57,8 @@ namespace Objects.Movable.Characters
         public void LoadAll()
         {
             Debug.Log("Loading All");
+            if (characterControllers == null) characterControllers = new List<CharacterController>();
+
             // Load all the characters on the screen
             foreach (KeyValuePair<string, Character> c in CharacterDictionary)
             {

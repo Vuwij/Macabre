@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macabre-III.CSharp.Plugins"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macabre-III.CSharp", "Macabre-III.CSharp.csproj", "{1F75184F-4989-9507-AE90-39D781AE59B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macabre-III.CSharp.Editor.Plugins", "Macabre-III.CSharp.Editor.Plugins.csproj", "{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macabre-III.CSharp.Editor", "Macabre-III.CSharp.Editor.csproj", "{A0D01338-67D9-5EC1-0899-9F2DE7CA4D76}"
 EndProject
 Global
@@ -21,6 +23,10 @@ Global
 		{1F75184F-4989-9507-AE90-39D781AE59B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F75184F-4989-9507-AE90-39D781AE59B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F75184F-4989-9507-AE90-39D781AE59B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A0D01338-67D9-5EC1-0899-9F2DE7CA4D76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0D01338-67D9-5EC1-0899-9F2DE7CA4D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0D01338-67D9-5EC1-0899-9F2DE7CA4D76}.Release|Any CPU.ActiveCfg = Release|Any CPU

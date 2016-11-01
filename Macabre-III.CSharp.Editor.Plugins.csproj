@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A0D01338-67D9-5EC1-0899-9F2DE7CA4D76}</ProjectGuid>
+    <ProjectGuid>{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -107,16 +107,14 @@
       <Project>{1F75184F-4989-9507-AE90-39D781AE59B3}</Project>
       <Name>Macabre-III.CSharp</Name>
     </ProjectReference>
-    <ProjectReference Include="Macabre-III.CSharp.Editor.Plugins.csproj">
-      <Project>{CF7C6DCD-2E99-2CC5-7E16-28DF3B79089B}</Project>
-      <Name>Macabre-III.CSharp.Editor.Plugins</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\CharacterConversation.cs" />
-    <Compile Include="Assets\Editor\MacabreCollider.cs" />
-    <Compile Include="Assets\Editor\MacabreWorldLoadTest.cs" />
-    <Compile Include="Assets\Editor\SaveManagerTests.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\ArcCollider2D_Editor.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\BezierCurveCollider2D_Editor.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\CapsuleCollider2D_Editor.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\EllipseCollider2D_Editor.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\RoundedBoxCollider2D_Editor.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\StarCollider2D_Editor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />

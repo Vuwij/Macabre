@@ -12,29 +12,12 @@ namespace Objects.Movable.Characters
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
-        private EllipseCollider2D ellipseCollider2D
-        {
-            get { return GetComponent<EllipseCollider2D>(); }
-        }
 
-        public override void CreateCollisionBox()
+        protected override void CreateCollisionCircle()
         {
-            if (ellipseCollider2D != null) return;
-            gameObject.AddComponent<EllipseCollider2D>();
-
             float width = spriteRenderer.sprite.rect.width;
-            Debug.Log(width);
-        }
-
-        // When the object collides what actions to do
-        void OnCollisionEnter2D(Collision2D other)
-        {
-            AnimateMovement();
-        }
-
-        void OnCollisionStay2D(Collision2D other)
-        {
-            AnimateMovement();
+            CollisionCircle.radiusX = width / 100f;
+            CollisionCircle.radiusY = width / 200f;
         }
     }
 }

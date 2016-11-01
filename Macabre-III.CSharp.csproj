@@ -104,7 +104,6 @@
     <Compile Include="Assets\Scripts\Extensions\Buttons\Button.cs" />
     <Compile Include="Assets\Scripts\Extensions\Buttons\Save.cs" />
     <Compile Include="Assets\Scripts\Extensions\Dictionary.cs" />
-    <Compile Include="Assets\Scripts\Extensions\EllipseCollider2D.cs" />
     <Compile Include="Assets\Scripts\Extensions\GameObjectExtension.cs" />
     <Compile Include="Assets\Scripts\Extensions\IEnumerable.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -115,8 +114,8 @@
     <Compile Include="Assets\Scripts\Objects\ILoadable.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectOpacityController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectSortingLayerController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectControllerLayerSorting.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectControllerOpacity.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ClassA\Consumable.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ClassA\Key.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Inventory\Individual\CharacterInventory.cs" />
@@ -149,7 +148,9 @@
     <Compile Include="Assets\Scripts\Objects\Loader.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObject.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObjectController.cs" />
-    <Compile Include="Assets\Scripts\Objects\MacabreObjectLayerSorting.cs" />
+    <Compile Include="Assets\Scripts\Objects\MacabreObjectControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\MacabreObjectControllerLayerSorting.cs" />
+    <Compile Include="Assets\Scripts\Objects\MacabreObjectControllerLayerSortingLayer.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Character.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterController.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterControllerAnimation.cs" />
@@ -171,7 +172,8 @@
     <Compile Include="Assets\Scripts\Objects\Movable\MovementAnimation.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectController.cs" />
-    <Compile Include="Assets\Scripts\Objects\ObjectGroup.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectControllerLayerSorting.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\ExitPoint.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Scene.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\SceneManager.cs" />
@@ -200,10 +202,6 @@
     <None Include="Assets\Databases\Saves\Save 2\world.xml" />
     <None Include="Assets\Databases\Saves\Save 3\world.xml" />
     <None Include="Assets\Databases\Saves\Save 4\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 5\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 6\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 7\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 8\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />

@@ -2,17 +2,17 @@
 
 namespace Objects.Movable
 {
-    public abstract class MovingObjectController : MacabreObjectController {
-
-        protected BoxCollider2D boxCollider
-        {
-            get { return gameObject.GetComponent<BoxCollider2D>(); }
-        }
+    public abstract partial class MovingObjectController : MacabreObjectController {
         protected Rigidbody2D rb2D
         {
             get { return gameObject.GetComponent<Rigidbody2D>(); }
         }
 
-        public abstract void CreateCollisionBox();
+        protected override void Start()
+        {
+            base.Start();
+            CreateCollisionCircle();
+            CreateProximityCircle();
+        }
     }
 }

@@ -95,40 +95,5 @@ namespace Objects.Movable.Characters
         {
             throw new NotImplementedException();
         }
-
-        // TODO Fix the sorting layer issue programmically
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.GetComponent<SpriteRenderer>() == null) return;
-            var spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
-            var otherSpriteRenderer = other.GetComponent<SpriteRenderer>();
-
-            if (other.tag == "PlayerSprite" || other.tag == "CharacterSprite")
-            {
-                switch (gameObject.layer)
-                {
-                    case 16:
-                        spriteRenderer.sortingLayerName = "Character - Front 2";
-                        otherSpriteRenderer.sortingLayerName = "Character - Front 1";
-                        break;
-                    default:
-                        spriteRenderer.sortingLayerName = "Character - Middle 2";
-                        otherSpriteRenderer.sortingLayerName = "Character - Middle 1";
-                        break;
-                }
-            }
-
-            if (other.GetType() == typeof(PolygonCollider2D)) return;
-
-            if (other.tag == "Object" || other.tag == "Inspectable" || other.tag == "Entrance")
-            {
-                if (spriteRenderer.sortingLayerName == "Character - Back 1") otherSpriteRenderer.sortingLayerName = "Objects - Back 1";
-                else if (spriteRenderer.sortingLayerName == "Character - Back 2") otherSpriteRenderer.sortingLayerName = "Objects - Back 2";
-                else if (spriteRenderer.sortingLayerName == "Character - Middle 1") otherSpriteRenderer.sortingLayerName = "Objects - Middle 1";
-                else if (spriteRenderer.sortingLayerName == "Character - Middle 2") otherSpriteRenderer.sortingLayerName = "Objects - Middle 2";
-                else if (spriteRenderer.sortingLayerName == "Character - Front 1") otherSpriteRenderer.sortingLayerName = "Objects - Front 1";
-                else if (spriteRenderer.sortingLayerName == "Character - Front 2") otherSpriteRenderer.sortingLayerName = "Objects - Front 2";
-            }
-        }
     }
 }

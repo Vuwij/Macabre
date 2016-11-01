@@ -43,10 +43,9 @@ namespace Objects.Movable.Characters
         }
         
         // What is called when the character gets loaded
-        protected virtual void Start()
+        protected override void Start()
         {
-            // Creates the collision box if it doesn't exist
-            CreateCollisionBox();
+            base.Start();
         }
     }
 }

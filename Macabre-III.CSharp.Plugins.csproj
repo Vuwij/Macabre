@@ -69,6 +69,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\ArcCollider2D.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\BezierCurveCollider2D.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\CapsuleCollider2D.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\EllipseCollider2D.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\RoundedBoxCollider2D.cs" />
+    <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\StarCollider2D.cs" />
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\Internal\HSBColor.cs" />
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\Internal\PixelPerfect.cs" />
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\Internal\PixelPerfectObject.cs" />
@@ -83,10 +89,6 @@
     <None Include="Assets\Databases\Saves\Save 2\world.xml" />
     <None Include="Assets\Databases\Saves\Save 3\world.xml" />
     <None Include="Assets\Databases\Saves\Save 4\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 5\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 6\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 7\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 8\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
