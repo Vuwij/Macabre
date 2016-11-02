@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UI;
 using Data;
 using Objects;
+using Environment.Time;
 using UI.Panels;
 using UI.Dialogues;
 
@@ -11,9 +12,7 @@ using UI.Dialogues;
 /// </summary>
 public partial class GameManager : MonoBehaviour {
 	public static GameManager main = null;
-
-    public static bool gamePaused = false;
-
+    
     void Awake()
     {
         if (main == null) main = this;
@@ -29,9 +28,11 @@ public partial class GameManager : MonoBehaviour {
     void Update()
     {
         InputManager.Update();
+        TimeController.Tick();
     }
 
-    // TODO : sometimes pausing doesn't show the pause screen, sometimes the inventory screen
+    public static bool gamePaused = false;
+
     public static void PauseGame() {
         gamePaused = true;
         UIPanel panel = UIManager.Find<UIPanel>("Pause Panel");
@@ -45,7 +46,7 @@ public partial class GameManager : MonoBehaviour {
         panel.TurnOff();
     }
     
-	public void QuitGame () {
+	public static void QuitGame () {
 		if (!gamePaused)
 			Debug.LogError ("Game must be paused before you quit game");
 		else {

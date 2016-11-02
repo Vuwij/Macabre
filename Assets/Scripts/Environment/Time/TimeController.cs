@@ -22,7 +22,7 @@ namespace Environment.Time
             get { return MacabreWorld.current.gameTime; }
         }
         
-        static void IncrementTime()
+        public static void Tick()
         {
             time.Tick();
         }
