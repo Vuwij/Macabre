@@ -1,13 +1,16 @@
 ﻿using System;
 using UnityEngine;
+using System.Runtime.Serialization;
 
 namespace Environment.Time
 {
     /// <summary>
     /// The MacabreDate Time contains methods that is similar the the UNIX clock
     /// </summary>
+    [DataContract]
     public class Time
     {
+        // The Meridian Indicator
         public enum MIndicator
         {
             AM = 0,
@@ -24,6 +27,7 @@ namespace Environment.Time
             Sunday = 6
         };
 
+        [DataMember(IsRequired = true, Order = 0)]
         public int totalSeconds = 0;
 
         // The current gametime in 24 hour time
