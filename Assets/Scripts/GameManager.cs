@@ -34,15 +34,11 @@ public partial class GameManager : MonoBehaviour {
     // TODO : sometimes pausing doesn't show the pause screen, sometimes the inventory screen
     public static void PauseGame() {
         gamePaused = true;
-        UIPanel panel = UIManager.Find<UIPanel>("Pause Panel");
-        panel.TurnOn();
     }
 
     public static void ResumeGame()
     {
-        gamePaused = false;
-        UIPanel panel = UIManager.Find<UIPanel>("Pause Panel");
-        panel.TurnOff();
+        gamePaused = false;        
     }
     
 	public void QuitGame () {

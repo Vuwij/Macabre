@@ -73,10 +73,7 @@ namespace Objects
                 }
             }
         }
-
-        protected abstract Collider2D proximityBox { get; }
-        protected abstract Vector2[] SpriteProximityVertices { get; }
-
+        
         private void AddLeftAndRightEdges(ref List<Vector2> backEdgePointsOfObject)
         {
             int leftIndex, rightIndex;

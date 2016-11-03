@@ -17,7 +17,7 @@ namespace UI
                 return GameObject.Find("UI Screen");
             }
         }
-
+        
         // Needs to be inherited by the upper objects
         public abstract new string name { get; }
         
@@ -25,21 +25,29 @@ namespace UI
             get { return gameObject.GetComponent<CanvasGroup>(); }
         }
         
+        private Stack<UIObject> currentPanelStack
+        {
+            get { return UIManager.currentPanelStack; }
+        }
+
         public void TurnOn()
         {
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             canvasGroup.ignoreParentGroups = true;
+            currentPanelStack.Push(this);
         }
 
         public void TurnOff()
         {
+            if (UIManager.CurrentPanel != null && UIManager.CurrentPanel != this) throw new MacabreUIException("Current Panel " + name + " is not the top on stack");
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             canvasGroup.ignoreParentGroups = true;
-        }   
+            if(currentPanelStack.Count != 0) currentPanelStack.Pop();
+        }
     }
 
     /// <summary>

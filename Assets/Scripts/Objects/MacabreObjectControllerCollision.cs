@@ -10,12 +10,12 @@ namespace Objects
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
+        
+        // This property is visible in inspector (uesd to create the collision box)
+        public Sprite spriteColliderShape;
 
         // The Collider for the object
         protected abstract Collider2D collisionBox { get; }
-
-        // This property is visible in inspector
-        public Sprite spriteColliderShape;
         protected virtual Vector2[] SpriteColliderVectices
         {
             get {
@@ -24,5 +24,9 @@ namespace Objects
             }
         }
 
+        // The Proximity detector for the object
+        protected abstract Collider2D proximityBox { get; }
+        protected abstract Vector2[] SpriteProximityVertices { get; }
+        
     }
 }

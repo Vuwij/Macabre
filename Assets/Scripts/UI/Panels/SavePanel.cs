@@ -132,5 +132,10 @@ namespace UI.Panels
             SaveManager.DeleteSave(s.name);
             Refresh();
         }
+
+        public void Return()
+        {
+            this.TurnOff();
+        }
     }
 }

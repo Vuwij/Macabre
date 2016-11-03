@@ -38,6 +38,7 @@ namespace UI
             get { return UIFolder.GetComponentsInChildren<UIObject>(); }
         }
 
+        // Three Find functions
         public static T Find<T>(string name)
             where T : UIObject
         {
@@ -63,6 +64,17 @@ namespace UI
                 if (obj.name == name)
                     return obj;
             throw new UnityException("Cannot Find UI Object of type " + name);
+        }
+
+        // The UI stack
+        public static Stack<UIObject> currentPanelStack = new Stack<UIObject>();
+        public static UIObject CurrentPanel
+        {
+            get
+            {
+                if (currentPanelStack.Count == 0) return null;
+                return currentPanelStack.Peek();
+            }
         }
     }
 }

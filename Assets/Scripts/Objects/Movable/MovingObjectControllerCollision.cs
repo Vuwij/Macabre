@@ -9,6 +9,8 @@ namespace Objects.Movable
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
+        
+        // TODO : Turn these collision/proximity circles into "has a" wrapped object
 
         // The collision circle for colliding with objects
         private EllipseCollider2D collisionCircle = null;
@@ -77,6 +79,5 @@ namespace Objects.Movable
             ProximityCircle.radiusX = width / 10f;
             ProximityCircle.radiusY = width / 20f;
         }
-        
     }
 }

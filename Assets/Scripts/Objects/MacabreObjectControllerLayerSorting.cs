@@ -5,13 +5,13 @@ namespace Objects
     public abstract partial class MacabreObjectController : MonoBehaviour
     {
         private MacabreObjectController objectInFront = null;
-        
+
         private int orderInLayer
         {
             get { return spriteRenderer.sortingOrder; }
             set { spriteRenderer.sortingOrder = value; }
         }
-        
+
         /// <summary>
         /// Encounters an object, does a chain algorithm to see which one is in the really front
         /// </summary>
@@ -36,7 +36,8 @@ namespace Objects
                 else
                 {
                     // Chain the next object
-                    objectInFront.EncounterObjectSortLayer(obj);
+                    if (!ObjectIsInFront(objectInFront, this)) objectInFront = null;
+                    else objectInFront.EncounterObjectSortLayer(obj);
                 }
             }
         }
@@ -44,9 +45,9 @@ namespace Objects
         // Organize the sorting layer
         private void ReorganizeSortingLayer(MacabreObjectController obj)
         {
-            if (objectInFront.orderInLayer > orderInLayer) { } // Do nothing
-            if (objectInFront.orderInLayer == orderInLayer) objectInFront.orderInLayer++;
-            if (objectInFront.orderInLayer < orderInLayer)
+            if (obj.orderInLayer > orderInLayer) { } // Do nothing
+            if (obj.orderInLayer == orderInLayer) objectInFront.orderInLayer++;
+            if (obj.orderInLayer < orderInLayer)
             {
                 int a = orderInLayer;
                 orderInLayer = obj.orderInLayer;
@@ -57,10 +58,10 @@ namespace Objects
         // Increment sorting layer if there is an error
         private void IncrementObjectInFrontIfSortingLayerIsSame()
         {
-            if (objectInFront == null) return;
-            if (orderInLayer > objectInFront.orderInLayer) return;
-            objectInFront.orderInLayer++;
-            objectInFront.IncrementObjectInFrontIfSortingLayerIsSame();
+            //if (objectInFront == null) return;
+            //if (orderInLayer > objectInFront.orderInLayer) return;
+            //objectInFront.orderInLayer++;
+            //objectInFront.IncrementObjectInFrontIfSortingLayerIsSame();
         }
 
         /// <returns>True if Object1 is in front of Object2</returns>
@@ -71,13 +72,26 @@ namespace Objects
             return (obj1Y <= obj2Y);
         }
 
+        // When the character hits the backedge collider (works for both colliders
         protected virtual void OnTriggerEnter2D(Collider2D collision)
         {
+            DetermineSortingLayer2D(collision);
+        }
+        protected virtual void OnTriggerExit2D(Collider2D collision)
+        {
+            DetermineSortingLayer2D(collision);
+        }
+
+        private void DetermineSortingLayer2D(Collider2D collision)
+        {
+            if (!(collision is PolygonCollider2D) || collision.isTrigger) return;
+            //Debug.Log(name + " encountered " + collision.gameObject.name + " via " + collision.GetType());
             if (collision.gameObject.GetComponent<MacabreObjectController>() != null)
             {
                 MacabreObjectController objController = collision.gameObject.GetComponent<MacabreObjectController>();
                 EncounterObjectSortLayer(objController);
             }
         }
+
     }
 }

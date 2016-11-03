@@ -33,11 +33,7 @@ public static class InputManager {
     
 	static void KeyboardInput() {
         // Checks if the game is paused or else return
-        if (Input.GetButtonDown ("Pause"))
-        {
-            if (!GameManager.gamePaused) GameManager.PauseGame();
-            else GameManager.ResumeGame();
-        }
+        if (Input.GetButtonDown("Pause")) EscapeButtonPressed();
         if (GameManager.gamePaused) return;
 
         // Key Maps for Inventory
@@ -70,4 +66,27 @@ public static class InputManager {
 	}
 
     static void MouseInput() { }
+
+    static void EscapeButtonPressed()
+    {
+        if (UIManager.CurrentPanel == null) return;
+        if (UIManager.CurrentPanel is UI.Panels.PausePanel)
+        {
+            if (GameManager.gamePaused) GameManager.ResumeGame();
+            else GameManager.PauseGame();
+        }
+        bool hasUIPanel = false;
+        foreach (var p in UIManager.currentPanelStack)
+        {
+            if (p is UI.Panels.UIPanel)
+            {
+                hasUIPanel = true;
+                break;
+            }
+        }
+        if(hasUIPanel)
+            UIManager.CurrentPanel.TurnOff();
+        else
+            UIManager.Find<UI.Panels.PausePanel>().TurnOn();
+    }
 }
