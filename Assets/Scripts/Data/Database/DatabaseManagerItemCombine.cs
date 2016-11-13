@@ -28,7 +28,7 @@ namespace Data.Database
                 item.ID = reader.GetInt32(0);
                 item.name = reader.GetString(1);
                 item.description = reader.GetString(2);
-                item.properties = Utility.StringToStringArray(reader.GetString(3));
+                item.attributes = Utility.StringToStringArray(reader.GetString(3));
 
                 throw new UnityException("The object " + name + " is not listed in the database");
             }
@@ -41,7 +41,10 @@ namespace Data.Database
                 int finalItemID = reader.GetInt32(0);
                 //string combinationText = reader.GetString(3);
 
-                return Items.GetItemFromID(finalItemID);
+                return Items.ItemDictionary
+                    .Where(x => x.Value.ID == finalItemID)
+                    .First()
+                    .Value;
             }
         }
     }

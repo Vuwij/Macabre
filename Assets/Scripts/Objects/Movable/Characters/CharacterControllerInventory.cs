@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 using Objects.Inanimate.Items;
-using Objects.Inanimate.Items.Inventory.Individual;
+using Objects.Inventory;
+using Objects.Inventory.Individual;
 
 namespace Objects.Movable.Characters
 {

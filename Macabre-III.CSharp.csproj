@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -110,41 +108,45 @@
     <Compile Include="Assets\Scripts\GameSettings.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\MacabreWorld.cs" />
+    <Compile Include="Assets\Scripts\Objects\EntityList.cs" />
     <Compile Include="Assets\Scripts\Objects\IInspectable.cs" />
     <Compile Include="Assets\Scripts\Objects\ILoadable.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Building.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\BuildingController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\BuildingControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\BakeryController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\BlacksmithController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ChurchController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\CustomsHouseController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\GuardHouseController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\InnController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ManorHouse1Controller.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ManorHouse2Controller.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ManorHouse3Controller.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\VineyardController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Parts\Door.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectControllerCollision.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectControllerLayerSorting.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectControllerOpacity.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ClassA\Consumable.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ClassA\Key.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Inventory\Individual\CharacterInventory.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Inventory\Individual\MerchantInventory.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Inventory\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Inventory\InventoryItemClassA.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Inventory\InventoryItemClassB.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Individual\Consumable.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Individual\Key.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Individual\Switch.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Item.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemControllerCollision.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemType.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Items.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Overworld\Overworld.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Overworld\OverworldMap.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Overworld\OverworldStructures.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Building.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\BuildingController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Buildings.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\BakeryController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\BlacksmithController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ChurchController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\CustomsHouseController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\GuardHouseController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\InnController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ManorHouse1Controller.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ManorHouse2Controller.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ManorHouse3Controller.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\VineyardController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Door.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Structure.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\StructureControllers.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Overworld\Overworld.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Overworld\OverworldMap.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory\Individual\CharacterInventory.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory\Individual\MerchantInventory.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory\Individual\ObjectInventory.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory\InventoryItemClassA.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inventory\InventoryItemClassB.cs" />
     <Compile Include="Assets\Scripts\Objects\Loader.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObject.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObjectController.cs" />
@@ -199,10 +201,14 @@
   <ItemGroup>
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
     <None Include="Assets\Databases\Master\world.xml" />
+    <None Include="Assets\Databases\SaveInfo.xml" />
+    <None Include="Assets\Databases\Saves\Save 2\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 3\world.xml" />
+    <None Include="Assets\Databases\Saves\Save Test\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
-    <None Include="Assets\Spritesheets\Jack's Nonsense\Punames.txt" />
+    <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

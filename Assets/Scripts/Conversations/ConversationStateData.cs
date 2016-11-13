@@ -70,10 +70,10 @@ namespace Conversations
             foreach (var addEvent in addEvents)
                 stateInfo += "  " + addEvents + "\n";
             stateInfo += "  Remove Events: " + "\n";
-            foreach (var addEvent in addEvents)
+            foreach (var removeEvents in addEvents)
                 stateInfo += "  " + removeEvents + "\n";
             stateInfo += "  Require Events: " + "\n";
-            foreach (var addEvent in addEvents)
+            foreach (var requireEvents in addEvents)
                 stateInfo += "  " + requireEvents + "\n";
 
             Debug.Log(stateInfo);

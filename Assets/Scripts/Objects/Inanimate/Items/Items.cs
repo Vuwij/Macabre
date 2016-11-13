@@ -1,37 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.Serialization;
 
 namespace Objects.Inanimate.Items
 {
     // A list of all of the items in the game
-    public static class Items
+    [DataContract]
+    public sealed class Items : EntityList
     {
-        static List<GameObject> items_ = new List<GameObject>();
-
-        // HACK to see if this works
-        public static IEnumerable<Item> items
+        [IgnoreDataMember]
+        public static Items main
         {
-            get
-            {
-                if(items_ == null) UpdateItemsFromResources();
-                foreach (GameObject g in items_)
-                    yield return g.GetComponent<Item>();
-            }
+            get { return (MacabreWorld.current != null) ? MacabreWorld.current.items : null; }
         }
 
-        public static Item GetItemFromID(int ID)
+        // Character Models
+        [DataMember(IsRequired = true, Order = 0)]
+        private Dictionary<string, Item> itemDictionary = new Dictionary<string, Item>();
+        [IgnoreDataMember]
+        public static Dictionary<string, Item> ItemDictionary
         {
-            foreach (Item i in items)
-                if (i.ID == ID)
-                    return i;
-            return null;
+            get { return main.itemDictionary; }
+            set { main.itemDictionary = value; }
         }
 
-        private static void UpdateItemsFromResources()
+        // Character Controllers
+        [IgnoreDataMember]
+        public List<CharacterController> characterControllers = new List<CharacterController>();
+        [IgnoreDataMember]
+        public static List<CharacterController> CharacterControllers
         {
-            Object[] items = Resources.LoadAll("Objects/Inanimate/Items");
-            foreach (Object o in items)
-                items_.Add((GameObject)o);
+            get { return main.characterControllers; }
+        }
+
+        // FIXME Database name must match resource name
+        public override void CreateNew()
+        {
+        }
+
+        public override void LoadAll()
+        {
         }
     }
 }

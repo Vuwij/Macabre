@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Objects.Inanimate
 {
-   public abstract partial class InamimateObjectController : MonoBehaviour
+   public abstract partial class InanimateObjectController : MacabreObjectController
     {
         private SpriteRenderer spriteRenderer
         {

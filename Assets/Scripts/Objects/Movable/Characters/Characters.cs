@@ -8,7 +8,7 @@ using Data;
 namespace Objects.Movable.Characters
 {
     [DataContract]
-    public sealed class Characters : ILoadable
+    public sealed class Characters : EntityList
     {
         [IgnoreDataMember]
         public static Characters main
@@ -45,7 +45,7 @@ namespace Objects.Movable.Characters
         }
         
         // FIXME Database name must match resource name
-        public void CreateNew()
+        public override void CreateNew()
         {
             AddPlayer("Player");
             AddPlayer("Elismi");
@@ -60,7 +60,7 @@ namespace Objects.Movable.Characters
             CharacterDictionary.Add(name, new Character { name = name });
         }
         
-        public void LoadAll()
+        public override void LoadAll()
         {
             Debug.Log("Loading All");
             if (characterControllers == null) characterControllers = new List<CharacterController>();

@@ -1,11 +1,12 @@
 ﻿using System;
 using UnityEngine;
-using System.Xml.Serialization;
-using Objects.Inanimate.Items.Inventory.Individual;
+using System.Runtime.Serialization;
+using Objects.Inventory.Individual;
 
 namespace Objects.Movable.Characters
 {
     // The model class for character, used by character controller
+    [DataContract]
     public class Character : MovingObject
     {
         // General

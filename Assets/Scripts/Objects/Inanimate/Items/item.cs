@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Objects.Inanimate.Items
 {
+    [DataContract]
     public abstract class Item : InanimateObject
     {
         public ItemType type;
@@ -15,7 +17,9 @@ namespace Objects.Inanimate.Items
         public int ID;
         new public string name;
         new public string description;
-        public List<string> properties = new List<string>();
+        public List<string> attributes = new List<string>();
+
+        public Dictionary<string, object> properties = new Dictionary<string, object>();
         
         public override void CreateCollisionBox()
         {

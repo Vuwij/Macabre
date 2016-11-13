@@ -20,7 +20,8 @@ namespace Objects.Movable.Characters
             Dialogue(keypressed);
         }
 
-        public void KeyPressed(int keyPressed = 0)
+        public void KeyPressed
+            (int keyPressed = 0)
         {
             if (conversationState.InputIsValid(keyPressed))
                 conversationState.characterController.Dialogue(keyPressed - 1);
