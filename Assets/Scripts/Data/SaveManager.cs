@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
 using System.Xml.Serialization;
 using Exceptions;
+using UI;
+using UI.Screens;
+using UnityEngine.SceneManagement;
 
 namespace Data
 {
@@ -35,7 +34,6 @@ namespace Data
         public static void Initialize()
         {
             if (!GameSettings.enableSaving) return;
-
             DeserializeSaveFile();
         }
         
@@ -53,20 +51,33 @@ namespace Data
             if (name == "") name = "Save " + (allSaveInformation.SaveCount + 1);
             
             CurrentSave = new Save(name);
-            CurrentSave.NewGame();
             allSaveInformation.saveList.Add(CurrentSave);
             SerializeSaveFile();
+
+            CurrentSave.NewGame();
             return CurrentSave;
         }
 
         // If the name is empty then get the last save used
+        // HACK : Loading not working
         public static Save LoadSave(string name = "")
         {
-            if (name == "") name =  allSaveInformation.lastSaveUsed;
+            UIManager.Find<LoadingScreen>().TurnOn();
+
+            // Deletes the world from game
+            currentSave = null;
+            //SceneManager.UnloadScene("Game");
+            //SceneManager.LoadScene("Game");
+
+            // Loads the last save
+            if (name == "") name = allSaveInformation.lastSaveUsed;
             CurrentSave = allSaveInformation.saveList.Find(x => x.name == name);
             if (CurrentSave == null) throw new Exception("Save " + name + " not found");
-            CurrentSave.LoadGame();
             SerializeSaveFile();
+
+            CurrentSave.LoadGame();
+
+            UIManager.Find<LoadingScreen>().TurnOff();
             return CurrentSave;
         }
 
@@ -80,6 +91,12 @@ namespace Data
             allSaveInformation.saveList.Remove(s);
             SerializeSaveFile();
             s = null;
+        }
+
+        // Finds a save
+        public static Save FindSave(string name)
+        {
+            return allSaveInformation.saveList.Find(x => x.name == name);
         }
 
         // Delete all the saves, including the folder

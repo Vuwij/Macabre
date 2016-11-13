@@ -6,6 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using Extensions;
+using Objects.Movable.Characters;
 
 namespace UI.Dialogues
 {
@@ -15,7 +16,7 @@ namespace UI.Dialogues
         {
             get
             {
-                return "UI Screen";
+                return "Conversation Dialogue";
             }
         }
 
@@ -23,7 +24,9 @@ namespace UI.Dialogues
         {
             set
             {
-                Text t = GameObject.Find("Main Text").GetComponent<Text>();
+                Text t = this.GetComponentsInChildren<Transform>()
+                    .Where(x => x.name == "Main Text").First()
+                    .GetComponent<Text>();
                 t.text = value;
             }
         }
@@ -31,7 +34,9 @@ namespace UI.Dialogues
         {
             set
             {
-                Text t = GameObject.Find("Title Text").GetComponent<Text>();
+                Text t = this.GetComponentsInChildren<Transform>()
+                    .Where(x => x.name == "Title Text").First()
+                    .GetComponent<Text>();
                 t.text = value;
             }
         }
@@ -39,36 +44,64 @@ namespace UI.Dialogues
         {
             set
             {
-                Text t = gameObject.GetGameObjectWithinChildren("Continue").GetComponent<Text>();
+                Text t = this.GetComponentsInChildren<Transform>()
+                    .Where(x => x.name == "Continue Button").First()
+                    .GetComponent<Text>();
                 t.text = value;
             }
         }
-        
-        // HACK need to validate this, doesn't work all the time
-        public string[] responseButtonText
+        public string[] responseTexts
         {
             set
             {
-                GameObject[] objs = gameObject.GetGameObjectsWithinChildren("Response");
-                var t = from obj in objs
-                            select obj.GetComponent<Text>();
-                Text[] texts = t.ToArray();
-                try
-                {
-                    for (int i = 0; i < 4; i++)
-                        texts[i].text = value[i];
-                }
-                catch (Exception) { };
+                if (value.Length > 4) throw new Exception("Array cannot be greater than 4");
+
+                var t = from obj in this.GetComponentsInChildren<Transform>()
+                        where obj.name.Contains("Response Text")
+                        select obj.GetComponent<Text>();
+
+                Text[] text = t.ToArray();
+                for (int i = 0; i < value.Length; i++)
+                    text[i].text = value[i];
             }
         }
 
-        public Image mainImage
+        public Sprite mainImage
         {
-            get { return GameObject.Find("Main Image").GetComponent<Image>(); }
+            set {
+                Image i = GetComponentsInChildren<Image>()
+                    .Where(x => x.gameObject.name == "Image")
+                    .FirstOrDefault();
+                if (i != null)
+                {
+                    i.color = Color.white;
+                    i.sprite = value;
+                }
+            }
         }
         public Button[] buttons
         {
-            get { return gameObject.GetComponentsInChildren<Button>(); }
+            get {
+                return GetComponentsInChildren<Button>();
+            }
+        }
+
+        public void ResponsePressed(int i)
+        {
+            Characters.playerController.KeyPressed(i);
+        }
+
+        public void ContinuePressed()
+        {
+            Characters.playerController.InspectionAction();
+        }
+
+        public void Reset()
+        {
+            mainText = "";
+            titleText = "";
+            responseTexts = new string[4] { "", "", "", "" };
+            mainImage = null;
         }
     }
 }

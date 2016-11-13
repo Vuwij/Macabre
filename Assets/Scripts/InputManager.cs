@@ -14,12 +14,6 @@ public static class InputManager {
     }
 
 	private static bool lockInspect = false;
-    public static void LockInspection() { lockInspect = true; }
-    public static void UnlockInspection() { lockInspect = false; }
-
-    private static bool pendingDecision = false;
-    public static void LockPendingDecision() { pendingDecision = true; }
-    public static void UnlockPendingDecision() { pendingDecision = false; }
     
 	private static PlayerController player
     {
@@ -43,38 +37,37 @@ public static class InputManager {
 		}
 
         // Key Maps for Inspection
-		else if (Input.GetButtonDown ("Inspect")) {
+		if (Input.GetButtonDown ("Inspect")) {
 			if (!lockInspect) player.Inspect();
         }
 
         // Key Maps for Conversation
-		else if(Input.GetKeyDown(KeyCode.Alpha0)) {
-			if (pendingDecision) Debug.LogWarning("0 is not a valid decision for conversations decision");
-        }
-		else if(Input.GetKeyDown(KeyCode.Alpha1)) {
-			if (pendingDecision) player.Dialogue(1);
-        }
-		else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-			if (pendingDecision) player.Dialogue(2);
-        }
-		else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-			if (pendingDecision) player.Dialogue(3);
-        }
-		else if(Input.GetKeyDown(KeyCode.Alpha4)) {
-			if (pendingDecision) player.Dialogue(4);
-        }
-	}
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            player.KeyPressed(1);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            player.KeyPressed(2);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            player.KeyPressed(3);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            player.KeyPressed(4);
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            player.KeyPressed(5);
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            player.KeyPressed(6);
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+            player.KeyPressed(7);
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+            player.KeyPressed(8);
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+            player.KeyPressed(9);
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+            player.KeyPressed(0);
+    }
 
     static void MouseInput() { }
 
     static void EscapeButtonPressed()
     {
-        if (UIManager.CurrentPanel == null) return;
-        if (UIManager.CurrentPanel is UI.Panels.PausePanel)
-        {
-            if (GameManager.gamePaused) GameManager.ResumeGame();
-            else GameManager.PauseGame();
-        }
         bool hasUIPanel = false;
         foreach (var p in UIManager.currentPanelStack)
         {
@@ -84,6 +77,7 @@ public static class InputManager {
                 break;
             }
         }
+
         if(hasUIPanel)
             UIManager.CurrentPanel.TurnOff();
         else

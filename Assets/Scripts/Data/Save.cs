@@ -30,7 +30,7 @@ namespace Data
         }
         public string databaseLocation
         {
-            get { return fileLocation + "/MacabreDB.db"; }
+            get { return fileLocation + "/MacabreDB.db3"; }
         }
         public string worldXMLLocation
         {

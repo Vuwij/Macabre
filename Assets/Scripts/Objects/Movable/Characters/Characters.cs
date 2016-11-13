@@ -44,16 +44,22 @@ namespace Objects.Movable.Characters
             }
         }
         
+        // FIXME Database name must match resource name
         public void CreateNew()
         {
-            CharacterDictionary.Add("Player", new Character());
-            CharacterDictionary.Add("Elismi", new Character());
-            CharacterDictionary.Add("Guard", new Character());
-            CharacterDictionary.Add("InnKeeper", new Character());
-            CharacterDictionary.Add("Merchant", new Character());
-            CharacterDictionary.Add("HoodedFarmer", new Character());
+            AddPlayer("Player");
+            AddPlayer("Elismi");
+            AddPlayer("Guard");
+            AddPlayer("HamenTheInnkeeper");
+            AddPlayer("Merchant");
+            AddPlayer("HoodedFarmer");
         }
 
+        void AddPlayer(string name)
+        {
+            CharacterDictionary.Add(name, new Character { name = name });
+        }
+        
         public void LoadAll()
         {
             Debug.Log("Loading All");

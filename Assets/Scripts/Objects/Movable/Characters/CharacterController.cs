@@ -17,9 +17,6 @@ namespace Objects.Movable.Characters
             }
         }
         
-        // You get the character from the characterName defined in individual controllers
-        public new abstract string name { get; }
-
         // This is the object for the character controller
         protected override MacabreObject model {
             get

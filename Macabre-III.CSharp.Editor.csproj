@@ -113,34 +113,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\CharacterConversation.cs" />
     <Compile Include="Assets\Editor\MacabreCollider.cs" />
-    <Compile Include="Assets\Editor\MacabreWorldLoadTest.cs" />
-    <Compile Include="Assets\Editor\SaveManagerTests.cs" />
+    <Compile Include="Assets\Editor\Tests\ConversationTests.cs" />
+    <Compile Include="Assets\Editor\Tests\InventoryTests.cs" />
+    <Compile Include="Assets\Editor\Tests\MacabreWorldLoadTests.cs" />
+    <Compile Include="Assets\Editor\Tests\SaveManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
     <None Include="Assets\Databases\Master\world.xml" />
     <None Include="Assets\Databases\SaveInfo.xml" />
-    <None Include="Assets\Databases\Saves\Save 1\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 10\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 11\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 12\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 13\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 14\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 15\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 16\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 17\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 18\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 19\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 2\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 3\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 4\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 5\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 6\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 7\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 8\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 9\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />

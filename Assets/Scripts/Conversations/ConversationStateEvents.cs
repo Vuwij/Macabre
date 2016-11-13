@@ -15,16 +15,15 @@ namespace Conversations
     {
         private List<CharacterController> AllCharactersInConversation
         {
-            get { return FindAllCharactersInConversation(this); }
+            get { return FindAllCharactersInConversation(this).ToList(); }
         }
         
-        private List<CharacterController> FindAllCharactersInConversation(ConversationState root)
+        private IEnumerable<CharacterController> FindAllCharactersInConversation(ConversationState root)
         {
-            List<CharacterController> currentList = new List<CharacterController>();
-            currentList.Add(this.currentSpeaker);
+            yield return currentSpeaker;
             foreach (ConversationState next in root.nextStates)
-                currentList.AddRange(FindAllCharactersInConversation(next));
-            return currentList;
+                foreach (var x in FindAllCharactersInConversation(next))
+                    yield return x;
         }
 
         private void LockAllCharacterPosition()

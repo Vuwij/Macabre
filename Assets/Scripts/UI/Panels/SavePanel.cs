@@ -21,11 +21,7 @@ namespace UI.Panels
                 return c;
             }
         }
-        private List<Save> saveList
-        {
-            get { return SaveManager.allSaveInformation.saveList; }
-        }
-
+        
         public override string name
         {
             get { return "Save Panel"; }
@@ -35,20 +31,23 @@ namespace UI.Panels
         {
             get { return GameObject.Find("Save Background").transform; }
         }
+
         private RectTransform saveBackgroundBox
         {
             get { return saveIconParent.GetComponent<RectTransform>(); }
         }
+
+        public Save selectedSave = null;
         
-        private string selectedSaveName = "";
-        public Save selectedSave
-        {
-            get { return saveList.Find(x => x.name == selectedSaveName); }
-        }
         public void SelectSave(object obj, EventArgs args)
         {
             // TODO select save action attach to button
             throw new NotImplementedException();
+        }
+
+        private List<Save> saveList
+        {
+            get { return SaveManager.allSaveInformation.saveList; }
         }
 
         private void Refresh()
@@ -57,17 +56,16 @@ namespace UI.Panels
 
             // Delete all the saves in the transform
             foreach (Transform child in saveIconParent)
-                UnityEngine.Object.Destroy(child.gameObject);
+                Destroy(child.gameObject);
 
             // Now load all the saves one by one
-            int yPosition = -40;
+            int yPosition = 0;
             foreach (Save s in saveList)
             {
                 // The position of the new position
-                GameObject save = UnityEngine.Object.Instantiate(Resources.Load("Save")) as GameObject;
+                GameObject save = Instantiate(Resources.Load("UI/Save Slot")) as GameObject;
                 save.transform.SetParent(saveBackgroundBox.transform);
  
-
                 // Set the position of the save
                 var rectTransform = save.GetComponent<RectTransform>();
                 rectTransform.offsetMax = new Vector2(0, 0);
@@ -81,23 +79,22 @@ namespace UI.Panels
                 yPosition -= 40;
 
                 // The name and date
-                var textList = save.GetComponentsInChildren<Text>();
-                foreach (Text t in textList)
-                {
-                    if (t.gameObject.name == "Save Name")
-                        t.text = s.name;
-                    if (t.gameObject.name == "Save Date")
-                        t.text = s.time.ToString();
-                }
+                var info = save.GetComponent<SaveSlot>();
+                info.name = s.name;
+                info.date = s.time.ToShortDateString();
             }
         }
 
-        public void CreateNewSave()
+        public void UntoggleAll()
         {
-            SaveManager.NewSave();
-            Refresh();
+            Toggle[] buttons = saveBackgroundBox.GetComponentsInChildren<Toggle>();
+            foreach (Toggle i in buttons)
+            {
+                if (i.gameObject.GetComponent<SaveSlot>().save == selectedSave) continue;
+                i.isOn = false;
+            }
         }
-
+        
         public void SaveSelectedSave()
         {
             if (selectedSave == null) return;
@@ -107,7 +104,9 @@ namespace UI.Panels
         public void LoadSave()
         {
             if (selectedSave == null) return;
-            selectedSave.LoadGame();
+            UIManager.CurrentPanel.TurnOff();
+            UIManager.CurrentPanel.TurnOff();
+            SaveManager.LoadSave(selectedSave.name);
         }
 
         public void RenameSave()
@@ -132,10 +131,16 @@ namespace UI.Panels
             SaveManager.DeleteSave(s.name);
             Refresh();
         }
-
-        public void Return()
+        
+        public void Back()
         {
             this.TurnOff();
+        }
+        
+        public override void TurnOn()
+        {
+            base.TurnOn();
+            Refresh();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Conversations
         CharacterResponse = 'C',
 
         // The player makes a response to the character, with an automatic option to continue
-        PlayerReponse = 'P',
+        PlayerResponse = 'P',
 
         // The player has 1-4 options to choose from
         PlayerMultipleReponse = 'M',

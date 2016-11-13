@@ -23,23 +23,25 @@ public partial class GameManager : MonoBehaviour {
     void Start()
     {
         SaveManager.Initialize();
+        TimeController.Setup();
     }
     
     void Update()
     {
         InputManager.Update();
-        TimeController.Tick();
     }
 
     public static bool gamePaused = false;
 
     public static void PauseGame() {
         gamePaused = true;
+        TimeController.Stop();
     }
 
     public static void ResumeGame()
     {
-        gamePaused = false;        
+        gamePaused = false;
+        TimeController.Start();       
     }
     
 	public static void QuitGame () {
@@ -47,15 +49,16 @@ public partial class GameManager : MonoBehaviour {
 			Debug.LogError ("Game must be paused before you quit game");
 		else {
             string message = "Warning, Current Save being deleted, do you wish to continue";
-            WarningDialogue.Button yes = new WarningDialogue.Button("Yes", OnApplicationQuit);
+            WarningDialogue.Button yes = new WarningDialogue.Button("Yes", main.OnApplicationQuit);
             WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => { });
 
             WarningDialogue.Warning(message, new List<WarningDialogue.Button>() { yes, no });
 		}
 	}
 
-    public void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
         SaveManager.OnApplicationQuit();
+        TimeController.Stop();
     }
 }

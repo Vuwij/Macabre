@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 using Data;
 
-public class MacabreWorldLoadTest {
+public class MacabreWorldLoadTests {
 
     [SetUp]
     public void SetUp()

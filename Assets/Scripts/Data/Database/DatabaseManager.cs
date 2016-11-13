@@ -13,8 +13,7 @@ namespace Data.Database
     {
         static IDataReader reader;
         static IDbConnection dbconn;
-        static IDbCommand dbcmd;
-
+        
         // We only use one databse now
         static string MacabreDatabaseLocation
         {
@@ -23,17 +22,32 @@ namespace Data.Database
 
         static void StartDatabase()
         {
-            dbconn = (IDbConnection) new SqliteConnection(MacabreDatabaseLocation);
+            string sqliteConnectionString = "URI=file:" + MacabreDatabaseLocation + ",version=3";
+             
+            dbconn = new SqliteConnection(sqliteConnectionString);
             dbconn.Open();
-            dbcmd = dbconn.CreateCommand();
         }
         
         static void ExecuteSQLQuery(string query)
         {
-            Debug.Log("SQL: " + query);
-            if (dbcmd == null) StartDatabase();
-            dbcmd.CommandText = query;
-            reader = dbcmd.ExecuteReader();
+            //Debug.Log("SQL: " + query);
+            if (dbconn == null) StartDatabase();
+
+            using(IDbCommand dbcmd = dbconn.CreateCommand())
+            {
+                dbcmd.CommandText = query;
+                reader = dbcmd.ExecuteReader();
+            }
+        }
+
+        public static void CloseConnections()
+        {
+            if(reader != null) reader.Close();
+            if(dbconn != null) dbconn.Close();
+            if(reader != null) reader.Dispose();
+            if(dbconn != null) dbconn.Dispose();
+            reader = null;
+            dbconn = null;
         }
     }
 }

@@ -43,6 +43,15 @@ public class MacabreWorld
         Load(characters);
     }
 
+    ~MacabreWorld()
+    {
+        overWorld = null;
+        gameTime = null;
+        characters = null;
+
+        GC.Collect();
+    }
+
     private void Load(ILoadable loadingObject)
     {
         if (GameSettings.createNewGame) loadingObject.CreateNew();

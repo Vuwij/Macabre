@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Exceptions;
 
 using Objects.Movable.Characters;
 using Data.Database;
@@ -12,11 +13,14 @@ namespace Conversations
     public partial class ConversationState
     {
         // The characters and character controller remains the same for each conversation
-        private CharacterController characterController;
+        public CharacterController characterController;
         private Character character
         {
             get { return characterController.character; }
         }
+
+        // A single previous State
+        private ConversationState previousState;
 
         // A tree of next states
         private List<ConversationState> nextStates
@@ -24,10 +28,11 @@ namespace Conversations
             get
             {
                 List<ConversationState> next = new List<ConversationState>();
+                if (addStates == null) return next;
+
                 foreach(string stateName in addStates)
                 {
-                    ConversationState s = new ConversationState(characterController);
-                    DatabaseManager.Conversation.UpdateConversationForCharacter(stateName, character, s);
+                    ConversationState s = new ConversationState(characterController, this, stateName);
                     next.Add(s);
                 }
                 return next;
@@ -35,17 +40,30 @@ namespace Conversations
         }
         
         // Creates a conversation for the speaker
-        public ConversationState(CharacterController speakerController, ConversationState previousState = null)
+        public ConversationState(CharacterController speakerController, ConversationState previousState = null, string stateName = "")
         {
             this.characterController = speakerController;
-            DatabaseManager.Conversation.FindAndUpdateConversationForCharacter(character, this);
+            this.previousState = previousState;
+            if (previousState == null)
+                DatabaseManager.Conversation.FindAndUpdateConversationForCharacter(character, this);
+            else
+                DatabaseManager.Conversation.UpdateConversationForCharacter(stateName, character, this);
+
             SetCurrentViewFromPreviousState(previousState);
         }
 
         // Update the next state and speaker with the current state
-        public ConversationState GetNextStateAndDisplay(int decision = 0)
+        public ConversationState GetNextState(int decision = 0)
         {
-            return nextStates[decision];
+            if (nextStates.Count == 0) return null;
+            if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
+            {
+                ConversationState c = previousState.nextStates[decision];
+                c.conversationViewStatus = ConversationViewStatus.PlayerResponse;
+                return c;
+            }
+            else
+                return nextStates[decision];
         }
     }
 }

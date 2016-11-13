@@ -18,7 +18,7 @@ namespace UI.Panels
 
         public void Resume()
         {
-            GameManager.ResumeGame();
+            TurnOff();
         }
 
         public void Load()
@@ -37,8 +37,20 @@ namespace UI.Panels
                 new List<WarningDialogue.Button>()
                 {
                     new WarningDialogue.Button("It is never too late", () => { TurnOff(); }),
-                    new WarningDialogue.Button("Let me die already", () => { GameManager.main.QuitGame(); }),
+                    new WarningDialogue.Button("Let me die already", () => { GameManager.QuitGame(); }),
                 });
+        }
+
+        public override void TurnOn()
+        {
+            base.TurnOn();
+            GameManager.PauseGame();
+        }
+
+        public override void TurnOff()
+        {
+            base.TurnOff();
+            GameManager.ResumeGame();
         }
     }
 }

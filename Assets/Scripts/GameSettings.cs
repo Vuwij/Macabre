@@ -14,6 +14,7 @@ public struct GameSettings {
 
     // Environment Stats
     public static float cameraSpeed = 1.0f;
+    public static int clockRate = 60;
 
     // Character Stats
     public static int characterInventorySize = 20;

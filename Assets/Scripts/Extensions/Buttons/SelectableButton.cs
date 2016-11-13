@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace Extensions.Buttons
 {
-    public class ButtonExtension : UnityEngine.UI.Button
+    public class SelectableButton : UnityEngine.UI.Button
     {
 
         private Graphic[] m_graphics;
@@ -67,48 +67,5 @@ namespace Extensions.Buttons
                 g.CrossFadeColor(targetColor, (!instant) ? this.colors.fadeDuration : 0f, true, true);
             }
         }
-
-        #region selectedExtension
-        public bool selectable = false;
-        private bool isSelected = false;
-        public void toggle()
-        {
-            if (isSelected == false)
-            {
-                isSelected = true;
-            }
-            else
-            {
-                isSelected = false;
-            }
-        }
-
-        public void turnOff()
-        {
-            isSelected = false;
-        }
-
-        public void toggleThisInGroup()
-        {
-            var gameObject = GameObject.Find("Save Background");
-
-            // Turns off all other gameobjects in the environment
-            if (gameObject)
-            {
-                var buttons = gameObject.GetComponentsInChildren<ButtonExtension>();
-                foreach (ButtonExtension b in buttons)
-                {
-                    if (b.selectable)
-                    {
-                        b.turnOff();
-                    }
-                }
-            }
-
-            // Turn on this one
-            this.isSelected = true;
-        }
-
-        #endregion
     }
 }

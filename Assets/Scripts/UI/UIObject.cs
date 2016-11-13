@@ -30,7 +30,7 @@ namespace UI
             get { return UIManager.currentPanelStack; }
         }
 
-        public void TurnOn()
+        public virtual void TurnOn()
         {
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
@@ -39,7 +39,7 @@ namespace UI
             currentPanelStack.Push(this);
         }
 
-        public void TurnOff()
+        public virtual void TurnOff()
         {
             if (UIManager.CurrentPanel != null && UIManager.CurrentPanel != this) throw new MacabreUIException("Current Panel " + name + " is not the top on stack");
             canvasGroup.alpha = 0;

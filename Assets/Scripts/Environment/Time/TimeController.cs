@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 
 namespace Environment.Time
 {
@@ -15,19 +16,44 @@ namespace Environment.Time
         /// At 1 : The clock rate is the same as real world
         /// At 60: It is 60 times faster thant the real world
         /// </summary>
-        public const int ClockRate = 60;
+        public static int ClockRate
+        {
+            get { return GameSettings.clockRate; }
+        }
+
+        public static Timer timer = new Timer(1000);
 
         public static Time time
         {
-            get { return MacabreWorld.current.gameTime; }
+            get {
+                if (MacabreWorld.current == null) return null;
+                return MacabreWorld.current.gameTime;
+            }
         }
         
-        public static void Tick()
+        public static void Setup()
         {
-            time.Tick();
+            timer.Elapsed += TickTimeIfTimeExists;
+            timer.Interval = 1000;
+            Start();
         }
 
-        static void ResetTime()
+        public static void Start()
+        {
+            timer.Start();
+        }
+
+        public static void Stop()
+        {
+            if (timer != null) timer.Stop();
+        }
+
+        public static void TickTimeIfTimeExists(object sender, ElapsedEventArgs e)
+        {
+            if (time != null) time.Tick();
+        }
+
+        public static void ResetTime()
         {
             time.totalSeconds = 0;
         }

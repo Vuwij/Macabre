@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Runtime.Serialization;
+using System.Timers;
 
 namespace Environment.Time
 {
@@ -37,27 +38,27 @@ namespace Environment.Time
         }
         public int minute
         {
-            get { return totalSeconds % 3600; }
+            get { return (totalSeconds / 60) % 60; }
         }
         public int hour
         {
-            get { return totalSeconds % (3600 * 24); }
+            get { return (totalSeconds / 3600) % 60; }
         }
         public int day
         {
-            get { return totalSeconds % (3600 * 24 * 365); }
+            get { return (totalSeconds / (24 * 36000) % 24); }
         }
         public int week
         {
-            get { return day % 7; }
+            get { return (totalSeconds / (24 * 36000 * 7) % 7); }
         }
         public int month
         {
-            get { return week % 4; }
+            get { return (totalSeconds / (24 * 36000 * 7 * 4) % 4); }
         }
         public int year
         {
-            get { return week % 52; }
+            get { return (totalSeconds / (24 * 36000 * 7 * 52) % 52); }
         }
 
         public MIndicator cycle
@@ -76,8 +77,9 @@ namespace Environment.Time
 
         public override string ToString()
         {
-            return "Current Time Week " + week + ", " + dayOfWeek + " " + day + ", Hour " + hour + ":" + minute + ":" + second + " " + cycle;
+            return "Time: Week " + week + ", " + day + ", Hour " + hour.ToString("D2") + ":" + minute.ToString("D2") + ":" + second.ToString("D2") + " " + cycle;
         }
+
         public void PrintTime()
         {
             Debug.Log(ToString());

@@ -43,7 +43,7 @@ namespace Data.Database {
                 string table = "Conversations_" + characterTable.name;
 
                 // Select all conversations with no prerequisites
-                ExecuteSQLQuery("SELECT * FROM " + table + @"WHERE StateName LIKE 'S%' OR StateName LIKE 's%'");
+                ExecuteSQLQuery("SELECT * FROM " + table + @" WHERE StateName LIKE 'S%' OR StateName LIKE 's%'");
 
                 // Fill in the information with the reader row
                 UpdateStateWithRow(reader, conversationStateToUpdate);
@@ -55,7 +55,7 @@ namespace Data.Database {
                 string table = "Conversations_" + characterTable.name;
 
                 // Execute the query
-                ExecuteSQLQuery("SELECT * FROM " + table + @"WHERE StateName LIKE '" + stateName + "'");
+                ExecuteSQLQuery("SELECT * FROM " + table + @" WHERE StateName LIKE '" + stateName + "'");
 
                 // Fill in the information with the reader row
                 UpdateStateWithRow(reader, conversationStateToUpdate);
@@ -64,6 +64,7 @@ namespace Data.Database {
             private static void UpdateStateWithRow(IDataReader reader, ConversationState s)
             {
                 reader.Read();
+                if (reader.IsDBNull(0)) return;
                 s.stateName = reader.GetString(0);
                 s.addStates = DatabaseManager.Utility.StringToStringList(reader.GetString(1));
                 s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == reader.GetString(2));

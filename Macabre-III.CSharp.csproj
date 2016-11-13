@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -75,7 +77,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Databases\DataSet\MacabreDB.Designer.cs" />
     <Compile Include="Assets\Scripts\Animations\UIWheel.cs" />
     <Compile Include="Assets\Scripts\Conversations\ConversationState.cs" />
     <Compile Include="Assets\Scripts\Conversations\ConversationStateData.cs" />
@@ -101,8 +102,7 @@
     <Compile Include="Assets\Scripts\Events\EventKey.cs" />
     <Compile Include="Assets\Scripts\Exceptions\MacabreException.cs" />
     <Compile Include="Assets\Scripts\Exceptions\MacabreUIException.cs" />
-    <Compile Include="Assets\Scripts\Extensions\Buttons\Button.cs" />
-    <Compile Include="Assets\Scripts\Extensions\Buttons\Save.cs" />
+    <Compile Include="Assets\Scripts\Extensions\Buttons\SelectableButton.cs" />
     <Compile Include="Assets\Scripts\Extensions\Dictionary.cs" />
     <Compile Include="Assets\Scripts\Extensions\GameObjectExtension.cs" />
     <Compile Include="Assets\Scripts\Extensions\IEnumerable.cs" />
@@ -126,25 +126,25 @@
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemType.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Items.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Overworld.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\OverworldMap.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\OverworldStructures.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Building.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\BuildingController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Buildings.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\BakeryController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\BlacksmithController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\ChurchController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\CustomsHouseController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\GuardHouseController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\InnController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\ManorHouse1Controller.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\ManorHouse2Controller.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\ManorHouse3Controller.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Controllers\VineyardController.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Buildings\Door.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\Structure.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\World\Structures\StructureControllers.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Overworld\Overworld.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Overworld\OverworldMap.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Overworld\OverworldStructures.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Building.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\BuildingController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Buildings.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\BakeryController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\BlacksmithController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ChurchController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\CustomsHouseController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\GuardHouseController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\InnController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ManorHouse1Controller.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ManorHouse2Controller.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\ManorHouse3Controller.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Controllers\VineyardController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings\Door.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Structure.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\StructureControllers.cs" />
     <Compile Include="Assets\Scripts\Objects\Loader.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObject.cs" />
     <Compile Include="Assets\Scripts\Objects\MacabreObjectController.cs" />
@@ -185,8 +185,10 @@
     <Compile Include="Assets\Scripts\UI\Panels\OptionsPanel.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\PausePanel.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\SavePanel.cs" />
+    <Compile Include="Assets\Scripts\UI\Panels\SaveSlot.cs" />
     <Compile Include="Assets\Scripts\UI\Panels\UIPanel.cs" />
     <Compile Include="Assets\Scripts\UI\Screens\DarkScreen.cs" />
+    <Compile Include="Assets\Scripts\UI\Screens\LoadingScreen.cs" />
     <Compile Include="Assets\Scripts\UI\Screens\StartScreen.cs" />
     <Compile Include="Assets\Scripts\UI\Screens\UIParentScreen.cs" />
     <Compile Include="Assets\Scripts\UI\Screens\UIScreen.cs" />
@@ -197,30 +199,10 @@
   <ItemGroup>
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
     <None Include="Assets\Databases\Master\world.xml" />
-    <None Include="Assets\Databases\SaveInfo.xml" />
-    <None Include="Assets\Databases\Saves\Save 1\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 10\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 11\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 12\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 13\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 14\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 15\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 16\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 17\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 18\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 19\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 2\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 3\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 4\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 5\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 6\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 7\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 8\world.xml" />
-    <None Include="Assets\Databases\Saves\Save 9\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
-    <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
+    <None Include="Assets\Spritesheets\Jack's Nonsense\Punames.txt" />
     <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

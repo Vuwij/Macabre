@@ -29,6 +29,7 @@ namespace Data.Database
             // Returns a list of strings
             public static string[] StringToStringList(string str)
             {
+                if (str == "") return null;
                 string[] stringList = str.Split(',');
                 for (int i = 0; i < stringList.Count(); i++)
                     stringList[i] = stringList[i].Trim();
