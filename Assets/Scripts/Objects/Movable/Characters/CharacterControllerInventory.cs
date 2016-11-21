@@ -16,9 +16,9 @@ namespace Objects.Movable.Characters
         }
 
         // TODO Create inventory adding objects
-        public void AddToInventory(Item i)
+        public bool AddToInventory(ItemController i)
         {
-            inventory.Add(i);
+            return inventory.Add(i);
         }
     }
 }

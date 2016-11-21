@@ -13,10 +13,12 @@ namespace Data.Database
     {
         public static class ItemCombine
         {
-            public static void GetItemData(string name, Item item)
+            public static void GetItemData(string name, ItemController itemController)
             {
+                Item item = itemController.item;
+
                 string itemTable = "";
-                if (item.type == ItemType.InventoryItemClassA)
+                if (itemController.type == ItemType.InventoryItemClassA)
                     itemTable = "AClassItems";
                 else
                     itemTable = "BClassItems";

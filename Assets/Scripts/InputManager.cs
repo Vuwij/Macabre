@@ -2,6 +2,7 @@
 using System.Collections;
 
 using UI;
+using UI.Panels;
 using UI.Screens;
 using Objects.Movable;
 using Objects.Movable.Characters.Individuals;
@@ -32,8 +33,10 @@ public static class InputManager {
 
         // Key Maps for Inventory
         if (Input.GetButtonDown ("Inventory")) {
-			UIManager.FadeBackground = true;
-			UIManager.Find<UIScreen>("Inventory").TurnOn();
+            if(!UIManager.currentPanelStack.Contains(UIManager.Find<DarkScreen>()))
+                UIManager.Find<InventoryPanel>().TurnOn();
+            else
+                UIManager.Find<InventoryPanel>().TurnOff();
 		}
 
         // Key Maps for Inspection

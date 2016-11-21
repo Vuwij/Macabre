@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using Conversations;
+using Objects.Inanimate.Items;
 
 namespace Objects.Movable.Characters
 {
@@ -14,10 +15,10 @@ namespace Objects.Movable.Characters
         }
         private RaycastHit2D hit;
         
-        public void InspectionAction(RaycastHit2D raycastHit = new RaycastHit2D(), int keypressed = 0)
+        public void InspectionAction(MacabreObjectController obj, RaycastHit2D raycastHit)
         {
             if(conversationState != null && conversationState.conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse) return;
-            Dialogue(keypressed);
+            Dialogue(0);
         }
 
         public void KeyPressed
@@ -27,7 +28,7 @@ namespace Objects.Movable.Characters
                 conversationState.characterController.Dialogue(keyPressed - 1);
         }
 
-        public void Inspect(int keyPressed = 0)
+        public void Inspect()
         {
             RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, inspectRadius, Vector2.zero);
             foreach (RaycastHit2D raycastHit in castStar)
@@ -39,17 +40,12 @@ namespace Objects.Movable.Characters
                 {
                     Debug.Log(raycastHit.collider.name);
                     foreach (IInspectable obj in mObj)
-                        obj.InspectionAction(raycastHit, keyPressed);
+                        obj.InspectionAction(this, raycastHit);
                     return;
                 }
             }
         }
         
-        public void OnDrawGizmos()
-        {
-            UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, inspectRadius);
-        }
-
         // Cannot Raycast Hit anything on this opject
         public bool InspectionIsInvalid(RaycastHit2D raycastHit)
         {
@@ -66,6 +62,12 @@ namespace Objects.Movable.Characters
                 if (raycastHit.collider is PolygonCollider2D) return false;
             }   
             
+            // If hit an object
+            if (raycastHit.collider.GetComponent<ItemController>() != null)
+            {
+                return false;
+            }
+
             return true;
         }
     }

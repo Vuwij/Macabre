@@ -48,6 +48,7 @@ public class MacabreWorld
     {
         Load(overWorld);
         Load(characters);
+        Load(items);
     }
 
     ~MacabreWorld()

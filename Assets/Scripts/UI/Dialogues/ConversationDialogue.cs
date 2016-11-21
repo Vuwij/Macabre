@@ -93,7 +93,7 @@ namespace UI.Dialogues
 
         public void ContinuePressed()
         {
-            Characters.playerController.InspectionAction();
+            Characters.playerController.InspectionAction(Characters.playerController, new RaycastHit2D());
         }
 
         public void Reset()

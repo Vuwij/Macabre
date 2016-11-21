@@ -45,7 +45,10 @@ namespace Conversations
             this.characterController = speakerController;
             this.previousState = previousState;
             if (previousState == null)
+            {
                 DatabaseManager.Conversation.FindAndUpdateConversationForCharacter(character, this);
+                LockAllCharacterPosition();
+            }
             else
                 DatabaseManager.Conversation.UpdateConversationForCharacter(stateName, character, this);
 
@@ -55,7 +58,11 @@ namespace Conversations
         // Update the next state and speaker with the current state
         public ConversationState GetNextState(int decision = 0)
         {
-            if (nextStates.Count == 0) return null;
+            if (nextStates.Count == 0)
+            {
+                UnlockAllCharacterPosition();
+                return null;
+            }
             if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
             {
                 ConversationState c = previousState.nextStates[decision];

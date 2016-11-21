@@ -4,6 +4,6 @@ namespace Objects
 {
     interface IInspectable
     {
-        void InspectionAction(RaycastHit2D hit, int keyPressed);
+        void InspectionAction(MacabreObjectController controller, RaycastHit2D hit);
     }
 }

@@ -6,7 +6,6 @@ namespace Extensions.Buttons
 {
     public class SelectableButton : UnityEngine.UI.Button
     {
-
         private Graphic[] m_graphics;
         protected Graphic[] Graphics
         {

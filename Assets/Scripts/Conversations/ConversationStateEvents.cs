@@ -15,7 +15,7 @@ namespace Conversations
     {
         private List<CharacterController> AllCharactersInConversation
         {
-            get { return FindAllCharactersInConversation(this).ToList(); }
+            get { return FindAllCharactersInConversation(this).Distinct().ToList(); }
         }
         
         private IEnumerable<CharacterController> FindAllCharactersInConversation(ConversationState root)

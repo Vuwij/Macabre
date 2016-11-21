@@ -69,7 +69,7 @@ namespace Objects
         {
             float obj1Y = obj1.transform.position.y;
             float obj2Y = obj2.transform.position.y;
-            return (obj1Y <= obj2Y);
+            return (obj1Y < obj2Y);
         }
 
         // When the character hits the backedge collider (works for both colliders

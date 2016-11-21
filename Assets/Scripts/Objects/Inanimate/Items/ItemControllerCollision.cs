@@ -3,29 +3,81 @@ using UnityEngine;
 
 namespace Objects.Inanimate.Items
 {
-    public abstract partial class ItemController : InanimateObjectController {
+    // Same as MovingObjectCollision.cs
+    public partial class ItemController : InanimateObjectController {
+        private SpriteRenderer spriteRenderer
+        {
+            get { return GetComponentInChildren<SpriteRenderer>(); }
+        }
+        
+        // The collision circle for colliding with objects
+        private EllipseCollider2D collisionCircle = null;
+        protected virtual EllipseCollider2D CollisionCircle
+        {
+            get
+            {
+                if (collisionCircle == null)
+                {
+                    collisionCircle = gameObject.AddComponent<EllipseCollider2D>();
+                    CreateCollisionCircle();
+                }
+                return collisionCircle;
+            }
+        }
         protected override Collider2D collisionBox
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return collisionCircle; }
         }
-
-        protected override Collider2D proximityBox
+        protected override Vector2[] SpriteColliderVectices
         {
             get
             {
-                throw new NotImplementedException();
+                return CollisionCircle.points;
             }
         }
 
+        protected virtual void CreateCollisionCircle()
+        {
+            float width = spriteRenderer.sprite.rect.width;
+            CollisionCircle.radiusX = width / 100f;
+            CollisionCircle.radiusY = width / 200f;
+            CollisionCircle.smoothness = 4;
+        }
+
+        // The proximity circle for detecting if objects are nearby
+        private EllipseCollider2D proximityCircle;
+        protected virtual EllipseCollider2D ProximityCircle
+        {
+            get
+            {
+                if (proximityCircle == null)
+                {
+                    proximityCircle = gameObject.AddComponent<EllipseCollider2D>();
+                    CreateProximityCircle();
+                }
+
+                return proximityCircle;
+            }
+        }
+        protected override Collider2D proximityBox
+        {
+            get { return proximityCircle; }
+        }
         protected override Vector2[] SpriteProximityVertices
         {
             get
             {
-                throw new NotImplementedException();
+                return ProximityCircle.points;
             }
+        }
+
+        public virtual void CreateProximityCircle()
+        {
+            ProximityCircle.isTrigger = true;
+            float width = spriteRenderer.sprite.rect.width;
+            ProximityCircle.radiusX = width / 50f;
+            ProximityCircle.radiusY = width / 50f;
+            ProximityCircle.smoothness = 4;
         }
     }
 }

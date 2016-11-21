@@ -15,6 +15,6 @@ namespace Objects.Inanimate
         // TODO Automatically Reposition the object
         partial void OnTriggerStay2D(Collider2D other);
 
-        partial void OnTriggerExit2D(Collider2D other);
+        //partial void OnTriggerExit2D(Collider2D other);
     }
 }

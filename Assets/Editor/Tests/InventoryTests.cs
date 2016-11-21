@@ -36,7 +36,7 @@ public class InventoryTests {
 	{
         // Arrange
         Debug.Log("Initializing Conversation");
-        PlayerController player = Characters.playerController;
+        //PlayerController player = Characters.playerController;
         
         // Assert
 

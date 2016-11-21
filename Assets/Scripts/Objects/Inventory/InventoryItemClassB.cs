@@ -8,16 +8,16 @@ using Objects.Inanimate.Items;
 
 namespace Objects.Inventory
 {
-    public class InventoryItemClassB
+    public class InventoryItemClassB : InventoryItem
     {
-        public Item item;
+        public ItemController item;
         public string name
         {
             get { return item.name; }
         }
         
         // Contructor for converting objects on the ground
-        public InventoryItemClassB(Item item)
+        public InventoryItemClassB(ItemController item)
         {
             this.item = item;
         }

@@ -7,10 +7,8 @@ using System.Runtime.Serialization;
 namespace Objects.Inanimate.Items
 {
     [DataContract]
-    public abstract class Item : InanimateObject
+    public class Item : InanimateObject
     {
-        public ItemType type;
-        
         public void Drop() { throw new NotImplementedException(); }
         public void Pickup() { throw new NotImplementedException(); }
 

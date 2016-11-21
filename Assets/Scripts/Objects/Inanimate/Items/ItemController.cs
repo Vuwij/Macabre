@@ -2,7 +2,7 @@
 
 namespace Objects.Inanimate.Items
 {
-    public abstract partial class ItemController : InanimateObjectController {
+    public partial class ItemController : InanimateObjectController {
         // The character associated with the controller, found in the data structure
         public Item item
         {
@@ -20,5 +20,8 @@ namespace Objects.Inanimate.Items
                 return item;
             }
         }
+        
+        public ItemType type = ItemType.InventoryItemClassA;
+
     }
 }

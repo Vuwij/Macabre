@@ -17,9 +17,9 @@ namespace UI
             set
             {
                 if (value == true)
-                    Find<UIPanel>("Fade Screen").TurnOn();
+                    Find<DarkScreen>().TurnOn();
                 else
-                    Find<UIPanel>("Fade Screen").TurnOff();
+                    Find<DarkScreen>().TurnOff();
             }
         }
     }

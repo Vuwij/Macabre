@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using Data.Database;
 
 using Objects.Inanimate.Items;
+using UI.Panels;
 
 namespace Objects.Inventory
 {
-    public class InventoryItemClassA
+    public class InventoryItemClassA : InventoryItem
     {
-        public List<Item> items = new List<Item>();
+        public List<ItemController> items = new List<ItemController>();
         public int count { get { return items.Count; } }
 
         public string name
@@ -18,15 +19,16 @@ namespace Objects.Inventory
             get
             {
                 string s = "";
-                foreach (Item i in items)
-                    s += i.position + " ";
+                foreach (ItemController i in items)
+                    s += i.item.position + " ";
                 return s;
             }
         }
-        
-        public InventoryItemClassA(Item item)
+
+        public InventoryItemClassA(ItemController item)
         {
             items.Add(item);
+            UpdateInventoryScreen();
         }
 
         // For combining objects a and b, first check the combination amount
@@ -35,7 +37,14 @@ namespace Objects.Inventory
         {
             if (a.count + b.count > classALimit) return null;
             a.items.AddRange(b.items);
+            b.items.Clear();
             return a;
+        }
+        
+        private void UpdateInventoryScreen()
+        {
+            InventoryPanel panel = UI.UIManager.Find<InventoryPanel>();
+            // For uncombined objects
         }
     }
 }
