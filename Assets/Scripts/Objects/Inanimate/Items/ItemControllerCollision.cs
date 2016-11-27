@@ -39,8 +39,8 @@ namespace Objects.Inanimate.Items
         protected virtual void CreateCollisionCircle()
         {
             float width = spriteRenderer.sprite.rect.width;
-            CollisionCircle.radiusX = width / 100f;
-            CollisionCircle.radiusY = width / 200f;
+            CollisionCircle.radiusX = width / 10f;
+            CollisionCircle.radiusY = width / 20f;
             CollisionCircle.smoothness = 4;
         }
 
@@ -75,8 +75,8 @@ namespace Objects.Inanimate.Items
         {
             ProximityCircle.isTrigger = true;
             float width = spriteRenderer.sprite.rect.width;
-            ProximityCircle.radiusX = width / 50f;
-            ProximityCircle.radiusY = width / 50f;
+            ProximityCircle.radiusX = width / 2f;
+            ProximityCircle.radiusY = width / 2f;
             ProximityCircle.smoothness = 4;
         }
     }

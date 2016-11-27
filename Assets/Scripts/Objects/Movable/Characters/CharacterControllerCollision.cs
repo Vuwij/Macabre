@@ -16,8 +16,8 @@ namespace Objects.Movable.Characters
         protected override void CreateCollisionCircle()
         {
             float width = spriteRenderer.sprite.rect.width;
-            CollisionCircle.radiusX = width / 100f;
-            CollisionCircle.radiusY = width / 200f;
+            CollisionCircle.radiusX = width / 3.0f;
+            CollisionCircle.radiusY = width / 6.0f;
         }
     }
 }

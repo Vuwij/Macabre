@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Data.Database;
 
 namespace Objects.Inanimate.Items
 {
@@ -22,6 +22,10 @@ namespace Objects.Inanimate.Items
         }
         
         public ItemType type = ItemType.InventoryItemClassA;
-
+        
+        private void OnDestroy()
+        {
+            Items.ItemDictionary.Remove(name);
+        }
     }
 }

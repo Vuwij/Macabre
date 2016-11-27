@@ -9,7 +9,7 @@ namespace Objects.Inanimate.World
 
         private void LoadAllMap()
         {
-            map = Loader.Load("Environment/Overworld");
+            map = Loader.LoadToWorld("Environment/Overworld");
         }
     }
 }

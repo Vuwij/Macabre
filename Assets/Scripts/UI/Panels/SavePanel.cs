@@ -39,12 +39,6 @@ namespace UI.Panels
 
         public Save selectedSave = null;
         
-        public void SelectSave(object obj, EventArgs args)
-        {
-            // TODO select save action attach to button
-            throw new NotImplementedException();
-        }
-
         private List<Save> saveList
         {
             get { return SaveManager.allSaveInformation.saveList; }

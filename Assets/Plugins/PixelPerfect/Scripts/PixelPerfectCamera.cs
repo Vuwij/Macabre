@@ -8,7 +8,7 @@ using UnityEditor;
 [RequireComponent(typeof(Camera))]
 public class PixelPerfectCamera : MonoBehaviour {
 	public PixelPerfectFitType fitType=PixelPerfectFitType.Retro;
-	public int targetPixelHeight=1080;
+	public int targetPixelHeight=640;
 	public int parallaxLayerCount=10;
 	public int cameraZoom=2;
 	public bool pixelatedPostProcessing=true;

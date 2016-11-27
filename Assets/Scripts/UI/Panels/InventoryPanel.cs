@@ -7,6 +7,8 @@ using Objects.Inventory;
 using Objects.Movable.Characters;
 using UI.Panels.Inventory;
 using Exceptions;
+using Data.Database;
+using Objects.Inanimate.Items;
 
 namespace UI.Panels
 {
@@ -25,13 +27,13 @@ namespace UI.Panels
             }
         }
         
-        public ClassAItemStack[] classAStack = new ClassAItemStack[6];
+        public ItemStackUIClassA[] itemStackUIClassAs = new ItemStackUIClassA[6];
         
-        public ClassBItemStack[] classBStack = new ClassBItemStack[2];
+        public ItemStackUIClassB[] itemStackUIClassBs = new ItemStackUIClassB[2];
 
         #region Display
 
-        public void Start()
+        private void Start()
         {
             Transform classAObjectsParent = gameObject.GetComponentsInChildren<Transform>()
                                 .Where(x => x.name == "Class A Objects")
@@ -47,7 +49,7 @@ namespace UI.Panels
             if (classAStacks.Length != 6) throw new MacabreException("There are not 6 stacks in Class A Objects in the inventory");
 
             for (int i = 0; i < 6; i++)
-                classAStack[i] = new Inventory.ClassAItemStack(classAStacks[i].gameObject);
+                this.itemStackUIClassAs[i] = new Inventory.ItemStackUIClassA(classAStacks[i].gameObject);
 
             // Class B objects
             var classBStacks = classBObjectsParent.GetComponentsInChildren<Transform>()
@@ -56,7 +58,7 @@ namespace UI.Panels
             if (classBStacks.Length != 2) throw new MacabreException("There are not 2 stacks in Class B Objects");
 
             for (int i = 0; i < 2; i++)
-                classBStack[i] = new ClassBItemStack(classBStacks[i].gameObject);
+                this.itemStackUIClassBs[i] = new ItemStackUIClassB(classBStacks[i].gameObject);
 
         }
         
@@ -79,23 +81,24 @@ namespace UI.Panels
             for (int i = 0; i < 6; i++)
             {
                 if (inventory.classAItems.Count > i)
-                    classAStack[i].Update(inventory.classAItems[i]);
+                    itemStackUIClassAs[i].Update(inventory.classAItems[i]);
                 else
-                    classAStack[i].Update(null);
+                    itemStackUIClassAs[i].Update(null);
             }
 
             // Update all the images Class B
             for (int i = 0; i < 2; i++)
             {
                 if (inventory.classBItems.Count > i)
-                    classBStack[i].Update(inventory.classBItems[i]);
+                    itemStackUIClassBs[i].Update(inventory.classBItems[i]);
                 else
-                    classBStack[i].Update(null);
+                    itemStackUIClassBs[i].Update(null);
             }
 
             // Refresh Selected
-            ItemStack.currentlySelected.Clear();
-            ItemStack.RefreshSelectionUI();
+            ItemStackUI.currentlySelected.Clear();
+            foreach (var item in itemStackUIClassAs) item.Unhighlight();
+            ItemStackUI.RefreshSelectionUI();
         }
 
         #endregion
@@ -106,23 +109,23 @@ namespace UI.Panels
         {
             if (index < 0 && index >= 6) throw new MacabreException("Invalid Index");
             DeselectAll();
-            classAStack[index].Select();
-            ItemStack.RefreshSelectionUI();
+            itemStackUIClassAs[index].Select();
+            ItemStackUI.RefreshSelectionUI();
         }
 
         public void SelectClassB(int index)
         {
             if (index < 0 && index >= 2) throw new MacabreException("Invalid Index");
             DeselectAll();
-            classBStack[index].Select();
-            ItemStack.RefreshSelectionUI();
+            itemStackUIClassBs[index].Select();
+            ItemStackUI.RefreshSelectionUI();
         }
 
         private void DeselectAll()
         {
-            foreach (var item in classAStack)
+            foreach (var item in itemStackUIClassAs)
                 item.Unhighlight();
-            foreach (var item in classBStack)
+            foreach (var item in itemStackUIClassBs)
                 item.Unhighlight();
         }
         
@@ -132,35 +135,56 @@ namespace UI.Panels
 
         public void Combine()
         {
-            if (ItemStack.currentlySelected.Count != 2) return;
-
-            ItemStack[] toCombine = ItemStack.currentlySelected.ToArray();
+            if (ItemStackUI.currentlySelected.Count != 2) return;
+            
+            ItemStackUI[] toCombine = ItemStackUI.currentlySelected.ToArray();
             if (toCombine[0].Count + toCombine[1].Count > 4) return;
 
-            ClassAItemStack firstItem = null, secondItem = null;
+            ItemStackUIClassA itemUI1 = null, itemUI2 = null;
             for (int i = 0; i < 6; i++)
             {
-                if (classAStack[i] == toCombine[0])
+                if (itemStackUIClassAs[i] == toCombine[0])
                 {
-                    firstItem = (toCombine[0] as ClassAItemStack);
-                    secondItem = (toCombine[1] as ClassAItemStack);
+                    itemUI1 = (toCombine[0] as ItemStackUIClassA);
+                    itemUI2 = (toCombine[1] as ItemStackUIClassA);
                     break;
                 }
-                if(classAStack[i] == toCombine[1])
+                if(itemStackUIClassAs[i] == toCombine[1])
                 {
-                    firstItem = (toCombine[1] as ClassAItemStack);
-                    secondItem = (toCombine[0] as ClassAItemStack);
+                    itemUI1 = (toCombine[1] as ItemStackUIClassA);
+                    itemUI2 = (toCombine[0] as ItemStackUIClassA);
                     break;
                 }
             }
 
-            firstItem.inventoryItem += secondItem.inventoryItem;
+            // Attempt a merge only if the item is single
+            if (itemUI1.inventoryItem == null || itemUI2.inventoryItem == null) return;
+            itemUI1.inventoryItem += itemUI2.inventoryItem;
+            
             RefreshItems();
         }
 
         public void Seperate()
         {
+            // Select the currently selected item
+            if (ItemStackUI.currentlySelected.Count != 1) return;
+            var itemStack = ItemStackUI.currentlySelected.Peek();
 
+            // Check if a seperation is possible and remove one from the bundle
+            if (!(itemStack is ItemStackUIClassA)) return;
+            if (itemStack.Count <= 1) return;
+
+            // Check if there is available space
+            if (!(itemStackUIClassAs.Any(x => x.Count == 0))) return;
+
+            ItemStackUIClassA itemStackUIClassARemoveFrom = itemStack as ItemStackUIClassA;
+
+            // The actual transfer
+            var itemToBeTransferred = itemStackUIClassARemoveFrom.inventoryItem.items.Last();
+            inventory.Add(itemToBeTransferred);
+            itemStackUIClassARemoveFrom.inventoryItem.items.Remove(itemToBeTransferred);
+            
+            RefreshItems();
         }
 
         public void Inspect()
@@ -170,12 +194,27 @@ namespace UI.Panels
 
         public void Drop()
         {
+            // Select the currently selected item
+            if (ItemStackUI.currentlySelected.Count == 0) return;
+            var itemStack = ItemStackUI.currentlySelected.Dequeue();
 
+            // Obtain the inventoryItem from the stack
+            InventoryItem inventoryItem;
+            if (itemStack is ItemStackUIClassA)
+                inventoryItem = (itemStack as ItemStackUIClassA).inventoryItem;
+            else
+                inventoryItem = (itemStack as ItemStackUIClassB).inventoryItem;
+
+            // Drop the inventory Item (from PlayerInventory)
+            inventory.Drop(inventoryItem);
+
+            // Refresh the UI
+            RefreshItems();
         }
 
         public void Return()
         {
-            this.TurnOff();
+            TurnOff();
         }
 
         #endregion

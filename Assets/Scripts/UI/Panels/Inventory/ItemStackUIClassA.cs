@@ -7,10 +7,10 @@ using Exceptions;
 
 namespace UI.Panels.Inventory
 {
-    public class ClassAItemStack : ItemStack
+    public class ItemStackUIClassA : ItemStackUI
     {
         public InventoryItemClassA inventoryItem;
-        public ClassAItemStack(GameObject imageParent) : base(imageParent) { }
+        public ItemStackUIClassA(GameObject imageParent) : base(imageParent) { }
 
         public override int Count
         {

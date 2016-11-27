@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.IO;
+using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -43,16 +44,24 @@ namespace Objects.Movable.Characters
                 return CharacterControllers.Find(x => (x is PlayerController)) as PlayerController;
             }
         }
-        
+
+        public const string startCharacterDirectory = @"Assets/Resources/Objects/Movable/Characters/LoadAtStart/";
+        public const string allCharacterDirectory = @"Assets/Resources/Objects/Movable/Characters/";
+
         // FIXME Database name must match resource name
         public override void CreateNew()
         {
-            AddPlayer("Player");
-            AddPlayer("Elismi");
-            AddPlayer("Guard");
-            AddPlayer("HamenTheInnkeeper");
-            AddPlayer("Merchant");
-            AddPlayer("HoodedFarmer");
+            DirectoryInfo itemsAtStart = new DirectoryInfo(startCharacterDirectory);
+
+            // This loads everything in the resources folder
+            var allItems = itemsAtStart.GetFiles()
+                .Where(x => x.Extension != ".meta");
+
+            foreach (var file in allItems)
+            {
+                string name = Path.GetFileNameWithoutExtension(file.FullName);
+                AddPlayer(name);
+            }
         }
 
         void AddPlayer(string name)
@@ -69,7 +78,11 @@ namespace Objects.Movable.Characters
             foreach (KeyValuePair<string, Character> c in CharacterDictionary)
             {
                 // Load the resources first
-                var charObject = Loader.Load("Objects/Movable/Characters/" + c.Key);
+                GameObject charObject;
+                if (File.Exists(startCharacterDirectory + "/" + c.Key + ".prefab"))
+                    charObject = Loader.LoadToWorld("Objects/Movable/Characters/LoadAtStart/" + c.Key);
+                else
+                    charObject = Loader.LoadToWorld("Objects/Movable/Characters/" + c.Key);
 
                 // Relocate the character to the correct position
                 charObject.transform.position = c.Value.position;

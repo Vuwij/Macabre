@@ -17,7 +17,6 @@ namespace Objects
         }
         
         // The Default BackEdgeCollider
-        // TODO : Unit Test
         protected EdgeCollider2D CreateBackEdgeCollider()
         {
             List<Vector2> backEdgePointsOfObject = new List<Vector2>();

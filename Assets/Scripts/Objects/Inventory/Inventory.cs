@@ -22,7 +22,7 @@ namespace Objects.Inventory {
 
             if (item.type == ItemType.InventoryItemClassB)
             {
-                InventoryItemClassB itemB = new InventoryItemClassB(item);
+                InventoryItemClassB itemB = new InventoryItemClassB(item, this);
                 if (classBItems.Count >= classBLimit) return false;
 
                 // Add the Item to the slot
@@ -36,7 +36,7 @@ namespace Objects.Inventory {
                 if (classAItems.Count >= classALimit) return false;
 
                 // Add the item into a new slot
-                InventoryItemClassA itemA = new InventoryItemClassA(item);
+                InventoryItemClassA itemA = new InventoryItemClassA(item, this);
                 classAItems.Add(itemA);
                 return true;
             }

@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
+using System.Linq;
 using Objects.Inanimate.Items;
 using Objects.Inventory;
 using Objects.Inventory.Individual;
@@ -15,10 +13,24 @@ namespace Objects.Movable.Characters
             get { return character.inventory; }
         }
 
-        // TODO Create inventory adding objects
         public bool AddToInventory(ItemController i)
         {
             return inventory.Add(i);
         }
+
+        public Transform InventoryFolder
+        {
+            get
+            {
+                if(GetComponentsInChildren<Transform>().SingleOrDefault(x => x.name == "Inventory") == null)
+                {
+                    GameObject inventoryFolder = new GameObject("Inventory");
+                    inventoryFolder.transform.parent = this.transform;
+                }
+
+                return GetComponentsInChildren<Transform>().SingleOrDefault(x => x.name == "Inventory");
+            }
+        }
+
     }
 }

@@ -2,6 +2,8 @@
 //using System.Collections;
 //using System.Collections.Generic;
 
+
+// TODO Scene Management
 //namespace SceneManagement
 //{
 
@@ -41,7 +43,6 @@
 
 //        }
 
-//        // TODO
 //        /// <summary>
 //        /// This needs to iterate through all of the gameobjects within that scene and then store the data into the scene database
 //        /// <list type="Info">

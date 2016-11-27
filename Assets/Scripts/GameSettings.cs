@@ -13,16 +13,19 @@ public struct GameSettings {
     public static bool autoSerializeGame = true;
 
     // Environment Stats
-    public static float cameraSpeed = 1.0f;
+    public static float cameraSpeed = 32.0f;
     public static int clockRate = 60;
 
     // Character Stats
     public static int characterInventorySize = 20;
     public static int conversationCharacterLimit = 500;
     public static int conversationChoiceOptions = 4;
-    public static float characterWalkingSpeed = 1.0f;
-    public static float characterRunningSpeed = 2.0f;
-    public static float inspectRadius = 0.5f;
+    public static float characterWalkingSpeed = 32.0f;
+    public static float characterRunningSpeed = 64.0f;
+    public static float inspectRadius = 16.0f;
+
+    // Item stats
+    public static float dropDistance = 9.0f;
 
     // Controls
     public static bool useKeyboardMovement = true;

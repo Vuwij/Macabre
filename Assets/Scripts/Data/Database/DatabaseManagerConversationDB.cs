@@ -32,7 +32,7 @@ namespace Data.Database {
     /// </summary>
     public static partial class DatabaseManager
     {
-        public static class Conversation
+        public static class ConversationDB
         {
             // Prerequisites for a single conversation, 0 is always empty
             public static int characterLimit { get { return GameSettings.conversationCharacterLimit; } }

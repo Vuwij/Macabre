@@ -14,7 +14,7 @@ namespace Data.Database
     /// </summary>
     public partial class DatabaseManager
     {
-        public static class Inspection
+        public static class InspectionDB
         {
             
         }

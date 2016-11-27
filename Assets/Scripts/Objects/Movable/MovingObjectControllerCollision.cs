@@ -41,8 +41,8 @@ namespace Objects.Movable
         protected virtual void CreateCollisionCircle()
         {
             float width = spriteRenderer.sprite.rect.width;
-            CollisionCircle.radiusX = width / 100f;
-            CollisionCircle.radiusY = width / 200f;
+            CollisionCircle.radiusX = width * 0.25f;
+            CollisionCircle.radiusY = width * 0.125f;
         }
 
         // The proximity circle for detecting if objects are nearby
@@ -76,8 +76,8 @@ namespace Objects.Movable
         {
             ProximityCircle.isTrigger = true;
             float width = spriteRenderer.sprite.rect.width;
-            ProximityCircle.radiusX = width / 10f;
-            ProximityCircle.radiusY = width / 20f;
+            ProximityCircle.radiusX = width * 3f;
+            ProximityCircle.radiusY = width * 1.5f;
         }
     }
 }

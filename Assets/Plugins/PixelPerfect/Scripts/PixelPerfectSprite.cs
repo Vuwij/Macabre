@@ -25,7 +25,7 @@ public class PixelPerfectSprite : PixelPerfectObject {
 			parallaxScale=1;
 		}
 		//return PixelPerfect.worldPixelSize*pixelScale*parallaxScale;
-		return spriteRenderer.sprite.pixelsPerUnit*PixelPerfect.worldPixelSize*pixelScale*parallaxScale;
+		return PixelPerfect.pixelsPerUnit*PixelPerfect.worldPixelSize*pixelScale*parallaxScale;
 	}
 	
 	override protected Vector2 GetPivotToCenter() {

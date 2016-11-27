@@ -6,7 +6,6 @@ using Conversations;
 using Data;
 using Data.Database;
 
-// TODO Fix all the conversation problems
 namespace Objects.Movable.Characters
 {
     public abstract partial class CharacterController : MovingObjectController
@@ -16,6 +15,7 @@ namespace Objects.Movable.Characters
         // Invoked everytime when the spacebar is pressed or an decision is made
         public ConversationState Dialogue(int decision = 0)
         {
+            // Check if the character exists in database
             if (conversationState == null) conversationState = new ConversationState(this);
             else conversationState = conversationState.GetNextState(decision);
 

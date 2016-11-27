@@ -6,18 +6,18 @@ using Exceptions;
 
 namespace UI.Panels.Inventory
 {
-    public abstract class ItemStack
+    public abstract class ItemStackUI
     {
         public GameObject imageParent;
         
-        public ItemStack(GameObject imageParent)
+        public ItemStackUI(GameObject imageParent)
         {
             this.imageParent = imageParent;
         }
 
         public abstract int Count { get; set; }
 
-        public static Queue<ItemStack> currentlySelected = new Queue<ItemStack>(2);
+        public static Queue<ItemStackUI> currentlySelected = new Queue<ItemStackUI>(2);
         public bool isSelected
         {
             get { return currentlySelected.Contains(this); }
@@ -26,7 +26,7 @@ namespace UI.Panels.Inventory
         {
             if (currentlySelected.Contains(this))
             {
-                ItemStack otherInQueue = currentlySelected.Where(x => x != this)
+                ItemStackUI otherInQueue = currentlySelected.Where(x => x != this)
                     .FirstOrDefault();
 
                 currentlySelected.Clear();
@@ -35,12 +35,12 @@ namespace UI.Panels.Inventory
             else if (currentlySelected.Count == 0) currentlySelected.Enqueue(this);
             else if (currentlySelected.Count == 1)
             {
-                if (currentlySelected.Peek() is ClassBItemStack || this is ClassBItemStack) currentlySelected.Dequeue();
+                if (currentlySelected.Peek() is ItemStackUIClassB || this is ItemStackUIClassB) currentlySelected.Dequeue();
                 currentlySelected.Enqueue(this);
             }
             else if (currentlySelected.Count == 2)
             {
-                if (this is ClassBItemStack)
+                if (this is ItemStackUIClassB)
                 {
                     currentlySelected.Clear();
                     currentlySelected.Enqueue(this);

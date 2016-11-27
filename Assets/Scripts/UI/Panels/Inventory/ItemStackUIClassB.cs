@@ -6,10 +6,10 @@ using System;
 
 namespace UI.Panels.Inventory
 {
-    public class ClassBItemStack : ItemStack
+    public class ItemStackUIClassB : ItemStackUI
     {
         public InventoryItemClassB inventoryItem;
-        public ClassBItemStack(GameObject imageParent) : base(imageParent) { }
+        public ItemStackUIClassB(GameObject imageParent) : base(imageParent) { }
 
         public override int Count
         {

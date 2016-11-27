@@ -11,7 +11,7 @@ using Events;
 /// </summary>
 public static class EventManager
 {
-    //todo
+    // TODO Event management
     //static EventDictionary<EventKey, EventAction> events = new EventDictionary<EventKey, EventAction>();
 
 	static void Start ()

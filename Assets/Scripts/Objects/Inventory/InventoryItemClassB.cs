@@ -11,15 +11,21 @@ namespace Objects.Inventory
     public class InventoryItemClassB : InventoryItem
     {
         public ItemController item;
+        
+        // Contructor for converting objects on the ground
+        public InventoryItemClassB(ItemController item, Inventory inventory) : base(item, inventory)
+        {
+            this.item = item;
+        }
+
         public string name
         {
             get { return item.name; }
         }
-        
-        // Contructor for converting objects on the ground
-        public InventoryItemClassB(ItemController item)
+
+        public void Dispose()
         {
-            this.item = item;
+            inventory.classBItems.Remove(this);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Objects.Movable.Characters
         {
             get { return Input.GetButton("SpeedUp"); }
         }
-        private bool isMoving // HACK Check if this value works
+        private bool isMoving
         {
             get { return (rb2D.velocity.sqrMagnitude >= float.Epsilon); }
         }

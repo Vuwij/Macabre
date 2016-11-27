@@ -46,11 +46,11 @@ namespace Conversations
             this.previousState = previousState;
             if (previousState == null)
             {
-                DatabaseManager.Conversation.FindAndUpdateConversationForCharacter(character, this);
+                DatabaseManager.ConversationDB.FindAndUpdateConversationForCharacter(character, this);
                 LockAllCharacterPosition();
             }
             else
-                DatabaseManager.Conversation.UpdateConversationForCharacter(stateName, character, this);
+                DatabaseManager.ConversationDB.UpdateConversationForCharacter(stateName, character, this);
 
             SetCurrentViewFromPreviousState(previousState);
         }
