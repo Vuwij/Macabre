@@ -116,15 +116,21 @@
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\BuildingControllerCollision.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\BuildingControllerRooms.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Buildings.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\Chair.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\Table.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\CharacterFurnitureController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\ChestFurnitureController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\ItemFurnitureController.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\VirtualFurniture.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\AbstractPath.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\Door.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\Stairs.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\VirtualRoom.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\VirtualRoomFurniture.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\VirtualRoomPath.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\VirtualFurnitureController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Furniture\VirtualFurnitureControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\DoorController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\StairController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\VirtualPath.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\VirtualPathController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\Path\VirtualPathControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\RoomController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\RoomControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\RoomControllerFurniture.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Components\RoomControllerPath.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\BakeryController.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\BlacksmithController.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ChurchController.cs" />
@@ -186,6 +192,7 @@
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectController.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectControllerCollision.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectControllerEditor.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovingObjectControllerLayerSorting.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\ExitPoint.cs" />
     <Compile Include="Assets\Scripts\SceneManagement\Scene.cs" />
@@ -216,17 +223,17 @@
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
     <None Include="Assets\Databases\Master\world.xml" />
     <None Include="Assets\Databases\SaveInfo.xml" />
-    <None Include="Assets\Databases\Saves\Save 1\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 10\world.xml" />
     <None Include="Assets\Databases\Saves\Save 2\world.xml" />
     <None Include="Assets\Databases\Saves\Save 5\world.xml" />
     <None Include="Assets\Databases\Saves\Save 6\world.xml" />
     <None Include="Assets\Databases\Saves\Save 7\world.xml" />
     <None Include="Assets\Databases\Saves\Save 8\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 9\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
     <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
-    <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

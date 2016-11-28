@@ -5,7 +5,11 @@ using System.Text;
 
 namespace Objects.Inanimate.Buildings.Components.Furniture
 {
-    public class VirtualFurniture
+    public partial class VirtualFurniture : InanimateObject
     {
+        public override void CreateCollisionBox()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

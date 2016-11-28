@@ -6,11 +6,11 @@ namespace Objects.Inanimate.Buildings
 {
     public abstract partial class BuildingController : InanimateObjectController
     {
-        public virtual List<VirtualRoom> Rooms
+        public virtual List<RoomController> Rooms
         {
             get
             {
-                return gameObject.GetComponentsInChildren<VirtualRoom>().ToList();
+                return gameObject.GetComponentsInChildren<RoomController>().ToList();
             }
         }
     }

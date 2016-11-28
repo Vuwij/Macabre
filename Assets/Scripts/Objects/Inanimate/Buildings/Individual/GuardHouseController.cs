@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Objects.Inanimate.Buildings.Individual
 {
-    public class GuardHouse : BuildingController
+    public sealed class GuardHouseController : BuildingController
     {
 
     }

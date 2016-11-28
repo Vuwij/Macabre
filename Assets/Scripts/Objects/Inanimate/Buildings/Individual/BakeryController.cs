@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Objects.Inanimate.Buildings.Individual
 {
-    public class Bakery : BuildingController
+    public sealed class BakeryController : BuildingController
     {
     }
 }

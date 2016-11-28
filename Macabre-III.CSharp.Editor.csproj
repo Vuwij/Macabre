@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\MacabreCollider.cs" />
+    <Compile Include="Assets\Editor\MacabreFootprint.cs" />
     <Compile Include="Assets\Editor\Tests\ConversationTests.cs" />
     <Compile Include="Assets\Editor\Tests\InventoryTests.cs" />
     <Compile Include="Assets\Editor\Tests\MacabreWorldLoadTests.cs" />
@@ -123,17 +124,17 @@
     <None Include="Assets\Databases\Master\SQL functions\UpdateTablesScript.txt" />
     <None Include="Assets\Databases\Master\world.xml" />
     <None Include="Assets\Databases\SaveInfo.xml" />
-    <None Include="Assets\Databases\Saves\Save 1\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 10\world.xml" />
     <None Include="Assets\Databases\Saves\Save 2\world.xml" />
     <None Include="Assets\Databases\Saves\Save 5\world.xml" />
     <None Include="Assets\Databases\Saves\Save 6\world.xml" />
     <None Include="Assets\Databases\Saves\Save 7\world.xml" />
     <None Include="Assets\Databases\Saves\Save 8\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 9\world.xml" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
     <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
-    <None Include="Assets\Spritesheets\_Feedback.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Objects.Inanimate.Items
 {
-    // Same as MovingObjectCollision.cs
     public partial class ItemController : InanimateObjectController {
         private SpriteRenderer spriteRenderer
         {
@@ -36,7 +35,7 @@ namespace Objects.Inanimate.Items
             }
         }
 
-        protected virtual void CreateCollisionCircle()
+        protected override void CreateCollisionCircle()
         {
             float width = spriteRenderer.sprite.rect.width;
             CollisionCircle.radiusX = width / 10f;
@@ -46,7 +45,7 @@ namespace Objects.Inanimate.Items
 
         // The proximity circle for detecting if objects are nearby
         private EllipseCollider2D proximityCircle;
-        protected virtual EllipseCollider2D ProximityCircle
+        protected override EllipseCollider2D ProximityCircle
         {
             get
             {
@@ -71,7 +70,7 @@ namespace Objects.Inanimate.Items
             }
         }
 
-        public virtual void CreateProximityCircle()
+        public override void CreateProximityCircle()
         {
             ProximityCircle.isTrigger = true;
             float width = spriteRenderer.sprite.rect.width;

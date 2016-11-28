@@ -7,11 +7,6 @@ namespace Objects.Inanimate
 {
    public abstract partial class InanimateObjectController : MacabreObjectController
     {
-        private SpriteRenderer spriteRenderer
-        {
-            get { return gameObject.GetComponent<SpriteRenderer>() ?? null; }
-        }
-
         // TODO Automatically Reposition the object
         partial void OnTriggerStay2D(Collider2D other);
 

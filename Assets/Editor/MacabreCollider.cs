@@ -2,7 +2,7 @@
 using UnityEditor;
 using System.Collections;
 
-public class MacabreCollider : EditorWindow {
+public class MacabreFootprints : EditorWindow {
     
 	[MenuItem ("Macabre/Collider/Remove Internal Shapes", true)]
     static bool Validate () {
