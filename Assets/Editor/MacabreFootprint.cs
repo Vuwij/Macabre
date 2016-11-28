@@ -16,7 +16,8 @@ public class MacabreFootprint : EditorWindow {
             {
                 if (objController == null) return;
 
-                SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+                SpriteRenderer spriteRenderer = objController.GetComponent<SpriteRenderer>();
+                if (spriteRenderer == null) return;
                 if (spriteRenderer.sprite == null) return;
 
                 Undo.RecordObject(objController, "Set Object Footprint");
@@ -36,7 +37,6 @@ public class MacabreFootprint : EditorWindow {
 
             // Create the footprint image
             footprint = (Texture2D)AssetDatabase.LoadAssetAtPath(footprintTextureName, typeof(Texture2D));
-            footprint.Apply();
         }
     }
 }
