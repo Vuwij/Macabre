@@ -294,3 +294,7 @@ sysinfo.txt
 
 # Files Specific in Animations
 .fake/
+/Macabre-III.csproj
+/Macabre-III.Editor.csproj
+/Macabre-III.Editor.Plugins.csproj
+/Macabre-III.Plugins.csproj
