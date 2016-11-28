@@ -122,6 +122,8 @@
     <None Include="Assets\Databases\Master\world.xml" />
     <None Include="Assets\Databases\SaveInfo.xml" />
     <None Include="Assets\Databases\Saves\Save 10\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 11\world.xml" />
+    <None Include="Assets\Databases\Saves\Save 12\world.xml" />
     <None Include="Assets\Databases\Saves\Save 2\world.xml" />
     <None Include="Assets\Databases\Saves\Save 5\world.xml" />
     <None Include="Assets\Databases\Saves\Save 6\world.xml" />

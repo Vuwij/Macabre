@@ -48,7 +48,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -294,6 +293,4 @@ sysinfo.txt
 /[Aa]ssets/Spritesheets/**/*.gal
 
 # Files Specific in Animations
-
-
 .fake/

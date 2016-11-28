@@ -1,0 +1,873 @@
+fileFormatVersion: 2
+guid: 07b7fe2959f244f628d8d52d23eb03d3
+timeCreated: 1470803347
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Miscellanous 1_0
+    21300002: Miscellanous 1_1
+    21300004: Miscellanous 1_2
+    21300006: Miscellanous 1_3
+    21300008: Miscellanous 1_4
+    21300010: Miscellanous 1_5
+    21300012: Miscellanous 1_6
+    21300014: Miscellanous 1_7
+    21300016: Miscellanous 1_8
+    21300018: Miscellanous 1_9
+    21300020: Miscellanous 1_10
+    21300022: Miscellanous 1_11
+    21300024: Miscellanous 1_12
+    21300026: Miscellanous 1_13
+    21300028: Miscellanous 1_14
+    21300030: Miscellanous 1_15
+    21300032: Miscellanous 1_16
+    21300034: Miscellanous 1_17
+    21300036: Miscellanous 1_18
+    21300038: Miscellanous 1_19
+    21300040: Miscellanous 1_20
+    21300042: Miscellanous 1_21
+    21300044: Miscellanous 1_22
+    21300046: Miscellanous 1_23
+    21300048: Miscellanous 1_24
+    21300050: Miscellanous 1_25
+    21300052: Miscellanous 1_26
+    21300054: Miscellanous 1_27
+    21300056: Miscellanous 1_28
+    21300058: Miscellanous 1_29
+    21300060: Miscellanous 1_30
+    21300062: Miscellanous 1_31
+    21300064: Miscellanous 1_32
+    21300066: Miscellanous 1_33
+    21300068: Miscellanous 1_34
+    21300070: Miscellanous 1_35
+    21300072: Miscellanous 1_36
+    21300074: Miscellanous 1_37
+    21300076: Miscellanous 1_38
+    21300078: Miscellanous 1_39
+    21300080: Miscellanous 1_40
+    21300082: Miscellanous 1_41
+    21300084: Miscellanous 1_42
+    21300086: Miscellanous 1_43
+    21300088: Miscellanous 1_44
+    21300090: Miscellanous 1_45
+    21300092: Miscellanous 1_46
+    21300094: Miscellanous 1_47
+    21300096: Miscellanous 1_48
+    21300098: Miscellanous 1_49
+    21300100: Miscellanous 1_50
+    21300102: Miscellanous 1_51
+    21300104: Miscellanous 1_52
+    21300106: Miscellanous 1_53
+    21300108: Miscellanous 1_54
+    21300110: Miscellanous 1_55
+    21300112: Miscellanous 1_56
+    21300114: Miscellanous 1_57
+    21300116: Miscellanous 1_58
+    21300118: Miscellanous 1_59
+    21300120: Miscellanous 1_60
+    21300122: Miscellanous 1_61
+    21300124: Miscellanous 1_62
+    21300126: Miscellanous 1_63
+    21300128: Miscellanous 1_64
+    21300130: Miscellanous 1_65
+    21300132: Miscellanous 1_66
+    21300134: Miscellanous 1_67
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Miscellanous 1_0
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 83
+        width: 17
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 81
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_2
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 81
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_3
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 83
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_4
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 85
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_5
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 85
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_6
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 81
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_7
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 80
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_8
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 77
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_9
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 77
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_10
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 70
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_11
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 69
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_12
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 71
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_13
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 77
+        width: 13
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_14
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 68
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_15
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 68
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 70
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_17
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 70
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 70
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_19
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 70
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_20
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 51
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_21
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 51
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_22
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 56
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_23
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 55
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_24
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 47
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_25
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 53
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_26
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 56
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_27
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 56
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_28
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 44
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_29
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 40
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_30
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 45
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_31
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 48
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_32
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 47
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_33
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 47
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_34
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 47
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_35
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 47
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_36
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 36
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_37
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 41
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_38
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 37
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_39
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 37
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_40
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 37
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_41
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 28
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_42
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 30
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_43
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 33
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_44
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 27
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_45
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 28
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_46
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 28
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_47
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 28
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_48
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 28
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_49
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 14
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_50
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 13
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_51
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 14
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_52
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 6
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_53
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 18
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_54
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 21
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_55
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 16
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_56
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 20
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_57
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 20
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_58
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 20
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_59
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 20
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_60
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 14
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_61
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 9
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_62
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 6
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_63
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 12
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_64
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 12
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_65
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 12
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_66
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 3
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Miscellanous 1_67
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 4
+        width: 23
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

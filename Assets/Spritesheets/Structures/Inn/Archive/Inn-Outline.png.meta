@@ -1,0 +1,959 @@
+fileFormatVersion: 2
+guid: 3c47165d9906b6d429d3d6fce753e45b
+timeCreated: 1467435896
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName: {}
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Inn-Outline_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1614
+        width: 300
+        height: 286
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_1
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1700
+        width: 89
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_2
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 1722
+        width: 25
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_3
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 1724
+        width: 51
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_4
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 1708
+        width: 121
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_5
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1472
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_6
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 1400
+        width: 169
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_7
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 1432
+        width: 97
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_8
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 1501
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_9
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 1432
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_10
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 1428
+        width: 25
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_11
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 1446
+        width: 63
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_12
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 1455
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_13
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 1396
+        width: 61
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_14
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 1130
+        width: 133
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_15
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 1162
+        width: 15
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_16
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1172
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_17
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 1177
+        width: 39
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_18
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1129
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1119
+        width: 63
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_20
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 1030
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_21
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 1050
+        width: 58
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_22
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 1019
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_23
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 986
+        width: 63
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_24
+      rect:
+        serializedVersion: 2
+        x: 1201
+        y: 1010
+        width: 41
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_25
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1012
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_26
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 857
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_27
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 855
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_28
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 857
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_29
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 855
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_30
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 857
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_31
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 857
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_32
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 856
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_33
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 857
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_34
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 857
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_35
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 654
+        width: 249
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_36
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 654
+        width: 249
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_37
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 752
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_38
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 784
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_39
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 741
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_40
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 734
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_41
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 726
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_42
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 731
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_43
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 734
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_44
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 709
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_45
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 700
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_46
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 700
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_47
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 700
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_48
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 690
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_49
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 693
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_50
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 672
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_51
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 444
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_52
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 459
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_53
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 392
+        width: 221
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_54
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 392
+        width: 221
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_55
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 401
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_56
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 412
+        width: 49
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_57
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 363
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_58
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 361
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_59
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 363
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_60
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 361
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_61
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 363
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_62
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 363
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_63
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 362
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_64
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 363
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_65
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 363
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_66
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 142
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_67
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 142
+        width: 5
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_68
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 147
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_69
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 147
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_70
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 143
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_71
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 121
+        width: 93
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_72
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 113
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_73
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 115
+        width: 23
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_74
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 127
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_75
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 103
+        width: 48
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_76
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 111
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_77
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 91
+        width: 51
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_78
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 82
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_79
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 90
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_80
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 87
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Inn-Outline_81
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 82
+        width: 5
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

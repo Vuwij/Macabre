@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e94b1ede67cca4a5b8e633847fb83283
+timeCreated: 1464497495
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 11
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Tahoma11PixelFon
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9240cea019722469a8d2fd3809dcec50, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

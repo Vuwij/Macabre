@@ -1,0 +1,434 @@
+fileFormatVersion: 2
+guid: 0ec92e4532282884dbf161649bdc943a
+timeCreated: 1467437665
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Blacksmith-MainSpritesheet_0
+    21300002: Blacksmith-MainSpritesheet_1
+    21300004: Blacksmith-MainSpritesheet_2
+    21300006: Blacksmith-MainSpritesheet_3
+    21300008: Blacksmith-MainSpritesheet_4
+    21300010: Blacksmith-MainSpritesheet_5
+    21300012: Blacksmith-MainSpritesheet_6
+    21300014: Blacksmith-MainSpritesheet_7
+    21300016: Blacksmith-MainSpritesheet_8
+    21300018: Blacksmith-MainSpritesheet_9
+    21300020: Blacksmith-MainSpritesheet_10
+    21300022: Blacksmith-MainSpritesheet_11
+    21300024: Blacksmith-MainSpritesheet_12
+    21300026: Blacksmith-MainSpritesheet_13
+    21300028: Blacksmith-MainSpritesheet_14
+    21300030: Blacksmith-MainSpritesheet_15
+    21300032: Blacksmith-MainSpritesheet_16
+    21300034: Blacksmith-MainSpritesheet_17
+    21300036: Blacksmith-MainSpritesheet_18
+    21300038: Blacksmith-MainSpritesheet_19
+    21300040: Blacksmith-MainSpritesheet_20
+    21300042: Blacksmith-MainSpritesheet_21
+    21300044: Blacksmith-MainSpritesheet_22
+    21300046: Blacksmith-MainSpritesheet_23
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 1
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Blacksmith-MainSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 614
+        width: 234
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 84, y: -111}
+        - {x: 111, y: -102}
+        - {x: 117, y: -97}
+        - {x: 117, y: -14}
+        - {x: 105, y: 40}
+        - {x: 96, y: 127}
+        - {x: 88, y: 135}
+        - {x: 59, y: 135}
+        - {x: -71, y: 78}
+        - {x: -117, y: 23}
+        - {x: -117, y: 11}
+        - {x: -98, y: -90}
+        - {x: -13, y: -131}
+        - {x: 18, y: -135}
+        - {x: 43, y: -135}
+        - {x: 45, y: -134}
+        - {x: 47, y: -131}
+        - {x: 56, y: -92}
+    - name: Blacksmith-MainSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 628
+        width: 21
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 614
+        width: 26
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 650
+        width: 23
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 678
+        width: 113
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 19.5, y: 41.5}
+        - {x: -56.5, y: 8.5}
+        - {x: -56.5, y: -32.5}
+        - {x: -29.5, y: -41.5}
+        - {x: -13.5, y: -41.5}
+        - {x: 56.5, y: -3.5}
+        - {x: 56.5, y: 11.5}
+        - {x: 29.5, y: 41.5}
+    - name: Blacksmith-MainSpritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 642
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 322
+        width: 133
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 47.5, y: 72.5}
+        - {x: 16.5, y: 72.5}
+        - {x: -66.5, y: 25.5}
+        - {x: -66.5, y: -45.5}
+        - {x: -10.5, y: -72.5}
+        - {x: 45.5, y: -72.5}
+        - {x: 56.5, y: -69.5}
+        - {x: 66.5, y: -26.5}
+        - {x: 66.5, y: 67.5}
+    - name: Blacksmith-MainSpritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 397
+        width: 19
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 387
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 368
+        width: 85
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 10.5, y: 49.5}
+        - {x: -42.5, y: -14.5}
+        - {x: -42.5, y: -47.5}
+        - {x: -34.5, y: -49.5}
+        - {x: -13.5, y: -49.5}
+        - {x: 38.5, y: 26.5}
+        - {x: 42.5, y: 33.5}
+        - {x: 42.5, y: 49.5}
+    - name: Blacksmith-MainSpritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 336
+        width: 37
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.5, y: 35.5}
+        - {x: -18.5, y: 35.5}
+        - {x: -18.5, y: -19.5}
+        - {x: 13.5, y: -35.5}
+        - {x: 18.5, y: -35.5}
+        - {x: 18.5, y: 20.5}
+    - name: Blacksmith-MainSpritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 561
+        y: 78
+        width: 169
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 43.5, y: 92.5}
+        - {x: -49.5, y: 46.5}
+        - {x: -84.5, y: 10.5}
+        - {x: -84.5, y: -58.5}
+        - {x: -23.5, y: -92.5}
+        - {x: -6.5, y: -92.5}
+        - {x: 84.5, y: -49.5}
+        - {x: 84.5, y: 27.5}
+        - {x: 51.5, y: 92.5}
+    - name: Blacksmith-MainSpritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 162
+        width: 31
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 124
+        width: 39
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -12.5, y: 35}
+        - {x: -19.5, y: 33}
+        - {x: -19.5, y: -28}
+        - {x: -4.5, y: -35}
+        - {x: 19.5, y: -35}
+        - {x: 19.5, y: 27}
+        - {x: 3.5, y: 35}
+    - name: Blacksmith-MainSpritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 34
+        width: 105
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 15.5, y: 54.5}
+        - {x: -52.5, y: 23.5}
+        - {x: -52.5, y: -40.5}
+        - {x: -34.5, y: -54.5}
+        - {x: -2.5, y: -54.5}
+        - {x: 31.5, y: -43.5}
+        - {x: 52.5, y: -23.5}
+        - {x: 52.5, y: 43.5}
+        - {x: 32.5, y: 54.5}
+    - name: Blacksmith-MainSpritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 104
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 102
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 97
+        width: 19
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 821
+        y: 98
+        width: 61
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24.5, y: 23}
+        - {x: -30.5, y: 21}
+        - {x: -30.5, y: -7}
+        - {x: -2.5, y: -23}
+        - {x: 18.5, y: -23}
+        - {x: 30.5, y: -18}
+        - {x: 30.5, y: 5}
+        - {x: 3.5, y: 23}
+    - name: Blacksmith-MainSpritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 104
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -17.5, y: 28.5}
+        - {x: -20.5, y: 27.5}
+        - {x: -20.5, y: -14.5}
+        - {x: 2.5, y: -28.5}
+        - {x: 20.5, y: -28.5}
+        - {x: 20.5, y: 15.5}
+        - {x: -2.5, y: 28.5}
+    - name: Blacksmith-MainSpritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 46
+        width: 23
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 68
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 72
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Blacksmith-MainSpritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 62
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

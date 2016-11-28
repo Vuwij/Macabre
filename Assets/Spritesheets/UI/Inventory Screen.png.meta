@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: d1dd1402aac7b445abf045133df47582
+timeCreated: 1472275096
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Inventory Slot Size B
+    21300002: Inventory Slot Size A
+    21300004: Inventory Button Combine
+    21300006: Inventory Button Separate
+    21300008: Inventory GUI Main
+    21300010: Inventory Button Inspect
+    21300012: Inventory Button Drop
+    21300014: Inventory Button Return
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Inventory Slot Size B
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 197
+        width: 75
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 76.5}
+        - {x: -37.5, y: -76.5}
+        - {x: 37.5, y: -76.5}
+        - {x: 37.5, y: 76.5}
+    - name: Inventory Slot Size A
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 275
+        width: 75
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -37.5, y: 37.5}
+        - {x: -37.5, y: -37.5}
+        - {x: 37.5, y: -37.5}
+        - {x: 37.5, y: 37.5}
+    - name: Inventory Button Combine
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 132
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21}
+        - {x: -21, y: -21}
+        - {x: 21, y: -21}
+        - {x: 21, y: 21}
+    - name: Inventory Button Separate
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 132
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21}
+        - {x: -21, y: -21}
+        - {x: 21, y: -21}
+        - {x: 21, y: 21}
+    - name: Inventory GUI Main
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 8
+        width: 424
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -212, y: 132.5}
+        - {x: -212, y: -132.5}
+        - {x: 212, y: -132.5}
+        - {x: 212, y: 132.5}
+    - name: Inventory Button Inspect
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 81
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21}
+        - {x: -21, y: -21}
+        - {x: 21, y: -21}
+        - {x: 21, y: 21}
+    - name: Inventory Button Drop
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 81
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21}
+        - {x: -21, y: -21}
+        - {x: 21, y: -21}
+        - {x: 21, y: 21}
+    - name: Inventory Button Return
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 30
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -21, y: 21}
+        - {x: -21, y: -21}
+        - {x: 21, y: -21}
+        - {x: 21, y: 21}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
