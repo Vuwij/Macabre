@@ -3,6 +3,7 @@ using UnityEditor;
 using System.Collections;
 using System.IO;
 using Objects;
+using Objects.Inanimate;
 
 public class MacabreFootprint : EditorWindow {
     
@@ -10,15 +11,15 @@ public class MacabreFootprint : EditorWindow {
     static void Update () {
 
         foreach (GameObject obj in Selection.gameObjects) {
-            MacabreObjectController[] objControllers = obj.GetComponentsInChildren<MacabreObjectController>();
+            MacabreObjectController[] objControllers = obj.GetComponentsInChildren<MacabreObjectController>(true);
 
             foreach (MacabreObjectController objController in objControllers)
             {
-                if (objController == null) return;
+                if (objController == null) continue;
 
                 SpriteRenderer spriteRenderer = objController.GetComponent<SpriteRenderer>();
-                if (spriteRenderer == null) return;
-                if (spriteRenderer.sprite == null) return;
+                if (spriteRenderer == null) continue;
+                if (spriteRenderer.sprite == null) continue;
 
                 Undo.RecordObject(objController, "Set Object Footprint");
                 FindFootprint(ref objController.footprint, spriteRenderer);
@@ -37,6 +38,20 @@ public class MacabreFootprint : EditorWindow {
 
             // Create the footprint image
             footprint = (Texture2D)AssetDatabase.LoadAssetAtPath(footprintTextureName, typeof(Texture2D));
+        }
+    }
+    
+    [MenuItem("Macabre/Object/Find Footprint Collider")]
+    static void FindFootprintCollider()
+    {
+        foreach(GameObject obj in Selection.gameObjects)
+        {
+            ICustomCollider[] objContollers = obj.GetComponentsInChildren<ICustomCollider>();
+
+            foreach (ICustomCollider objController in objContollers)
+            {
+                objController.CreateCollisionCircle();
+            }
         }
     }
 }
