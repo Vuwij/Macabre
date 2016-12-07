@@ -1,9 +1,27 @@
 fileFormatVersion: 2
 guid: aa110f8350264d5438172ce55fd30c62
-timeCreated: 1480306809
+timeCreated: 1480309701
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: RafaelTheMerchant_0
+    21300002: RafaelTheMerchant_1
+    21300004: RafaelTheMerchant_2
+    21300006: RafaelTheMerchant_3
+    21300008: RafaelTheMerchant_4
+    21300010: RafaelTheMerchant_5
+    21300012: RafaelTheMerchant_6
+    21300014: RafaelTheMerchant_7
+    21300016: RafaelTheMerchant_8
+    21300018: RafaelTheMerchant_9
+    21300020: RafaelTheMerchant_10
+    21300022: RafaelTheMerchant_11
+    21300024: RafaelTheMerchant_12
+    21300026: RafaelTheMerchant_13
+    21300028: RafaelTheMerchant_14
+    21300030: RafaelTheMerchant_15
+    21300032: RafaelTheMerchant_16
+    21300034: RafaelTheMerchant_17
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,7 +69,241 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RafaelTheMerchant_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 166
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 166
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_2
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 166
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 166
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 111
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_5
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 111
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_6
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 111
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_7
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 111
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_9
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_10
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_11
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_12
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_13
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_14
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_15
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_16
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: RafaelTheMerchant_17
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

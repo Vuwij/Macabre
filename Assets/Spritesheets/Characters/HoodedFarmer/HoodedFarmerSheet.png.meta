@@ -1,27 +1,27 @@
 fileFormatVersion: 2
-guid: f7539c2c263c65f48bb5595d4c45ee8f
-timeCreated: 1480309622
+guid: 171b5c7c4d271ef4e9916c271b8838e4
+timeCreated: 1480311570
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Librarian_0
-    21300002: Librarian_1
-    21300004: Librarian_2
-    21300006: Librarian_3
-    21300008: Librarian_4
-    21300010: Librarian_5
-    21300012: Librarian_6
-    21300014: Librarian_7
-    21300016: Librarian_8
-    21300018: Librarian_9
-    21300020: Librarian_10
-    21300022: Librarian_11
-    21300024: Librarian_12
-    21300026: Librarian_13
-    21300028: Librarian_14
-    21300030: Librarian_15
-    21300032: Librarian_16
-    21300034: Librarian_17
+    21300000: HoodedFarmerSheet_0
+    21300002: HoodedFarmerSheet_1
+    21300004: HoodedFarmerSheet_2
+    21300006: HoodedFarmerSheet_3
+    21300008: HoodedFarmerSheet_4
+    21300010: HoodedFarmerSheet_5
+    21300012: HoodedFarmerSheet_6
+    21300014: HoodedFarmerSheet_7
+    21300016: HoodedFarmerSheet_8
+    21300018: HoodedFarmerSheet_9
+    21300020: HoodedFarmerSheet_10
+    21300022: HoodedFarmerSheet_11
+    21300024: HoodedFarmerSheet_12
+    21300026: HoodedFarmerSheet_13
+    21300028: HoodedFarmerSheet_14
+    21300030: HoodedFarmerSheet_15
+    21300032: HoodedFarmerSheet_16
+    21300034: HoodedFarmerSheet_17
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -47,7 +47,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -71,7 +71,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Librarian_0
+      name: HoodedFarmerSheet_0
       rect:
         serializedVersion: 2
         x: 1
@@ -84,7 +84,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_1
+      name: HoodedFarmerSheet_1
       rect:
         serializedVersion: 2
         x: 30
@@ -97,7 +97,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_2
+      name: HoodedFarmerSheet_2
       rect:
         serializedVersion: 2
         x: 59
@@ -110,7 +110,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_3
+      name: HoodedFarmerSheet_3
       rect:
         serializedVersion: 2
         x: 88
@@ -123,7 +123,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_4
+      name: HoodedFarmerSheet_4
       rect:
         serializedVersion: 2
         x: 1
@@ -136,7 +136,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_5
+      name: HoodedFarmerSheet_5
       rect:
         serializedVersion: 2
         x: 30
@@ -149,7 +149,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_6
+      name: HoodedFarmerSheet_6
       rect:
         serializedVersion: 2
         x: 59
@@ -162,7 +162,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_7
+      name: HoodedFarmerSheet_7
       rect:
         serializedVersion: 2
         x: 88
@@ -175,7 +175,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_8
+      name: HoodedFarmerSheet_8
       rect:
         serializedVersion: 2
         x: 1
@@ -188,7 +188,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_9
+      name: HoodedFarmerSheet_9
       rect:
         serializedVersion: 2
         x: 30
@@ -201,7 +201,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_10
+      name: HoodedFarmerSheet_10
       rect:
         serializedVersion: 2
         x: 59
@@ -214,7 +214,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_11
+      name: HoodedFarmerSheet_11
       rect:
         serializedVersion: 2
         x: 88
@@ -227,7 +227,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_12
+      name: HoodedFarmerSheet_12
       rect:
         serializedVersion: 2
         x: 117
@@ -240,7 +240,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_13
+      name: HoodedFarmerSheet_13
       rect:
         serializedVersion: 2
         x: 1
@@ -253,7 +253,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_14
+      name: HoodedFarmerSheet_14
       rect:
         serializedVersion: 2
         x: 30
@@ -266,7 +266,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_15
+      name: HoodedFarmerSheet_15
       rect:
         serializedVersion: 2
         x: 59
@@ -279,7 +279,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_16
+      name: HoodedFarmerSheet_16
       rect:
         serializedVersion: 2
         x: 88
@@ -292,7 +292,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_17
+      name: HoodedFarmerSheet_17
       rect:
         serializedVersion: 2
         x: 117

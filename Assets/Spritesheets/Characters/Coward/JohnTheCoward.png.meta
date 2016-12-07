@@ -1,27 +1,27 @@
 fileFormatVersion: 2
-guid: f7539c2c263c65f48bb5595d4c45ee8f
-timeCreated: 1480309622
+guid: c373ccd5219610e4b9f05adb38128034
+timeCreated: 1480309796
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Librarian_0
-    21300002: Librarian_1
-    21300004: Librarian_2
-    21300006: Librarian_3
-    21300008: Librarian_4
-    21300010: Librarian_5
-    21300012: Librarian_6
-    21300014: Librarian_7
-    21300016: Librarian_8
-    21300018: Librarian_9
-    21300020: Librarian_10
-    21300022: Librarian_11
-    21300024: Librarian_12
-    21300026: Librarian_13
-    21300028: Librarian_14
-    21300030: Librarian_15
-    21300032: Librarian_16
-    21300034: Librarian_17
+    21300000: JohnTheCoward_0
+    21300002: JohnTheCoward_1
+    21300004: JohnTheCoward_2
+    21300006: JohnTheCoward_3
+    21300008: JohnTheCoward_4
+    21300010: JohnTheCoward_5
+    21300012: JohnTheCoward_6
+    21300014: JohnTheCoward_7
+    21300016: JohnTheCoward_8
+    21300018: JohnTheCoward_9
+    21300020: JohnTheCoward_10
+    21300022: JohnTheCoward_11
+    21300024: JohnTheCoward_12
+    21300026: JohnTheCoward_13
+    21300028: JohnTheCoward_14
+    21300030: JohnTheCoward_15
+    21300032: JohnTheCoward_16
+    21300034: JohnTheCoward_17
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -47,7 +47,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
+    filterMode: 0
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -71,7 +71,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Librarian_0
+      name: JohnTheCoward_0
       rect:
         serializedVersion: 2
         x: 1
@@ -84,7 +84,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_1
+      name: JohnTheCoward_1
       rect:
         serializedVersion: 2
         x: 30
@@ -97,7 +97,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_2
+      name: JohnTheCoward_2
       rect:
         serializedVersion: 2
         x: 59
@@ -110,7 +110,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_3
+      name: JohnTheCoward_3
       rect:
         serializedVersion: 2
         x: 88
@@ -123,7 +123,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_4
+      name: JohnTheCoward_4
       rect:
         serializedVersion: 2
         x: 1
@@ -136,7 +136,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_5
+      name: JohnTheCoward_5
       rect:
         serializedVersion: 2
         x: 30
@@ -149,7 +149,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_6
+      name: JohnTheCoward_6
       rect:
         serializedVersion: 2
         x: 59
@@ -162,7 +162,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_7
+      name: JohnTheCoward_7
       rect:
         serializedVersion: 2
         x: 88
@@ -175,7 +175,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_8
+      name: JohnTheCoward_8
       rect:
         serializedVersion: 2
         x: 1
@@ -188,7 +188,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_9
+      name: JohnTheCoward_9
       rect:
         serializedVersion: 2
         x: 30
@@ -201,7 +201,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_10
+      name: JohnTheCoward_10
       rect:
         serializedVersion: 2
         x: 59
@@ -214,7 +214,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_11
+      name: JohnTheCoward_11
       rect:
         serializedVersion: 2
         x: 88
@@ -227,7 +227,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_12
+      name: JohnTheCoward_12
       rect:
         serializedVersion: 2
         x: 117
@@ -240,7 +240,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_13
+      name: JohnTheCoward_13
       rect:
         serializedVersion: 2
         x: 1
@@ -253,7 +253,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_14
+      name: JohnTheCoward_14
       rect:
         serializedVersion: 2
         x: 30
@@ -266,7 +266,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_15
+      name: JohnTheCoward_15
       rect:
         serializedVersion: 2
         x: 59
@@ -279,7 +279,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_16
+      name: JohnTheCoward_16
       rect:
         serializedVersion: 2
         x: 88
@@ -292,7 +292,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Librarian_17
+      name: JohnTheCoward_17
       rect:
         serializedVersion: 2
         x: 117
