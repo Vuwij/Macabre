@@ -6,7 +6,7 @@ namespace Objects.Inanimate.Buildings.Components.Path
 {
     public partial class VirtualPathController : InanimateObjectController
     {
-        protected override Collider2D collisionBox
+        protected override PolygonCollider2D collisionBox
         {
             get
             {
@@ -14,15 +14,7 @@ namespace Objects.Inanimate.Buildings.Components.Path
             }
         }
 
-        protected override Collider2D proximityBox
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override Vector2[] SpriteProximityVertices
+        protected override PolygonCollider2D proximityBox
         {
             get
             {

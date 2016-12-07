@@ -29,17 +29,17 @@ namespace Objects
             float leftMostPoint = 0;
             float rightMostPoint = 0;
 
-            GetMaximaPoints(SpriteColliderVectices, out leftIndex, out rightIndex, out leftMostPoint, out rightMostPoint);
+            GetMaximaPoints(collisionVertices, out leftIndex, out rightIndex, out leftMostPoint, out rightMostPoint);
             
             // Determine the clockwise direction TODO: Get the correct direction
-            bool clockWise = SpriteColliderVectices[leftIndex].y < SpriteColliderVectices[(leftIndex + 1) % SpriteColliderVectices.Length].y;
+            bool clockWise = collisionVertices[leftIndex].y < collisionVertices[(leftIndex + 1) % collisionVertices.Length].y;
 
             // Add backEdgePoints based on direction
             int index = leftIndex;
             while (index != rightIndex)
             {
-                backEdgePointsOfObject.Add(SpriteColliderVectices[index]);
-                index = (clockWise ? index + 1 : index - 1) % SpriteColliderVectices.Length;
+                backEdgePointsOfObject.Add(collisionVertices[index]);
+                index = (clockWise ? index + 1 : index - 1) % collisionVertices.Length;
             }
 
             // Add the left line and the right line
@@ -78,9 +78,9 @@ namespace Objects
             int leftIndex, rightIndex;
             float leftMostPoint, rightMostPoint;
             
-            GetMaximaPoints(SpriteProximityVertices, out leftIndex, out rightIndex, out leftMostPoint, out rightMostPoint);
-            backEdgePointsOfObject.Insert(0, SpriteProximityVertices[leftIndex]);
-            backEdgePointsOfObject.Add(SpriteProximityVertices[rightIndex]);
+            GetMaximaPoints(proximityVertices, out leftIndex, out rightIndex, out leftMostPoint, out rightMostPoint);
+            backEdgePointsOfObject.Insert(0, proximityVertices[leftIndex]);
+            backEdgePointsOfObject.Add(proximityVertices[rightIndex]);
         }
     }
 }

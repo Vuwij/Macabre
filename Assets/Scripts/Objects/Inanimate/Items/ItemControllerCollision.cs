@@ -4,14 +4,24 @@ using UnityEngine;
 namespace Objects.Inanimate.Items
 {
     public partial class ItemController : InanimateObjectController {
+
+        private EllipseCollider2D collisionCircle = null;
+        private EllipseCollider2D proximityCircle = null;
+
         private SpriteRenderer spriteRenderer
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
+        protected override PolygonCollider2D collisionBox
+        {
+            get { return (PolygonCollider2D)collisionCircle; }
+        }
+        protected override PolygonCollider2D proximityBox
+        {
+            get { return (PolygonCollider2D)proximityCircle; }
+        }
         
-        // The collision circle for colliding with objects
-        private EllipseCollider2D collisionCircle = null;
-        protected virtual EllipseCollider2D CollisionCircle
+        private EllipseCollider2D CollisionCircle
         {
             get
             {
@@ -23,29 +33,7 @@ namespace Objects.Inanimate.Items
                 return collisionCircle;
             }
         }
-        protected override Collider2D collisionBox
-        {
-            get { return collisionCircle; }
-        }
-        protected override Vector2[] SpriteColliderVectices
-        {
-            get
-            {
-                return CollisionCircle.points;
-            }
-        }
-
-        protected override void CreateCollisionCircle()
-        {
-            float width = spriteRenderer.sprite.rect.width;
-            CollisionCircle.radiusX = width / 10f;
-            CollisionCircle.radiusY = width / 20f;
-            CollisionCircle.smoothness = 4;
-        }
-
-        // The proximity circle for detecting if objects are nearby
-        private EllipseCollider2D proximityCircle;
-        protected override EllipseCollider2D ProximityCircle
+        private EllipseCollider2D ProximityCircle
         {
             get
             {
@@ -58,18 +46,14 @@ namespace Objects.Inanimate.Items
                 return proximityCircle;
             }
         }
-        protected override Collider2D proximityBox
-        {
-            get { return proximityCircle; }
-        }
-        protected override Vector2[] SpriteProximityVertices
-        {
-            get
-            {
-                return ProximityCircle.points;
-            }
-        }
 
+        public override void CreateCollisionCircle()
+        {
+            float width = spriteRenderer.sprite.rect.width;
+            CollisionCircle.radiusX = width / 5f;
+            CollisionCircle.radiusY = width / 10f;
+            CollisionCircle.smoothness = 4;
+        }
         public override void CreateProximityCircle()
         {
             ProximityCircle.isTrigger = true;

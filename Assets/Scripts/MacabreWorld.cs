@@ -24,15 +24,15 @@ public class MacabreWorld
         get { return SaveManager.CurrentSave.world; }
     }
 
-    // The overworld contains the world, the maps and all of the buildings
+    // The overworld contains the world background and natural elements
     [DataMember(IsRequired = true, Order = 0)]
     public Overworld overWorld = new Overworld();
 
-    // The overworld contains the world, the maps and all of the buildings
+    // Buildings contain paths and furniture
     [DataMember(IsRequired = true, Order = 1)]
     public Buildings buildings = new Buildings();
 
-    // The overworld contains the world, the maps and all of the buildings
+    // Items located in the world
     [DataMember(IsRequired = true, Order = 2)]
     public Items items = new Items();
 

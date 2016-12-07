@@ -8,7 +8,8 @@ using System.Collections.Generic;
 
 namespace Objects
 {
-    public abstract partial class MacabreObjectController : MonoBehaviour {
+    public abstract partial class MacabreObjectController : MonoBehaviour
+    {
         // The SpriteRenderer of the object
         private SpriteRenderer spriteRenderer
         {
@@ -18,18 +19,17 @@ namespace Objects
         // This property is visible in inspector (used to create the collision box)
         public Texture2D footprint;
         
-        // The Collider for the object
-        protected abstract Collider2D collisionBox { get; }
-        protected virtual Vector2[] SpriteColliderVectices
-        {
-            get {
-                throw new MacabreException(name + " doesn't contain a sprite for edge detection or contains a edge collider.");
-            }
-        }
-
-        // The Proximity detector for the object
-        protected abstract Collider2D proximityBox { get; }
-        protected abstract Vector2[] SpriteProximityVertices { get; }
+        // The Collider and Proximity Boxfor the object
+        protected abstract PolygonCollider2D collisionBox { get; }
+        protected abstract PolygonCollider2D proximityBox { get; }
         
+        private Vector2[] collisionVertices
+        {
+            get { return collisionBox.points; }
+        }
+        private Vector2[] proximityVertices
+        {
+            get { return proximityBox.points; }
+        }
     }
 }

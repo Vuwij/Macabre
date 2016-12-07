@@ -136,7 +136,7 @@
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
-    <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
+    <None Include="Assets\Spritesheets\Characters\Puns.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

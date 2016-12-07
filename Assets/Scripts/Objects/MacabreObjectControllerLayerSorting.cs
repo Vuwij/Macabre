@@ -77,6 +77,7 @@ namespace Objects
         {
             DetermineSortingLayer2D(collision);
         }
+
         protected virtual void OnTriggerExit2D(Collider2D collision)
         {
             DetermineSortingLayer2D(collision);

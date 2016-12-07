@@ -5,79 +5,57 @@ namespace Objects.Movable
 {
     public abstract partial class MovingObjectController : MacabreObjectController
     {
+        private EllipseCollider2D collisionCircle = null;
+        private EllipseCollider2D proximityCircle = null;
+
         private SpriteRenderer spriteRenderer
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
-        
-        // TODO : Turn these collision/proximity circles into "has a" wrapped object
 
-        // The collision circle for colliding with objects
-        private EllipseCollider2D collisionCircle = null;
+        protected override PolygonCollider2D collisionBox
+        {
+            get { return (PolygonCollider2D)collisionCircle; }
+        }
+        protected override PolygonCollider2D proximityBox
+        {
+            get { return (PolygonCollider2D)proximityCircle; }
+        }
+        
         protected virtual EllipseCollider2D CollisionCircle
         {
             get
             {
                 if (collisionCircle == null)
-                {
-                    collisionCircle = gameObject.AddComponent<EllipseCollider2D>();
                     CreateCollisionCircle();
-                }
                 return collisionCircle;
             }
         }
-        protected override Collider2D collisionBox
-        {
-            get { return collisionCircle; }
-        }
-        protected override Vector2[] SpriteColliderVectices
-        {
-            get
-            {
-                return CollisionCircle.points;
-            }
-        }
-
-        protected virtual void CreateCollisionCircle()
-        {
-            float width = spriteRenderer.sprite.rect.width;
-            CollisionCircle.radiusX = width * 0.25f;
-            CollisionCircle.radiusY = width * 0.125f;
-        }
-
-        // The proximity circle for detecting if objects are nearby
-        private EllipseCollider2D proximityCircle;
         protected virtual EllipseCollider2D ProximityCircle
         {
             get
             {
-                if (proximityCircle == null)
-                {
-                    proximityCircle = gameObject.AddComponent<EllipseCollider2D>();
-                    CreateProximityCircle();
-                }
-                
+                if (proximityCircle == null) CreateProximityCircle();
                 return proximityCircle;
             }
         }
-        protected override Collider2D proximityBox
+        
+        protected virtual void CreateCollisionCircle()
         {
-            get { return proximityCircle; }
-        }
-        protected override Vector2[] SpriteProximityVertices
-        {
-            get
-            {
-                return ProximityCircle.points;
-            }
-        }
-
-        public virtual void CreateProximityCircle()
-        {
-            ProximityCircle.isTrigger = true;
+            if(collisionCircle == null) collisionCircle = gameObject.AddComponent<EllipseCollider2D>();
             float width = spriteRenderer.sprite.rect.width;
-            ProximityCircle.radiusX = width * 3f;
-            ProximityCircle.radiusY = width * 1.5f;
+            collisionCircle.radiusX = width * 0.25f;
+            collisionCircle.radiusY = width * 0.125f;
+        }
+        protected virtual void CreateProximityCircle()
+        {
+            if(proximityCircle == null)
+                proximityCircle = gameObject.AddComponent<EllipseCollider2D>();
+
+            proximityCircle.isTrigger = true;
+            float width = spriteRenderer.sprite.rect.width;
+            proximityCircle.radiusX = width * 3f;
+            proximityCircle.radiusY = width * 1.5f;
         }
     }
 }

@@ -75,7 +75,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Animations\UIWheel.cs" />
     <Compile Include="Assets\Scripts\Conversations\ConversationState.cs" />
     <Compile Include="Assets\Scripts\Conversations\ConversationStateData.cs" />
     <Compile Include="Assets\Scripts\Conversations\ConversationStateEvents.cs" />
@@ -86,24 +85,19 @@
     <Compile Include="Assets\Scripts\Data\Database\DatabaseManagerInspectionDB.cs" />
     <Compile Include="Assets\Scripts\Data\Database\DatabaseManagerItemDB.cs" />
     <Compile Include="Assets\Scripts\Data\Database\DatabaseManagerUtility.cs" />
-    <Compile Include="Assets\Scripts\Data\GameData.cs" />
     <Compile Include="Assets\Scripts\Data\Save.cs" />
     <Compile Include="Assets\Scripts\Data\SaveInfo.cs" />
     <Compile Include="Assets\Scripts\Data\SaveManager.cs" />
-    <Compile Include="Assets\Scripts\Environment\Audio\Audio.cs" />
     <Compile Include="Assets\Scripts\Environment\MainCamera.cs" />
     <Compile Include="Assets\Scripts\Environment\Time\Time.cs" />
     <Compile Include="Assets\Scripts\Environment\Time\TimeController.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
-    <Compile Include="Assets\Scripts\Events\EventAction.cs" />
-    <Compile Include="Assets\Scripts\Events\EventDictionary.cs" />
     <Compile Include="Assets\Scripts\Events\EventKey.cs" />
     <Compile Include="Assets\Scripts\Exceptions\MacabreException.cs" />
     <Compile Include="Assets\Scripts\Exceptions\MacabreUIException.cs" />
     <Compile Include="Assets\Scripts\Extensions\Buttons\SelectableButton.cs" />
     <Compile Include="Assets\Scripts\Extensions\Dictionary.cs" />
     <Compile Include="Assets\Scripts\Extensions\GameObjectExtension.cs" />
-    <Compile Include="Assets\Scripts\Extensions\IEnumerable.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameSettings.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
@@ -141,6 +135,7 @@
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ManorHouse2Controller.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\ManorHouse3Controller.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Buildings\Individual\VineyardController.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\ICustomCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectController.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\InanimateObjectControllerCollision.cs" />
@@ -149,12 +144,12 @@
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Individual\Consumable.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Individual\Key.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Individual\Switch.cs" />
+    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemController.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemControllerCollision.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemControllerInspection.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\ItemType.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Items\Items.cs" />
-    <Compile Include="Assets\Scripts\Objects\Inanimate\Items\item.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Overworld\Overworld.cs" />
     <Compile Include="Assets\Scripts\Objects\Inanimate\Overworld\OverworldMap.cs" />
     <Compile Include="Assets\Scripts\Objects\Inventory\Individual\CharacterInventory.cs" />
@@ -238,7 +233,7 @@
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Scripts\MacabreWorld.cd" />
-    <None Include="Assets\Spritesheets\Jack&apos;s Nonsense\Punames.txt" />
+    <None Include="Assets\Spritesheets\Characters\Puns.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
