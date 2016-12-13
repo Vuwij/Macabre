@@ -17,7 +17,7 @@ namespace Data
         private static bool autoSerialize = GameSettings.autoSerializeGame;
         public static AllSaveInformation allSaveInformation;
         private static Save currentSave;
-
+        
         public static Save CurrentSave
         {
             get {

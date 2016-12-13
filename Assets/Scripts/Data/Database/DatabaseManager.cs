@@ -11,9 +11,29 @@ namespace Data.Database
 {
     public partial class DatabaseManager
     {
-        static IDataReader reader;
-        static IDbConnection dbconn;
-        
+        private class DatabaseConnection
+        {
+            public IDataReader reader;
+            public IDbConnection dbconn;
+
+            ~DatabaseConnection()
+            {
+                if (reader != null) reader.Close();
+                if (dbconn != null) dbconn.Close();
+                if (reader != null) reader.Dispose();
+                if (dbconn != null) dbconn.Dispose();
+                reader = null;
+                dbconn = null;
+            }
+
+        }
+        static DatabaseConnection connection = new DatabaseConnection();
+        static IDataReader reader {
+            get {
+                return connection.reader;
+            }
+        }
+
         // We only use one databse now
         static string MacabreDatabaseLocation
         {
@@ -24,30 +44,20 @@ namespace Data.Database
         {
             string sqliteConnectionString = "URI=file:" + MacabreDatabaseLocation + ",version=3";
              
-            dbconn = new SqliteConnection(sqliteConnectionString);
-            dbconn.Open();
+            connection.dbconn = new SqliteConnection(sqliteConnectionString);
+            connection.dbconn.Open();
         }
         
         static void ExecuteSQLQuery(string query)
         {
             //Debug.Log("SQL: " + query);
-            if (dbconn == null) StartDatabase();
+            if (connection.dbconn == null) StartDatabase();
 
-            using(IDbCommand dbcmd = dbconn.CreateCommand())
+            using(IDbCommand dbcmd = connection.dbconn.CreateCommand())
             {
                 dbcmd.CommandText = query;
-                reader = dbcmd.ExecuteReader();
+                connection.reader = dbcmd.ExecuteReader();
             }
-        }
-
-        public static void CloseConnections()
-        {
-            if(reader != null) reader.Close();
-            if(dbconn != null) dbconn.Close();
-            if(reader != null) reader.Dispose();
-            if(dbconn != null) dbconn.Dispose();
-            reader = null;
-            dbconn = null;
         }
     }
 }

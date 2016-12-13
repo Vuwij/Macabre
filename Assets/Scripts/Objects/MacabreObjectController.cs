@@ -23,6 +23,8 @@ namespace Objects
 
         protected virtual void Start()
         {
+            CreateCollisionCircle();
+            CreateProximityCircle();
             SetupBackEdgeCollider();
         }
     }

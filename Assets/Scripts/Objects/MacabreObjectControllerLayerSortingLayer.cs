@@ -6,14 +6,9 @@ namespace Objects
 {
     public abstract partial class MacabreObjectController : MonoBehaviour {
         
-        // The sorting layer edge for finding the object
-        private EdgeCollider2D sortingLayerEdge
+        protected virtual void SetupBackEdgeCollider()
         {
-            get { return SetupBackEdgeCollider(); }
-        }
-        private EdgeCollider2D SetupBackEdgeCollider()
-        {
-            return GetComponentInChildren<EdgeCollider2D>() ?? CreateBackEdgeCollider();
+            if(GetComponentInChildren<EdgeCollider2D>() == null) CreateBackEdgeCollider();
         }
         
         // The Default BackEdgeCollider

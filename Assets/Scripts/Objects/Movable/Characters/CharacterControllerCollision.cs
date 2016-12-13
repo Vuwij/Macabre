@@ -13,11 +13,12 @@ namespace Objects.Movable.Characters
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
 
-        protected override void CreateCollisionCircle()
+        public override void CreateCollisionCircle()
         {
+            if (collisionCircle == null) collisionCircle = gameObject.AddComponent<EllipseCollider2D>();
             float width = spriteRenderer.sprite.rect.width;
-            CollisionCircle.radiusX = width / 3.0f;
-            CollisionCircle.radiusY = width / 6.0f;
+            collisionCircle.radiusX = width * 0.25f;
+            collisionCircle.radiusY = width * 0.125f;
         }
     }
 }

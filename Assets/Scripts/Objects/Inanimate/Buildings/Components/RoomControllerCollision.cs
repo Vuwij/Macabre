@@ -8,20 +8,8 @@ namespace Objects.Inanimate.Buildings.Components
 {
     public partial class RoomController : InanimateObjectController
     {
-        protected override PolygonCollider2D collisionBox
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        protected override PolygonCollider2D proximityBox
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public override void CreateProximityCircle() { }    // Do not create a proximity circle for the room
+        public override void CreateCollisionCircle() { }    // Do not create a collision circle for the room, already created
+        protected override void SetupBackEdgeCollider() { } //
     }
 }

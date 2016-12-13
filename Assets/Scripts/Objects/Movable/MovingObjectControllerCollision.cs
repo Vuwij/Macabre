@@ -1,12 +1,13 @@
 ﻿using System;
 using UnityEngine;
+using Objects;
 
 namespace Objects.Movable
 {
     public abstract partial class MovingObjectController : MacabreObjectController
     {
-        private EllipseCollider2D collisionCircle = null;
-        private EllipseCollider2D proximityCircle = null;
+        protected EllipseCollider2D collisionCircle = null;
+        protected EllipseCollider2D proximityCircle = null;
 
         private SpriteRenderer spriteRenderer
         {
@@ -15,11 +16,11 @@ namespace Objects.Movable
 
         protected override PolygonCollider2D collisionBox
         {
-            get { return (PolygonCollider2D)collisionCircle; }
+            get { return (PolygonCollider2D)CollisionCircle; }
         }
         protected override PolygonCollider2D proximityBox
         {
-            get { return (PolygonCollider2D)proximityCircle; }
+            get { return (PolygonCollider2D)ProximityCircle; }
         }
         
         protected virtual EllipseCollider2D CollisionCircle
@@ -40,14 +41,14 @@ namespace Objects.Movable
             }
         }
         
-        protected virtual void CreateCollisionCircle()
+        public override void CreateCollisionCircle()
         {
             if(collisionCircle == null) collisionCircle = gameObject.AddComponent<EllipseCollider2D>();
             float width = spriteRenderer.sprite.rect.width;
             collisionCircle.radiusX = width * 0.25f;
             collisionCircle.radiusY = width * 0.125f;
         }
-        protected virtual void CreateProximityCircle()
+        public override void CreateProximityCircle()
         {
             if(proximityCircle == null)
                 proximityCircle = gameObject.AddComponent<EllipseCollider2D>();

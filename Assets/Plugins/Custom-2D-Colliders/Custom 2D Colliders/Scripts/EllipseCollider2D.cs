@@ -5,7 +5,6 @@ using UnityEngine.Internal;
 
 namespace UnityEngine
 {
-
     [AddComponentMenu("Physics 2D/Ellipse Collider 2D")]
     public sealed class EllipseCollider2D : MonoBehaviour
     {
@@ -36,6 +35,7 @@ namespace UnityEngine
         public void Awake()
         {
             polygonCollider = gameObject.AddComponent<PolygonCollider2D>();
+            polygonCollider.points = new Vector2[]{ };
             //polygonCollider.hideFlags = HideFlags.HideInInspector;
         }
 
@@ -68,6 +68,7 @@ namespace UnityEngine
         
         public static implicit operator Collider2D(EllipseCollider2D collider)
         {
+            if (collider.polygonCollider.points.Length == 0) collider.polygonCollider.points = collider.getPoints();
             return collider.polygonCollider;
         }
     }

@@ -13,7 +13,6 @@ public class InventoryTests {
     [SetUp]
     public void SetUp()
     {
-        Data.Database.DatabaseManager.CloseConnections();
         SaveManager.Reset();
         SaveManager.Initialize();
         SaveManager.NewSave("Save Test");
@@ -26,7 +25,6 @@ public class InventoryTests {
     [TearDown]
     public void TearDown()
     {
-        Data.Database.DatabaseManager.CloseConnections();
         UIManager.Find<ConversationDialogue>().Reset();
         UIManager.Find<ConversationDialogue>().TurnOff();
     }

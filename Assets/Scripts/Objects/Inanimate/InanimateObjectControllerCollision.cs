@@ -7,20 +7,20 @@ namespace Objects.Inanimate
 {
    public abstract partial class InanimateObjectController : MacabreObjectController, ICustomCollider
     {
-        private PolygonCollider2D collisionCircle = null;
-        private EllipseCollider2D proximityCircle = null;
+        protected PolygonCollider2D collisionCircle = null;
+        protected EllipseCollider2D proximityCircle = null;
         
-        private SpriteRenderer spriteRenderer
+        protected SpriteRenderer spriteRenderer
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
         protected override PolygonCollider2D collisionBox
         {
-            get { return collisionCircle; }
+            get { return CollisionCircle; }
         }
         protected override PolygonCollider2D proximityBox
         {
-            get { return (PolygonCollider2D)proximityCircle; }
+            get { return (PolygonCollider2D)ProximityCircle; }
         }
 
         private PolygonCollider2D CollisionCircle
@@ -41,13 +41,15 @@ namespace Objects.Inanimate
             }
         }
 
-        public virtual void CreateCollisionCircle()
+        public override void CreateCollisionCircle()
         {
-            if (GetComponent<PolygonCollider2D>() == null) collisionCircle = gameObject.AddComponent<PolygonCollider2D>();
-            if (footprint == null) throw new Exceptions.MacabreException("No Sprite Collider Shape attached to " + name);
-            collisionCircle.points = GetVector2EdgesFromTexture();
+            if (GetComponent<PolygonCollider2D>() == null)
+            {
+                collisionCircle = gameObject.AddComponent<PolygonCollider2D>();
+                if (footprint == null) throw new Exceptions.MacabreException("No Sprite Collider Shape attached to " + name);
+            }
         }
-        public virtual void CreateProximityCircle()
+        public override void CreateProximityCircle()
         {
             if(proximityCircle == null) proximityCircle = gameObject.AddComponent<EllipseCollider2D>();
             proximityCircle.isTrigger = true;
@@ -157,6 +159,5 @@ namespace Objects.Inanimate
 
             return points;
         }
-
     }
 }

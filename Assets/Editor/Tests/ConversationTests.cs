@@ -14,7 +14,6 @@ public class ConversationTests {
     [SetUp]
     public void SetUp()
     {
-        Data.Database.DatabaseManager.CloseConnections();
         SaveManager.Reset();
         SaveManager.Initialize();
         SaveManager.NewSave("Save Test");
@@ -28,7 +27,6 @@ public class ConversationTests {
     public void TearDown()
     {
         Objects.Movable.Characters.CharacterController.conversationState = null;
-        Data.Database.DatabaseManager.CloseConnections();
         UIManager.Find<ConversationDialogue>().Reset();
         UIManager.Find<ConversationDialogue>().TurnOff();
     }

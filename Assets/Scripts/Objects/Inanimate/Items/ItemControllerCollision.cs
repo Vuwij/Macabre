@@ -5,20 +5,20 @@ namespace Objects.Inanimate.Items
 {
     public partial class ItemController : InanimateObjectController {
 
-        private EllipseCollider2D collisionCircle = null;
-        private EllipseCollider2D proximityCircle = null;
+        private new EllipseCollider2D collisionCircle = null;
+        private new EllipseCollider2D proximityCircle = null;
 
-        private SpriteRenderer spriteRenderer
+        private new SpriteRenderer spriteRenderer
         {
             get { return GetComponentInChildren<SpriteRenderer>(); }
         }
         protected override PolygonCollider2D collisionBox
         {
-            get { return (PolygonCollider2D)collisionCircle; }
+            get { return (PolygonCollider2D)CollisionCircle; }
         }
         protected override PolygonCollider2D proximityBox
         {
-            get { return (PolygonCollider2D)proximityCircle; }
+            get { return (PolygonCollider2D)ProximityCircle; }
         }
         
         private EllipseCollider2D CollisionCircle

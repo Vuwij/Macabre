@@ -2,6 +2,9 @@
 using UnityEngine;
 using System.Collections;
 using Exceptions;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Objects.Inanimate.Buildings.Components.Path
 {
@@ -15,6 +18,12 @@ namespace Objects.Inanimate.Buildings.Components.Path
             }
         }
 
+        [SerializeField]
+        public RoomController destination;
+
+        // Find the closest offset to enter into
+        public Vector2 offset;
+
         public RoomController room
         {
             get
@@ -24,5 +33,13 @@ namespace Objects.Inanimate.Buildings.Components.Path
                 return room;
             }
         }
+
+#if UNITY_EDITOR
+        void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawIcon(transform.position + (Vector3)offset, "Light Gizmo.tiff", true);
+        }
+#endif
     }
 }

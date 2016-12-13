@@ -18,7 +18,11 @@ namespace Objects
         
         // This property is visible in inspector (used to create the collision box)
         public Texture2D footprint;
-        
+
+        // Abstract creates of the collision and proximity
+        public abstract void CreateCollisionCircle();
+        public abstract void CreateProximityCircle();
+
         // The Collider and Proximity Boxfor the object
         protected abstract PolygonCollider2D collisionBox { get; }
         protected abstract PolygonCollider2D proximityBox { get; }

@@ -8,8 +8,9 @@ namespace Objects.Inanimate.Buildings.Components
 
     public partial class RoomController : InanimateObjectController
     {
-        [SerializeField]
-        public VirtualPathController[] paths;
-        
+        public VirtualPathController[] paths
+        {
+            get { return GetComponentsInChildren<VirtualPathController>(); }
+        }
     }
 }
