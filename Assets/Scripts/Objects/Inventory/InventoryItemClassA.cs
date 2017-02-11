@@ -44,7 +44,7 @@ namespace Objects.Inventory
 
             // If a combination could be found
             if (a.count == 1 && b.count == 1)
-                combined = DatabaseManager.ItemDB.FindCombination(a.items[0].item, b.items[0].item);
+                combined = DatabaseConnection.ItemDB.FindCombination(a.items[0].item, b.items[0].item);
 
             if (combined != null)
             {

@@ -30,7 +30,7 @@ namespace Data.Database {
     /// <summary>
     /// Partial class for the Database Manager - Conversation
     /// </summary>
-    public static partial class DatabaseManager
+    public partial class DatabaseConnection
     {
         public static class ConversationDB
         {
@@ -45,8 +45,8 @@ namespace Data.Database {
                 // Select all conversations with no prerequisites
                 ExecuteSQLQuery("SELECT * FROM " + table + @" WHERE StateName LIKE 'S%' OR StateName LIKE 's%'");
 
-                // Fill in the information with the reader row
-                UpdateStateWithRow(reader, conversationStateToUpdate);
+                // Fill in the information with the Reader row
+                UpdateStateWithRow(Reader, conversationStateToUpdate);
             }
 
             // When you found a response, just update the table
@@ -57,25 +57,25 @@ namespace Data.Database {
                 // Execute the query
                 ExecuteSQLQuery("SELECT * FROM " + table + @" WHERE StateName LIKE '" + stateName + "'");
 
-                // Fill in the information with the reader row
-                UpdateStateWithRow(reader, conversationStateToUpdate);
+                // Fill in the information with the Reader row
+                UpdateStateWithRow(Reader, conversationStateToUpdate);
             }
 
-            private static void UpdateStateWithRow(IDataReader reader, ConversationState s)
+            private static void UpdateStateWithRow(IDataReader Reader, ConversationState s)
             {
-                reader.Read();
-                if (reader.IsDBNull(0)) return;
-                s.stateName = reader.GetString(0);
-                s.addStates = DatabaseManager.Utility.StringToStringList(reader.GetString(1));
-                s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == reader.GetString(2));
-                s.dialogue = reader.GetString(3);
+                Reader.Read();
+                if (Reader.IsDBNull(0)) return;
+                s.stateName = Reader.GetString(0);
+                s.addStates = DatabaseConnection.Utility.StringToStringList(Reader.GetString(1));
+                s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == Reader.GetString(2));
+                s.dialogue = Reader.GetString(3);
 
                 // TODO Link action with string
-                //ParseActionString(reader.GetString(4));
+                //ParseActionString(Reader.GetString(4));
 
-                s.addEvents = reader.GetString(5);
-                s.removeEvents = reader.GetString(6);
-                s.requireEvents = reader.GetString(7);
+                s.addEvents = Reader.GetString(5);
+                s.removeEvents = Reader.GetString(6);
+                s.requireEvents = Reader.GetString(7);
             }
         }
     }

@@ -25,7 +25,7 @@ namespace Objects.Inanimate.Buildings.Components.Path
 
             // Find the closest door and move to the closest door
             var destinationDoor = destination.paths.OrderBy(x => Vector2.Distance(x.transform.position, transform.position));
-            characterController.character.position = destinationDoor.First().transform.position;
+            characterController.transform.position = (Vector2) destinationDoor.First().transform.position + destinationDoor.First().offset;
 
             UIManager.Find<DarkScreen>().TurnOff();
         }

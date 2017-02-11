@@ -19,7 +19,7 @@ namespace Objects.Inanimate.Items
         public Item(string name)
         {
             this.name = name;
-            DatabaseManager.ItemDB.UpdateItemInfo(this);
+            DatabaseConnection.ItemDB.UpdateItemInfo(this);
         }
 
         public void Drop() { throw new NotImplementedException(); }

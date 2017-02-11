@@ -31,5 +31,11 @@ namespace Objects.Inanimate.Buildings.Components.Furniture
                 throw new NotImplementedException();
             }
         }
+
+        protected override void SetupBackEdgeCollider()
+        {
+            // No back edge collider for furniture
+        }
+
     }
 }

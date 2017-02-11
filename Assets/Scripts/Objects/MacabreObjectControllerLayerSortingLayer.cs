@@ -8,7 +8,8 @@ namespace Objects
         
         protected virtual void SetupBackEdgeCollider()
         {
-            if(GetComponentInChildren<EdgeCollider2D>() == null) CreateBackEdgeCollider();
+            if (GetComponentInChildren<EdgeCollider2D>() != null) return;
+            CreateBackEdgeCollider();
         }
         
         // The Default BackEdgeCollider

@@ -9,55 +9,58 @@ using Mono.Data.SqliteClient;
 
 namespace Data.Database
 {
-    public partial class DatabaseManager
+    public partial class DatabaseConnection
     {
-        private class DatabaseConnection
+        public static DatabaseConnection main;
+
+        public IDataReader reader;
+        public IDbConnection dbconn;
+
+        public DatabaseConnection()
         {
-            public IDataReader reader;
-            public IDbConnection dbconn;
+            string sqliteConnectionString = "URI=file:" + MacabreDatabaseLocation + ",version=3";
 
-            ~DatabaseConnection()
+            dbconn = new SqliteConnection(sqliteConnectionString);
+            dbconn.Open();
+        }
+
+        ~DatabaseConnection()
+        {
+            if (reader != null) reader.Close();
+            if (dbconn != null) dbconn.Close();
+            if (reader != null) reader.Dispose();
+            if (dbconn != null) dbconn.Dispose();
+            reader = null;
+            dbconn = null;
+        }
+        
+        public void ExecuteSQL(string query)
+        {
+            using (IDbCommand dbcmd = dbconn.CreateCommand())
             {
-                if (reader != null) reader.Close();
-                if (dbconn != null) dbconn.Close();
-                if (reader != null) reader.Dispose();
-                if (dbconn != null) dbconn.Dispose();
-                reader = null;
-                dbconn = null;
-            }
-
-        }
-        static DatabaseConnection connection = new DatabaseConnection();
-        static IDataReader reader {
-            get {
-                return connection.reader;
+                dbcmd.CommandText = query;
+                reader = dbcmd.ExecuteReader();
             }
         }
 
-        // We only use one databse now
         static string MacabreDatabaseLocation
         {
             get { return SaveManager.CurrentSave.databaseLocation; }
         }
 
-        static void StartDatabase()
+        static IDataReader Reader
         {
-            string sqliteConnectionString = "URI=file:" + MacabreDatabaseLocation + ",version=3";
-             
-            connection.dbconn = new SqliteConnection(sqliteConnectionString);
-            connection.dbconn.Open();
+            get
+            {
+                if (main == null) main = new DatabaseConnection();
+                return main.reader;
+            }
         }
-        
+
         static void ExecuteSQLQuery(string query)
         {
-            //Debug.Log("SQL: " + query);
-            if (connection.dbconn == null) StartDatabase();
-
-            using(IDbCommand dbcmd = connection.dbconn.CreateCommand())
-            {
-                dbcmd.CommandText = query;
-                connection.reader = dbcmd.ExecuteReader();
-            }
+            if (main == null) main = new DatabaseConnection();
+            main.ExecuteSQL(query);
         }
     }
 }

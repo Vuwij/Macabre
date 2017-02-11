@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace Objects.Inanimate.Buildings.Components.Path
 {
-    public partial class VirtualPathController : InanimateObjectController
+    public partial class VirtualPathController : InanimateObjectController, IOffsetable
     {
         protected override MacabreObject model
         {
@@ -23,6 +23,11 @@ namespace Objects.Inanimate.Buildings.Components.Path
 
         // Find the closest offset to enter into
         public Vector2 offset;
+        public Vector2 newPosition
+        {
+            get { return (Vector2) transform.position + newPosition; }
+        }
+
 
         public RoomController room
         {

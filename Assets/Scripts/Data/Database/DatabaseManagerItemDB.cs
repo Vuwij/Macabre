@@ -9,7 +9,7 @@ using Objects.Inanimate.Items;
 
 namespace Data.Database
 {
-    public partial class DatabaseManager
+    public partial class DatabaseConnection
     {
         public static class ItemDB
         {
@@ -40,14 +40,14 @@ namespace Data.Database
 
                 ExecuteSQLQuery("select * from " + itemTable + " where Name is '" + name + "'");
 
-                if(reader.Read())
+                if(Reader.Read())
                 {
                     return new Item
                     {
-                        ID = reader.GetInt32(0),
-                        name = reader.GetString(1),
-                        description = reader.GetString(2),
-                        attributes = Utility.StringToStringArray(reader.GetString(3))
+                        ID = Reader.GetInt32(0),
+                        name = Reader.GetString(1),
+                        description = Reader.GetString(2),
+                        attributes = Utility.StringToStringArray(Reader.GetString(3))
                     };
                 }
                 throw new UnityException("Item " + name + " not found in the database");
@@ -63,14 +63,14 @@ namespace Data.Database
 
                 ExecuteSQLQuery("select * from " + itemTable + " where ID is '" + id + "'");
 
-                if (reader.Read())
+                if (Reader.Read())
                 {
                     return new Item
                     {
-                        ID = reader.GetInt32(0),
-                        name = reader.GetString(1),
-                        description = reader.GetString(2),
-                        attributes = Utility.StringToStringArray(reader.GetString(3))
+                        ID = Reader.GetInt32(0),
+                        name = Reader.GetString(1),
+                        description = Reader.GetString(2),
+                        attributes = Utility.StringToStringArray(Reader.GetString(3))
                     };
                 }
                 throw new UnityException("Item " + id + " not found in the database");
@@ -86,12 +86,12 @@ namespace Data.Database
                 
                 // Search both ways
                 ExecuteSQLQuery("select * from Items_Combine where ItemID1 is " + a.ID + " and ItemID2 is " + b.ID);
-                if (reader.Read())
-                    finalItemID = reader.GetInt32(0);
+                if (Reader.Read())
+                    finalItemID = Reader.GetInt32(0);
 
                 ExecuteSQLQuery("select * from Items_Combine where ItemID1 is " + b.ID + " and ItemID2 is " + a.ID);
-                if (reader.Read())
-                    finalItemID = reader.GetInt32(0);
+                if (Reader.Read())
+                    finalItemID = Reader.GetInt32(0);
 
                 // If not found
                 if (finalItemID == -1) return null;

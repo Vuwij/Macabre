@@ -9,9 +9,9 @@ using Mono.Data.SqliteClient;
 
 namespace Data.Database
 {
-    public partial class DatabaseManager
+    public partial class DatabaseConnection
     {
-        public class Utility
+        public static class Utility
         {
             // Return a list of integers
             public static List<int> StringToIntList(string str)
@@ -40,12 +40,6 @@ namespace Data.Database
             {
                 String[] stringArray = str.Split(',');
                 return new List<string>(stringArray);
-            }
-            
-            public static string getReaderString(int col)
-            {
-                if (reader.IsDBNull(col)) return "";
-                return reader.GetString(col);
             }
 
             private static Regex numRegex = new Regex("[0-9]{1,}");
