@@ -8,16 +8,16 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-using Environment.Time;
-using Objects.Inanimate.World;
+using Environment;
+using Objects.Unmovable;
 using System.Linq;
 
 namespace Data
 {
     public class Save
     {
-        public static string saveURI = Application.dataPath + "/Databases/Saves";
-        public static string masterURI = Application.dataPath + "/Databases/Master";
+        public static string saveURI = Application.dataPath + "/GameData/Saves";
+        public static string masterURI = Application.dataPath + "/GameData/Master";
 
         // Save information auto increments
         public System.DateTime time;

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using Objects.Inanimate.Items;
+using Objects.Unmovable.Items;
 
 namespace Objects.Inventory {
 

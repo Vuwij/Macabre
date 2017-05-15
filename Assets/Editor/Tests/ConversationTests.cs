@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using UnityEditor;
-using NUnit.Framework;
-using Conversations;
+﻿using System.Text;
+using Conversation;
 using Data;
-using System.Text;
+using NUnit.Framework;
 using Objects.Movable.Characters;
 using UI;
 using UI.Dialogues;
+using UnityEditor;
+using UnityEngine;
 using T = System.Diagnostics.Trace;
 
 public class ConversationTests {

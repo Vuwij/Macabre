@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using Environment;
-using Environment.Time;
 using System;
 using Data;
 using Objects;
-using Objects.Inanimate.Items;
-using Objects.Inanimate.World;
-using Objects.Inanimate.Buildings;
+using Objects.Unmovable.Items;
+using Objects.Unmovable;
+using Objects.Unmovable.Building;
 using Objects.Movable.Characters;
 using System.Runtime.Serialization;
 /**
@@ -21,7 +20,10 @@ public class MacabreWorld
     [IgnoreDataMember]
     public static MacabreWorld current
     {
-        get { return SaveManager.CurrentSave.world; }
+        get {
+			if(SaveManager.CurrentSave == null) return null;
+			return SaveManager.CurrentSave.world; 
+		}
     }
 
     // The overworld contains the world background and natural elements
@@ -38,7 +40,7 @@ public class MacabreWorld
 
     // The gameclock contains informations about the date and time
     [DataMember(IsRequired = true, Order = 3)]
-    public Environment.Time.Time gameTime = new Environment.Time.Time();
+    public Environment.Time gameTime = new Environment.Time();
 
     // The characters is the one you want to 
     [DataMember(IsRequired = true, Order = 4)]

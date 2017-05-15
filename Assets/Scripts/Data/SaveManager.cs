@@ -120,7 +120,7 @@ namespace Data
         {
             get
             {
-                return Application.dataPath + "/Databases/SaveInfo.xml";
+                return Application.dataPath + "/GameData/SaveInfo.xml";
             }
         }
         

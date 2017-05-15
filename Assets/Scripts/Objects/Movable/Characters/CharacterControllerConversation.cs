@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-using Conversations;
+using Conversation;
 using Data;
 using Data.Database;
 

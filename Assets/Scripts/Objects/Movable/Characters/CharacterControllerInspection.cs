@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using Conversations;
+using Conversation;
 using System.Linq;
-using Objects.Inanimate.Items;
+using Objects.Unmovable.Items;
 
 namespace Objects.Movable.Characters
 {

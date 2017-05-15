@@ -46,15 +46,6 @@ namespace Environment
             }
         }
 
-        public static void TeleportToPlayer()
-        {
-            Vector3 newPosition = new Vector3(
-                main.playerPosition.x,
-                main.playerPosition.y,
-                -10);
-            main.transform.position = newPosition;
-        }
-
         private void FollowPlayer()
         {
             // Set the destination accordingly to the player according to the current object floor

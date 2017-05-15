@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections;
 using System.IO;
 using Objects;
-using Objects.Inanimate;
+using Objects.Unmovable;
 
 public class MacabreFootprint : EditorWindow {
     

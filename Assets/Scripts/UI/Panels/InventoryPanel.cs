@@ -8,7 +8,7 @@ using Objects.Movable.Characters;
 using UI.Panels.Inventory;
 using Exceptions;
 using Data.Database;
-using Objects.Inanimate.Items;
+using Objects.Unmovable.Items;
 
 namespace UI.Panels
 {

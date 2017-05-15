@@ -76,5 +76,18 @@ namespace UI
                 return currentPanelStack.Peek();
             }
         }
+
+		#region Utility
+		public static bool FadeBackground
+		{
+			set
+			{
+				if (value == true)
+					Find<DarkScreen>().TurnOn();
+				else
+					Find<DarkScreen>().TurnOff();
+			}
+		}
+		#endregion
     }
 }

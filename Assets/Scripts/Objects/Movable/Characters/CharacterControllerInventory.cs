@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Linq;
-using Objects.Inanimate.Items;
+using Objects.Unmovable.Items;
 using Objects.Inventory;
 using Objects.Inventory.Individual;
 

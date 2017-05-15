@@ -1,4 +1,4 @@
-﻿using Objects.Inanimate.Items;
+﻿using Objects.Unmovable.Items;
 using System;
 
 namespace Objects.Inventory

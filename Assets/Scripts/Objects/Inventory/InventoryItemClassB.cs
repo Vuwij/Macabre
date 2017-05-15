@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using Data.Database;
 
-using Objects.Inanimate.Items;
+using Objects.Unmovable.Items;
 
 namespace Objects.Inventory
 {

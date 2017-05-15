@@ -36,7 +36,7 @@ namespace Objects.Movable.Characters
         // The child object is the one that contains the sprite
         private GameObject childObject
         {
-            get { return gameObject.transform.FindChild(gameObject.name + "Sprite").gameObject; }
+            get { return gameObject.transform.Find(gameObject.name + "Sprite").gameObject; }
         }
         
         // What is called when the character gets loaded
