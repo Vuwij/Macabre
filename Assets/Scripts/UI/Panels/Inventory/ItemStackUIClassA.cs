@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Objects.Inventory;
-using Exceptions;
 
 namespace UI.Panels.Inventory
 {
@@ -22,7 +21,7 @@ namespace UI.Panels.Inventory
             set {
                 Text t = imageParent.GetComponentInChildren<Text>();
 
-                if (value >= 4 || value < 0) throw new MacabreException("Inventory stack invalid value");
+                if (value >= 4 || value < 0) throw new UnityException("Inventory stack invalid value");
                 if (value == 0)
                     t.text = "";
                 else

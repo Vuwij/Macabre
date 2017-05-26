@@ -9,7 +9,7 @@ namespace Objects.Inventory.Individual
 
         public void Drop(InventoryItem iitem)
         {
-            List<ItemController> individualItems = new List<ItemController>();
+            List<Item> individualItems = new List<Item>();
             if (iitem is InventoryItemClassA)
             {
                 individualItems.AddRange((iitem as InventoryItemClassA).items);

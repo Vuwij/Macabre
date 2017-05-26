@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Objects.Unmovable.Items
 {
-	public class Key : ItemController
+	public class Key : Item
 	{
 		public int keyCode;
 	}

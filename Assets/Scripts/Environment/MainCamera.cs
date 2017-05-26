@@ -23,9 +23,9 @@ namespace Environment
         private Vector2 playerPosition
         {
             get {
-                if (Characters.playerController != null)
-                    return Characters.playerController.transform.position;
-                return Vector2.zero;
+				var player = GameObject.Find("PlayerController").GetComponentInChildren<Player>();
+				if(player != null) return player.transform.position;
+                else return Vector2.zero;
             }
         }
         private Vector2 cameraPosition
@@ -39,10 +39,9 @@ namespace Environment
         {
             get
             {
-                if (Characters.playerController != null)
-                    return Characters.playerController.movementSpeed;
-                else
-                    return GameSettings.cameraSpeed;
+				var player = GameObject.Find("PlayerController").GetComponentInChildren<Player>();
+				if(player != null) return player.movementSpeed;
+				else return GameSettings.cameraSpeed;
             }
         }
 
@@ -61,7 +60,7 @@ namespace Environment
             while ((destination - cameraPosition).sqrMagnitude > 0.01f)
             {
                 // Stop if game is paused
-                if (GameManager.gamePaused) yield break;
+				if (Game.main.gamePaused) yield break;
 
                 // Move the camera to the desntiatoin
                 Vector2 delta = Vector2.MoveTowards(cameraPosition, destination, UnityEngine.Time.deltaTime * CameraSpeed * 0.005f);

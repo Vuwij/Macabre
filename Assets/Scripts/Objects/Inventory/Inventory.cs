@@ -18,7 +18,7 @@ namespace Objects.Inventory {
         }
 
         // Automatically add an item to inventory
-		public virtual bool Add(ItemController item) {
+		public virtual bool Add(Item item) {
 
             if (item.type == ItemType.InventoryItemClassB)
             {

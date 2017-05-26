@@ -10,10 +10,10 @@ namespace Objects.Inventory
 {
     public class InventoryItemClassB : InventoryItem
     {
-        public ItemController item;
+        public Item item;
         
         // Contructor for converting objects on the ground
-        public InventoryItemClassB(ItemController item, Inventory inventory) : base(item, inventory)
+        public InventoryItemClassB(Item item, Inventory inventory) : base(item, inventory)
         {
             this.item = item;
         }

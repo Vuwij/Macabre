@@ -79,10 +79,5 @@ namespace Environment
         {
             return "Time: Week " + week + ", " + day + ", Hour " + hour.ToString("D2") + ":" + minute.ToString("D2") + ":" + second.ToString("D2") + " " + cycle;
         }
-
-        public void PrintTime()
-        {
-            Debug.Log(ToString());
-        }
     }
 }

@@ -9,10 +9,10 @@ public class MacabreWorldLoadTests {
     [SetUp]
     public void SetUp()
     {
-        SaveManager.Reset();
-        SaveManager.Initialize();
-        SaveManager.NewSave("Save Test");
-        Assert.IsNotNull(MacabreWorld.current);
+        Saves.Reset();
+        Saves.Initialize();
+        Saves.New("Save Test");
+        Assert.IsNotNull(World.current);
     }
 
     [TearDown]
@@ -23,9 +23,9 @@ public class MacabreWorldLoadTests {
     [Test]
     public void LoadingTestOverworld()
     {
-        SaveManager.OnApplicationQuit();
-        SaveManager.LoadSave("Save Test");
-        SaveManager.OnApplicationQuit();
+        Saves.OnApplicationQuit();
+        Saves.Load("Save Test");
+        Saves.OnApplicationQuit();
     }
 
     [Test]

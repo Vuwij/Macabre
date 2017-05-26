@@ -2,8 +2,9 @@
 
 namespace Objects
 {
-    interface IInspectable
+	// This interface tells you an object can be inspected
+	interface IInspectable
     {
-        void InspectionAction(MacabreObjectController controller, RaycastHit2D hit);
+        void InspectionAction(Object controller, RaycastHit2D hit);
     }
 }

@@ -27,13 +27,7 @@ namespace UI.Dialogues
         
         public static void Warning(string message, List<Button> warningButtons)
         {
-            WarningDialogue warning = UIManager.Find<WarningDialogue>();
-            warning.TurnOn();
-        }
-        public void TurnOn(string message, List<Button> warningButtons)
-        {
-            // TODO : Finish the warning dialogue information
-            throw new NotImplementedException();
+            WarningDialogue warning = Game.main.UI.Find<WarningDialogue>();
         }
     }
 }

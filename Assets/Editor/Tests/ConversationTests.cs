@@ -14,10 +14,10 @@ public class ConversationTests {
     [SetUp]
     public void SetUp()
     {
-        SaveManager.Reset();
-        SaveManager.Initialize();
-        SaveManager.NewSave("Save Test");
-        Assert.IsNotNull(MacabreWorld.current);
+        Saves.Reset();
+        Saves.Initialize();
+        Saves.New("Save Test");
+        Assert.IsNotNull(World.current);
 
         //foreach (var character in MacabreWorld.current.characters.characterControllers)
         //    Debug.Log(character.name);
@@ -27,8 +27,8 @@ public class ConversationTests {
     public void TearDown()
     {
         Objects.Movable.Characters.CharacterController.conversationState = null;
-        UIManager.Find<ConversationDialogue>().Reset();
-        UIManager.Find<ConversationDialogue>().TurnOff();
+        UI.Find<ConversationDialogue>().Reset();
+        UI.Find<ConversationDialogue>().TurnOff();
     }
 
     [Test]
@@ -36,7 +36,7 @@ public class ConversationTests {
 	{
         //Arrange
         Debug.Log("Initializing Conversation");
-        Objects.Movable.Characters.CharacterController c = MacabreWorld.current.characters.characterControllers.Find(x => x.name.Contains("Innkeeper"));
+        Objects.Movable.Characters.CharacterController c = World.current.characters.characterControllers.Find(x => x.name.Contains("Innkeeper"));
 
         //Act
         c.Dialogue().Print();           // Hello stranger How may I help you
@@ -77,7 +77,7 @@ public class ConversationTests {
     {
         //Arrange
         Debug.Log("Initializing Conversation");
-        Objects.Movable.Characters.CharacterController c = MacabreWorld.current.characters.characterControllers.Find(x => x.name.Contains("Innkeeper"));
+        Objects.Movable.Characters.CharacterController c = World.current.characters.characterControllers.Find(x => x.name.Contains("Innkeeper"));
 
         //Act
         Assert.True(c.Dialogue().conversationViewStatus == ConversationViewStatus.CharacterResponse);
@@ -119,7 +119,7 @@ public class ConversationTests {
     {
         //Arrange
         Debug.Log("Initializing Conversation");
-        Objects.Movable.Characters.CharacterController c = MacabreWorld.current.characters.characterControllers.Find(x => x.name.Contains("Pardoner"));
+        Objects.Movable.Characters.CharacterController c = World.current.characters.characterControllers.Find(x => x.name.Contains("Pardoner"));
 
         //Act
         c.Dialogue().Print();           // You look troubled
@@ -143,7 +143,7 @@ public class ConversationTests {
     {
         //Arrange
         Debug.Log("Initializing Conversation");
-        Objects.Movable.Characters.CharacterController c = MacabreWorld.current.characters.characterControllers.Find(x => x.name.Contains("GrannyGood"));
+        Objects.Movable.Characters.CharacterController c = World.current.characters.characterControllers.Find(x => x.name.Contains("GrannyGood"));
 
         //Act
         c.Dialogue().Print();           // You look troubled

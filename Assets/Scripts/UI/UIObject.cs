@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using Extensions;
-using Exceptions;
 
 // This class manages everything UI related
 namespace UI
@@ -27,7 +25,7 @@ namespace UI
         
         private Stack<UIObject> currentPanelStack
         {
-            get { return UIManager.currentPanelStack; }
+			get { return Game.main.UI.currentPanelStack; }
         }
 
         public virtual void TurnOn()
@@ -41,7 +39,7 @@ namespace UI
 
         public virtual void TurnOff()
         {
-            if (UIManager.CurrentPanel != null && UIManager.CurrentPanel != this) throw new MacabreUIException("Current Panel " + name + " is not the top on stack");
+			if (Game.main.UI.CurrentPanel != null && Game.main.UI.CurrentPanel != this) throw new UnityException("Current Panel " + name + " is not the top on stack");
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;

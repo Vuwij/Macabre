@@ -7,19 +7,21 @@ using Objects.Unmovable.Path;
 
 namespace Objects.Unmovable.Building
 {
-    public class Building : UnmovableObject
+    public abstract partial class Building : UnmovableObject
     {
 		public List<AbstractFurniture> furniture = new List<AbstractFurniture>();
-        public List<VirtualPathController> path = new List<VirtualPathController>();
+		public List<VirtualPath> path = new List<VirtualPath>();
 
-        public Building(string name)
-        {
-            this.name = name;
-        }
-        
-        public override void CreateCollisionBox()
-        {
-            throw new NotImplementedException();
-        }
+		#region Rooms
+
+		public virtual List<RoomController> Rooms
+		{
+			get
+			{
+				return gameObject.GetComponentsInChildren<RoomController>().ToList();
+			}
+		}
+
+		#endregion
     }
 }

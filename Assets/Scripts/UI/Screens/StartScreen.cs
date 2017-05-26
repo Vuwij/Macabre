@@ -24,7 +24,7 @@ namespace UI.Screens
             SceneManager.GetActiveScene();
 
             // New save creates all the events and information on the game
-            SaveManager.NewSave();
+            Saves.New();
         }
 
         public void ContinueGame()
@@ -36,7 +36,7 @@ namespace UI.Screens
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
 
             // Loads the save from the information
-            SaveManager.LoadSave(SaveManager.allSaveInformation.lastSaveUsed);
+//            Saves.Load(Saves.allSaveInformation.lastSaveUsed);
         }
 
         // TODO Quit Game and Open Settings

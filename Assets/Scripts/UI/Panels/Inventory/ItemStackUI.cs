@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using System.Linq;
 using System.Collections.Generic;
-using Exceptions;
 
 namespace UI.Panels.Inventory
 {
@@ -51,7 +50,7 @@ namespace UI.Panels.Inventory
                     currentlySelected.Enqueue(this);
                 }
             }
-            else if (currentlySelected.Count > 2) throw new MacabreException("Cannot have more than 2 items selected");
+			else if (currentlySelected.Count > 2) throw new UnityException("Cannot have more than 2 items selected");
         }
 
         public void Unhighlight()

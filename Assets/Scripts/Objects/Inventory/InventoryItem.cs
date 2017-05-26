@@ -7,7 +7,7 @@ namespace Objects.Inventory
     {
         public Inventory inventory;
 
-        public InventoryItem(ItemController itemController, Inventory inventory)
+        public InventoryItem(Item itemController, Inventory inventory)
         {
             this.inventory = inventory;
         }

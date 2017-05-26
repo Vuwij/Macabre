@@ -2,39 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Exceptions;
 using Objects.Unmovable.Building;
 using Objects.Unmovable.Furniture;
 using Objects.Unmovable.Path;
 
 namespace Objects.Unmovable
 {
-    public class RoomController : UnmovableObjectController
+    public class RoomController : UnmovableObject
     {
-        protected override MacabreObject model
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
 		// The Parent Building Controller
-        public BuildingController buildingController
+		public Building.Building buildingController
         {
             get
             {
-                var room = GetComponentInParent<BuildingController>();
-                if (room == null) throw new MacabreException("Room not specified for the furniture: " + name);
+				var room = GetComponentInParent<Building.Building>();
+				if (room == null) throw new Exception("Room not specified for the furniture: " + name);
                 return room;
             }
         }
 
 		#region Paths
 
-		public VirtualPathController[] paths
+		public VirtualPath[] paths
 		{
-			get { return GetComponentsInChildren<VirtualPathController>(); }
+			get { return GetComponentsInChildren<VirtualPath>(); }
 		}
 
 		#endregion

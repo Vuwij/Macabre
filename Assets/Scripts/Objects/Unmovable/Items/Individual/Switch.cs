@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Objects.Unmovable.Items
 {
-	public class Switch : ItemController
+	public class Switch : Item
 	{
 		public int keyCode;
 	}

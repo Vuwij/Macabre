@@ -45,7 +45,7 @@ namespace Data.Database
 
         static string MacabreDatabaseLocation
         {
-            get { return SaveManager.CurrentSave.databaseLocation; }
+			get { return Game.main.saves.current.database; }
         }
 
         static IDataReader Reader

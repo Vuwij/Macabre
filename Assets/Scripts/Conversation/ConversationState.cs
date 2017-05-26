@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Data.Database;
-using Exceptions;
 using Objects.Movable.Characters;
 using Objects.Movable.Characters.Individuals;
 using UI;
@@ -12,17 +11,12 @@ using UnityEngine;
 
 namespace Conversation
 {
-    // Contains the current state and controller to the next state
     public class ConversationState
     {
 		#region State Logic
 
 		// The characters and character controller remains the same for each conversation
-        public Objects.Movable.Characters.CharacterController characterController;
-        private Character character
-        {
-            get { return characterController.character; }
-        }
+        public Character character;
 
         // A single previous State
         private ConversationState previousState;
@@ -37,7 +31,7 @@ namespace Conversation
 
                 foreach(string stateName in addStates)
                 {
-                    ConversationState s = new ConversationState(characterController, this, stateName);
+                    ConversationState s = new ConversationState(character, this, stateName);
                     next.Add(s);
                 }
                 return next;
@@ -45,9 +39,9 @@ namespace Conversation
         }
         
         // Creates a conversation for the speaker
-        public ConversationState(Objects.Movable.Characters.CharacterController speakerController, ConversationState previousState = null, string stateName = "")
+        public ConversationState(Objects.Movable.Characters.Character speakerController, ConversationState previousState = null, string stateName = "")
         {
-            this.characterController = speakerController;
+            this.character = speakerController;
             this.previousState = previousState;
             if (previousState == null)
             {
@@ -85,12 +79,8 @@ namespace Conversation
 		// From the database information
 		public string stateName;
 		public string[] addStates;
-		public Objects.Movable.Characters.CharacterController currentSpeaker;
+		public Objects.Movable.Characters.Character currentSpeaker;
 		public string dialogue;
-
-		public delegate void Action();
-		//public event Action action;
-
 		public string addEvents;
 		public string removeEvents;
 		public string requireEvents;
@@ -147,12 +137,12 @@ namespace Conversation
 
 		#region Actions
 
-		private List<Objects.Movable.Characters.CharacterController> AllCharactersInConversation
+		private List<Objects.Movable.Characters.Character> AllCharactersInConversation
 		{
 			get { return FindAllCharactersInConversation(this).Distinct().ToList(); }
 		}
 
-		private IEnumerable<Objects.Movable.Characters.CharacterController> FindAllCharactersInConversation(ConversationState root)
+		private IEnumerable<Objects.Movable.Characters.Character> FindAllCharactersInConversation(ConversationState root)
 		{
 			yield return currentSpeaker;
 			foreach (ConversationState next in root.nextStates)
@@ -162,13 +152,13 @@ namespace Conversation
 
 		private void LockAllCharacterPosition()
 		{
-			foreach (Objects.Movable.Characters.CharacterController character in AllCharactersInConversation)
+			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation)
 				character.LockMovement();
 		}
 
 		private void UnlockAllCharacterPosition()
 		{
-			foreach (Objects.Movable.Characters.CharacterController character in AllCharactersInConversation)
+			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation)
 				character.UnlockMovement();
 		}
 
@@ -182,7 +172,7 @@ namespace Conversation
 		{
 			if (previousState == null)
 			{
-				if (currentSpeaker.character is Player) conversationViewStatus = ConversationViewStatus.PlayerResponse;
+				if (currentSpeaker is Player) conversationViewStatus = ConversationViewStatus.PlayerResponse;
 				else conversationViewStatus = ConversationViewStatus.CharacterResponse;
 			}
 			else conversationViewStatus = IdentifyCurrentViewFromPreviousState(previousState);
@@ -192,14 +182,14 @@ namespace Conversation
 		{
 			if (previousState.addStates.Count() == 0) return ConversationViewStatus.Empty;
 			if (previousState.addStates.Count() > 1) return ConversationViewStatus.PlayerMultipleReponse;
-			if (previousState.currentSpeaker is PlayerController)
+			if (previousState.currentSpeaker is Player)
 				return ConversationViewStatus.CharacterResponse;
 			else return ConversationViewStatus.PlayerResponse;
 		}
 
 		public static void DisplayState(ConversationState convo)
 		{
-			var conversationDialogue = UIManager.Find<ConversationDialogue>();
+			var conversationDialogue = Game.main.UI.Find<ConversationDialogue>();
 
 			if (convo == null)
 			{

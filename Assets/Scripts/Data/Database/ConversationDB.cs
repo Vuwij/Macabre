@@ -67,7 +67,7 @@ namespace Data.Database {
                 if (Reader.IsDBNull(0)) return;
                 s.stateName = Reader.GetString(0);
                 s.addStates = DatabaseConnection.Utility.StringToStringList(Reader.GetString(1));
-                s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == Reader.GetString(2));
+                //s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == Reader.GetString(2));
                 s.dialogue = Reader.GetString(3);
 
                 // TODO Link action with string

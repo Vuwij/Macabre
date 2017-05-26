@@ -13,10 +13,10 @@ public class InventoryTests {
     [SetUp]
     public void SetUp()
     {
-        SaveManager.Reset();
-        SaveManager.Initialize();
-        SaveManager.NewSave("Save Test");
-        Assert.IsNotNull(MacabreWorld.current);
+        Saves.Reset();
+        Saves.Initialize();
+        Saves.New("Save Test");
+        Assert.IsNotNull(World.current);
 
         //foreach (var character in MacabreWorld.current.characters.characterControllers)
         //    Debug.Log(character.name);
@@ -25,8 +25,8 @@ public class InventoryTests {
     [TearDown]
     public void TearDown()
     {
-        UIManager.Find<ConversationDialogue>().Reset();
-        UIManager.Find<ConversationDialogue>().TurnOff();
+        UI.Find<ConversationDialogue>().Reset();
+        UI.Find<ConversationDialogue>().TurnOff();
     }
 
     [Test]

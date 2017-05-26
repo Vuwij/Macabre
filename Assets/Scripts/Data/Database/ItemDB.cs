@@ -13,10 +13,9 @@ namespace Data.Database
     {
         public static class ItemDB
         {
-            public static Item UpdateItemInfo(ItemController itemController)
+            public static Item UpdateItemInfo(Item item)
             {
-                Item item = itemController.item;
-                return UpdateItemInfo(item, itemController.type);
+                return UpdateItemInfo(item, item.type);
             }
             
             public static Item UpdateItemInfo(Item item, ItemType type = ItemType.InventoryItemClassA)

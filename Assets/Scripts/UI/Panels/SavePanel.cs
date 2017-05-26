@@ -16,7 +16,7 @@ namespace UI.Panels
         {
             get
             {
-                int c = SaveManager.allSaveInformation.SaveCount;
+                int c = Saves.allSaveInformation.SaveCount;
                 if (c <= 0) throw new Exception("Save count too small");
                 return c;
             }
@@ -41,7 +41,7 @@ namespace UI.Panels
         
         private List<Save> saveList
         {
-            get { return SaveManager.allSaveInformation.saveList; }
+            get { return Saves.allSaveInformation.saveList; }
         }
 
         private void Refresh()
@@ -98,9 +98,9 @@ namespace UI.Panels
         public void LoadSave()
         {
             if (selectedSave == null) return;
-            UIManager.CurrentPanel.TurnOff();
-            UIManager.CurrentPanel.TurnOff();
-            SaveManager.LoadSave(selectedSave.name);
+            GameUI.CurrentPanel.TurnOff();
+            GameUI.CurrentPanel.TurnOff();
+            Saves.Load(selectedSave.name);
         }
 
         public void RenameSave()
@@ -122,7 +122,7 @@ namespace UI.Panels
 
         private void DeleteSaveConfirm(Save s)
         {
-            SaveManager.DeleteSave(s.name);
+            Saves.Delete(s.name);
             Refresh();
         }
         

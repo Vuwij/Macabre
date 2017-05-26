@@ -14,85 +14,73 @@ public class SaveManagerTests {
     [SetUp]
     public void SetUp()
     {
-        SaveManager.Reset();
+        Saves.Reset();
     }
 
     [TearDown]
     public void TearDown()
     {
-        SaveManager.Reset();
+        Saves.Reset();
     }
 
     [Test]
 	public void SaveManagerInitializeTest()
 	{
-        SaveManager.Initialize();
+        Saves.Initialize();
 	}
 
     [Test]
     public void SaveManagerNewDeleteSaveTest()
     {
-        SaveManager.Initialize();
-        Assert.True(SaveManager.allSaveInformation.SaveCount == 0);
-        SaveManager.NewSave("Save Test 1");
-        SaveManager.NewSave("Save Test 2");
-        SaveManager.NewSave("Save Test 3");
-        Debug.Log(SaveManager.allSaveInformation.SaveCount);
-        Assert.True(SaveManager.allSaveInformation.SaveCount == 3);
-        AssertFail(() => { SaveManager.DeleteSave("Save Test 3"); });
-        Debug.Log(SaveManager.allSaveInformation.SaveCount);
-        Assert.True(SaveManager.allSaveInformation.SaveCount == 3);
-        SaveManager.DeleteSave("Save Test 2");
-        SaveManager.DeleteSave("Save Test 1");
-        Assert.True(SaveManager.allSaveInformation.SaveCount == 1);
+        Saves.Initialize();
+        Assert.True(Saves.allSaveInformation.SaveCount == 0);
+        Saves.New("Save Test 1");
+        Saves.New("Save Test 2");
+        Saves.New("Save Test 3");
+        Debug.Log(Saves.allSaveInformation.SaveCount);
+        Assert.True(Saves.allSaveInformation.SaveCount == 3);
+        AssertFail(() => { Saves.Delete("Save Test 3"); });
+        Debug.Log(Saves.allSaveInformation.SaveCount);
+        Assert.True(Saves.allSaveInformation.SaveCount == 3);
+        Saves.Delete("Save Test 2");
+        Saves.Delete("Save Test 1");
+        Assert.True(Saves.allSaveInformation.SaveCount == 1);
     }
 
     [Test]
     public void SaveManagerLoadSaveTest()
     {
-        SaveManager.Initialize();
+        Saves.Initialize();
         GameSettings.useSavedXMLConfiguration = false;
-        SaveManager.NewSave("Save Test");
-        SaveManager.LoadSave("Save Test");
-        AssertFail(() => { SaveManager.DeleteSave("Save Test"); });
-    }
-
-    [Test]
-    public void SaveManagerLoadSaveFromXMLTest()
-    {
-        SaveManager.Initialize();
-        GameSettings.useSavedXMLConfiguration = false;
-        SaveManager.NewSave("Save Test");
-        SaveManager.SaveCurrentAsMaster();
-        GameSettings.useSavedXMLConfiguration = true;
-        SaveManager.LoadSave("Save Test");
-        AssertFail(() => { SaveManager.DeleteSave("Save Test"); });
+        Saves.New("Save Test");
+        Saves.Load("Save Test");
+        AssertFail(() => { Saves.Delete("Save Test"); });
     }
 
     [Test]
     public void SaveALotOfSaves()
     {
-        SaveManager.Initialize();
+        Saves.Initialize();
         GameSettings.useSavedXMLConfiguration = false;
         for(int i = 0; i < 10; i++)
-            SaveManager.NewSave("Save " + i);
+            Saves.New("Save " + i);
         for (int i = 0; i < 10; i++)
-            SaveManager.LoadSave("Save " + i);
+            Saves.Load("Save " + i);
         for (int i = 0; i < 9; i++)
-            SaveManager.DeleteSave("Save " + i);
-        Assert.True(SaveManager.allSaveInformation.SaveCount == 1);
+            Saves.Delete("Save " + i);
+        Assert.True(Saves.allSaveInformation.SaveCount == 1);
     }
 
     [Test]
     public void SaveDataSameWhenResaved()
     {
-        SaveManager.Initialize();
+        Saves.Initialize();
         GameSettings.useSavedXMLConfiguration = false;
-        Save save1 = SaveManager.NewSave("Save Test");
+        Save save1 = Saves.New("Save Test");
         int save1Size = GetObjectSize((new FileInfo(save1.worldXMLLocation)).Length);
-        Save save2 = SaveManager.NewSave("Save Test 2");
+        Save save2 = Saves.New("Save Test 2");
         int save2Size = GetObjectSize((new FileInfo(save2.worldXMLLocation)).Length);
-        Save save3 = SaveManager.LoadSave("Save Test");
+        Save save3 = Saves.Load("Save Test");
         int save3Size = GetObjectSize((new FileInfo(save3.worldXMLLocation)).Length);
         
         Assert.True(save1 == save3);

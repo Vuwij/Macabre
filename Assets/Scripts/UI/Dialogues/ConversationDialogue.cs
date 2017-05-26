@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using UnityEngine;
 using UnityEngine.UI;
 using Extensions;
 using Objects.Movable.Characters;
+using Objects.Movable.Characters.Individuals;
 
 namespace UI.Dialogues
 {
@@ -88,12 +88,12 @@ namespace UI.Dialogues
 
         public void ResponsePressed(int i)
         {
-            Characters.playerController.KeyPressed(i);
+			GameObject.Find("Player").GetComponent<Player>().KeyPressed(i);
         }
 
         public void ContinuePressed()
         {
-            Characters.playerController.InspectionAction(Characters.playerController, new RaycastHit2D());
+			GameObject.Find("Player").GetComponent<Player>().InspectionAction(GameObject.Find("Player").GetComponent<Player>(), new RaycastHit2D());
         }
 
         public void Reset()

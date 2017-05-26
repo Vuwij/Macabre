@@ -23,12 +23,12 @@ namespace UI.Panels
 
         public void Load()
         {
-            SavePanel savePanel = UIManager.Find<SavePanel>();
+            SavePanel savePanel = Game.main.UI.Find<SavePanel>();
             savePanel.TurnOn();
         }
         public void Options()
         {
-            OptionsPanel optionsPanel = UIManager.Find<OptionsPanel>();
+			OptionsPanel optionsPanel = Game.main.UI.Find<OptionsPanel>();
             optionsPanel.TurnOn();
         }
         public void GiveUp()
@@ -37,20 +37,20 @@ namespace UI.Panels
                 new List<WarningDialogue.Button>()
                 {
                     new WarningDialogue.Button("It is never too late", () => { TurnOff(); }),
-                    new WarningDialogue.Button("Let me die already", () => { GameManager.QuitGame(); }),
+					new WarningDialogue.Button("Let me die already", () => { Game.main.Quit(); }),
                 });
         }
 
         public override void TurnOn()
         {
             base.TurnOn();
-            GameManager.PauseGame();
+            Game.Pause();
         }
 
         public override void TurnOff()
         {
             base.TurnOff();
-            GameManager.ResumeGame();
+            Game.Resume();
         }
     }
 }

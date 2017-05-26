@@ -2,7 +2,6 @@
 using System.Collections;
 using Extensions.Buttons;
 using UnityEngine.UI;
-using Exceptions;
 using Data;
 using System;
 
@@ -17,12 +16,12 @@ namespace UI.Panels
 
         public SavePanel savePanel
         {
-            get { return UIManager.Find<SavePanel>(); }
+            get { return GameUI.Find<SavePanel>(); }
         }
 
         public Save save
         {
-            get { return SaveManager.FindSave(name); }
+            get { return Saves.Find(name); }
         }
 
         private void Start()

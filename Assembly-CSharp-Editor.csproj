@@ -55,9 +55,9 @@
      <None Include="Assets\GameData\Master\SQL functions\UpdateTablesScript.txt" />
      <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
      <None Include="Assets\Plugins\PixelPerfect\README.txt" />
+     <None Include="Assets\GameData\Saves\Save 2\world.xml" />
      <None Include="Assets\GameData\Saves\Save 1\world.xml" />
      <None Include="Assets\GameData\SaveInfo.xml" />
-     <None Include="Assets\Spritesheets\Characters\Puns.txt" />
      <None Include="Assets\GameData\Master\world.xml" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -129,8 +129,6 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{FD51B7B1-06BB-96D1-B8EF-F7D3CF525809}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{2C8154E2-1A41-6D50-C8C5-3D6552EA453B}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
       <Project>{132DF0E3-4849-9214-A4F4-6E07C412BB83}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
   </ItemGroup>

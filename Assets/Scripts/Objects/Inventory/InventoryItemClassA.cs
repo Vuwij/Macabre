@@ -10,10 +10,10 @@ namespace Objects.Inventory
 {
     public class InventoryItemClassA : InventoryItem
     {
-        public List<ItemController> items = new List<ItemController>();
+        public List<Item> items = new List<Item>();
         public const int classALimit = 4;
 
-        public InventoryItemClassA(ItemController item, Inventory inventory) : base(item, inventory)
+        public InventoryItemClassA(Item item, Inventory inventory) : base(item, inventory)
         {
             items.Add(item);
         }
@@ -30,8 +30,8 @@ namespace Objects.Inventory
             get
             {
                 string s = "";
-                foreach (ItemController i in items)
-                    s += i.item.position + " ";
+                foreach (Item i in items)
+                    s += i.position + " ";
                 return s;
             }
         }
@@ -44,24 +44,24 @@ namespace Objects.Inventory
 
             // If a combination could be found
             if (a.count == 1 && b.count == 1)
-				combined = DatabaseConnection.ItemDB.FindCombination(a.items[0].item, b.items[0].item);
+				combined = DatabaseConnection.ItemDB.FindCombination(a.items[0], b.items[0]);
 
             if (combined != null)
             {
-                var newItemController = Items.main.GetItem(combined.name);
-
-                // Move the new item into the same location
-                newItemController.transform.parent = a.items[0].transform.parent;
-
-                // Remove A and B in the objects
-                UnityEngine.Object.Destroy(a.items[0].gameObject);
-                UnityEngine.Object.Destroy(b.items[0].gameObject);
-                a.Dispose();
-                b.Dispose();
-
-                // Add new object in the inventory
-                newItemController.gameObject.SetActive(false);
-                inventory.Add(newItemController);
+//                var newItemController = Items.main.GetItem(combined.name);
+//
+//                // Move the new item into the same location
+//                newItemController.transform.parent = a.items[0].transform.parent;
+//
+//                // Remove A and B in the objects
+//                UnityEngine.Object.Destroy(a.items[0].gameObject);
+//                UnityEngine.Object.Destroy(b.items[0].gameObject);
+//                a.Dispose();
+//                b.Dispose();
+//
+//                // Add new object in the inventory
+//                newItemController.gameObject.SetActive(false);
+//                inventory.Add(newItemController);
             }
             else
             {

@@ -6,9 +6,9 @@ using Objects.Inventory.Individual;
 using Objects.Inventory;
 using Objects.Movable.Characters;
 using UI.Panels.Inventory;
-using Exceptions;
 using Data.Database;
 using Objects.Unmovable.Items;
+using Objects.Movable.Characters.Individuals;
 
 namespace UI.Panels
 {
@@ -23,7 +23,7 @@ namespace UI.Panels
         {
             get
             {
-                return Characters.playerController.inventory;
+				return GameObject.Find("Player").GetComponent<Player>().inventory;
             }
         }
         
@@ -46,7 +46,7 @@ namespace UI.Panels
             var classAStacks = classAObjectsParent.GetComponentsInChildren<Transform>()
                 .Where(x => x.name.Contains("Stack"))
                 .ToArray();
-            if (classAStacks.Length != 6) throw new MacabreException("There are not 6 stacks in Class A Objects in the inventory");
+			if (classAStacks.Length != 6) throw new UnityException("There are not 6 stacks in Class A Objects in the inventory");
 
             for (int i = 0; i < 6; i++)
                 this.itemStackUIClassAs[i] = new Inventory.ItemStackUIClassA(classAStacks[i].gameObject);
@@ -55,7 +55,7 @@ namespace UI.Panels
             var classBStacks = classBObjectsParent.GetComponentsInChildren<Transform>()
                 .Where(x => x.name.Contains("Stack"))
                 .ToArray();
-            if (classBStacks.Length != 2) throw new MacabreException("There are not 2 stacks in Class B Objects");
+			if (classBStacks.Length != 2) throw new UnityException("There are not 2 stacks in Class B Objects");
 
             for (int i = 0; i < 2; i++)
                 this.itemStackUIClassBs[i] = new ItemStackUIClassB(classBStacks[i].gameObject);
@@ -64,7 +64,7 @@ namespace UI.Panels
         
         public override void TurnOn()
         {
-            UIManager.FadeBackground = true;
+			Game.main.UI.FadeBackground = true;
             base.TurnOn();
             RefreshItems();
         }
@@ -72,7 +72,7 @@ namespace UI.Panels
         public override void TurnOff()
         {
             base.TurnOff();
-            UIManager.FadeBackground = false;
+			Game.main.UI.FadeBackground = false;
         }
 
         private void RefreshItems()
@@ -107,7 +107,7 @@ namespace UI.Panels
         
         public void SelectClassA(int index)
         {
-            if (index < 0 && index >= 6) throw new MacabreException("Invalid Index");
+			if (index < 0 && index >= 6) throw new UnityException("Invalid Index");
             DeselectAll();
             itemStackUIClassAs[index].Select();
             ItemStackUI.RefreshSelectionUI();
@@ -115,7 +115,7 @@ namespace UI.Panels
 
         public void SelectClassB(int index)
         {
-            if (index < 0 && index >= 2) throw new MacabreException("Invalid Index");
+			if (index < 0 && index >= 2) throw new UnityException("Invalid Index");
             DeselectAll();
             itemStackUIClassBs[index].Select();
             ItemStackUI.RefreshSelectionUI();
