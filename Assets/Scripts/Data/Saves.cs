@@ -20,7 +20,8 @@ namespace Data
 
 		public Saves () {
 			DeserializeSaveFile ();
-			current = saves.Last();
+			if (saves.Count != 0)
+				current = saves.Last();
 		}
         
 		~Saves () {
@@ -44,7 +45,7 @@ namespace Data
 		{
 			File.Delete (Game.dataPath + serializationURI);
 			string json = JsonUtility.ToJson(saves, true);
-			File.WriteAllText(Application.dataPath, json);
+			File.WriteAllText(Game.dataPath + serializationURI, json);
 		}
 
 		#endregion
