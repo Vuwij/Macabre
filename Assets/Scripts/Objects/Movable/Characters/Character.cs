@@ -15,37 +15,70 @@ namespace Objects.Movable.Characters
 {
 	public abstract class Character : MovableObject
     {
-        // The character associated with the controller, found in the data structure
-		new public string name = "Character";
-        
-        // A simple reference to the player for interaction in conversation
-        public static Player player
+		Player player
         {
             get {
 				return GameObject.Find("Player").GetComponentInChildren<Player>();
             }
         }
-
-        // The child object is the one that contains the sprite
-        private GameObject childObject
+		GameObject childObject
         {
             get { return gameObject.transform.Find(gameObject.name + "Sprite").gameObject; }
         }
-        
-        // What is called when the character gets loaded
-        protected override void Start()
-        {
-            base.Start();
-        }
-
-		#region Animation
-
-		private Animator animator
+		Animator animator
 		{
 			get
 			{
 				return GetComponentInChildren<Animator>();
 			}
+		}
+		SpriteRenderer spriteRenderer
+		{
+			get { return GetComponentInChildren<SpriteRenderer>(); }
+		}
+		protected bool keyboardMovement
+		{
+			get { return GameSettings.useKeyboardMovement; }
+		}
+		protected float walkingSpeed
+		{
+			get { return GameSettings.characterWalkingSpeed; }
+		}
+		protected float runningSpeed
+		{
+			get { return GameSettings.characterRunningSpeed; }
+		}
+		protected bool isRunning
+		{
+			get { return Input.GetButton("SpeedUp"); }
+		}
+		public float movementSpeed
+		{
+			get { return isRunning ? runningSpeed : walkingSpeed; }
+		}
+		bool isMoving
+		{
+			get { return (rigidbody2D.velocity.sqrMagnitude >= float.Epsilon); }
+		}
+		float inspectRadius
+		{
+			get { return GameSettings.inspectRadius; }
+		}
+
+		protected override void Start()
+        {
+			inventory = new CharacterInventory(gameObject, 1, 6);
+			base.Start();
+        }
+
+		#region Movement and Animation
+
+		public void LockMovement() {
+			movementLocked = true;
+		}
+
+		public void UnlockMovement() {
+			movementLocked = false;
 		}
 
 		public void AnimateDeath()
@@ -61,11 +94,11 @@ namespace Objects.Movable.Characters
 			{
 				if (keyboardMovement)
 				{
-					if (movementVelocity.x > 0) xDir = movementSpeed;
-					else if (movementVelocity.x < 0) xDir = -movementSpeed;
+					if (rigidbody2D.velocity.x > 0) xDir = movementSpeed;
+					else if (rigidbody2D.velocity.x < 0) xDir = -movementSpeed;
 
-					if (movementVelocity.y > 0) yDir = movementSpeed;
-					else if (movementVelocity.y < 0) yDir = -movementSpeed;
+					if (rigidbody2D.velocity.y > 0) yDir = movementSpeed;
+					else if (rigidbody2D.velocity.y < 0) yDir = -movementSpeed;
 				}
 
 				animator.SetBool(Animator.StringToHash("IsActive"), false);
@@ -79,15 +112,6 @@ namespace Objects.Movable.Characters
 				animator.SetBool(Animator.StringToHash("IsActive"), true);
 				animator.SetBool(Animator.StringToHash("IsMoving"), false);
 			}
-		}
-
-		#endregion
-
-		#region Collision
-
-		private SpriteRenderer spriteRenderer
-		{
-			get { return GetComponentInChildren<SpriteRenderer>(); }
 		}
 
 		#endregion
@@ -112,10 +136,6 @@ namespace Objects.Movable.Characters
 
 		#region Inspection
 
-		private float inspectRadius
-		{
-			get { return GameSettings.inspectRadius; }
-		}
 		private RaycastHit2D hit;
 
 		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
@@ -172,80 +192,14 @@ namespace Objects.Movable.Characters
 
 		#region Inventory
 
-		public CharacterInventory inventory = new CharacterInventory();
+		public CharacterInventory inventory;
 
 		public bool AddToInventory(Item i)
 		{
 			return inventory.Add(i);
 		}
 
-		public Transform InventoryFolder
-		{
-			get
-			{
-				if(GetComponentsInChildren<Transform>().SingleOrDefault(x => x.name == "Inventory") == null)
-				{
-					GameObject inventoryFolder = new GameObject("Inventory");
-					inventoryFolder.transform.parent = this.transform;
-				}
-
-				return GetComponentsInChildren<Transform>().SingleOrDefault(x => x.name == "Inventory");
-			}
-		}
-
 		#endregion
 
-		#region Movement
-
-		public bool keyboardMovement
-		{
-			get { return GameSettings.useKeyboardMovement; }
-		}
-
-		protected float walkingSpeed
-		{
-			get { return GameSettings.characterWalkingSpeed; }
-		}
-		protected float runningSpeed
-		{
-			get { return GameSettings.characterRunningSpeed; }
-		}
-		public float movementSpeed
-		{
-			get { return isRunning ? runningSpeed : walkingSpeed; }
-		}
-
-		protected bool isRunning
-		{
-			get { return Input.GetButton("SpeedUp"); }
-		}
-		private bool isMoving
-		{
-			get { return true; /*(rb2D.velocity.sqrMagnitude >= float.Epsilon);*/ }
-		}
-
-		protected virtual Vector2 movementVelocity
-		{
-			get { return new Vector2(movementSpeed, movementSpeed * 2.0f); }
-		}
-
-		public void ShowMovementAnimation(Vector3 destination)
-		{
-			if (!isMoving) return;
-		}
-
-		public void LockMovement()
-		{
-//			rb2D.velocity.Set(0, 0);
-//			AnimateMovement();
-//			lockMovement = true;
-		}
-
-		public void UnlockMovement()
-		{
-//			lockMovement = false;
-		}
-
-		#endregion
 	}
 }

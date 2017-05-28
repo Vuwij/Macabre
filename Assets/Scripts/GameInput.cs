@@ -9,7 +9,11 @@ using Objects.Movable.Characters.Individuals;
 public class GameInput {
 	Player player
 	{
-		get { return Objects.Movable.Characters.Character.player; }
+		get { 
+			var p = GameObject.Find("Player");
+			if(p == null) return null;
+			return p.GetComponent<Player>();
+		}
 	}
 	GameUI UI {
 		get { return Game.main.UI; }

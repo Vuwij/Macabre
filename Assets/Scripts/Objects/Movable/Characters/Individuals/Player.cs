@@ -37,7 +37,7 @@ namespace Objects.Movable.Characters.Individuals
 				-10);
 			main.transform.position = newPosition;
 		}
-		protected override Vector2 movementVelocity
+		protected Vector2 movementVelocity
 		{
 			get {
 				return new Vector2(

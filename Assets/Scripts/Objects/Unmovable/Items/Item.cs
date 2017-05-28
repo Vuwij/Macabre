@@ -6,18 +6,13 @@ using System.Collections.Generic;
 namespace Objects.Unmovable.Items
 {
     public class Item : UnmovableObject {
-        public int ID;
-		new public string name;
+        
+		public int ID;
 		public string description;
 		public List<string> attributes = new List<string>();
-
 		public Dictionary<string, object> properties = new Dictionary<string, object>();
-        
         public ItemType type = ItemType.InventoryItemClassA;
         
-		#region Inspection
-
-		// The character associated with the controller, found in the data structure
 		public void InspectionAction(Object obj, RaycastHit2D hit)
 		{
 			PickUp(obj as Movable.Characters.Character);
@@ -32,7 +27,7 @@ namespace Objects.Unmovable.Items
 				if (addedToInventory)
 				{
 					gameObject.SetActive(false);
-					gameObject.transform.parent = (obj).InventoryFolder;
+					gameObject.transform.parent = (obj).inventory.folder;
 				}
 			}
 		}
@@ -63,8 +58,6 @@ namespace Objects.Unmovable.Items
 			// Destroy the inventory folder if
 			if (inventoryFolder.GetComponentsInChildren<Transform>().Length == 0) Destroy(inventoryFolder.gameObject);
 		}
-
-		#endregion
 
     }
 }

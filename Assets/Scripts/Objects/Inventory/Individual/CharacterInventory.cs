@@ -7,7 +7,10 @@ namespace Objects.Inventory.Individual
 {
     public class CharacterInventory : Inventory {
 
-        public void Drop(InventoryItem iitem)
+		public CharacterInventory(GameObject gameObject, int classALimit, int classBLimit)
+			: base(gameObject, classALimit, classBLimit) {}
+
+		public void Drop(InventoryItem iitem)
         {
             List<Item> individualItems = new List<Item>();
             if (iitem is InventoryItemClassA)
