@@ -11,59 +11,56 @@ namespace Environment
     {
         public static MainCamera main = null;
 
-        private void Start()
+		Player player {
+			get {
+				var p = GameObject.Find("Player");
+				if (p == null) return null;
+				else return p.GetComponent<Player>();
+			}
+		}
+		Vector2 playerPosition
+		{
+			get {
+				var p = GameObject.Find("Player");
+				if (p == null) return Vector2.zero;
+				else return p.transform.position;
+			}
+		}
+		float speed
+		{
+			get
+			{
+				var p = GameObject.Find("Player");
+				if (p == null) return GameSettings.cameraSpeed;
+				else return player.movementSpeed;
+			}
+		}
+
+		Vector2 destination;
+
+        void Start()
         {
             if (main == null) main = this;
             else if (main != null) Destroy(gameObject);
             DontDestroyOnLoad(this);
         }
 
-        private void Update() { FollowPlayer(); }
+        void Update() { 
+			destination = playerPosition;
 
-        private Vector2 playerPosition
-        {
-            get {
-				var player = GameObject.Find("PlayerController").GetComponentInChildren<Player>();
-				if(player != null) return player.transform.position;
-                else return Vector2.zero;
-            }
-        }
-        private Vector2 cameraPosition
-        {
-            get { return transform.position; }
-            set { transform.position = value; }
-        }
-        private Vector2 destination;
+			if (Vector2.Distance(transform.position, destination) >= 0.01f)
+				StartCoroutine(MoveCameraToPlayerPosition());
+		}
 
-        private float CameraSpeed
+        IEnumerator MoveCameraToPlayerPosition()
         {
-            get
-            {
-				var player = GameObject.Find("PlayerController").GetComponentInChildren<Player>();
-				if(player != null) return player.movementSpeed;
-				else return GameSettings.cameraSpeed;
-            }
-        }
-
-        private void FollowPlayer()
-        {
-            // Set the destination accordingly to the player according to the current object floor
-            destination = playerPosition;
-            
-            // Slowly move towards the player
-            if (Vector2.Distance(cameraPosition, destination) >= 0.01f)
-                StartCoroutine(MoveCameraToPlayerPosition());
-        }
-        
-        private IEnumerator MoveCameraToPlayerPosition()
-        {
-            while ((destination - cameraPosition).sqrMagnitude > 0.01f)
+			while ((destination - (Vector2) transform.position).sqrMagnitude > 0.01f)
             {
                 // Stop if game is paused
 				if (Game.main.gamePaused) yield break;
 
                 // Move the camera to the desntiatoin
-                Vector2 delta = Vector2.MoveTowards(cameraPosition, destination, UnityEngine.Time.deltaTime * CameraSpeed * 0.005f);
+                Vector2 delta = Vector2.MoveTowards(transform.position, destination, UnityEngine.Time.deltaTime * speed * 0.005f);
                 transform.position = new Vector3(delta.x, delta.y, -10);
                 
                 yield return null;

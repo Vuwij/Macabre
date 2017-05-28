@@ -10,6 +10,7 @@ using Objects.Movable.Characters;
 
 namespace Data
 {
+	[Serializable]
 	public class Save
 	{
 		public string fileLocation
@@ -24,18 +25,23 @@ namespace Data
 		{
 			get { return fileLocation + "/gameData.json"; }
 		}
+		public string saveURI {
+			get {
+				return Game.dataPath + "/GameData/Saves";
+			}
+		}
+		public string masterURI {
+			get {
+				return Game.dataPath + "/GameData/Master";
+			}
+		}
 
-		public string saveURI = Application.dataPath + "/GameData/Saves";
-		public string masterURI = Application.dataPath + "/GameData/Master";
+		// Save information
 		public System.DateTime time;
 		public string name;
 
-		#region Game Data
-
+		// Game information
 		public List<Character> characters;
-
-		#endregion
-
 		protected Save(){}
 
 		public Save(string name = "")

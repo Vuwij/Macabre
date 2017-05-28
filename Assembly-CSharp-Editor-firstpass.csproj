@@ -55,9 +55,6 @@
      <None Include="Assets\GameData\Master\SQL functions\UpdateTablesScript.txt" />
      <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
      <None Include="Assets\Plugins\PixelPerfect\README.txt" />
-     <None Include="Assets\GameData\Saves\Save 2\world.xml" />
-     <None Include="Assets\GameData\Saves\Save 1\world.xml" />
-     <None Include="Assets\GameData\SaveInfo.xml" />
      <None Include="Assets\GameData\Master\world.xml" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>

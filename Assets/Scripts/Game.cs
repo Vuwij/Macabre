@@ -12,8 +12,9 @@ using UI.Dialogues;
 /// </summary>
 public class Game : MonoBehaviour {
 	public static Game main = null;
+	public static string dataPath;
 
-	public Saves saves = new Saves();
+	public Saves saves;
 	public GameInput input = new GameInput();
 	public GameUI UI = new GameUI();
 
@@ -22,6 +23,9 @@ public class Game : MonoBehaviour {
         if (main == null) main = this;
         else if (main != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
+
+		dataPath = Application.dataPath;
+		saves = new Saves();
     }
 
     void Update()

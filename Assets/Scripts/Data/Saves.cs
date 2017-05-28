@@ -13,9 +13,10 @@ namespace Data
 	[XmlInclude (typeof(Save))]
 	public class Saves
 	{
-		const string serializationURI = "/GameData/SaveInfo.xml";
+		const string serializationURI = "/GameData/Saves.json";
 
 		public Save current;
+		public List<Save> saves;
 
 		public Saves () {
 			DeserializeSaveFile ();
@@ -26,7 +27,27 @@ namespace Data
 			SerializeSaveFile ();
 		}
 
-		public List<Save> saves;
+		#region Serialization
+
+		void DeserializeSaveFile ()
+		{
+			if (!File.Exists (Game.dataPath + serializationURI)) {
+				saves = new List<Save>();
+				SerializeSaveFile ();
+			}
+
+			string json = File.ReadAllText(Game.dataPath + serializationURI);
+			saves = JsonUtility.FromJson<List<Save>>(json);
+		}
+
+		void SerializeSaveFile ()
+		{
+			File.Delete (Game.dataPath + serializationURI);
+			string json = JsonUtility.ToJson(saves, true);
+			File.WriteAllText(Application.dataPath, json);
+		}
+
+		#endregion
 
 		public void New (string name = "")
 		{
@@ -78,34 +99,5 @@ namespace Data
 				dir.Delete (true);
 			File.Delete (serializationURI);
 		}
-
-		#region Serialization
-
-		XmlSerializer x = new XmlSerializer (typeof(List<Save>));
-
-		void DeserializeSaveFile ()
-		{
-//			if (!File.Exists (Application.dataPath + serializationURI)) {
-//				SerializeSaveFile ();
-//			}
-//
-//			using (var stream = File.OpenRead (Application.dataPath + serializationURI))
-//				saves = ()(x.Deserialize (stream));
-//
-//			if (saves == null) {
-//				saves = new AllSaveInformation ();
-//				SerializeSaveFile ();
-//			}
-		}
-
-		void SerializeSaveFile ()
-		{
-			File.Delete (Application.dataPath + serializationURI);
-
-			using (var stream = File.OpenWrite (Application.dataPath + serializationURI))
-				x.Serialize (stream, saves);
-		}
-
-		#endregion
 	}
 }
