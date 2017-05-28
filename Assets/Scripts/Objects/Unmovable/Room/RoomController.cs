@@ -30,14 +30,6 @@ namespace Objects.Unmovable
 
 		#endregion
 
-		#region Collision
-
-		public override void CreateProximityCircle() { }    // Do not create a proximity circle for the room
-		public override void CreateCollisionCircle() { }    // Do not create a collision circle for the room, already created
-		protected override void SetupBackEdgeCollider() { } //
-
-		#endregion
-
 		#region Furniture
 
 		public List<AbstractFurniture> Furniture

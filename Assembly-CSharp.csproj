@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\GameInput.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\Objects\CollisionBox.cs" />
      <Compile Include="Assets\Scripts\Objects\IInspectable.cs" />
      <Compile Include="Assets\Scripts\Objects\Inventory\Individual\CharacterInventory.cs" />
      <Compile Include="Assets\Scripts\Objects\Inventory\Individual\MerchantInventory.cs" />

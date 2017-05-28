@@ -7,13 +7,26 @@ namespace Objects.Movable.Characters.Individuals
 {
 	public sealed class Player : Character
     {
-        protected override void Start()
+		new bool isRunning
+		{
+			get { return Input.GetButton("SpeedUp"); }
+		}
+
+		protected override void Start()
         {
             base.Start();
             TeleportCameraToPlayer();
         }
 
-		private void TeleportCameraToPlayer()
+		void Update()
+		{
+			// Set the movement
+			rigidbody2D.velocity = movementLocked ? Vector2.zero : movementVelocity;
+
+			AnimateMovement();
+		}
+
+		void TeleportCameraToPlayer()
 		{
 			var main = Camera.main;
 			if(!main) return;
@@ -24,21 +37,6 @@ namespace Objects.Movable.Characters.Individuals
 				-10);
 			main.transform.position = newPosition;
 		}
-
-        void Update()
-        {
-            if (keyboardMovement) moveUsingKeyboard();
-
-            AnimateMovement();
-        }
-
-		#region Inventory
-
-		new bool isRunning
-		{
-			get { return Input.GetButton("SpeedUp"); }
-		}
-
 		protected override Vector2 movementVelocity
 		{
 			get {
@@ -47,13 +45,5 @@ namespace Objects.Movable.Characters.Individuals
 					movementSpeed * Input.GetAxisRaw("Vertical"));
 			}
 		}
-
-		void moveUsingKeyboard()
-		{
-//			rb2D.velocity = lockMovement ? Vector2.zero : movementVelocity;
-		}
-
-		#endregion
-
     }
 }

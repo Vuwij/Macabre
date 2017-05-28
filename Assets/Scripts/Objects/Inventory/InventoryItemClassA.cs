@@ -31,7 +31,7 @@ namespace Objects.Inventory
             {
                 string s = "";
                 foreach (Item i in items)
-                    s += i.position + " ";
+					s += i.transform.position + " ";
                 return s;
             }
         }

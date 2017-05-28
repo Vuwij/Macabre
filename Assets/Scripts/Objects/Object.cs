@@ -5,62 +5,24 @@ namespace Objects
 {
 	public abstract class Object : MonoBehaviour
 	{
-        public Vector2 position = new Vector2(0.0f, 0.0f);
-
-        protected T FindNearestObject<T>()
-            where T : Object
-        {
-            RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, GameSettings.inspectRadius, Vector2.zero);
-
-            foreach (RaycastHit2D raycastHit in castStar)
-            {
-                T hit = raycastHit.collider.GetComponentInChildren<T>();
-                if (hit != null) return hit;
-            }
-
-            return null;
-        }
-
-        protected virtual void Start()
-        {
-            CreateCollisionCircle();
-            CreateProximityCircle();
-            SetupBackEdgeCollider();
-        }
-
-		#region Collision
-
-		// The SpriteRenderer of the object
-		private SpriteRenderer spriteRenderer
+		protected SpriteRenderer spriteRenderer
 		{
 			get { return GetComponentInChildren<SpriteRenderer>(); }
 		}
+		protected Rigidbody2D rigidbody2D {
+			get { return GetComponentInChildren<Rigidbody2D>(); }
+		}
 
-		// This property is visible in inspector (used to create the collision box)
+		Object objectInFront;
+		CollisionBox collisionbox;
 		public Texture2D footprint;
 
-		// Abstract creates of the collision and proximity
-		public virtual void CreateCollisionCircle() {}
-		public virtual void CreateProximityCircle() {}
-
-		// The Collider and Proximity Boxfor the object
-		protected virtual PolygonCollider2D collisionBox { get; }
-		protected virtual PolygonCollider2D proximityBox { get; }
-
-		private Vector2[] collisionVertices
-		{
-			get { return collisionBox.points; }
-		}
-		private Vector2[] proximityVertices
-		{
-			get { return proximityBox.points; }
-		}
-
-		#endregion
+		protected virtual void Start()
+        {
+			collisionbox = new CollisionBox(gameObject);
+        }
 
 		#region Layer Sorting
-
-		private Object objectInFront = null;
 
 		private int orderInLayer
 		{
@@ -152,81 +114,18 @@ namespace Objects
 
 		#endregion
 
-		#region Layer Sorting Layer
-
-		protected virtual void SetupBackEdgeCollider()
+		protected T FindNearestObject<T>()
+			where T : Object
 		{
-			if (GetComponentInChildren<EdgeCollider2D>() != null) return;
-			CreateBackEdgeCollider();
-		}
+			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, GameSettings.inspectRadius, Vector2.zero);
 
-		// The Default BackEdgeCollider
-		protected EdgeCollider2D CreateBackEdgeCollider()
-		{
-			List<Vector2> backEdgePointsOfObject = new List<Vector2>();
-
-			// Detect Edge Points here
-			int leftIndex = 0;
-			int rightIndex = 0;
-
-			// Determine the indexes of the left and the right most point
-			float leftMostPoint = 0;
-			float rightMostPoint = 0;
-
-			GetMaximaPoints(collisionVertices, out leftIndex, out rightIndex, out leftMostPoint, out rightMostPoint);
-
-			// Determine the clockwise direction TODO: Get the correct direction
-			bool clockWise = collisionVertices[leftIndex].y < collisionVertices[(leftIndex + 1) % collisionVertices.Length].y;
-
-			// Add backEdgePoints based on direction
-			int index = leftIndex;
-			while (index != rightIndex)
+			foreach (RaycastHit2D raycastHit in castStar)
 			{
-				backEdgePointsOfObject.Add(collisionVertices[index]);
-				index = (clockWise ? index + 1 : index - 1) % collisionVertices.Length;
+				T hit = raycastHit.collider.GetComponentInChildren<T>();
+				if (hit != null) return hit;
 			}
 
-			// Add the left line and the right line
-			AddLeftAndRightEdges(ref backEdgePointsOfObject);
-
-			// Use the Edge Points to create a back edge
-			EdgeCollider2D backOfObject = gameObject.AddComponent<EdgeCollider2D>();
-			backOfObject.points = backEdgePointsOfObject.ToArray();
-			backOfObject.isTrigger = true;
-			return backOfObject;
+			return null;
 		}
-
-		private void GetMaximaPoints(Vector2[] points, out int leftIndex, out int rightIndex, out float leftMostPoint, out float rightMostPoint)
-		{
-			leftIndex = 0;
-			rightIndex = 0;
-			leftMostPoint = points[0].x;
-			rightMostPoint = points[0].x;
-			for (int i = 0; i < points.Length; i++)
-			{
-				if (points[i].x < leftMostPoint)
-				{
-					leftIndex = i;
-					leftMostPoint = points[i].x;
-				}
-				if (points[i].x > rightMostPoint)
-				{
-					rightIndex = i;
-					rightMostPoint = points[i].x;
-				}
-			}
-		}
-
-		private void AddLeftAndRightEdges(ref List<Vector2> backEdgePointsOfObject)
-		{
-			int leftIndex, rightIndex;
-			float leftMostPoint, rightMostPoint;
-
-			GetMaximaPoints(proximityVertices, out leftIndex, out rightIndex, out leftMostPoint, out rightMostPoint);
-			backEdgePointsOfObject.Insert(0, proximityVertices[leftIndex]);
-			backEdgePointsOfObject.Add(proximityVertices[rightIndex]);
-		}
-
-		#endregion
     }
 }

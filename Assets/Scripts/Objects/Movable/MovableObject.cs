@@ -6,6 +6,6 @@ namespace Objects.Movable
 {
     public abstract class MovableObject : Object
     {
-        
+		protected bool movementLocked;
     }
 }

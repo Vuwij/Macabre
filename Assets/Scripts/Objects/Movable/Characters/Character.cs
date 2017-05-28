@@ -90,14 +90,6 @@ namespace Objects.Movable.Characters
 			get { return GetComponentInChildren<SpriteRenderer>(); }
 		}
 
-		public override void CreateCollisionCircle()
-		{
-//			if (collisionCircle == null) collisionCircle = gameObject.AddComponent<EllipseCollider2D>();
-//			float width = spriteRenderer.sprite.rect.width;
-//			collisionCircle.radiusX = width * 0.25f;
-//			collisionCircle.radiusY = width * 0.125f;
-		}
-
 		#endregion
 
 		#region Conversation
