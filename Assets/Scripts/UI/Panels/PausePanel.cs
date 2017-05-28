@@ -44,13 +44,13 @@ namespace UI.Panels
         public override void TurnOn()
         {
             base.TurnOn();
-            Game.Pause();
+			Game.main.Pause();
         }
 
         public override void TurnOff()
         {
             base.TurnOff();
-            Game.Resume();
+			Game.main.Resume();
         }
     }
 }

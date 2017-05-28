@@ -24,7 +24,7 @@ namespace UI.Screens
             SceneManager.GetActiveScene();
 
             // New save creates all the events and information on the game
-            Saves.New();
+			Game.main.saves.New();
         }
 
         public void ContinueGame()

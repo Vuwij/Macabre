@@ -2,29 +2,27 @@
 using UnityEditor;
 using System.Collections;
 using System.IO;
-using Objects;
-using Objects.Unmovable;
 
 public class MacabreFootprint : EditorWindow {
     
 	[MenuItem ("Macabre/Object/Find Object Footprints")]
     static void Update () {
 
-        foreach (GameObject obj in Selection.gameObjects) {
-            MacabreObjectController[] objControllers = obj.GetComponentsInChildren<MacabreObjectController>(true);
-
-            foreach (MacabreObjectController objController in objControllers)
-            {
-                if (objController == null) continue;
-
-                SpriteRenderer spriteRenderer = objController.GetComponent<SpriteRenderer>();
-                if (spriteRenderer == null) continue;
-                if (spriteRenderer.sprite == null) continue;
-
-                Undo.RecordObject(objController, "Set Object Footprint");
-                FindFootprint(ref objController.footprint, spriteRenderer);
-            }
-        }
+//        foreach (GameObject obj in Selection.gameObjects) {
+//            MacabreObjectController[] objControllers = obj.GetComponentsInChildren<>(true);
+//
+//            foreach (MacabreObjectController objController in objControllers)
+//            {
+//                if (objController == null) continue;
+//
+//                SpriteRenderer spriteRenderer = objController.GetComponent<SpriteRenderer>();
+//                if (spriteRenderer == null) continue;
+//                if (spriteRenderer.sprite == null) continue;
+//
+//                Undo.RecordObject(objController, "Set Object Footprint");
+//                FindFootprint(ref objController.footprint, spriteRenderer);
+//            }
+//        }
     }
 
     static void FindFootprint(ref Texture2D footprint, SpriteRenderer spriteRenderer)
@@ -44,15 +42,15 @@ public class MacabreFootprint : EditorWindow {
     [MenuItem("Macabre/Object/Find Footprint Collider")]
     static void FindFootprintCollider()
     {
-        foreach(GameObject obj in Selection.gameObjects)
-        {
-            var mobj = obj.GetComponent<MacabreObjectController>();
-            if (mobj == null) continue;
-
-            if (obj.GetComponent<PolygonCollider2D>() != null) continue;
-            var polygonCollider = obj.gameObject.AddComponent<PolygonCollider2D>();
-            polygonCollider.points = GetVector2EdgesFromTexture(obj.GetComponent<SpriteRenderer>(), mobj.footprint);
-        }
+//        foreach(GameObject obj in Selection.gameObjects)
+//        {
+//            var mobj = obj.GetComponent<MacabreObjectController>();
+//            if (mobj == null) continue;
+//
+//            if (obj.GetComponent<PolygonCollider2D>() != null) continue;
+//            var polygonCollider = obj.gameObject.AddComponent<PolygonCollider2D>();
+//            polygonCollider.points = GetVector2EdgesFromTexture(obj.GetComponent<SpriteRenderer>(), mobj.footprint);
+//        }
     }
 
 

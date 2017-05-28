@@ -12,16 +12,7 @@ namespace UI.Panels
     public sealed class SavePanel : UIPanel, UIGameObject
     {
         private const int saveIconWidth = 40;
-        private int saveCount
-        {
-            get
-            {
-                int c = Saves.allSaveInformation.SaveCount;
-                if (c <= 0) throw new Exception("Save count too small");
-                return c;
-            }
-        }
-        
+
         public override string name
         {
             get { return "Save Panel"; }
@@ -41,12 +32,12 @@ namespace UI.Panels
         
         private List<Save> saveList
         {
-            get { return Saves.allSaveInformation.saveList; }
+			get { return Game.main.saves.saves; }
         }
 
         private void Refresh()
         {
-            saveBackgroundBox.sizeDelta = new Vector2(saveBackgroundBox.sizeDelta.x, saveCount * saveIconWidth);
+			saveBackgroundBox.sizeDelta = new Vector2(saveBackgroundBox.sizeDelta.x, saveList.Count * saveIconWidth);
 
             // Delete all the saves in the transform
             foreach (Transform child in saveIconParent)
@@ -97,10 +88,10 @@ namespace UI.Panels
 
         public void LoadSave()
         {
-            if (selectedSave == null) return;
-            GameUI.CurrentPanel.TurnOff();
-            GameUI.CurrentPanel.TurnOff();
-            Saves.Load(selectedSave.name);
+//            if (selectedSave == null) return;
+//            GameUI.CurrentPanel.TurnOff();
+//            GameUI.CurrentPanel.TurnOff();
+//            Saves.Load(selectedSave.name);
         }
 
         public void RenameSave()
@@ -122,8 +113,8 @@ namespace UI.Panels
 
         private void DeleteSaveConfirm(Save s)
         {
-            Saves.Delete(s.name);
-            Refresh();
+//            Saves.Delete(s.name);
+//            Refresh();
         }
         
         public void Back()

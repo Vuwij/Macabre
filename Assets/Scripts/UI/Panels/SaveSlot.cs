@@ -16,12 +16,12 @@ namespace UI.Panels
 
         public SavePanel savePanel
         {
-            get { return GameUI.Find<SavePanel>(); }
+			get { return Game.main.UI.Find<SavePanel>(); }
         }
 
         public Save save
         {
-            get { return Saves.Find(name); }
+			get { /*return Game.main.saves.saves.Find(name);*/return null; }
         }
 
         private void Start()
@@ -69,7 +69,7 @@ namespace UI.Panels
             foreach (Text t in texts)
                 if (t.name == name)
                     return t.text;
-            throw new MacabreUIException("Text missing on Save Slot");
+			throw new Exception("Text missing on Save Slot");
         }
 
         private void SetTextWithName(string name, string setValue)
@@ -83,7 +83,7 @@ namespace UI.Panels
                     return;
                 }
             }
-            throw new MacabreUIException("Text missing on Save Slot");
+			throw new Exception("Text missing on Save Slot");
         }
     }
 }

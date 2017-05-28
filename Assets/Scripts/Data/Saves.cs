@@ -26,7 +26,7 @@ namespace Data
 			SerializeSaveFile ();
 		}
 
-		List<Save> saves;
+		public List<Save> saves;
 
 		public void New (string name = "")
 		{
