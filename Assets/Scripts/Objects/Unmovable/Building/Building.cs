@@ -14,11 +14,11 @@ namespace Objects.Unmovable.Building
 
 		#region Rooms
 
-		public virtual List<RoomController> Rooms
+		public virtual List<Room> Rooms
 		{
 			get
 			{
-				return gameObject.GetComponentsInChildren<RoomController>().ToList();
+				return gameObject.GetComponentsInChildren<Room>().ToList();
 			}
 		}
 

@@ -12,7 +12,7 @@ namespace Objects.Unmovable.Path
 {
 	public class VirtualPath : MonoBehaviour
     {
-		public RoomController destination;
+		public Room destination;
 
         // Find the closest offset to enter into
         public Vector2 offset;
@@ -22,11 +22,11 @@ namespace Objects.Unmovable.Path
         }
 
 
-        public RoomController room
+        public Room room
         {
             get
             {
-                var room = GetComponentInParent<RoomController>();
+                var room = GetComponentInParent<Room>();
 				if (room == null) throw new Exception("Room not specified for the furniture: " + name);
                 return room;
             }

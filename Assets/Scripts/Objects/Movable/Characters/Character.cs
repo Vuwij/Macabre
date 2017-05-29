@@ -52,10 +52,6 @@ namespace Objects.Movable.Characters
 		{
 			get { return isRunning ? runningSpeed : walkingSpeed; }
 		}
-		bool isMoving
-		{
-			get { return (rigidbody2D.velocity.sqrMagnitude >= float.Epsilon); }
-		}
 		float inspectRadius
 		{
 			get { return GameSettings.inspectRadius; }
@@ -67,7 +63,10 @@ namespace Objects.Movable.Characters
 			base.Start();
         }
 
-		void Add(Character s) {}
+		protected override void Update()
+		{
+			base.Update();
+		}
 
 		#region Movement and Animation
 

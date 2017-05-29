@@ -7,9 +7,13 @@ namespace Objects.Movable.Characters.Individuals
 {
 	public sealed class Player : Character
     {
-		new bool isRunning
+		protected Vector2 inputVelocity
 		{
-			get { return Input.GetButton("SpeedUp"); }
+			get {
+				return new Vector2(
+					movementSpeed * Input.GetAxisRaw("Horizontal") * 2.0f,
+					movementSpeed * Input.GetAxisRaw("Vertical"));
+			}
 		}
 
 		protected override void Start()
@@ -20,10 +24,11 @@ namespace Objects.Movable.Characters.Individuals
 
 		void Update()
 		{
-			// Set the movement
-			rigidbody2D.velocity = movementLocked ? Vector2.zero : movementVelocity;
-
+			// Movement
+			rigidbody2D.velocity = movementLocked ? Vector2.zero : inputVelocity;
 			AnimateMovement();
+
+			base.Update();
 		}
 
 		void TeleportCameraToPlayer()
@@ -36,14 +41,6 @@ namespace Objects.Movable.Characters.Individuals
 				transform.position.y,
 				-10);
 			main.transform.position = newPosition;
-		}
-		protected Vector2 movementVelocity
-		{
-			get {
-				return new Vector2(
-					movementSpeed * Input.GetAxisRaw("Horizontal") * 2.0f,
-					movementSpeed * Input.GetAxisRaw("Vertical"));
-			}
 		}
     }
 }

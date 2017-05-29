@@ -8,9 +8,8 @@ using Objects.Unmovable.Path;
 
 namespace Objects.Unmovable
 {
-    public class RoomController : UnmovableObject
+    public class Room : UnmovableObject
     {
-		// The Parent Building Controller
 		public Building.Building buildingController
         {
             get
@@ -20,18 +19,10 @@ namespace Objects.Unmovable
                 return room;
             }
         }
-
-		#region Paths
-
 		public VirtualPath[] paths
 		{
 			get { return GetComponentsInChildren<VirtualPath>(); }
 		}
-
-		#endregion
-
-		#region Furniture
-
 		public List<AbstractFurniture> Furniture
 		{
 			get
@@ -39,7 +30,5 @@ namespace Objects.Unmovable
 				return gameObject.GetComponentsInChildren<AbstractFurniture>().ToList();
 			}
 		}
-
-		#endregion
     }
 }
