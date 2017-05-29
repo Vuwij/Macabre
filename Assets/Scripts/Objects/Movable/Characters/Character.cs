@@ -8,8 +8,8 @@ using System.Linq;
 using Objects.Unmovable.Items;
 using Objects.Inventory;
 using Objects.Inventory.Individual;
-
 using Objects.Movable.Characters.Individuals;
+using System.Xml.Serialization;
 
 namespace Objects.Movable.Characters
 {
@@ -31,10 +31,6 @@ namespace Objects.Movable.Characters
 			{
 				return GetComponentInChildren<Animator>();
 			}
-		}
-		SpriteRenderer spriteRenderer
-		{
-			get { return GetComponentInChildren<SpriteRenderer>(); }
 		}
 		protected bool keyboardMovement
 		{
@@ -70,6 +66,8 @@ namespace Objects.Movable.Characters
 			inventory = new CharacterInventory(gameObject, 1, 6);
 			base.Start();
         }
+
+		void Add(Character s) {}
 
 		#region Movement and Animation
 

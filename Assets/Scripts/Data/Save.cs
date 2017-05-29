@@ -7,6 +7,7 @@ using Environment;
 using Objects.Unmovable;
 using System.Linq;
 using Objects.Movable.Characters;
+using System.Xml.Serialization;
 
 namespace Data
 {
@@ -41,6 +42,7 @@ namespace Data
 		public string name;
 
 		// Game information
+		[XmlIgnore]
 		public List<Character> characters;
 		protected Save(){}
 
@@ -53,6 +55,8 @@ namespace Data
 			Directory.CreateDirectory(fileLocation);
 			File.Copy(masterURI + "/MacabreDB.master.db3", fileLocation + "/MacabreDB.db3");
 		}
+
+		void Add(Save s) {}
 
 		#region New, Load, Save, Delete 
 

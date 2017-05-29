@@ -13,7 +13,7 @@ namespace Data
 	[XmlInclude (typeof(Save))]
 	public class Saves
 	{
-		const string serializationURI = "/GameData/Saves.json";
+		const string serializationURI = "/GameData/Saves.xml";
 
 		public Save current;
 		public List<Save> saves;
@@ -37,15 +37,18 @@ namespace Data
 				SerializeSaveFile ();
 			}
 
-			string json = File.ReadAllText(Game.dataPath + serializationURI);
-			saves = JsonUtility.FromJson<List<Save>>(json);
+			XmlSerializer x = new XmlSerializer(typeof(List<Save>));
+			using (StreamReader r = new StreamReader(Game.dataPath + serializationURI))
+				saves = (List<Save>) x.Deserialize(r);
 		}
 
 		void SerializeSaveFile ()
 		{
 			File.Delete (Game.dataPath + serializationURI);
-			string json = JsonUtility.ToJson(saves, true);
-			File.WriteAllText(Game.dataPath + serializationURI, json);
+
+			XmlSerializer x = new XmlSerializer(typeof(List<Save>));
+			using (StreamWriter w = new StreamWriter(Game.dataPath + serializationURI))
+				x.Serialize(w, saves);
 		}
 
 		#endregion
