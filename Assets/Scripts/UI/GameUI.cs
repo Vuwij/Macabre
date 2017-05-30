@@ -34,24 +34,19 @@ namespace UI
 				return currentPanelStack.Peek();
 			}
 		}
-
-        // Dialogues pop up, cannot be toggled
-        public UIDialogue[] dialogues
+		public UIDialogue[] dialogues
         {
             get { return UIFolder.GetComponentsInChildren<UIDialogue>(); }
         }
-
-        public UIPanel[] panels
+		public UIPanel[] panels
         {
             get { return UIFolder.GetComponentsInChildren<UIPanel>(); }
         }
-
-        public UIScreen[] screens
+		public UIScreen[] screens
         {
             get { return UIFolder.GetComponentsInChildren<UIScreen>(); }
         }
-
-        public UIObject[] uiObjects
+		public UIObject[] uiObjects
         {
             get { return UIFolder.GetComponentsInChildren<UIObject>(); }
         }

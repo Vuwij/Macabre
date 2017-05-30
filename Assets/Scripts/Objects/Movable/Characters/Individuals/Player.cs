@@ -7,7 +7,7 @@ namespace Objects.Movable.Characters.Individuals
 {
 	public sealed class Player : Character
     {
-		protected Vector2 inputVelocity
+		Vector2 inputVelocity
 		{
 			get {
 				return new Vector2(
@@ -22,7 +22,7 @@ namespace Objects.Movable.Characters.Individuals
             TeleportCameraToPlayer();
         }
 
-		void Update()
+		protected override void Update()
 		{
 			// Movement
 			rigidbody2D.velocity = movementLocked ? Vector2.zero : inputVelocity;
