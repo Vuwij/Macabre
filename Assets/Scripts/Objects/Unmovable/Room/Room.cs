@@ -6,6 +6,7 @@ using Objects.Unmovable.Building;
 using Objects.Unmovable.Furniture;
 using Objects.Unmovable.Path;
 using UnityEngine;
+using Extensions;
 
 namespace Objects.Unmovable
 {
@@ -41,16 +42,15 @@ namespace Objects.Unmovable
 				return wall.points;
 			}
 		}
-
 		PolygonCollider2D playerShadow; // The top part of the room where the player its located
 
 		protected override void Start() {
-			createPlayerShadow();
+			createShadows();
 
 			base.Start();
 		}
 
-		void createPlayerShadow() {
+		void createShadows() {
 
 			// Find the left and right most point
 			int leftIndex = 0, rightIndex = 0;
@@ -113,6 +113,28 @@ namespace Objects.Unmovable
 				c.a = 0.0f;
 				spriteRenderer.color = c;
 			}
+
+			// Creates the child shadow
+			var childShadow = new GameObject(this.name + " Shadow");
+			childShadow.transform.parent = transform;
+			childShadow.transform.position = transform.position + new Vector3(0, 0, -10);
+			var mr = childShadow.AddComponent<MeshRenderer>();
+			mr.enabled = true;
+			var mf = childShadow.AddComponent<MeshFilter>();
+
+			Vector3[] vertices = new Vector3[wallPoints.Count()];
+			for(int j = 0; j<wallPoints.Count(); j++){
+				Vector2 actual = wallPoints[j];
+				vertices[j] = new Vector3(actual.x, actual.y, -10);
+			}
+			Triangulator t = new Triangulator(wallPoints);
+			int[] triangles = t.Triangulate();
+
+			Mesh blackShadow = new Mesh();
+			blackShadow.vertices = vertices;
+			blackShadow.triangles = triangles;
+			blackShadow.uv = wallPoints;
+			mf.mesh = blackShadow;
 		}
 
 		void OnTriggerExit2D(Collider2D collider) {
