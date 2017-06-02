@@ -25,12 +25,12 @@ TextureImporter:
     21300036: Bakery-MainSpritesheetOutline_18
     21300038: Bakery-MainSpritesheetOutline_19
     21300040: Bakery-MainSpritesheetOutline_20
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -42,10 +42,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -56,22 +54,68 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Bakery-MainSpritesheetOutline_0
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_0
       rect:
         serializedVersion: 2
         x: 0
@@ -81,29 +125,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 144, y: -28}
-        - {x: 154, y: 31}
-        - {x: 154, y: 57}
-        - {x: 109, y: 146}
-        - {x: 97, y: 146}
-        - {x: -17, y: 91}
-        - {x: -37, y: 77}
-        - {x: -39, y: 74}
-        - {x: -42, y: 67}
-        - {x: -42, y: 65}
-        - {x: -42, y: 68}
-        - {x: -39, y: 75}
-        - {x: -56, y: 97}
-        - {x: -110, y: 90}
-        - {x: -150, y: 4}
-        - {x: -150, y: -105}
-        - {x: -92, y: -125}
-        - {x: -33, y: -125}
-        - {x: -12, y: -111}
-        - {x: 11, y: -67}
-        - {x: 42, y: -82}
-    - name: Bakery-MainSpritesheetOutline_1
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_1
       rect:
         serializedVersion: 2
         x: 350
@@ -113,20 +138,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 96, y: 138}
-        - {x: 91, y: 138}
-        - {x: 4, y: 95}
-        - {x: -30, y: 27}
-        - {x: -30, y: -41}
-        - {x: -14, y: -53}
-        - {x: 4, y: -63}
-        - {x: 38, y: -77}
-        - {x: 44, y: -77}
-        - {x: 133, y: -36}
-        - {x: 133, y: 71}
-        - {x: 100, y: 136}
-    - name: Bakery-MainSpritesheetOutline_2
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_2
       rect:
         serializedVersion: 2
         x: 700
@@ -136,18 +151,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 75, y: 53}
-        - {x: 56, y: 53}
-        - {x: 40, y: 32}
-        - {x: 40, y: -7}
-        - {x: 41, y: -9}
-        - {x: 55, y: -17}
-        - {x: 90, y: -17}
-        - {x: 99, y: -4}
-        - {x: 99, y: 35}
-        - {x: 98, y: 38}
-    - name: Bakery-MainSpritesheetOutline_3
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_3
       rect:
         serializedVersion: 2
         x: 1050
@@ -157,15 +164,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 46, y: 29}
-        - {x: 46, y: 13}
-        - {x: 63, y: 5}
-        - {x: 86, y: 5}
-        - {x: 90, y: 7}
-        - {x: 90, y: 24}
-        - {x: 70, y: 29}
-    - name: Bakery-MainSpritesheetOutline_4
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_4
       rect:
         serializedVersion: 2
         x: 0
@@ -175,25 +177,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 0, y: 12}
-        - {x: -24, y: -6}
-        - {x: -24, y: -36}
-        - {x: -22, y: -39}
-        - {x: 2, y: -39}
-        - {x: 45, y: -16}
-        - {x: 45, y: 11}
-        - {x: 41, y: 12}
-      - - {x: 127, y: 7}
-        - {x: 82, y: 7}
-        - {x: 70, y: 3}
-        - {x: 70, y: -28}
-        - {x: 84, y: -32}
-        - {x: 128, y: -32}
-        - {x: 131, y: -29}
-        - {x: 131, y: -8}
-        - {x: 129, y: 2}
-    - name: Bakery-MainSpritesheetOutline_5
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_5
       rect:
         serializedVersion: 2
         x: 350
@@ -203,67 +190,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -11, y: -19}
-        - {x: -13, y: -21}
-        - {x: -13, y: -33}
-        - {x: -12, y: -36}
-        - {x: 3, y: -36}
-        - {x: 7, y: -34}
-        - {x: 7, y: -24}
-        - {x: 5, y: -19}
-      - - {x: 31, y: -11}
-        - {x: 9, y: -11}
-        - {x: 9, y: -22}
-        - {x: 10, y: -23}
-        - {x: 14, y: -24}
-        - {x: 31, y: -24}
-        - {x: 34, y: -22}
-        - {x: 34, y: -17}
-      - - {x: -2, y: -3}
-        - {x: -7, y: -3}
-        - {x: -18, y: -4}
-        - {x: -22, y: -12}
-        - {x: -22, y: -17}
-        - {x: -18, y: -19}
-        - {x: -13, y: -19}
-        - {x: -2, y: -18}
-        - {x: 1, y: -12}
-        - {x: 1, y: -4}
-      - - {x: 94, y: 3}
-        - {x: 90, y: -2}
-        - {x: 91, y: -5}
-        - {x: 94, y: -7}
-        - {x: 98, y: -7}
-        - {x: 104, y: -5}
-        - {x: 104, y: 1}
-        - {x: 101, y: 3}
-      - - {x: 10, y: 10}
-        - {x: 2, y: 6}
-        - {x: 2, y: -1}
-        - {x: 5, y: -5}
-        - {x: 19, y: -5}
-        - {x: 21, y: 0}
-        - {x: 21, y: 7}
-        - {x: 18, y: 10}
-      - - {x: 26, y: 11}
-        - {x: 23, y: 7}
-        - {x: 23, y: -1}
-        - {x: 31, y: -5}
-        - {x: 43, y: -5}
-        - {x: 44, y: -4}
-        - {x: 44, y: 2}
-        - {x: 41, y: 8}
-        - {x: 33, y: 11}
-      - - {x: 116, y: 8}
-        - {x: 113, y: 2}
-        - {x: 113, y: -3}
-        - {x: 114, y: -4}
-        - {x: 118, y: -4}
-        - {x: 125, y: -1}
-        - {x: 125, y: 5}
-        - {x: 121, y: 8}
-    - name: Bakery-MainSpritesheetOutline_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_6
       rect:
         serializedVersion: 2
         x: 700
@@ -273,141 +203,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 32, y: -50}
-        - {x: 27, y: -50}
-        - {x: 19, y: -52}
-        - {x: 17, y: -54}
-        - {x: 18, y: -57}
-        - {x: 38, y: -67}
-        - {x: 46, y: -67}
-        - {x: 47, y: -65}
-        - {x: 47, y: -62}
-        - {x: 44, y: -59}
-      - - {x: 81, y: -41}
-        - {x: 73, y: -42}
-        - {x: 68, y: -46}
-        - {x: 68, y: -49}
-        - {x: 67, y: -48}
-        - {x: 69, y: -43}
-        - {x: 70, y: -40}
-        - {x: 40, y: -40}
-        - {x: 40, y: -54}
-        - {x: 49, y: -64}
-        - {x: 63, y: -64}
-        - {x: 84, y: -49}
-        - {x: 84, y: -42}
-      - - {x: -9, y: -29}
-        - {x: -13, y: -31}
-        - {x: -13, y: -37}
-        - {x: -7, y: -41}
-        - {x: 1, y: -41}
-        - {x: 7, y: -35}
-        - {x: 7, y: -30}
-        - {x: 6, y: -29}
-      - - {x: 99, y: -31}
-        - {x: 93, y: -35}
-        - {x: 93, y: -37}
-        - {x: 94, y: -39}
-        - {x: 99, y: -40}
-        - {x: 105, y: -40}
-        - {x: 109, y: -36}
-        - {x: 108, y: -32}
-        - {x: 104, y: -31}
-      - - {x: 80, y: -21}
-        - {x: 77, y: -21}
-        - {x: 69, y: -26}
-        - {x: 70, y: -29}
-        - {x: 74, y: -31}
-        - {x: 82, y: -31}
-        - {x: 91, y: -28}
-        - {x: 93, y: -26}
-        - {x: 92, y: -22}
-      - - {x: 36, y: -9}
-        - {x: 9, y: -16}
-        - {x: 9, y: -28}
-        - {x: 58, y: -28}
-        - {x: 59, y: -22}
-        - {x: 59, y: -12}
-        - {x: 55, y: -9}
-      - - {x: -8, y: -12}
-        - {x: -14, y: -14}
-        - {x: -17, y: -17}
-        - {x: -16, y: -21}
-        - {x: -10, y: -22}
-        - {x: -4, y: -22}
-        - {x: -3, y: -19}
-        - {x: -3, y: -13}
-        - {x: -5, y: -12}
-      - - {x: 65, y: -8}
-        - {x: 64, y: -11}
-        - {x: 68, y: -15}
-        - {x: 70, y: -15}
-        - {x: 73, y: -12}
-        - {x: 73, y: -11}
-        - {x: 70, y: -8}
-      - - {x: 32, y: 3}
-        - {x: 28, y: 2}
-        - {x: 28, y: -2}
-        - {x: 31, y: -9}
-        - {x: 33, y: -11}
-        - {x: 37, y: -10}
-        - {x: 38, y: -4}
-        - {x: 38, y: 2}
-        - {x: 37, y: 3}
-      - - {x: 6, y: -1}
-        - {x: 6, y: -4}
-        - {x: 10, y: -10}
-        - {x: 13, y: -10}
-        - {x: 15, y: -9}
-        - {x: 18, y: -2}
-        - {x: 17, y: 0}
-        - {x: 7, y: 0}
-      - - {x: 111, y: 1}
-        - {x: 110, y: -2}
-        - {x: 110, y: -9}
-        - {x: 114, y: -9}
-        - {x: 118, y: -5}
-        - {x: 118, y: 1}
-      - - {x: 68, y: 4}
-        - {x: 73, y: -2}
-        - {x: 79, y: -2}
-        - {x: 90, y: 6}
-        - {x: 90, y: 11}
-        - {x: 75, y: 11}
-        - {x: 68, y: 7}
-      - - {x: -5, y: 25}
-        - {x: -12, y: 20}
-        - {x: -12, y: -1}
-        - {x: -5, y: -1}
-        - {x: 9, y: 2}
-        - {x: 9, y: 16}
-        - {x: 3, y: 25}
-      - - {x: 86, y: 18}
-        - {x: 86, y: 13}
-        - {x: 88, y: 12}
-        - {x: 96, y: 12}
-        - {x: 103, y: 19}
-        - {x: 103, y: 29}
-        - {x: 100, y: 31}
-        - {x: 88, y: 26}
-      - - {x: 55, y: 41}
-        - {x: 52, y: 40}
-        - {x: 37, y: 33}
-        - {x: 33, y: 26}
-        - {x: 33, y: 17}
-        - {x: 39, y: 17}
-        - {x: 57, y: 25}
-        - {x: 59, y: 30}
-        - {x: 59, y: 35}
-        - {x: 57, y: 39}
-      - - {x: 53, y: 43}
-        - {x: 55, y: 41}
-        - {x: 58, y: 42}
-        - {x: 58, y: 45}
-        - {x: 56, y: 47}
-        - {x: 53, y: 46}
-    - name: Bakery-MainSpritesheetOutline_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_7
       rect:
         serializedVersion: 2
         x: 1050
@@ -417,65 +216,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 42, y: -35}
-        - {x: 22, y: -36}
-        - {x: 20, y: -37}
-        - {x: 20, y: -55}
-        - {x: 30, y: -68}
-        - {x: 51, y: -68}
-        - {x: 71, y: -59}
-        - {x: 74, y: -51}
-        - {x: 74, y: -37}
-        - {x: 73, y: -35}
-      - - {x: 128, y: 17}
-        - {x: 128, y: 87}
-        - {x: 111, y: 116}
-        - {x: 104, y: 116}
-        - {x: 103, y: 115}
-        - {x: 101, y: 45}
-        - {x: 101, y: 5}
-        - {x: 105, y: -1}
-        - {x: 109, y: -1}
-        - {x: 114, y: 1}
-        - {x: 115, y: 23}
-        - {x: 116, y: 21}
-        - {x: 120, y: 16}
-      - - {x: -4, y: 15}
-        - {x: 0, y: 11}
-        - {x: 8, y: 4}
-        - {x: 23, y: 4}
-        - {x: 36, y: 21}
-        - {x: 36, y: 73}
-        - {x: 32, y: 102}
-        - {x: 31, y: 103}
-        - {x: 7, y: 103}
-        - {x: -4, y: 87}
-      - - {x: 76, y: 130}
-        - {x: 71, y: 106}
-        - {x: 71, y: 23}
-        - {x: 81, y: 23}
-        - {x: 85, y: 27}
-        - {x: 85, y: 105}
-        - {x: 83, y: 130}
-      - - {x: 60, y: 125}
-        - {x: 60, y: 29}
-        - {x: 71, y: 29}
-        - {x: 74, y: 40}
-        - {x: 74, y: 115}
-        - {x: 72, y: 125}
-      - - {x: 53, y: 114}
-        - {x: 48, y: 114}
-        - {x: 43, y: 112}
-        - {x: 41, y: 64}
-        - {x: 41, y: 34}
-        - {x: 43, y: 32}
-        - {x: 47, y: 32}
-        - {x: 53, y: 34}
-        - {x: 55, y: 37}
-        - {x: 55, y: 101}
-        - {x: 54, y: 113}
-    - name: Bakery-MainSpritesheetOutline_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_8
       rect:
         serializedVersion: 2
         x: 0
@@ -485,20 +229,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 96, y: 138}
-        - {x: 91, y: 138}
-        - {x: 4, y: 95}
-        - {x: -30, y: 27}
-        - {x: -30, y: -41}
-        - {x: -14, y: -53}
-        - {x: 4, y: -63}
-        - {x: 38, y: -77}
-        - {x: 44, y: -77}
-        - {x: 133, y: -36}
-        - {x: 133, y: 71}
-        - {x: 100, y: 136}
-    - name: Bakery-MainSpritesheetOutline_9
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_9
       rect:
         serializedVersion: 2
         x: 350
@@ -508,20 +242,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 96, y: 138}
-        - {x: 91, y: 138}
-        - {x: 4, y: 95}
-        - {x: -30, y: 27}
-        - {x: -30, y: -41}
-        - {x: -14, y: -53}
-        - {x: 4, y: -63}
-        - {x: 38, y: -77}
-        - {x: 44, y: -77}
-        - {x: 133, y: -36}
-        - {x: 133, y: 71}
-        - {x: 100, y: 136}
-    - name: Bakery-MainSpritesheetOutline_10
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_10
       rect:
         serializedVersion: 2
         x: 700
@@ -531,17 +255,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -14, y: -1}
-        - {x: -65, y: -29}
-        - {x: -68, y: -71}
-        - {x: -68, y: -80}
-        - {x: -53, y: -89}
-        - {x: -48, y: -89}
-        - {x: 11, y: -63}
-        - {x: 11, y: -6}
-        - {x: -3, y: -1}
-    - name: Bakery-MainSpritesheetOutline_11
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_11
       rect:
         serializedVersion: 2
         x: 1050
@@ -551,16 +268,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -14, y: -1}
-        - {x: -14, y: -18}
-        - {x: 0, y: -54}
-        - {x: 2, y: -56}
-        - {x: 6, y: -56}
-        - {x: 11, y: -53}
-        - {x: 11, y: -10}
-        - {x: -2, y: -1}
-    - name: Bakery-MainSpritesheetOutline_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_12
       rect:
         serializedVersion: 2
         x: 0
@@ -570,17 +281,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -14, y: -1}
-        - {x: -49, y: -19}
-        - {x: -49, y: -25}
-        - {x: -24, y: -55}
-        - {x: -7, y: -67}
-        - {x: -3, y: -67}
-        - {x: 11, y: -60}
-        - {x: 11, y: -9}
-        - {x: -4, y: -1}
-    - name: Bakery-MainSpritesheetOutline_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_13
       rect:
         serializedVersion: 2
         x: 350
@@ -590,17 +294,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -14, y: -1}
-        - {x: -49, y: -19}
-        - {x: -49, y: -25}
-        - {x: -24, y: -55}
-        - {x: -7, y: -67}
-        - {x: -3, y: -67}
-        - {x: 11, y: -60}
-        - {x: 11, y: -9}
-        - {x: -4, y: -1}
-    - name: Bakery-MainSpritesheetOutline_14
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_14
       rect:
         serializedVersion: 2
         x: 700
@@ -610,17 +307,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -86, y: -14}
-        - {x: -128, y: -35}
-        - {x: -144, y: -84}
-        - {x: -144, y: -111}
-        - {x: -123, y: -117}
-        - {x: -59, y: -117}
-        - {x: -33, y: -97}
-        - {x: -33, y: -39}
-        - {x: -81, y: -14}
-    - name: Bakery-MainSpritesheetOutline_15
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_15
       rect:
         serializedVersion: 2
         x: 1050
@@ -630,16 +320,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -112, y: -9}
-        - {x: -122, y: -16}
-        - {x: -122, y: -88}
-        - {x: -74, y: -104}
-        - {x: -59, y: -104}
-        - {x: -49, y: -98}
-        - {x: -49, y: -54}
-        - {x: -87, y: -9}
-    - name: Bakery-MainSpritesheetOutline_16
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_16
       rect:
         serializedVersion: 2
         x: 0
@@ -649,16 +333,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -106, y: 82}
-        - {x: -128, y: 38}
-        - {x: -128, y: -39}
-        - {x: -61, y: -73}
-        - {x: -51, y: -73}
-        - {x: -9, y: -49}
-        - {x: -9, y: 32}
-        - {x: -82, y: 82}
-    - name: Bakery-MainSpritesheetOutline_17
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_17
       rect:
         serializedVersion: 2
         x: 350
@@ -668,32 +346,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -73, y: 36}
-        - {x: -78, y: 36}
-        - {x: -94, y: 28}
-        - {x: -94, y: -19}
-        - {x: -79, y: -28}
-        - {x: -62, y: -28}
-        - {x: -55, y: -19}
-        - {x: -55, y: 25}
-      - - {x: -36, y: 19}
-        - {x: -36, y: 11}
-        - {x: -35, y: 9}
-        - {x: -32, y: 9}
-        - {x: -23, y: 12}
-        - {x: -21, y: 16}
-        - {x: -21, y: 23}
-        - {x: -23, y: 25}
-      - - {x: -31, y: 51}
-        - {x: -37, y: 46}
-        - {x: -37, y: 34}
-        - {x: -31, y: 31}
-        - {x: -23, y: 31}
-        - {x: -16, y: 37}
-        - {x: -16, y: 48}
-        - {x: -22, y: 51}
-    - name: Bakery-MainSpritesheetOutline_18
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_18
       rect:
         serializedVersion: 2
         x: 700
@@ -703,19 +359,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -13, y: -14}
-        - {x: -24, y: -7}
-        - {x: -27, y: -6}
-        - {x: -38, y: -6}
-        - {x: -70, y: -36}
-        - {x: -70, y: -50}
-        - {x: -69, y: -53}
-        - {x: -55, y: -61}
-        - {x: -38, y: -61}
-        - {x: -11, y: -43}
-        - {x: -11, y: -18}
-    - name: Bakery-MainSpritesheetOutline_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_19
       rect:
         serializedVersion: 2
         x: 1050
@@ -725,14 +372,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -70, y: -23}
-        - {x: -70, y: -55}
-        - {x: -54, y: -61}
-        - {x: -45, y: -61}
-        - {x: -45, y: -35}
-        - {x: -50, y: -23}
-    - name: Bakery-MainSpritesheetOutline_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheetOutline_20
       rect:
         serializedVersion: 2
         x: 0
@@ -742,17 +385,8 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -128, y: -39}
-        - {x: -127, y: -40}
-        - {x: -107, y: -51}
-        - {x: -98, y: -51}
-        - {x: -74, y: -35}
-        - {x: -74, y: -20}
-        - {x: -75, y: -17}
-        - {x: -85, y: -12}
-        - {x: -105, y: -12}
-        - {x: -128, y: -22}
+      outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 
