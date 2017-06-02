@@ -5,15 +5,28 @@ using Extensions;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [ExecuteInEditMode]
-public class ColliderToMesh : MonoBehaviour {
-	PolygonCollider2D pc2 ;
+public class Polygon : MonoBehaviour {
+	public PolygonCollider2D pc2 {
+		get {
+			return gameObject.GetComponent<PolygonCollider2D>();
+		}
+	}
+	public MeshRenderer mr {
+		get {
+			return gameObject.GetComponent<MeshRenderer>();
+		}
+	}
 	void Start () {
-		pc2 = gameObject.GetComponent<PolygonCollider2D>();
+		Mesh mesh = new Mesh();
+		GetComponent<MeshFilter>().mesh = mesh;
+		Refresh();
+	}
+
+	public void Refresh() {
 		//Render thing
 		int pointCount = 0;
 		pointCount = pc2.GetTotalPointCount();
-		MeshFilter mf = GetComponent<MeshFilter>();
-		Mesh mesh = new Mesh();
+		Mesh mesh = GetComponent<MeshFilter>().mesh;
 		Vector2[] points = pc2.points;
 		Vector3[] vertices = new Vector3[pointCount];
 		Vector2[] uv = new Vector2[pointCount];
@@ -27,7 +40,10 @@ public class ColliderToMesh : MonoBehaviour {
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
 		mesh.uv = uv;
-		mf.mesh = mesh;
-		//Render thing
+		mesh.RecalculateNormals();
+		mesh.RecalculateBounds();
+		mesh.RecalculateTangents();
+
+		print("Recalculating mesh");
 	}
 }

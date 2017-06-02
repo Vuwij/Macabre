@@ -43,8 +43,10 @@ namespace Objects.Unmovable
 			}
 		}
 		PolygonCollider2D playerShadow; // The top part of the room where the player its located
+		Material shadowMaterial;
 
 		protected override void Start() {
+			shadowMaterial = Resources.Load("Materials/Shadow", typeof(Material)) as Material;
 			createShadows();
 
 			base.Start();
@@ -110,31 +112,19 @@ namespace Objects.Unmovable
 			if (collider.isTrigger) return;
 			if (obj != null) {
 				var c = spriteRenderer.color;
-				c.a = 0.0f;
+				c.a = 0.3f;
 				spriteRenderer.color = c;
 			}
 
 			// Creates the child shadow
-			var childShadow = new GameObject(this.name + " Shadow");
+			var childShadow = new GameObject();
+			childShadow.name = this.name + " Shadow";
 			childShadow.transform.parent = transform;
-			childShadow.transform.position = transform.position + new Vector3(0, 0, -10);
-			var mr = childShadow.AddComponent<MeshRenderer>();
-			mr.enabled = true;
-			var mf = childShadow.AddComponent<MeshFilter>();
-
-			Vector3[] vertices = new Vector3[wallPoints.Count()];
-			for(int j = 0; j<wallPoints.Count(); j++){
-				Vector2 actual = wallPoints[j];
-				vertices[j] = new Vector3(actual.x, actual.y, -10);
-			}
-			Triangulator t = new Triangulator(wallPoints);
-			int[] triangles = t.Triangulate();
-
-			Mesh blackShadow = new Mesh();
-			blackShadow.vertices = vertices;
-			blackShadow.triangles = triangles;
-			blackShadow.uv = wallPoints;
-			mf.mesh = blackShadow;
+			childShadow.transform.position = transform.position + new Vector3(0, 0, -1);
+			var polygon = childShadow.AddComponent<Polygon>();
+			polygon.pc2.points = wallPoints;
+			polygon.mr.material = shadowMaterial;
+			polygon.Refresh();
 		}
 
 		void OnTriggerExit2D(Collider2D collider) {
@@ -145,6 +135,7 @@ namespace Objects.Unmovable
 				c.a = 1.0f;
 				spriteRenderer.color = c;
 			}
+			GameObject.Destroy(GameObject.Find(this.name + " Shadow"));
 		}
     }
 }
