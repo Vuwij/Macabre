@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c5444ca6e879cc447bc3a004750a7f3c
-timeCreated: 1467437755
+timeCreated: 1496549554
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -21,12 +21,12 @@ TextureImporter:
     21300028: Church-MainSpritesheet_31
     21300030: Church-MainSpritesheet_32
     21300032: Church-MainSpritesheet_33
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -38,10 +38,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -52,9 +50,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -62,12 +58,60 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Church-MainSpritesheet_3
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_3
       rect:
         serializedVersion: 2
         x: 3211
@@ -77,14 +121,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 34.032104, y: 79.232056}
-        - {x: -62.967896, y: 16.232056}
-        - {x: -62.967896, y: -78.767944}
-        - {x: 14.0321045, y: -78.767944}
-        - {x: 63.032104, y: 2.2320557}
-        - {x: 63.032104, y: 79.232056}
-    - name: Church-MainSpritesheet_6
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_6
       rect:
         serializedVersion: 2
         x: 1449
@@ -94,17 +134,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 6.3880615, y: 21.104004}
-        - {x: -0.6119385, y: 16.104004}
-        - {x: -20.611938, y: -8.895996}
-        - {x: -20.611938, y: -15.895996}
-        - {x: -16.611938, y: -20.895996}
-        - {x: 2.3880615, y: -20.895996}
-        - {x: 22.388062, y: -12.895996}
-        - {x: 22.388062, y: 16.104004}
-        - {x: 12.388062, y: 21.104004}
-    - name: Church-MainSpritesheet_7
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_7
       rect:
         serializedVersion: 2
         x: 1584
@@ -114,16 +147,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -13.991943, y: 25.76001}
-        - {x: -37.991943, y: 25.76001}
-        - {x: -37.991943, y: 1.7600098}
-        - {x: 10.008057, y: -24.23999}
-        - {x: 36.008057, y: -24.23999}
-        - {x: 38.008057, y: -23.23999}
-        - {x: 38.008057, y: -5.23999}
-        - {x: 13.008057, y: 14.76001}
-    - name: Church-MainSpritesheet_8
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_8
       rect:
         serializedVersion: 2
         x: 2211
@@ -133,19 +160,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 45.032104, y: 89.59607}
-        - {x: -17.967896, y: 89.59607}
-        - {x: -41.967896, y: 78.59607}
-        - {x: -89.967896, y: 10.596069}
-        - {x: -159.9679, y: -44.40393}
-        - {x: -159.9679, y: -85.40393}
-        - {x: -145.9679, y: -89.40393}
-        - {x: -46.967896, y: -89.40393}
-        - {x: 28.032104, y: -69.40393}
-        - {x: 160.0321, y: -26.40393}
-        - {x: 160.0321, y: 28.59607}
-    - name: Church-MainSpritesheet_12
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_12
       rect:
         serializedVersion: 2
         x: 1406
@@ -155,15 +173,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -21.62799, y: 17.808105}
-        - {x: -21.62799, y: -2.1918945}
-        - {x: 9.372009, y: -16.191895}
-        - {x: 18.37201, y: -16.191895}
-        - {x: 23.37201, y: -14.191895}
-        - {x: 23.37201, y: -0.19189453}
-        - {x: -9.627991, y: 17.808105}
-    - name: Church-MainSpritesheet_13
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_13
       rect:
         serializedVersion: 2
         x: 1506
@@ -174,7 +187,9 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Church-MainSpritesheet_14
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_14
       rect:
         serializedVersion: 2
         x: 1625
@@ -184,17 +199,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 4.000061, y: 21.048096}
-        - {x: -1.999939, y: 16.048096}
-        - {x: -20.999939, y: -7.9519043}
-        - {x: -20.999939, y: -18.951904}
-        - {x: -14.999939, y: -20.951904}
-        - {x: 4.000061, y: -20.951904}
-        - {x: 21.000061, y: -9.951904}
-        - {x: 21.000061, y: 17.048096}
-        - {x: 11.000061, y: 21.048096}
-    - name: Church-MainSpritesheet_19
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_19
       rect:
         serializedVersion: 2
         x: 246
@@ -204,35 +212,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -47.547997, y: 0.34802246}
-        - {x: -65.548, y: -6.6519775}
-        - {x: -123.548, y: -38.651978}
-        - {x: -123.548, y: -61.651978}
-        - {x: -92.548, y: -75.65198}
-        - {x: -76.548, y: -75.65198}
-        - {x: 5.4520035, y: -32.651978}
-        - {x: 5.4520035, y: -19.651978}
-        - {x: -33.547997, y: 0.34802246}
-      - - {x: 2.4520035, y: 64.34802}
-        - {x: -2.5479965, y: 61.348022}
-        - {x: -28.547997, y: 28.348022}
-        - {x: -28.547997, y: 2.3480225}
-        - {x: -9.5479965, y: -25.651978}
-        - {x: 13.4520035, y: -28.651978}
-        - {x: 95.452, y: -28.651978}
-        - {x: 115.452, y: -13.651978}
-        - {x: 115.452, y: 26.348022}
-        - {x: 24.452003, y: 64.34802}
-      - - {x: 92.452, y: 77.34802}
-        - {x: 48.452003, y: 77.34802}
-        - {x: 48.452003, y: 52.348022}
-        - {x: 107.452, y: 26.348022}
-        - {x: 117.452, y: 26.348022}
-        - {x: 125.452, y: 29.348022}
-        - {x: 125.452, y: 48.348022}
-        - {x: 106.452, y: 75.34802}
-    - name: Church-MainSpritesheet_20
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_20
       rect:
         serializedVersion: 2
         x: 369
@@ -242,25 +225,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 86.92801, y: 96.55603}
-        - {x: 42.92801, y: 123.55603}
-        - {x: -2.071991, y: 123.55603}
-        - {x: -13.071991, y: 122.55603}
-        - {x: -69.07199, y: 91.55603}
-        - {x: -119.07199, y: 40.55603}
-        - {x: -119.07199, y: -4.4439697}
-        - {x: -118.07199, y: -5.4439697}
-        - {x: -75.07199, y: 15.55603}
-        - {x: -52.07199, y: -38.44397}
-        - {x: -47.07199, y: -118.44397}
-        - {x: -39.07199, y: -123.44397}
-        - {x: -6.071991, y: -123.44397}
-        - {x: 28.928009, y: -111.44397}
-        - {x: 120.92801, y: -83.44397}
-        - {x: 120.92801, y: -6.4439697}
-        - {x: 109.92801, y: 46.55603}
-    - name: Church-MainSpritesheet_21
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_21
       rect:
         serializedVersion: 2
         x: 1369
@@ -270,19 +238,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 114.92804, y: 39.768005}
-        - {x: 86.92804, y: 81.768005}
-        - {x: 44.92804, y: 99.768005}
-        - {x: -2.0719604, y: 99.768005}
-        - {x: -64.07196, y: 67.768005}
-        - {x: -113.07196, y: 14.768005}
-        - {x: -113.07196, y: -98.231995}
-        - {x: -104.07196, y: -98.231995}
-        - {x: -41.07196, y: -67.231995}
-        - {x: -30.07196, y: -17.231995}
-        - {x: 114.92804, y: -79.231995}
-    - name: Church-MainSpritesheet_22
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_22
       rect:
         serializedVersion: 2
         x: 2367
@@ -292,23 +251,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -64.59595, y: 6.856018}
-        - {x: -64.59595, y: -49.143982}
-        - {x: -61.595947, y: -50.143982}
-        - {x: 81.40405, y: -92.14398}
-        - {x: 115.40405, y: -92.14398}
-        - {x: 115.40405, y: 16.856018}
-        - {x: 94.40405, y: 51.856018}
-        - {x: 49.404053, y: 80.85602}
-        - {x: 18.404053, y: 80.85602}
-        - {x: -57.595947, y: 35.856018}
-      - - {x: -113.59595, y: 93.85602}
-        - {x: -113.59595, y: 90.85602}
-        - {x: -112.59595, y: 89.85602}
-        - {x: -109.59595, y: 90.85602}
-        - {x: -109.59595, y: 93.85602}
-    - name: Church-MainSpritesheet_23
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_23
       rect:
         serializedVersion: 2
         x: 3750
@@ -318,14 +264,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -21.999878, y: 43.032043}
-        - {x: -21.999878, y: 17.032043}
-        - {x: -2.999878, y: -42.967957}
-        - {x: 22.000122, y: -42.967957}
-        - {x: 22.000122, y: 20.032043}
-        - {x: -10.999878, y: 43.032043}
-    - name: Church-MainSpritesheet_29
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_29
       rect:
         serializedVersion: 2
         x: 616
@@ -336,7 +278,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Church-MainSpritesheet_30
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_30
       rect:
         serializedVersion: 2
         x: 750
@@ -346,13 +290,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -21.99997, y: 53.54001}
-        - {x: -21.99997, y: -53.45999}
-        - {x: 22.00003, y: -53.45999}
-        - {x: 22.00003, y: 33.54001}
-        - {x: 18.00003, y: 53.54001}
-    - name: Church-MainSpritesheet_31
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_31
       rect:
         serializedVersion: 2
         x: 1211
@@ -362,30 +303,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 71.03204, y: -86.85599}
-        - {x: 103.03204, y: -69.85599}
-        - {x: 102.03204, y: -1.8559875}
-        - {x: 115.03204, y: 21.144012}
-        - {x: 124.03204, y: 39.144012}
-        - {x: 154.03204, y: 20.144012}
-        - {x: 154.03204, y: 74.14401}
-        - {x: 133.03204, y: 116.14401}
-        - {x: 82.03204, y: 143.14401}
-        - {x: 56.032043, y: 143.14401}
-        - {x: 33.032043, y: 139.14401}
-        - {x: -23.967957, y: 111.14401}
-        - {x: -74.96796, y: 59.144012}
-        - {x: -75.96796, y: 20.144012}
-        - {x: -129.96796, y: -5.8559875}
-        - {x: -153.96796, y: -31.855988}
-        - {x: -153.96796, y: -130.85599}
-        - {x: -137.96796, y: -142.85599}
-        - {x: -87.96796, y: -142.85599}
-        - {x: 3.0320435, y: -97.85599}
-        - {x: 21.032043, y: -105.85599}
-        - {x: 31.032043, y: -106.85599}
-    - name: Church-MainSpritesheet_32
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_32
       rect:
         serializedVersion: 2
         x: 3201
@@ -395,41 +316,10 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 95.41211, y: -153.428}
-        - {x: 134.41211, y: -163.428}
-        - {x: 174.41211, y: -142.428}
-        - {x: 174.41211, y: -106.42799}
-        - {x: 162.41211, y: -102.42799}
-        - {x: 169.41211, y: -61.427994}
-        - {x: 170.41211, y: -53.427994}
-        - {x: 150.41211, y: -35.427994}
-        - {x: 152.41211, y: 2.5720062}
-        - {x: 152.41211, y: 8.572006}
-        - {x: 129.41211, y: 51.572006}
-        - {x: 129.41211, y: 85.57201}
-        - {x: 123.41211, y: 96.57201}
-        - {x: 123.41211, y: 193.572}
-        - {x: 118.41211, y: 198.572}
-        - {x: 85.41211, y: 218.572}
-        - {x: 60.41211, y: 218.572}
-        - {x: 13.412109, y: 198.572}
-        - {x: 11.412109, y: 99.57201}
-        - {x: 6.4121094, y: 67.57201}
-        - {x: -20.58789, y: 56.572006}
-        - {x: -41.58789, y: 41.572006}
-        - {x: -92.58789, y: -10.427994}
-        - {x: -96.58789, y: -44.427994}
-        - {x: -142.58789, y: -68.42799}
-        - {x: -171.58789, y: -86.42799}
-        - {x: -172.58789, y: -90.42799}
-        - {x: -172.58789, y: -206.428}
-        - {x: -151.58789, y: -218.428}
-        - {x: -101.58789, y: -218.428}
-        - {x: -69.58789, y: -209.428}
-        - {x: -5.5878906, y: -180.428}
-        - {x: 18.41211, y: -194.428}
-    - name: Church-MainSpritesheet_33
+      outline: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_33
       rect:
         serializedVersion: 2
         x: 2791
@@ -439,13 +329,8 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 10.992065, y: 27.404007}
-        - {x: -22.007935, y: 13.404007}
-        - {x: -22.007935, y: -25.595993}
-        - {x: -4.0079346, y: -25.595993}
-        - {x: 23.992065, y: -5.595993}
-        - {x: 23.992065, y: 27.404007}
+      outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 
