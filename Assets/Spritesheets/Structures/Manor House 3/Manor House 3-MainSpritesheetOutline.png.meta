@@ -1,47 +1,46 @@
 fileFormatVersion: 2
-guid: 22b7ac07e2eda3a4293145f8a51df900
-timeCreated: 1467437900
+guid: b4c60e4a9465aaf459168998f9881abb
+timeCreated: 1496710222
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Manor House 2-MainSpritesheet_0
-    21300002: Manor House 2-MainSpritesheet_1
-    21300004: Manor House 2-MainSpritesheet_2
-    21300006: Manor House 2-MainSpritesheet_3
-    21300008: Manor House 2-MainSpritesheet_4
-    21300010: Manor House 2-MainSpritesheet_5
-    21300012: Manor House 2-MainSpritesheet_6
-    21300014: Manor House 2-MainSpritesheet_7
-    21300016: Manor House 2-MainSpritesheet_8
-    21300018: Manor House 2-MainSpritesheet_9
-    21300020: Manor House 2-MainSpritesheet_10
-    21300022: Manor House 2-MainSpritesheet_11
-    21300024: Manor House 2-MainSpritesheet_12
-    21300026: Manor House 2-MainSpritesheet_13
-    21300028: Manor House 2-MainSpritesheet_14
-    21300030: Manor House 2-MainSpritesheet_15
-    21300032: Manor House 2-MainSpritesheet_16
-    21300034: Manor House 2-MainSpritesheet_17
-    21300036: Manor House 2-MainSpritesheet_18
-    21300038: Manor House 2-MainSpritesheet_19
-    21300040: Manor House 2-MainSpritesheet_20
-    21300042: Manor House 2-MainSpritesheet_21
-    21300044: Manor House 2-MainSpritesheet_22
-    21300046: Manor House 2-MainSpritesheet_23
-    21300048: Manor House 2-MainSpritesheet_24
-    21300050: Manor House 2-MainSpritesheet_25
-    21300052: Manor House 2-MainSpritesheet_26
-    21300054: Manor House 2-MainSpritesheet_27
-    21300056: Manor House 2-MainSpritesheet_28
-    21300058: Manor House 2-MainSpritesheet_29
-    21300060: Manor House 2-MainSpritesheet_30
-    21300062: Manor House 2-MainSpritesheet_31
-    21300064: Manor House 2-MainSpritesheet_32
-    21300066: Manor House 2-MainSpritesheet_33
+    21300000: Manor House 3-MainSpritesheetOutline_0
+    21300002: Manor House 3-MainSpritesheetOutline_1
+    21300004: Manor House 3-MainSpritesheetOutline_2
+    21300006: Manor House 3-MainSpritesheetOutline_3
+    21300008: Manor House 3-MainSpritesheetOutline_4
+    21300010: Manor House 3-MainSpritesheetOutline_5
+    21300012: Manor House 3-MainSpritesheetOutline_6
+    21300014: Manor House 3-MainSpritesheetOutline_7
+    21300016: Manor House 3-MainSpritesheetOutline_8
+    21300018: Manor House 3-MainSpritesheetOutline_9
+    21300020: Manor House 3-MainSpritesheetOutline_10
+    21300022: Manor House 3-MainSpritesheetOutline_11
+    21300024: Manor House 3-MainSpritesheetOutline_12
+    21300026: Manor House 3-MainSpritesheetOutline_13
+    21300028: Manor House 3-MainSpritesheetOutline_14
+    21300030: Manor House 3-MainSpritesheetOutline_15
+    21300032: Manor House 3-MainSpritesheetOutline_16
+    21300034: Manor House 3-MainSpritesheetOutline_17
+    21300036: Manor House 3-MainSpritesheetOutline_18
+    21300038: Manor House 3-MainSpritesheetOutline_19
+    21300040: Manor House 3-MainSpritesheetOutline_20
+    21300042: Manor House 3-MainSpritesheetOutline_21
+    21300044: Manor House 3-MainSpritesheetOutline_22
+    21300046: Manor House 3-MainSpritesheetOutline_23
+    21300048: Manor House 3-MainSpritesheetOutline_24
+    21300050: Manor House 3-MainSpritesheetOutline_25
+    21300052: Manor House 3-MainSpritesheetOutline_26
+    21300054: Manor House 3-MainSpritesheetOutline_27
+    21300056: Manor House 3-MainSpritesheetOutline_28
+    21300058: Manor House 3-MainSpritesheetOutline_29
+    21300060: Manor House 3-MainSpritesheetOutline_30
+    21300062: Manor House 3-MainSpritesheetOutline_31
+    21300064: Manor House 3-MainSpritesheetOutline_32
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -58,11 +57,11 @@ TextureImporter:
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: 1
   maxTextureSize: 2048
   textureSettings:
     filterMode: 0
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -128,447 +127,434 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_0
+      name: Manor House 3-MainSpritesheetOutline_0
       rect:
         serializedVersion: 2
-        x: 22
-        y: 3099
-        width: 232
-        height: 296
+        x: 0
+        y: 1928
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_1
+      name: Manor House 3-MainSpritesheetOutline_1
       rect:
         serializedVersion: 2
-        x: 300
-        y: 3163
-        width: 19
-        height: 47
+        x: 213
+        y: 1928
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_2
+      name: Manor House 3-MainSpritesheetOutline_2
       rect:
         serializedVersion: 2
-        x: 613
-        y: 3141
-        width: 18
-        height: 42
+        x: 426
+        y: 1928
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 903
-        y: 3123
-        width: 20
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_4
-      rect:
-        serializedVersion: 2
-        x: 863
-        y: 2889
-        width: 25
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_5
-      rect:
-        serializedVersion: 2
-        x: 130
-        y: 2759
-        width: 25
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 452
-        y: 2757
-        width: 27
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_7
-      rect:
-        serializedVersion: 2
-        x: 751
-        y: 2772
-        width: 25
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_8
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 2495
-        width: 25
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_9
-      rect:
-        serializedVersion: 2
-        x: 334
-        y: 2510
-        width: 15
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_10
-      rect:
-        serializedVersion: 2
-        x: 604
-        y: 2510
-        width: 15
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_11
-      rect:
-        serializedVersion: 2
-        x: 855
-        y: 2388
-        width: 30
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_12
-      rect:
-        serializedVersion: 2
-        x: 107
-        y: 1981
-        width: 23
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_13
-      rect:
-        serializedVersion: 2
-        x: 412
-        y: 1999
-        width: 15
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_14
-      rect:
-        serializedVersion: 2
-        x: 723
-        y: 1999
-        width: 13
-        height: 35
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_15
-      rect:
-        serializedVersion: 2
-        x: 1020
-        y: 2012
-        width: 15
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_16
-      rect:
-        serializedVersion: 2
-        x: 436
-        y: 1720
-        width: 16
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_17
-      rect:
-        serializedVersion: 2
-        x: 641
-        y: 1737
-        width: 17
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_18
-      rect:
-        serializedVersion: 2
-        x: 865
-        y: 1695
-        width: 61
-        height: 47
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_19
-      rect:
-        serializedVersion: 2
-        x: 155
-        y: 1703
-        width: 30
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_20
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 1379
-        width: 28
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_21
-      rect:
-        serializedVersion: 2
-        x: 324
-        y: 1296
-        width: 130
-        height: 180
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_22
-      rect:
-        serializedVersion: 2
-        x: 634
-        y: 1251
-        width: 84
-        height: 115
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_23
-      rect:
-        serializedVersion: 2
-        x: 998
-        y: 1234
-        width: 32
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_24
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 872
-        width: 45
-        height: 48
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_25
+      name: Manor House 3-MainSpritesheetOutline_3
       rect:
         serializedVersion: 2
         x: 639
-        y: 877
-        width: 19
-        height: 28
+        y: 1928
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_26
+      name: Manor House 3-MainSpritesheetOutline_4
       rect:
         serializedVersion: 2
-        x: 888
-        y: 867
-        width: 20
-        height: 28
+        x: 0
+        y: 1687
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_27
+      name: Manor House 3-MainSpritesheetOutline_5
       rect:
         serializedVersion: 2
-        x: 469
-        y: 862
-        width: 18
-        height: 10
+        x: 213
+        y: 1687
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_28
+      name: Manor House 3-MainSpritesheetOutline_6
       rect:
         serializedVersion: 2
-        x: 200
-        y: 486
-        width: 17
-        height: 18
+        x: 426
+        y: 1687
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_29
+      name: Manor House 3-MainSpritesheetOutline_7
       rect:
         serializedVersion: 2
-        x: 469
-        y: 486
-        width: 17
-        height: 18
+        x: 639
+        y: 1687
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_30
+      name: Manor House 3-MainSpritesheetOutline_8
       rect:
         serializedVersion: 2
-        x: 739
-        y: 486
-        width: 17
-        height: 18
+        x: 0
+        y: 1446
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_31
+      name: Manor House 3-MainSpritesheetOutline_9
       rect:
         serializedVersion: 2
-        x: 1010
-        y: 486
-        width: 17
-        height: 18
+        x: 213
+        y: 1446
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_32
+      name: Manor House 3-MainSpritesheetOutline_10
       rect:
         serializedVersion: 2
-        x: 47
-        y: 107
-        width: 21
-        height: 80
+        x: 426
+        y: 1446
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Manor House 2-MainSpritesheet_33
+      name: Manor House 3-MainSpritesheetOutline_11
       rect:
         serializedVersion: 2
-        x: 317
-        y: 60
-        width: 184
-        height: 162
+        x: 639
+        y: 1446
+        width: 213
+        height: 241
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1205
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_13
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 1205
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_14
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 1205
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_15
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 1205
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 964
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_17
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 964
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_18
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 964
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_19
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 964
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 723
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_21
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 723
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_22
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 723
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_23
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 723
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_25
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 482
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_26
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 482
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_27
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 482
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 241
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_29
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 241
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_30
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 241
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_31
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 241
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Manor House 3-MainSpritesheetOutline_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 213
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
