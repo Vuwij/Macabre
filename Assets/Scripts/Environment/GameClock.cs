@@ -73,7 +73,7 @@ namespace Environment
 			// Lighting of the overworld
 			var background = GameObject.Find("Background").GetComponentInChildren<SpriteRenderer>();
 			if(background != null) {
-				float brightness = 0.2f + 0.8f * (float) Math.Cos((double) totalSeconds / 50.0f );
+				float brightness = 0.6f + 0.4f * (float) Math.Cos((double) totalSeconds / 50.0f );
 				background.color = new Color(brightness, brightness, brightness);
 			}
 		}
