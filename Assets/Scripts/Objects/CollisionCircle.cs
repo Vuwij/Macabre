@@ -36,16 +36,14 @@ namespace Objects
 		}
 
 		static PhysicsMaterial2D ice_;
-		float proximityRatio = 5;
+		float proximityRatio = 12;
 		GameObject gameObject;
 		EllipseCollider2D collisionCircle;
 		EllipseCollider2D proximityCircle;
-		SpriteRenderer renderer;
 
 		public CollisionCircle (GameObject gameObject, float radius = 4)
 		{
 			this.gameObject = gameObject;
-			this.renderer = gameObject.GetComponent<SpriteRenderer>();
 
 			// Creating Collision and Proximity Circle
 			collisionCircle = this.gameObject.AddComponent<EllipseCollider2D>();

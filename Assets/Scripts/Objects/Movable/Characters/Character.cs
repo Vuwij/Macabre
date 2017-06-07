@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using Extensions;
 using Conversation;
 using System.Linq;
-using Objects.Unmovable.Items;
+using Objects.Immovable.Items;
 using Objects.Inventory;
 using Objects.Inventory.Individual;
 using Objects.Movable.Characters.Individuals;
 using System.Xml.Serialization;
+using Objects.Immovable;
 
 namespace Objects.Movable.Characters
 {

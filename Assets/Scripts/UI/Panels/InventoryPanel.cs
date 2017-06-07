@@ -7,7 +7,7 @@ using Objects.Inventory;
 using Objects.Movable.Characters;
 using UI.Panels.Inventory;
 using Data.Database;
-using Objects.Unmovable.Items;
+using Objects.Immovable.Items;
 using Objects.Movable.Characters.Individuals;
 
 namespace UI.Panels

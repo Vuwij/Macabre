@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Objects.Unmovable.Items;
+using Objects.Immovable.Items;
 
 namespace Objects.Inventory.Individual
 {

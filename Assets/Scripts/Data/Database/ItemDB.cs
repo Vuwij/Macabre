@@ -5,7 +5,7 @@ using System;
 using System.Data;
 using System.Linq;
 using Mono.Data.SqliteClient;
-using Objects.Unmovable.Items;
+using Objects.Immovable.Items;
 
 namespace Data.Database
 {
