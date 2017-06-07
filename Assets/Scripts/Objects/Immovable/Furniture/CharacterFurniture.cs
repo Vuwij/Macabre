@@ -7,5 +7,8 @@ namespace Objects.Immovable.Furniture
 {
 	public abstract class CharacterFurniture : AbstractFurniture
     {
+		protected override void Start() {
+			base.Start();
+		}
     }
 }

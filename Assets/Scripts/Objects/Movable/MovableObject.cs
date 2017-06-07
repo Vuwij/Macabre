@@ -54,13 +54,15 @@ namespace Objects.Movable
 			int objSortOrder = (int) ((1000 - obj.colliderCenter.y) * 10);
 			int thisSortOrder = (int) ((1000 - transform.position.y) * 10);
 
-			if(rabove && !cAbove)
-				sortingOffset = thisSortOrder - objSortOrder;
+			if(rabove && !cAbove) {
+				sortingOffset = objSortOrder - thisSortOrder - 1;
+				Debug.Log("Real above, virtual below");
+			}
 
-			if(!rabove && cAbove)
-				sortingOffset = objSortOrder - thisSortOrder;
-			
-			print(sortingOffset);
+			if(!rabove && cAbove) {
+				sortingOffset = objSortOrder - thisSortOrder + 1;
+				Debug.Log("Real above, virtual below");
+			}
 		}
     }
 }

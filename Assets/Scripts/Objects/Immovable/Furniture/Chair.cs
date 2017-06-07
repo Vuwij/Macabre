@@ -4,8 +4,8 @@ namespace Objects.Immovable.Furniture
 {
 	public class Chair : CharacterFurniture
 	{
-		public Chair ()
-		{
+		protected override void Start() {
+			base.Start();
 		}
 	}
 }
