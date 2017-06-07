@@ -8,7 +8,7 @@ namespace UnityEngine
     [AddComponentMenu("Physics 2D/Ellipse Collider 2D")]
     public sealed class EllipseCollider2D : MonoBehaviour
     {
-        private PolygonCollider2D polygonCollider = null;
+        public PolygonCollider2D polygonCollider = null;
         
         public Vector2[] points
         {

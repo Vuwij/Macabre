@@ -10,19 +10,13 @@ using UnityEditor;
 
 namespace Objects.Unmovable.Path
 {
-	public class VirtualPath : MonoBehaviour
+	public class VirtualPath : Object, IInspectable
     {
-		public Room destination;
-
-        // Find the closest offset to enter into
-        public Vector2 offset;
-        public Vector2 newPosition
+		public Vector2 newPosition
         {
             get { return (Vector2) transform.position + newPosition; }
         }
-
-
-        public Room room
+		public Room room
         {
             get
             {
@@ -32,29 +26,10 @@ namespace Objects.Unmovable.Path
             }
         }
 
-#if UNITY_EDITOR
-        void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawIcon(transform.position + (Vector3)offset, "Light Gizmo.tiff", true);
-        }
-#endif
+		public Room destination;
+		public Vector2 offset;
 
-		#region Collision
-
-		protected PolygonCollider2D proximityBox
-		{
-			get
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		#endregion
-
-		#region Inspection
-
-		// Find the room's closest door
+		#region IInspectable implementation
 		public void InspectionAction(Object controller, RaycastHit2D hit)
 		{
 			if (!(controller is Movable.Characters.Character)) return;
@@ -73,5 +48,14 @@ namespace Objects.Unmovable.Path
 			Game.main.UI.Find<DarkScreen>().TurnOff();
 		}
 		#endregion
+
+		#if UNITY_EDITOR
+		void OnDrawGizmos()
+		{
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawIcon(transform.position + (Vector3)offset, "Light Gizmo.tiff", true);
+		}
+		#endif
+
     }
 }

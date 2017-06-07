@@ -5,6 +5,5 @@ namespace Objects.Unmovable.Path
 {
     public class DoorController : VirtualPath
     {
-        
     }
 }

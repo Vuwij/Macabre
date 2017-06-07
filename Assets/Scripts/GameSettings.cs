@@ -21,7 +21,7 @@ public struct GameSettings {
     public static int conversationCharacterLimit = 500;
     public static int conversationChoiceOptions = 4;
     public static float characterWalkingSpeed = 20.0f;
-    public static float characterRunningSpeed = 100.0f;
+    public static float characterRunningSpeed = 80.0f;
     public static float inspectRadius = 16.0f;
 
     // Item stats

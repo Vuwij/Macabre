@@ -13,7 +13,7 @@ namespace UI.Screens
         {
             get { return "Start Screen"; }
         }
-        
+
         public void NewGame()
         {
             TurnOff();

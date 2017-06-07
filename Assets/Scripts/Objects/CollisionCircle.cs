@@ -28,7 +28,14 @@ namespace Objects
 			get { return collisionCircle.smoothness; }
 			set { collisionCircle.smoothness = value; } 
 		}
+		PhysicsMaterial2D ice {
+			get {
+				if(ice_ == null) ice_ = Resources.Load("Materials/Ice", typeof(PhysicsMaterial2D)) as PhysicsMaterial2D;
+				return ice_;
+			}
+		}
 
+		static PhysicsMaterial2D ice_;
 		float proximityRatio = 5;
 		GameObject gameObject;
 		EllipseCollider2D collisionCircle;
@@ -45,6 +52,9 @@ namespace Objects
 			proximityCircle = this.gameObject.AddComponent<EllipseCollider2D>();
 			proximityCircle.isTrigger = true;
 			this.radius = radius;
+
+			// Bounciness to circle
+			collisionCircle.polygonCollider.sharedMaterial = ice;
 		}
 	}
 }
