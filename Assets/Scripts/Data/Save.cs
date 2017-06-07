@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Environment;
-using Objects.Unmovable;
+using Objects.Immovable;
 using System.Linq;
 using Objects.Movable.Characters;
 using System.Xml.Serialization;

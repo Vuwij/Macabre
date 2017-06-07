@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Data.Database;
-
-using Objects.Unmovable.Items;
+using Objects.Immovable.Items;
 using UnityEngine;
 
 namespace Objects.Inventory

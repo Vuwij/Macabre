@@ -9,20 +9,21 @@ namespace Objects
 		{
 			get { return GetComponentInChildren<SpriteRenderer>(); }
 		}
-		protected Rigidbody2D rigidbody2D {
+		new protected Rigidbody2D rigidbody2D {
 			get { return GetComponentInChildren<Rigidbody2D>(); }
 		}
 
 		Object objectInFront;
 		public Texture2D footprint;
+		protected int sortingOffset = 0;
 
 		protected virtual void Start()
         {
 			UpdateSortingLayer();
         }
 
-		protected void UpdateSortingLayer() {
-			float yPos = (int) ((1000 - transform.position.y) * 10);
+		protected virtual void UpdateSortingLayer() {
+			float yPos = (int) ((1000 - transform.position.y) * 10) + sortingOffset;
 			spriteRenderer.sortingOrder = (int) yPos;
 		}
 
