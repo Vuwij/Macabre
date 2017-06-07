@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c5444ca6e879cc447bc3a004750a7f3c
-timeCreated: 1496549554
+timeCreated: 1496798059
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -21,6 +21,31 @@ TextureImporter:
     21300028: Church-MainSpritesheet_31
     21300030: Church-MainSpritesheet_32
     21300032: Church-MainSpritesheet_33
+    21300034: Church-MainSpritesheet_0
+    21300036: Church-MainSpritesheet_1
+    21300038: Church-MainSpritesheet_2
+    21300040: Church-MainSpritesheet_4
+    21300042: Church-MainSpritesheet_5
+    21300044: Church-MainSpritesheet_9
+    21300046: Church-MainSpritesheet_10
+    21300048: Church-MainSpritesheet_11
+    21300050: Church-MainSpritesheet_15
+    21300052: Church-MainSpritesheet_16
+    21300054: Church-MainSpritesheet_17
+    21300056: Church-MainSpritesheet_18
+    21300058: Church-MainSpritesheet_24
+    21300060: Church-MainSpritesheet_25
+    21300062: Church-MainSpritesheet_26
+    21300064: Church-MainSpritesheet_27
+    21300066: Church-MainSpritesheet_28
+    21300068: Church-MainSpritesheet_34
+    21300070: Church-MainSpritesheet_35
+    21300072: Church-MainSpritesheet_36
+    21300074: Church-MainSpritesheet_37
+    21300076: Church-MainSpritesheet_38
+    21300078: Church-MainSpritesheet_39
+    21300080: Church-MainSpritesheet_40
+    21300082: Church-MainSpritesheet_41
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -111,226 +136,200 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Church-MainSpritesheet_3
+      name: Church-MainSpritesheet_15
       rect:
         serializedVersion: 2
         x: 3211
-        y: 2186
+        y: 2187
         width: 246
-        height: 308
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 1449
-        y: 2342
-        width: 82
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_7
-      rect:
-        serializedVersion: 2
-        x: 1584
-        y: 2355
-        width: 148
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_8
-      rect:
-        serializedVersion: 2
-        x: 2211
-        y: 2133
-        width: 623
-        height: 349
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_12
-      rect:
-        serializedVersion: 2
-        x: 1406
-        y: 2234
-        width: 86
-        height: 63
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_13
-      rect:
-        serializedVersion: 2
-        x: 1506
-        y: 2248
-        width: 70
-        height: 55
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_14
-      rect:
-        serializedVersion: 2
-        x: 1625
-        y: 2254
-        width: 82
-        height: 80
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_19
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 2154
-        width: 484
-        height: 296
+        height: 307
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 2342
+        width: 81
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 2356
+        width: 147
+        height: 95
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     - serializedVersion: 2
       name: Church-MainSpritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 2211
+        y: 2137
+        width: 623
+        height: 345
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 2235
+        width: 85
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 1507
+        y: 2249
+        width: 69
+        height: 53
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 1626
+        y: 2254
+        width: 80
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_34
       rect:
         serializedVersion: 2
         x: 369
         y: 1213
         width: 465
-        height: 482
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_21
-      rect:
-        serializedVersion: 2
-        x: 1369
-        y: 1314
-        width: 442
-        height: 385
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_22
-      rect:
-        serializedVersion: 2
-        x: 2367
-        y: 1363
-        width: 444
-        height: 360
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_23
-      rect:
-        serializedVersion: 2
-        x: 3750
-        y: 1336
-        width: 84
-        height: 166
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_29
-      rect:
-        serializedVersion: 2
-        x: 616
-        y: 428
-        width: 132
-        height: 8
+        height: 485
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Church-MainSpritesheet_30
+      name: Church-MainSpritesheet_35
       rect:
         serializedVersion: 2
-        x: 750
-        y: 295
-        width: 84
-        height: 207
+        x: 1369
+        y: 1314
+        width: 441
+        height: 384
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Church-MainSpritesheet_31
+      name: Church-MainSpritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 2367
+        y: 1364
+        width: 443
+        height: 359
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 3750
+        y: 1337
+        width: 84
+        height: 164
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 751
+        y: 295
+        width: 83
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_39
       rect:
         serializedVersion: 2
         x: 1211
         y: 137
-        width: 600
-        height: 558
+        width: 599
+        height: 561
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: Church-MainSpritesheet_32
-      rect:
-        serializedVersion: 2
-        x: 3201
-        y: 131
-        width: 674
-        height: 853
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: Church-MainSpritesheet_33
+      name: Church-MainSpritesheet_40
       rect:
         serializedVersion: 2
         x: 2791
-        y: 242
-        width: 86
-        height: 100
+        y: 243
+        width: 85
+        height: 99
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 3201
+        y: 132
+        width: 673
+        height: 851
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
