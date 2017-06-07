@@ -38,7 +38,7 @@ namespace Data
 		}
 
 		// Save information
-		public System.DateTime time;
+		public float time;
 		public string name;
 
 		// Game information
@@ -48,7 +48,7 @@ namespace Data
 
 		public Save(string name = "")
 		{
-			time = System.DateTime.Now;
+			time = Time.time;
 			if (name != "") this.name = name;
 			else this.name = "Save " + System.DateTime.Now;
 

@@ -54,8 +54,8 @@
      <Compile Include="Assets\Scripts\Data\Database\Utility.cs" />
      <Compile Include="Assets\Scripts\Data\Save.cs" />
      <Compile Include="Assets\Scripts\Data\Saves.cs" />
+     <Compile Include="Assets\Scripts\Environment\GameClock.cs" />
      <Compile Include="Assets\Scripts\Environment\MainCamera.cs" />
-     <Compile Include="Assets\Scripts\Environment\Time.cs" />
      <Compile Include="Assets\Scripts\Extensions\Dictionary.cs" />
      <Compile Include="Assets\Scripts\Extensions\GameObjectExtension.cs" />
      <Compile Include="Assets\Scripts\Extensions\Polygon.cs" />

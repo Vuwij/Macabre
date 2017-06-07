@@ -17,6 +17,7 @@ public class Game : MonoBehaviour {
 	public Saves saves;
 	public GameInput input = new GameInput();
 	public GameUI UI = new GameUI();
+	public GameClock clock = new GameClock();
 
 	void Awake()
     {
@@ -26,12 +27,18 @@ public class Game : MonoBehaviour {
 
 		dataPath = Application.dataPath;
 		saves = new Saves();
+		InvokeRepeating("PeriodicUpdate", 0.0f, 5.0f);
     }
 
     void Update()
     {
        	input.GetInput();
     }
+
+	void PeriodicUpdate()
+	{
+		clock.PeriodicUpdate();
+	}
 
 	void OnApplicationQuit() {}
 

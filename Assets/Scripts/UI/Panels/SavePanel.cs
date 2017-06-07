@@ -66,7 +66,7 @@ namespace UI.Panels
                 // The name and date
                 var info = save.GetComponent<SaveSlot>();
                 info.name = s.name;
-                info.date = s.time.ToShortDateString();
+//				info.date = s.time;
             }
         }
 
