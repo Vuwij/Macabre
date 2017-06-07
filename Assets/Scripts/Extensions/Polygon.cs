@@ -43,7 +43,5 @@ public class Polygon : MonoBehaviour {
 		mesh.RecalculateNormals();
 		mesh.RecalculateBounds();
 		mesh.RecalculateTangents();
-
-		print("Recalculating mesh");
 	}
 }
