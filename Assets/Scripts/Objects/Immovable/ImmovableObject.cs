@@ -37,7 +37,8 @@ namespace Objects.Immovable
 			base.Start();
 		}
 
-		protected override void UpdateSortingLayer() {
+		public override void UpdateSortingLayer() {
+			if(spriteRenderer == null) return;
 			float yPos = (int) ((1000 - colliderCenter.y) * 10) + sortingOffset;
 			spriteRenderer.sortingOrder = (int) yPos;
 		}

@@ -44,6 +44,7 @@ namespace Objects.Immovable.Rooms
 		}
 		protected PolygonCollider2D playerShadow; // The top part of the room where the player its located
 		Material shadowMaterial;
+		float debounceTriggerTime;
 
 		protected override void Start() {
 			shadowMaterial = Resources.Load("Materials/Shadow", typeof(Material)) as Material;
@@ -57,6 +58,10 @@ namespace Objects.Immovable.Rooms
 		}
 
 		void OnTriggerEnter2D(Collider2D collider) {
+			// Debounces trigger
+			if(Time.time - debounceTriggerTime < 0.1) return;
+			debounceTriggerTime = Time.time;
+
 			var obj = collider.gameObject.GetComponent<Movable.MovableObject>();
 			if (collider.isTrigger) return;
 			if (obj != null) {

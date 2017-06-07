@@ -31,7 +31,7 @@ namespace Objects.Immovable.Path
 		public Vector2 offset;
 
 		#region IInspectable implementation
-		public void InspectionAction(Object controller, RaycastHit2D hit)
+		public virtual void InspectionAction(Object controller, RaycastHit2D hit)
 		{
 			if (!(controller is Movable.Characters.Character)) return;
 			var characterController = controller as Movable.Characters.Character;
@@ -45,6 +45,7 @@ namespace Objects.Immovable.Path
 			// Find the closest door and move to the closest door
 			var destinationDoor = destination.paths.OrderBy(x => Vector2.Distance(x.transform.position, transform.position));
 			characterController.transform.position = (Vector2) destinationDoor.First().transform.position + destinationDoor.First().offset;
+			characterController.UpdateSortingLayer();
 
 			Game.main.UI.Find<DarkScreen>().TurnOff();
 		}
@@ -54,12 +55,9 @@ namespace Objects.Immovable.Path
 			base.Start();
 		}
 
-		#if UNITY_EDITOR
-		void OnDrawGizmos()
-		{
+		void OnDrawGizmos() {
 			Gizmos.color = Color.yellow;
-			Gizmos.DrawIcon(transform.position + (Vector3)offset, "Light Gizmo.tiff", true);
+			Gizmos.DrawSphere((Vector2) transform.position + offset, 1);
 		}
-		#endif
     }
 }

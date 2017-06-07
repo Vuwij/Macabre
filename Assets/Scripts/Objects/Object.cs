@@ -22,7 +22,7 @@ namespace Objects
 			UpdateSortingLayer();
         }
 
-		protected virtual void UpdateSortingLayer() {
+		public virtual void UpdateSortingLayer() {
 			float yPos = (int) ((1000 - transform.position.y) * 10) + sortingOffset;
 			spriteRenderer.sortingOrder = (int) yPos;
 		}

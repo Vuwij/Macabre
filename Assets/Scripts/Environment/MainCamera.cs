@@ -32,7 +32,7 @@ namespace Environment
 			{
 				var p = GameObject.Find("Player");
 				if (p == null) return GameSettings.cameraSpeed;
-				else return player.movementSpeed;
+				return Vector2.Distance((Vector2) p.transform.position, (Vector2) transform.position);
 			}
 		}
 

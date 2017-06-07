@@ -48,6 +48,9 @@ namespace Objects.Movable
 			Vector3 cross = Vector3.Cross(ltor, ltop);
 			Vector2 center = left + ltor/2;
 
+//			Debug.DrawLine(left, right, Color.blue, 1.0f);
+//			Debug.DrawLine(left, (Vector2) transform.position, Color.red, 1.0f);
+
 			bool rabove = cross.z > 0;
 			bool cAbove = transform.position.y > obj.colliderCenter.y;
 
@@ -56,13 +59,23 @@ namespace Objects.Movable
 
 			if(rabove && !cAbove) {
 				sortingOffset = objSortOrder - thisSortOrder - 1;
-				Debug.Log("Real above, virtual below");
+//				Debug.Log("Real above, virtual below");
 			}
-
-			if(!rabove && cAbove) {
+			else if(!rabove && cAbove) {
 				sortingOffset = objSortOrder - thisSortOrder + 1;
-				Debug.Log("Real above, virtual below");
+//				Debug.Log("Real above, virtual below");
 			}
+			else
+				sortingOffset = 0;
+		}
+
+		protected void OnTriggerExit2D(Collider2D collider) {
+			var obj = collider.GetComponent<ImmovableObject>();
+			if(obj == null) return;
+			var c = obj.GetComponent<PolygonCollider2D>();
+			if(c == null) return;
+
+			sortingOffset = 0;
 		}
     }
 }
