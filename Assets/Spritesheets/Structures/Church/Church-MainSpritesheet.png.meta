@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c5444ca6e879cc447bc3a004750a7f3c
-timeCreated: 1496798059
+timeCreated: 1496884443
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -232,8 +232,8 @@ TextureImporter:
         serializedVersion: 2
         x: 369
         y: 1213
-        width: 465
-        height: 485
+        width: 505
+        height: 577
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,8 +245,8 @@ TextureImporter:
         serializedVersion: 2
         x: 1369
         y: 1314
-        width: 441
-        height: 384
+        width: 444
+        height: 428
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,8 +258,8 @@ TextureImporter:
         serializedVersion: 2
         x: 2367
         y: 1364
-        width: 443
-        height: 359
+        width: 450
+        height: 382
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -297,8 +297,8 @@ TextureImporter:
         serializedVersion: 2
         x: 1211
         y: 137
-        width: 599
-        height: 561
+        width: 608
+        height: 625
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -327,6 +327,19 @@ TextureImporter:
         height: 851
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 2347
+        y: 215
+        width: 280
+        height: 431
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
