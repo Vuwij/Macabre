@@ -1,0 +1,370 @@
+fileFormatVersion: 2
+guid: e7d4a87e8e901438a88e4cc60ef77f16
+timeCreated: 1496898985
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Chair Placement Pure Sheet_0
+    21300002: Chair Placement Pure Sheet_1
+    21300004: Chair Placement Pure Sheet_2
+    21300006: Chair Placement Pure Sheet_3
+    21300008: Chair Placement Pure Sheet_4
+    21300010: Chair Placement Pure Sheet_5
+    21300012: Chair Placement Pure Sheet_6
+    21300014: Chair Placement Pure Sheet_7
+    21300016: Chair Placement Pure Sheet_8
+    21300018: Chair Placement Pure Sheet_9
+    21300020: Chair Placement Pure Sheet_10
+    21300022: Chair Placement Pure Sheet_11
+    21300024: Chair Placement Pure Sheet_12
+    21300026: Chair Placement Pure Sheet_13
+    21300028: Chair Placement Pure Sheet_14
+    21300030: Chair Placement Pure Sheet_15
+    21300032: Chair Placement Pure Sheet_16
+    21300034: Chair Placement Pure Sheet_17
+    21300036: MainCharacterGuy-SupplementSit_0
+    21300038: MainCharacterGuy-SupplementSit_1
+    21300040: MainCharacterGuy-SupplementSit_2
+    21300042: MainCharacterGuy-SupplementSit_3
+    21300044: MainCharacterGuy-SupplementSit_4
+    21300046: MainCharacterGuy-SupplementSit_5
+    21300048: MainCharacterGuy-SupplementSit_6
+    21300050: MainCharacterGuy-SupplementSit_7
+    21300052: MainCharacterGuy-SupplementSit_8
+    21300054: MainCharacterGuy-SupplementSit_9
+    21300056: MainCharacterGuy-SupplementSit_10
+    21300058: MainCharacterGuy-SupplementSit_11
+    21300060: MainCharacterGuy-SupplementSit_12
+    21300062: MainCharacterGuy-SupplementSit_13
+    21300064: MainCharacterGuy-SupplementSit_14
+    21300066: MainCharacterGuy-SupplementSit_15
+    21300068: MainCharacterGuy-SupplementSit_16
+    21300070: MainCharacterGuy-SupplementSit_17
+  serializedVersion: 4
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: WebGL
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 165.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 165.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_2
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 165.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_3
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 165.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 110.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_5
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 110.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_6
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 110.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_7
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 110.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 55.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_9
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 55.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_10
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 55.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_11
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 55.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_12
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 55.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_14
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 0.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_15
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 0.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_16
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 0.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MainCharacterGuy-SupplementSit_17
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0.75
+        width: 39.6
+        height: 55.25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
