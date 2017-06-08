@@ -22,6 +22,9 @@ namespace Objects.Movable.Characters.Individuals
 			get { return Game.main.UI; }
 		}
 
+
+		public bool isInsideBuilding;
+
 		protected override void Start()
         {
             base.Start();

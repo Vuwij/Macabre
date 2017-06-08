@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Objects.Movable;
+using Objects.Movable.Characters.Individuals;
 
 namespace Objects.Immovable.Path
 {
@@ -15,12 +16,13 @@ namespace Objects.Immovable.Path
 			if(room.name == "Exterior" || room.name.Contains("Balcony")) {
 				var overworld = GameObject.Find("Overworld");
 				var s = overworld.GetComponent<SpriteRenderer>();
+				GameObject.Find("Player").GetComponent<Player>().isInsideBuilding = true;
 				s.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
 			}
 			if(destination.name == "Exterior" || destination.name.Contains("Balcony")) {
 				var overworld = GameObject.Find("Overworld");
-				var s = overworld.GetComponent<SpriteRenderer>();
-				s.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+				GameObject.Find("Player").GetComponent<Player>().isInsideBuilding = false;
+				Game.main.clock.PeriodicUpdate();
 			}
 
 			base.InspectionAction(controller, hit);

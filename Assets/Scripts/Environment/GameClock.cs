@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Runtime.Serialization;
 using System.Timers;
+using Objects.Movable.Characters.Individuals;
 
 namespace Environment
 {
@@ -72,7 +73,9 @@ namespace Environment
 		public void PeriodicUpdate() {
 			// Lighting of the overworld
 			var background = GameObject.Find("Background").GetComponentInChildren<SpriteRenderer>();
+			var player = GameObject.Find("Player").GetComponent<Player>();
 			if(background != null) {
+				if(player.isInsideBuilding) return;
 				float brightness = 0.6f + 0.4f * (float) Math.Cos((double) totalSeconds / 50.0f );
 				background.color = new Color(brightness, brightness, brightness);
 			}
