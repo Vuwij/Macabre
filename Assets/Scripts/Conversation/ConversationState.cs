@@ -153,13 +153,13 @@ namespace Conversation
 		private void LockAllCharacterPosition()
 		{
 			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation)
-				character.LockMovement();
+				character.isTalking = true;
 		}
 
 		private void UnlockAllCharacterPosition()
 		{
 			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation)
-				character.UnlockMovement();
+				character.isTalking = false;
 		}
 
 		#endregion

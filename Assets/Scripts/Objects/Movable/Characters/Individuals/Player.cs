@@ -22,7 +22,7 @@ namespace Objects.Movable.Characters.Individuals
 			get { return Game.main.UI; }
 		}
 
-
+		[HideInInspector]
 		public bool isInsideBuilding;
 
 		protected override void Start()
@@ -34,7 +34,7 @@ namespace Objects.Movable.Characters.Individuals
 		protected override void Update()
 		{
 			// Movement
-			rigidbody2D.velocity = movementLocked ? Vector2.zero : inputVelocity;
+			rigidbody2D.velocity = positionLocked ? Vector2.zero : inputVelocity;
 			AnimateMovement();
 
 			// Keyboard

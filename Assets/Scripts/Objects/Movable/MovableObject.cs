@@ -13,7 +13,6 @@ namespace Objects.Movable
 			get { return (rigidbody2D.velocity.sqrMagnitude >= float.Epsilon); }
 		}
 
-		protected bool movementLocked;
 		CollisionCircle collisionbox;
 
 		protected override void Start() {

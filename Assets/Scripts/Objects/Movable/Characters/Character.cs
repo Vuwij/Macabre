@@ -11,6 +11,7 @@ using Objects.Inventory.Individual;
 using Objects.Movable.Characters.Individuals;
 using System.Xml.Serialization;
 using Objects.Immovable;
+using Objects.Immovable.Furniture;
 
 namespace Objects.Movable.Characters
 {
@@ -22,7 +23,7 @@ namespace Objects.Movable.Characters
 				return GameObject.Find("Player").GetComponentInChildren<Player>();
             }
         }
-		GameObject childObject
+		public GameObject childObject
         {
             get { return gameObject.transform.Find(gameObject.name + "Sprite").gameObject; }
         }
@@ -57,6 +58,39 @@ namespace Objects.Movable.Characters
 		{
 			get { return GameSettings.inspectRadius; }
 		}
+		public int orientationX
+		{
+			get {
+				return animator.GetInteger("OrientationX");
+			}
+			set {
+				animator.SetInteger("OrientationX", value);
+			}
+		}
+		public int orientationY
+		{
+			get {
+				return animator.GetInteger("OrientationY");
+			}
+			set {
+				animator.SetInteger("OrientationY", value);
+			}
+		}
+		public bool isSittingDown
+		{
+			get {
+				return animator.GetBool("IsSitting");
+			}
+			set {
+				animator.SetBool("IsSitting", value);
+			}
+		}
+		protected bool positionLocked
+		{
+			get {
+				return isSittingDown || isTalking;
+			}
+		}
 
 		protected override void Start()
         {
@@ -71,18 +105,12 @@ namespace Objects.Movable.Characters
 
 		#region Movement and Animation
 
-		public void LockMovement() {
-			movementLocked = true;
+		[Serializable]
+		public struct ExtraSprites {
+			public Sprite leftFeet;
+			public Sprite rightFeet;
 		}
-
-		public void UnlockMovement() {
-			movementLocked = false;
-		}
-
-		public void AnimateDeath()
-		{
-			animator.SetBool(Animator.StringToHash("Die"), true);
-		}
+		public ExtraSprites extraSprites;
 
 		protected void AnimateMovement()
 		{
@@ -112,9 +140,24 @@ namespace Objects.Movable.Characters
 			}
 		}
 
+		protected override void OnTriggerStay2D(Collider2D collider)
+		{
+			if(isSittingDown) {
+				int objSortOrder = (int) ((1000 - ((Chair) inspectedObject).colliderCenter.y) * 10);
+				int thisSortOrder = (int) ((1000 - transform.position.y) * 10);
+				sortingOffset = objSortOrder - thisSortOrder + 1;
+				UpdateSortingLayer();
+			}
+			else
+				base.OnTriggerStay2D(collider);
+		}
+
 		#endregion
 
 		#region Conversation
+
+		[HideInInspector]
+		public bool isTalking = false;
 
 		public static ConversationState conversationState;
 
@@ -134,7 +177,8 @@ namespace Objects.Movable.Characters
 
 		#region Inspection
 
-		private RaycastHit2D hit;
+		RaycastHit2D hit;
+		IInspectable inspectedObject;
 
 		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
 		{
@@ -151,16 +195,13 @@ namespace Objects.Movable.Characters
 		public void Inspect()
 		{
 			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, inspectRadius, Vector2.zero);
-
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
 				if (InspectionIsInvalid(raycastHit)) continue;
-
-				IInspectable mObj = raycastHit.collider.GetComponent<IInspectable>();
-				if (mObj != null)
+				inspectedObject = raycastHit.collider.GetComponent<IInspectable>();
+				if (inspectedObject != null)
 				{
-					Debug.Log(raycastHit.collider.name);
-					mObj.InspectionAction(this, raycastHit);
+					inspectedObject.InspectionAction(this, raycastHit);
 					return;
 				}
 			}

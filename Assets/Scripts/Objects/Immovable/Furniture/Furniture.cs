@@ -17,6 +17,21 @@ namespace Objects.Immovable.Furniture
                 return room;
             }
         }
+		protected int OrientationX {
+			get { 
+				if(orientation == Orientation.NE || orientation == Orientation.SE) return 1;
+				else return -1;
+			}
+		}
+		protected int OrientationY {
+			get { 
+				if(orientation == Orientation.NE || orientation == Orientation.NW) return 1;
+				else return -1;
+			}
+		}
+
+		public enum Orientation { NE, NW, SE, SW };
+		public Orientation orientation;
 
 		protected override void Start() {
 			base.Start();
