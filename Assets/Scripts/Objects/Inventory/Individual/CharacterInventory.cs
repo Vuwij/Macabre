@@ -12,20 +12,15 @@ namespace Objects.Inventory.Individual
 
 		public void Drop(InventoryItem iitem)
         {
-            List<Item> individualItems = new List<Item>();
             if (iitem is InventoryItemClassA)
             {
-                individualItems.AddRange((iitem as InventoryItemClassA).items);
-                classAItems.Remove(iitem as InventoryItemClassA);
+				foreach (var item in iitem)
+					item.Drop();
             }
             else
             {
-                individualItems.Add((iitem as InventoryItemClassB).item);
-                classAItems.Remove(iitem as InventoryItemClassA);
+				iitem[0].Drop();
             }
-            
-            foreach (var item in individualItems)
-                item.Drop();
         }	
 	}
 }

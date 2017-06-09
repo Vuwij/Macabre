@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System;
 using Data.Database;
 
 using Objects.Immovable.Items;
 
 namespace Objects.Inventory
 {
-    public class InventoryItemClassB : InventoryItem
+	[Serializable]
+	public class InventoryItemClassB : InventoryItem
     {
-        public Item item;
-        
-        // Contructor for converting objects on the ground
+		public string name
+		{
+			get { return "TBA"; }
+		}
+
+		// Contructor for converting objects on the ground
         public InventoryItemClassB(Item item, Inventory inventory) : base(item, inventory)
         {
-            this.item = item;
-        }
-
-        public string name
-        {
-            get { return item.name; }
+			if(this.Count == 0)
+				this.Add(item);
         }
 
         public void Dispose()

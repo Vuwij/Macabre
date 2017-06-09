@@ -16,7 +16,7 @@ namespace UI.Panels.Inventory
             get
             {
                 if (inventoryItem == null) return 0;
-                return inventoryItem.item == null ? 0 : 1;
+                return inventoryItem == null ? 0 : 1;
             }
             set { }
         }
@@ -41,7 +41,7 @@ namespace UI.Panels.Inventory
             }
             else
             {
-                var renderer = item.item.GetComponent<SpriteRenderer>();
+                var renderer = item[0].GetComponent<SpriteRenderer>();
                 Sprite s = renderer.sprite;
                 image.sprite = s;
             }

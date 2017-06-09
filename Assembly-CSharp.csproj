@@ -82,7 +82,6 @@
      <Compile Include="Assets\Scripts\Objects\Immovable\Furniture\CharacterFurniture.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\Furniture\Decoration.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\Furniture\Furniture.cs" />
-     <Compile Include="Assets\Scripts\Objects\Immovable\Furniture\SingleStorageFurniture.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\Furniture\StorageFurniture.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\Furniture\Table.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\ImmovableObject.cs" />

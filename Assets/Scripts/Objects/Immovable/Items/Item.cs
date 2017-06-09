@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 namespace Objects.Immovable.Items
 {
-    public class Item : ImmovableObject {
+    [Serializable]
+	public class Item : ImmovableObject {
         
 		public int ID;
 		public string description;

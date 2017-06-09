@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Objects.Immovable.Furniture
 {
-	class Decoration : AbstractFurniture
+	public class Decoration : AbstractFurniture
     {
     }
 }

@@ -6,29 +6,29 @@ using UnityEngine;
 
 namespace Objects.Inventory
 {
-    public class InventoryItemClassA : InventoryItem
+    [Serializable]
+	public class InventoryItemClassA : InventoryItem
     {
-        public List<Item> items = new List<Item>();
         public const int classALimit = 4;
 
         public InventoryItemClassA(Item item, Inventory inventory) : base(item, inventory)
         {
-            items.Add(item);
+			this.Add(item);
         }
 
         public void Dispose()
         {
-            items.Clear();
+            this.Clear();
             inventory.classAItems.Remove(this);
         }
 
-        public int count { get { return items.Count; } }
+        public int count { get { return this.Count; } }
         public string name
         {
             get
             {
                 string s = "";
-                foreach (Item i in items)
+                foreach (Item i in this)
 					s += i.transform.position + " ";
                 return s;
             }
@@ -42,7 +42,7 @@ namespace Objects.Inventory
 
             // If a combination could be found
             if (a.count == 1 && b.count == 1)
-				combined = DatabaseConnection.ItemDB.FindCombination(a.items[0], b.items[0]);
+				combined = DatabaseConnection.ItemDB.FindCombination(a[0], b[0]);
 
             if (combined != null)
             {
@@ -64,7 +64,7 @@ namespace Objects.Inventory
             else
             {
                 if (a.count + b.count > classALimit) return null;
-                a.items.AddRange(b.items);
+                a.AddRange(b);
                 b.Dispose();
             }
             

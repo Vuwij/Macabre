@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using Objects.Immovable.Items;
 
 namespace Objects.Inventory {
 
+	[Serializable]
 	public abstract class Inventory {
 		public Transform folder
 		{
@@ -22,6 +24,7 @@ namespace Objects.Inventory {
 		}
 
 		GameObject gameObject;
+		[HideInInspector]
 		public int classALimit = 6, classBLimit = 1;
 		public List<InventoryItemClassA> classAItems = new List<InventoryItemClassA>();
 		public List<InventoryItemClassB> classBItems = new List<InventoryItemClassB>();
