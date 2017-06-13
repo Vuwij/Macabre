@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Objects.Inventory;
 
 namespace Objects.Immovable.Items
 {
@@ -60,5 +61,13 @@ namespace Objects.Immovable.Items
 			if (inventoryFolder.GetComponentsInChildren<Transform>().Length == 0) Destroy(inventoryFolder.gameObject);
 		}
 
+		public override void UpdateSortingLayer ()
+		{
+			if(transform.parent.GetComponent<IItemContainer>() != null) {
+				spriteRenderer.sortingOrder = transform.parent.GetComponent<SpriteRenderer>().sortingOrder + 1;
+				spriteRenderer.sortingLayerID = transform.parent.GetComponent<SpriteRenderer>().sortingLayerID;
+			}
+			else base.UpdateSortingLayer ();
+		}
     }
 }

@@ -180,9 +180,9 @@ namespace UI.Panels
             ItemStackUIClassA itemStackUIClassARemoveFrom = itemStack as ItemStackUIClassA;
 
             // The actual transfer
-            var itemToBeTransferred = itemStackUIClassARemoveFrom.inventoryItem.Last();
+            var itemToBeTransferred = itemStackUIClassARemoveFrom.inventoryItem.items.Last();
             inventory.Add(itemToBeTransferred);
-            itemStackUIClassARemoveFrom.inventoryItem.Remove(itemToBeTransferred);
+            itemStackUIClassARemoveFrom.inventoryItem.items.Remove(itemToBeTransferred);
             
             RefreshItems();
         }

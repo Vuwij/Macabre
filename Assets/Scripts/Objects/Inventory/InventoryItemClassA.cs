@@ -22,7 +22,7 @@ namespace Objects.Inventory
             inventory.classAItems.Remove(this);
         }
 
-        public int count { get { return this.Count; } }
+        public int count { get { return this.items.Count; } }
         public string name
         {
             get
@@ -64,7 +64,7 @@ namespace Objects.Inventory
             else
             {
                 if (a.count + b.count > classALimit) return null;
-                a.AddRange(b);
+                a.items.AddRange(b.items);
                 b.Dispose();
             }
             

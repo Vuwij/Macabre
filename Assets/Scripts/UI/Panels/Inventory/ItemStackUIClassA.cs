@@ -16,7 +16,7 @@ namespace UI.Panels.Inventory
             get
             {
                 if (inventoryItem == null) return 0;
-                return inventoryItem.Count();
+                return inventoryItem.items.Count();
             }
             set {
                 Text t = imageParent.GetComponentInChildren<Text>();
@@ -59,7 +59,7 @@ namespace UI.Panels.Inventory
                     image.sprite = null;
                     image.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                 }
-                for(int i = 0; i < item.Count; i++)
+                for(int i = 0; i < item.items.Count; i++)
                 {
                     var itemController = item[i];
                     var renderer = itemController.GetComponent<SpriteRenderer>();
@@ -67,7 +67,7 @@ namespace UI.Panels.Inventory
                     imageStack[i].sprite = s;
                     imageStack[i].color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
                 }
-                Count = item.Count;
+                Count = item.items.Count;
             }
         }
     }

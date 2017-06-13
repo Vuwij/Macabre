@@ -19,7 +19,7 @@ namespace Objects.Inventory
 		// Contructor for converting objects on the ground
         public InventoryItemClassB(Item item, Inventory inventory) : base(item, inventory)
         {
-			if(this.Count == 0)
+			if(this.items.Count == 0)
 				this.Add(item);
         }
 

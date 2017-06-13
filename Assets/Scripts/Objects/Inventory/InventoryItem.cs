@@ -1,6 +1,8 @@
 ﻿using Objects.Immovable.Items;
 using System;
 using UnityEngine;
+using System.Collections;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -9,40 +11,43 @@ using System.Collections.Generic;
 namespace Objects.Inventory
 {
 	[Serializable]
-	public abstract class InventoryItem : List<Item>
+	public abstract class InventoryItem : IEnumerable
     {
-		[HideInInspector]
+		public Item this[int index]
+		{
+			get {
+				return items[index];
+			}
+			set {
+				items[index] = value;
+			}
+		}
+
 		public Inventory inventory;
 		public Vector2 tableOffset;
+		public List<Item> items;
 
         public InventoryItem(Item itemController, Inventory inventory)
         {
             this.inventory = inventory;
         }
+
+		#region IEnumerable implementation
+
+		IEnumerator IEnumerable.GetEnumerator ()
+		{
+			return items.GetEnumerator();
+		}
+
+		public void Add(Item i) {
+			items.Add(i);
+		}
+
+		public void Clear() {
+			items.Clear();
+		}
+
+
+		#endregion
     }
-
-	#if UNITY_EDITOR
-	[CustomEditor(typeof(InventoryItem))]
-	public class InventoryItemEditor : Editor {
-		SerializedProperty items;
-		SerializedProperty tableOffset;
-
-		override public void OnInspectorGUI() {
-			FindSerializedProperties();
-			DrawInspector();
-		}
-
-		void FindSerializedProperties() {
-			items	= serializedObject.FindProperty("inventory");
-			tableOffset	= serializedObject.FindProperty("base");
-		}
-
-		void DrawInspector() {
-			EditorGUILayout.PropertyField(items);
-			EditorGUILayout.PropertyField(tableOffset);
-			serializedObject.ApplyModifiedProperties();
-		}
-	}
-	#endif
-
 }

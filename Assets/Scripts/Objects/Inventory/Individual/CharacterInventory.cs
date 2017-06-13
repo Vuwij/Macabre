@@ -14,12 +14,12 @@ namespace Objects.Inventory.Individual
         {
             if (iitem is InventoryItemClassA)
             {
-				foreach (var item in iitem)
+				foreach (var item in iitem.items)
 					item.Drop();
             }
             else
             {
-				iitem[0].Drop();
+				iitem.items[0].Drop();
             }
         }	
 	}
