@@ -94,7 +94,7 @@ namespace Objects.Movable.Characters
 
 		protected override void Start()
         {
-			inventory = new CharacterInventory(gameObject, 1, 6);
+			inventory = new CharacterInventory(gameObject, 6, 1);
 			base.Start();
         }
 

@@ -92,7 +92,6 @@ namespace Objects.Movable.Characters.Individuals
 				else 
 					distanceToInspectable = Vector2.Distance(nearestInspectable.transform.position, transform.position);
 				
-				Debug.Log(nearestInspectable.name + " " + distanceToInspectable);
 				if(distanceToInspectable < triggerInspectionThreshold) {
 					UI.Find<GameDialogue>().TurnOn();
 					UI.Find<GameDialogue>().brightness = (triggerInspectionThreshold - distanceToInspectable) / triggerInspectionThreshold;

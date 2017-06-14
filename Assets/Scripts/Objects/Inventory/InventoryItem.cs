@@ -25,7 +25,7 @@ namespace Objects.Inventory
 
 		public Inventory inventory;
 		public Vector2 tableOffset;
-		public List<Item> items;
+		public List<Item> items = new List<Item>();
 
         public InventoryItem(Item itemController, Inventory inventory)
         {
