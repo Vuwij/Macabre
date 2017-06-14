@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Objects.Immovable
 {
     public abstract partial class ImmovableObject : Object {
-		public Vector2 colliderCenter {
+		public virtual Vector2 colliderCenter {
 			get {
 				if(colliderCenter_ != Vector2.zero) return colliderCenter_;
 				var c = GetComponent<PolygonCollider2D>();

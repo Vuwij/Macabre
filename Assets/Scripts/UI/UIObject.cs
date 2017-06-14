@@ -15,15 +15,15 @@ namespace UI
                 return GameObject.Find("UI Screen");
             }
         }
-
-        protected CanvasGroup canvasGroup {
+		protected CanvasGroup canvasGroup {
             get { return gameObject.GetComponent<CanvasGroup>(); }
         }
-        
         private Stack<UIObject> currentPanelStack
         {
 			get { return Game.main.UI.currentPanelStack; }
         }
+
+		public bool stackable = true;
 
         public virtual void TurnOn()
         {
@@ -31,7 +31,8 @@ namespace UI
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             canvasGroup.ignoreParentGroups = true;
-            currentPanelStack.Push(this);
+			if(stackable)
+            	currentPanelStack.Push(this);
         }
 
         public virtual void TurnOff()
@@ -41,7 +42,8 @@ namespace UI
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
             canvasGroup.ignoreParentGroups = true;
-            if(currentPanelStack.Count != 0) currentPanelStack.Pop();
+			if(stackable)
+            	if(currentPanelStack.Count != 0) currentPanelStack.Pop();
         }
     }
 

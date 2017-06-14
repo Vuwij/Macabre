@@ -15,7 +15,7 @@ using Objects.Immovable.Furniture;
 
 namespace Objects.Movable.Characters
 {
-	public abstract class Character : MovableObject
+	public abstract class Character : MovableObject, IInspectable
     {
 		Player player
         {
@@ -95,6 +95,7 @@ namespace Objects.Movable.Characters
 		protected override void Start()
         {
 			inventory = new CharacterInventory(gameObject, 6, 1);
+			interactionText = "Press T to talk to " + name;
 			base.Start();
         }
 

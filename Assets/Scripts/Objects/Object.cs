@@ -47,7 +47,11 @@ namespace Objects
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
 				T hit = raycastHit.collider.GetComponentInChildren<T>();
-				if (hit != null) return raycastHit.collider.gameObject.GetComponent<Object>();
+				if (hit != null) {
+					if(raycastHit.collider.gameObject != gameObject) {
+						return raycastHit.collider.gameObject.GetComponent<Object>();
+					}
+				}
 			}
 			return null;
 		}

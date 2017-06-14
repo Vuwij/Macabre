@@ -8,6 +8,12 @@ namespace Objects.Immovable.Items
 {
     [Serializable]
 	public class Item : ImmovableObject, IInspectable {
+		public override Vector2 colliderCenter {
+			get {
+				return gameObject.transform.position;
+			}
+		}
+
 		public int ID;
 		public string description;
 		public List<string> attributes = new List<string>();
@@ -18,6 +24,7 @@ namespace Objects.Immovable.Items
 
 		protected override void Start() {
 			collisionCircle = new CollisionCircle(gameObject, 1);
+			interactionText = "Press T to pick up " + name;
 			base.Start();
 		}
 
