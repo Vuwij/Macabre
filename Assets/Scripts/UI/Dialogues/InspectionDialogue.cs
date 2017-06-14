@@ -10,11 +10,6 @@ namespace UI.Dialogues
 {
     public sealed class InspectionDialogue : UIDialogue, UIGameObject
     {
-        public override string name
-        {
-            get { return "Inspection Panel"; }
-        }
-
         public Image inspectionImage
         {
             set {

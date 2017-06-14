@@ -11,9 +11,5 @@ namespace UI.Panels
 {
     public sealed class OptionsPanel : UIPanel, UIGameObject
     {
-        public override string name
-        {
-            get { return "Options Panel"; }
-        }
     }
 }

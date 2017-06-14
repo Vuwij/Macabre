@@ -17,6 +17,7 @@ namespace Objects.Immovable.Furniture
 		GameObject characterFoot;
 
 		protected override void Start() {
+			interactionText = "Press T to Sit Down";
 			base.Start();
 		}
 
@@ -27,6 +28,7 @@ namespace Objects.Immovable.Furniture
 			var character = controller.GetComponent<Character>();
 			if(character != null) {
 				if(!character.isSittingDown) {
+					interactionText = "Press T to Stand Up";
 					characterFromPosition = character.transform.position;
 					character.orientationX = OrientationX;
 					character.orientationY = OrientationY;
@@ -45,6 +47,7 @@ namespace Objects.Immovable.Furniture
 					character.isSittingDown = true;
 					character.transform.position = characterPosition;
 				} else {
+					interactionText = "Press T to Sit Down";
 					if(characterFoot != null) Destroy(characterFoot);
 					character.isSittingDown = false;
 					character.transform.position = characterFromPosition;

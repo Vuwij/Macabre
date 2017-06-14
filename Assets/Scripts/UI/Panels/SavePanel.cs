@@ -11,31 +11,23 @@ namespace UI.Panels
 {
     public sealed class SavePanel : UIPanel, UIGameObject
     {
-        private const int saveIconWidth = 40;
-
-        public override string name
-        {
-            get { return "Save Panel"; }
-        }
-        
-        private Transform saveIconParent
+        Transform saveIconParent
         {
             get { return GameObject.Find("Save Background").transform; }
         }
-
-        private RectTransform saveBackgroundBox
+		RectTransform saveBackgroundBox
         {
             get { return saveIconParent.GetComponent<RectTransform>(); }
         }
-
-        public Save selectedSave = null;
-        
-        private List<Save> saveList
-        {
+		List<Save> saveList
+		{
 			get { return Game.main.saves.saves; }
-        }
+		}
 
-        private void Refresh()
+		const int saveIconWidth = 40;
+		public Save selectedSave = null;
+
+        void Refresh()
         {
 			saveBackgroundBox.sizeDelta = new Vector2(saveBackgroundBox.sizeDelta.x, saveList.Count * saveIconWidth);
 

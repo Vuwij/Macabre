@@ -5,6 +5,8 @@ using Environment;
 using UI;
 using UI.Panels;
 using UI.Screens;
+using UI.Dialogues;
+using Objects.Immovable;
 
 namespace Objects.Movable.Characters.Individuals
 {
@@ -18,7 +20,7 @@ namespace Objects.Movable.Characters.Individuals
 					movementSpeed * Input.GetAxisRaw("Vertical"));
 			}
 		}
-		GameUI UI {
+		UIScreens UI {
 			get { return Game.main.UI; }
 		}
 
@@ -74,6 +76,32 @@ namespace Objects.Movable.Characters.Individuals
 				transform.position.y,
 				-10);
 			main.transform.position = newPosition;
+		}
+
+		const float triggerInspectionThreshold = 30.0f;
+		protected override void OnTriggerStay2D (Collider2D collider)
+		{
+			base.OnTriggerStay2D (collider);
+
+			var nearestInspectable = FindNearestObject<IInspectable>();
+			if(nearestInspectable != null) {
+				float distanceToInspectable = triggerInspectionThreshold;
+				var imobj = collider.gameObject.GetComponent<ImmovableObject>();
+				if(imobj != null)
+					distanceToInspectable = Vector2.Distance(imobj.colliderCenter, transform.position);
+				else 
+					distanceToInspectable = Vector2.Distance(nearestInspectable.transform.position, transform.position);
+				
+				Debug.Log(nearestInspectable.name + " " + distanceToInspectable);
+				if(distanceToInspectable < triggerInspectionThreshold) {
+					UI.Find<GameDialogue>().TurnOn();
+					UI.Find<GameDialogue>().brightness = (triggerInspectionThreshold - distanceToInspectable) / triggerInspectionThreshold;
+					UI.Find<GameDialogue>().text = nearestInspectable.interactionText;
+				}
+			}
+			else {
+				UI.Find<GameDialogue>().TurnOff();
+			}
 		}
     }
 }

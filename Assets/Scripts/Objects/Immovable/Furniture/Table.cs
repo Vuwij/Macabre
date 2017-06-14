@@ -26,6 +26,11 @@ namespace Objects.Immovable.Furniture
 					ii.items[i].gameObject.transform.localPosition = ii.tableOffset + verticalOffset;
 				}
 			}
+
+			if(storage.classAItems.Count == 0)
+				interactionText = "Press T to place item";
+			else 
+				interactionText = "Press T to take item";
 		}
 
 		void OnValidate() {

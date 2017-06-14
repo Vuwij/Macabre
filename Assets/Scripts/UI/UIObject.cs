@@ -15,10 +15,7 @@ namespace UI
                 return GameObject.Find("UI Screen");
             }
         }
-        
-        // Needs to be inherited by the upper objects
-        public abstract new string name { get; }
-        
+
         protected CanvasGroup canvasGroup {
             get { return gameObject.GetComponent<CanvasGroup>(); }
         }

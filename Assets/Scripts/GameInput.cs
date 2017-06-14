@@ -15,7 +15,7 @@ public class GameInput {
 			return p.GetComponent<Player>();
 		}
 	}
-	GameUI UI {
+	UIScreens UI {
 		get { return Game.main.UI; }
 	}
 

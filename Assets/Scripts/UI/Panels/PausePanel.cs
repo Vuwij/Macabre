@@ -11,11 +11,6 @@ namespace UI.Panels
 {
     public sealed class PausePanel : UIPanel, UIGameObject
     {
-        public override string name
-        {
-            get { return "Pause Panel"; }
-        }
-
         public void Resume()
         {
             TurnOff();

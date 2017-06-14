@@ -9,9 +9,5 @@ namespace UI.Screens
 {
     public sealed class DarkScreen : UIScreen, UIGameObject
     {
-        public override string name
-        {
-            get { return "Dark Screen"; }
-        }
     }
 }

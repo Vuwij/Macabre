@@ -27,7 +27,6 @@ namespace Objects.Immovable
 		}
 
 		Vector2 colliderCenter_;
-		public Object MacabreObject;
 		protected List<Object> itemsToShowWhenEntered = new List<Object>();
 		protected List<Object> itemsToHideWhenEntered = new List<Object>();
 

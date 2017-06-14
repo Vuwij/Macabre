@@ -114,10 +114,10 @@
      <Compile Include="Assets\Scripts\Objects\Movable\MovableObject.cs" />
      <Compile Include="Assets\Scripts\Objects\Object.cs" />
      <Compile Include="Assets\Scripts\UI\Dialogues\ConversationDialogue.cs" />
+     <Compile Include="Assets\Scripts\UI\Dialogues\GameDialogue.cs" />
      <Compile Include="Assets\Scripts\UI\Dialogues\InspectionDialogue.cs" />
      <Compile Include="Assets\Scripts\UI\Dialogues\UIDialogue.cs" />
      <Compile Include="Assets\Scripts\UI\Dialogues\WarningDialogue.cs" />
-     <Compile Include="Assets\Scripts\UI\GameUI.cs" />
      <Compile Include="Assets\Scripts\UI\Panels\Inventory\ItemStackUI.cs" />
      <Compile Include="Assets\Scripts\UI\Panels\Inventory\ItemStackUIClassA.cs" />
      <Compile Include="Assets\Scripts\UI\Panels\Inventory\ItemStackUIClassB.cs" />
@@ -133,6 +133,7 @@
      <Compile Include="Assets\Scripts\UI\Screens\UIParentScreen.cs" />
      <Compile Include="Assets\Scripts\UI\Screens\UIScreen.cs" />
      <Compile Include="Assets\Scripts\UI\UIObject.cs" />
+     <Compile Include="Assets\Scripts\UI\UIScreens.cs" />
      <None Include="Assets\GameData\Master\SQL functions\UpdateTablesScript.txt" />
      <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
      <None Include="Assets\Plugins\PixelPerfect\README.txt" />

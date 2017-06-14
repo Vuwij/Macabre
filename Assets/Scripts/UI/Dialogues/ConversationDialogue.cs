@@ -12,14 +12,6 @@ namespace UI.Dialogues
 {
     public sealed class ConversationDialogue : UIDialogue, UIGameObject
     {
-        public override string name
-        {
-            get
-            {
-                return "Conversation Dialogue";
-            }
-        }
-
         public string mainText
         {
             set

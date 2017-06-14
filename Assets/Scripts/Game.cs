@@ -16,7 +16,7 @@ public class Game : MonoBehaviour {
 
 	public Saves saves;
 	public GameInput input = new GameInput();
-	public GameUI UI = new GameUI();
+	public UIScreens UI = new UIScreens();
 	public GameClock clock = new GameClock();
 
 	void Awake()

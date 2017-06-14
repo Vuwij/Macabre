@@ -14,11 +14,6 @@ namespace UI.Panels
 {
     public sealed class InventoryPanel : UIPanel, UIGameObject
     {
-        public override string name
-        {
-            get { return "Inventory Panel"; }
-        }
-
         public CharacterInventory inventory
         {
             get

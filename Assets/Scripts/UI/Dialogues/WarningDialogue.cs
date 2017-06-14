@@ -7,12 +7,7 @@ namespace UI.Dialogues
 {
     public sealed class WarningDialogue : UIDialogue, UIGameObject
     {
-        public override string name
-        {
-            get { return "WarningDialogue"; }
-        }
-
-        public delegate void WarningAction();
+		public delegate void WarningAction();
         public class Button
         {
             public string buttonName;

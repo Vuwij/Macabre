@@ -9,11 +9,6 @@ namespace UI.Screens
 {
     public sealed class StartScreen : UIScreen, UIGameObject
     {
-        public override string name
-        {
-            get { return "Start Screen"; }
-        }
-
         public void NewGame()
         {
             TurnOff();

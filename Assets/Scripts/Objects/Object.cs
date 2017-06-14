@@ -15,6 +15,7 @@ namespace Objects
 
 		Object objectInFront;
 		public Texture2D footprint;
+		public string interactionText = "Press T to Interact";
 		protected int sortingOffset = 0;
 
 		protected virtual void Start()
@@ -27,17 +28,27 @@ namespace Objects
 			spriteRenderer.sortingOrder = (int) yPos;
 		}
 
-		protected T FindNearestObject<T>()
+		protected T FindNearestComponent<T>()
 			where T : Object
+		{
+			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, GameSettings.inspectRadius, Vector2.zero);
+			foreach (RaycastHit2D raycastHit in castStar)
+			{
+				T hit = raycastHit.collider.GetComponentInChildren<T>();
+				if (hit != null) return hit;
+			}
+			return null;
+		}
+
+		protected Object FindNearestObject<T>()
 		{
 			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, GameSettings.inspectRadius, Vector2.zero);
 
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
 				T hit = raycastHit.collider.GetComponentInChildren<T>();
-				if (hit != null) return hit;
+				if (hit != null) return raycastHit.collider.gameObject.GetComponent<Object>();
 			}
-
 			return null;
 		}
     }
