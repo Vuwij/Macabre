@@ -34,10 +34,6 @@ namespace Objects.Movable.Characters
 				return GetComponentInChildren<Animator>();
 			}
 		}
-		protected bool keyboardMovement
-		{
-			get { return GameSettings.useKeyboardMovement; }
-		}
 		protected float walkingSpeed
 		{
 			get { return GameSettings.characterWalkingSpeed; }
@@ -119,14 +115,11 @@ namespace Objects.Movable.Characters
 
 			if (isMoving)
 			{
-				if (keyboardMovement)
-				{
-					if (rigidbody2D.velocity.x > 0) xDir = movementSpeed;
-					else if (rigidbody2D.velocity.x < 0) xDir = -movementSpeed;
+				if (rigidbody2D.velocity.x > 0) xDir = movementSpeed;
+				else if (rigidbody2D.velocity.x < 0) xDir = -movementSpeed;
 
-					if (rigidbody2D.velocity.y > 0) yDir = movementSpeed;
-					else if (rigidbody2D.velocity.y < 0) yDir = -movementSpeed;
-				}
+				if (rigidbody2D.velocity.y > 0) yDir = movementSpeed;
+				else if (rigidbody2D.velocity.y < 0) yDir = -movementSpeed;
 
 				animator.SetBool(Animator.StringToHash("IsActive"), false);
 				animator.SetBool(Animator.StringToHash("IsMoving"), true);

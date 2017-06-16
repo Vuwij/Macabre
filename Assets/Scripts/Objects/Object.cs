@@ -55,5 +55,18 @@ namespace Objects
 			}
 			return null;
 		}
+
+		protected Object FindInspectableAtPosition(Vector2 position) {
+			Vector3 castStart = (Vector3) position;
+			castStart.z = -10.0f;
+			RaycastHit[] hits = Physics.RaycastAll(position, Vector3.back);
+
+			foreach(var hit in hits) {
+				if(hit.collider.gameObject.GetComponent<IInspectable>() != null) {
+					return hit.collider.gameObject.GetComponent<Object>();
+				}
+			}
+			return null;
+		}
     }
 }

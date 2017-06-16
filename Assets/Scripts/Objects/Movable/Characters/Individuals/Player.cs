@@ -26,11 +26,13 @@ namespace Objects.Movable.Characters.Individuals
 
 		[HideInInspector]
 		public bool isInsideBuilding;
+		const float triggerInspectionThreshold = 25.0f;
 
 		protected override void Start()
         {
             base.Start();
             TeleportCameraToPlayer();
+			InvokeRepeating("DialogueNearestObject", 0.0f, 0.1f);
         }
 
 		protected override void Update()
@@ -66,6 +68,14 @@ namespace Objects.Movable.Characters.Individuals
 				KeyPressed(4);
 		}
 
+		void MouseClick() {
+			if(Input.GetMouseButtonDown(1)) {
+				Vector2 mousePosition = (Vector2) Input.mousePosition;
+				Object obj = FindInspectableAtPosition(mousePosition);
+				obj.GetComponent<IInspectable>().InspectionAction(this);
+			}
+		}
+
 		void TeleportCameraToPlayer()
 		{
 			var main = Camera.main;
@@ -78,20 +88,22 @@ namespace Objects.Movable.Characters.Individuals
 			main.transform.position = newPosition;
 		}
 
-		const float triggerInspectionThreshold = 30.0f;
 		protected override void OnTriggerStay2D (Collider2D collider)
 		{
 			base.OnTriggerStay2D (collider);
+		}
 
+		void DialogueNearestObject() {
 			var nearestInspectable = FindNearestObject<IInspectable>();
 			if(nearestInspectable != null) {
+				Debug.Log(nearestInspectable.name);
 				float distanceToInspectable = triggerInspectionThreshold;
-				var imobj = collider.gameObject.GetComponent<ImmovableObject>();
+				var imobj = nearestInspectable.GetComponent<ImmovableObject>();
 				if(imobj != null)
 					distanceToInspectable = Vector2.Distance(imobj.colliderCenter, transform.position);
 				else 
 					distanceToInspectable = Vector2.Distance(nearestInspectable.transform.position, transform.position);
-				
+
 				if(distanceToInspectable < triggerInspectionThreshold) {
 					UI.Find<GameDialogue>().TurnOn();
 					UI.Find<GameDialogue>().brightness = (triggerInspectionThreshold - distanceToInspectable) / triggerInspectionThreshold;
