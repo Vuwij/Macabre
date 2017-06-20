@@ -22,12 +22,12 @@ namespace Objects.Immovable.Furniture
 
 			foreach(InventoryItem ii in storage.classAItems) {
 				for(int i = 0; i < ii.items.Count; i++) {
-					if(ii.items[i] == null) return;
+					if(ii.items[i] == null) continue;
 					ii.items[i].gameObject.transform.localPosition = ii.tableOffset + verticalOffset;
 				}
 			}
 
-			if(storage.classAItems.Count == 0)
+			if(storage.count == 0)
 				interactionText = "Press T to place item";
 			else 
 				interactionText = "Press T to take item";

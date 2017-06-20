@@ -33,6 +33,7 @@ namespace Objects.Movable.Characters.Individuals
             base.Start();
             TeleportCameraToPlayer();
 			InvokeRepeating("DialogueNearestObject", 0.0f, 0.1f);
+			InvokeRepeating("MouseHover", 0.0f, 0.05f);
         }
 
 		protected override void Update()
@@ -96,7 +97,7 @@ namespace Objects.Movable.Characters.Individuals
 		void DialogueNearestObject() {
 			var nearestInspectable = FindNearestObject<IInspectable>();
 			if(nearestInspectable != null) {
-				Debug.Log(nearestInspectable.name);
+//				Debug.Log(nearestInspectable.name);
 				float distanceToInspectable = triggerInspectionThreshold;
 				var imobj = nearestInspectable.GetComponent<ImmovableObject>();
 				if(imobj != null)
@@ -113,6 +114,10 @@ namespace Objects.Movable.Characters.Individuals
 			else {
 				UI.Find<GameDialogue>().TurnOff();
 			}
+		}
+
+		void MouseHover() {
+			// TODO
 		}
     }
 }

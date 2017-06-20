@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Objects.Immovable.Path
 {
-    public class Stairs : VirtualPath
+    public class Stairs : Door
     {
         
     }

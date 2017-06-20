@@ -12,9 +12,22 @@ namespace Objects
 		new protected Rigidbody2D rigidbody2D {
 			get { return GetComponentInChildren<Rigidbody2D>(); }
 		}
+		protected bool highlighted {
+			set {
+				if(spriteRenderer == null) return;
+				var sprite = spriteRenderer.sprite;
+				if(sprite == null) return;
+
+				var c = spriteRenderer.color;
+				if(value) c.b = c.b / 3.0f;
+				else c.b = c.b * 3.0f;
+				spriteRenderer.color = c;
+			}
+		}
 
 		Object objectInFront;
 		public Texture2D footprint;
+		public Sprite highlight;
 		public string interactionText = "Press T to Interact";
 		protected int sortingOffset = 0;
 
@@ -67,6 +80,16 @@ namespace Objects
 				}
 			}
 			return null;
+		}
+
+		public void BorderHighlight(Color c, int thickness) {
+			if(spriteRenderer == null) return;
+			var sprite = spriteRenderer.sprite;
+			if(sprite == null) return;
+
+			var texture = sprite.texture;
+			var rect = sprite.rect;
+
 		}
     }
 }

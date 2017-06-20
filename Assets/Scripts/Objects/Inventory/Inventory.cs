@@ -22,6 +22,22 @@ namespace Objects.Inventory {
 				return gameObject.GetComponentsInChildren<Transform>().SingleOrDefault(x => x.name == "Inventory");
 			}
 		}
+		public int count {
+			get {
+				int c = 0;
+				foreach(var item in classAItems) {
+					foreach(var i in item.items) {
+						if(i != null) c++;
+					}
+				}
+				foreach(var item in classBItems) {
+					foreach(var i in item.items) {
+						if(i != null) c++;
+					}
+				}
+				return c;
+			}
+		}
 
 		GameObject gameObject;
 		[HideInInspector]
