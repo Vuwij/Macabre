@@ -14,6 +14,7 @@ namespace Objects.Immovable.Furniture
 		public ObjectInventory storage;
 
 		protected override void Start() {
+			storage = new ObjectInventory(gameObject, storageCount);
 			base.Start();
 			reloadItems();
 		}
@@ -52,10 +53,6 @@ namespace Objects.Immovable.Furniture
 					ii.items[i].UpdateSortingLayer();
 				}
 			}
-		}
-
-		protected virtual void initializeInventory() {
-			storage = new ObjectInventory(gameObject, storageCount);
 		}
 
 		IEnumerator Destroy(GameObject go)

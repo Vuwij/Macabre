@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using Objects;
+using System.Linq;
 
 public class MacabreFootprint : EditorWindow {
     
@@ -21,22 +23,19 @@ public class MacabreFootprint : EditorWindow {
                 if (spriteRenderer.sprite == null) continue;
 
                 Undo.RecordObject(objController, "Set Object Footprint");
-                FindFootprint(ref objController.footprint, spriteRenderer);
+
+				// Find the footprint
+				if (objController.footprint == null)
+				{
+					string textureName = AssetDatabase.GetAssetPath(spriteRenderer.sprite.texture);
+					string textureNameWithFootprint = textureName.Replace(".png", "");
+					string footprintTextureName = textureNameWithFootprint + "Footprint.png";
+					if (!File.Exists(footprintTextureName)) return;
+
+					// Create the footprint image
+					objController.footprint = (Texture2D)AssetDatabase.LoadAssetAtPath(footprintTextureName, typeof(Texture2D));
+				}
             }
-        }
-    }
-
-    static void FindFootprint(ref Texture2D footprint, SpriteRenderer spriteRenderer)
-    {
-        if (footprint == null)
-        {
-            string textureName = AssetDatabase.GetAssetPath(spriteRenderer.sprite.texture);
-            string textureNameWithFootprint = textureName.Replace(".png", "");
-            string footprintTextureName = textureNameWithFootprint + "Footprint.png";
-            if (!File.Exists(footprintTextureName)) return;
-
-            // Create the footprint image
-            footprint = (Texture2D)AssetDatabase.LoadAssetAtPath(footprintTextureName, typeof(Texture2D));
         }
     }
     
@@ -47,113 +46,124 @@ public class MacabreFootprint : EditorWindow {
         {
 			var mobj = obj.GetComponent<Objects.Object>();
             if (mobj == null) continue;
-
-            if (obj.GetComponent<PolygonCollider2D>() != null) continue;
+			if (obj.GetComponent<PolygonCollider2D>() != null) continue;
             var polygonCollider = obj.gameObject.AddComponent<PolygonCollider2D>();
-            polygonCollider.points = GetVector2EdgesFromTexture(obj.GetComponent<SpriteRenderer>(), mobj.footprint);
+
+			CalculateFootprint(obj.GetComponent<SpriteRenderer>(), mobj.footprint, polygonCollider);
         }
     }
 
+	static Color sharedColor = Color.black;
 
-    // Find the vector 2 from edges in collider
-    static Vector2[] GetVector2EdgesFromTexture(SpriteRenderer spriteRenderer, Texture2D footprint)
+	static void CalculateFootprint(SpriteRenderer spriteRenderer, Texture2D footprint, PolygonCollider2D collider)
     {
-        // In here we create the collider circle by finding the points on the sprite
         Sprite sprite = spriteRenderer.sprite;
         Rect rect = sprite.rect;
-
-        int x = Mathf.FloorToInt(rect.x);
+		int x = Mathf.FloorToInt(rect.x);
         int y = Mathf.FloorToInt(rect.y);
         int width = Mathf.FloorToInt(rect.width);
         int height = Mathf.FloorToInt(rect.height);
+		Color[] colorMap = footprint.GetPixels(x, y, width, height);
 
-        // Get the color map from the sprite Collider Shape
-        Color[] colorMap = footprint.GetPixels(x, y, width, height);
+		// Colors we are finding
+		Dictionary<Color, Vector2[]> colorPoints = new Dictionary<Color, Vector2[]>();
 
-        int topIndex = 0;
-        int bottomIndex = 0;
-        int leftIndex = 0;
-        int rightIndex = 0;
+		for (int p = 0; p < width * height; p++) {
+			if(colorMap[p] == sharedColor) continue;
+			if(colorMap[p].a == 0) continue;
+			if(colorPoints.ContainsKey(colorMap[p])) continue;
+			colorPoints.Add(colorMap[p], null);
+		}
 
-        int xMax = 0;
-        int xMin = 0;
-        int yMax = 0;
-        int yMin = 0;
+		for(int c = 0; c < colorPoints.Count; c++) {
+			int topIndex = 0;
+			int bottomIndex = 0;
+			int leftIndex = 0;
+			int rightIndex = 0;
 
-        // Find a valid pixel
-        for (int p = 0; p < width * height; p++)
-        {
-            if (colorMap[p].a != 0.0f)
-            {
-                int i = p % width;
-                int j = p / width;
+			int xMax = 0;
+			int xMin = 0;
+			int yMax = 0;
+			int yMin = 0;
 
-                rightIndex = p;
-                leftIndex = p;
-                bottomIndex = p;
-                topIndex = p;
+			// Find a first valid pixel
+			for (int p = 0; p < width * height; p++)
+			{
+				if (colorMap[p] == colorPoints.ElementAt(c).Key)
+				{
+					int i = p % width;
+					int j = p / width;
 
-                xMax = i;
-                xMin = i;
-                yMax = j;
-                yMin = j;
+					rightIndex = p;
+					leftIndex = p;
+					bottomIndex = p;
+					topIndex = p;
 
-                break;
-            }
-        }
+					xMax = i;
+					xMin = i;
+					yMax = j;
+					yMin = j;
 
-        // Loop through all the pixels and get the 4 directional indices
-        for (int p = 0; p < width * height; p++)
-        {
-            if (colorMap[p].a != 0.0f)
-            {
-                int i = p % width;
-                int j = p / width;
+					break;
+				}
+			}
 
-                if (i > xMax)
-                {
-                    rightIndex = p;
-                    xMax = i;
-                }
-                else if (i < xMin)
-                {
-                    leftIndex = p;
-                    xMin = i;
-                }
-                if (j > yMax)
-                {
-                    bottomIndex = p;
-                    yMax = j;
-                }
-                else if (j < yMin)
-                {
-                    topIndex = p;
-                    yMin = j;
-                }
-            }
-        }
+			// Loop through all the pixels and get the 4 directional indices
+			for (int p = 0; p < width * height; p++)
+			{
+				if (colorMap[p] == colorPoints.ElementAt(c).Key)
+				{
+					int i = p % width;
+					int j = p / width;
 
-        // Create the collider2D based on the index, since its one pixel to one index
-        Vector2 topVector = new Vector2(topIndex % width, topIndex / width) - sprite.pivot;
-        Vector2 bottomVector = new Vector2(bottomIndex % width, bottomIndex / width) - sprite.pivot;
-        Vector2 leftVector = new Vector2(leftIndex % width, leftIndex / width) - sprite.pivot;
-        Vector2 rightVector = new Vector2(rightIndex % width, rightIndex / width) - sprite.pivot;
+					if (i > xMax)
+					{
+						rightIndex = p;
+						xMax = i;
+					}
+					else if (i < xMin)
+					{
+						leftIndex = p;
+						xMin = i;
+					}
+					if (j > yMax)
+					{
+						bottomIndex = p;
+						yMax = j;
+					}
+					else if (j < yMin)
+					{
+						topIndex = p;
+						yMin = j;
+					}
+				}
+			}
 
-        Vector2[] points = new Vector2[5]
-        {
-                topVector,
-                rightVector,
-                bottomVector,
-                leftVector,
-                topVector
-        };
+			// Create the collider2D based on the index, since its one pixel to one index
+			Vector2 topVector = new Vector2(topIndex % width, topIndex / width) - sprite.pivot;
+			Vector2 bottomVector = new Vector2(bottomIndex % width, bottomIndex / width) - sprite.pivot;
+			Vector2 leftVector = new Vector2(leftIndex % width, leftIndex / width) - sprite.pivot;
+			Vector2 rightVector = new Vector2(rightIndex % width, rightIndex / width) - sprite.pivot;
 
-        Debug.DrawLine(topVector, leftVector);
-        Debug.DrawLine(leftVector, bottomVector);
-        Debug.DrawLine(bottomVector, rightVector);
-        Debug.DrawLine(rightVector, topVector);
+			Vector2[] points = new Vector2[5]
+			{
+				topVector,
+				rightVector,
+				bottomVector,
+				leftVector,
+				topVector
+			};
 
-        return points;
+			var pointss = colorPoints.ElementAt(c).Value;
+			pointss = points;
+		}
+
+		collider.pathCount = colorPoints.Count;
+
+		int index = 0;
+		foreach(var c in colorPoints) {
+			collider.SetPath(index, c.Value);
+			index++;
+		}
     }
-
 }
