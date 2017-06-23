@@ -34,6 +34,7 @@ namespace Objects.Immovable.Furniture
 		}
 
 		void OnValidate() {
+			if(!gameObject.activeInHierarchy) return;
 			reloadItems();
 		}
 	}

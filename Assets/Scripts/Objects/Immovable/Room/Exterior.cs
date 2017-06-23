@@ -19,6 +19,7 @@ namespace Objects.Immovable.Rooms
 		}
 
 		protected override void createShadows() {
+			if(exteriorWall == null) return;
 
 			// Find the left and right most point
 			int leftIndex = 0, rightIndex = 0;
