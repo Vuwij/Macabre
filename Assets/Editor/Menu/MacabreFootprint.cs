@@ -49,7 +49,7 @@ public class MacabreFootprint : EditorWindow {
             if (mobj == null) continue;
 
 
-			if(mobj is Room) {
+			if(mobj is Room && (!mobj is Exterior)) {
 				if (obj.GetComponent<EdgeCollider2D>() != null) continue;
 				var polygonCollider = obj.gameObject.AddComponent<EdgeCollider2D>();
 				CalculateFootprintEdgeCollider(obj.GetComponent<SpriteRenderer>(), mobj.footprint, polygonCollider);
