@@ -25,6 +25,8 @@ namespace Objects.Immovable.Rooms
 		{
 			get { return GetComponentsInChildren<VirtualPath>(); }
 		}
+		// The rooms that share the same activeness
+		public Room[] sharedRooms;
 		protected List<AbstractFurniture> furniture
 		{
 			get

@@ -22,7 +22,7 @@ namespace Objects.Immovable.Path
             get
             {
                 var room = GetComponentInParent<Room>();
-				if (room == null) throw new Exception("Room not specified for the furniture: " + name);
+				if (room == null) Debug.LogWarning("Room not specified for the furniture: " + name);
                 return room;
             }
         }
@@ -38,9 +38,30 @@ namespace Objects.Immovable.Path
 
 			Game.main.UI.Find<DarkScreen>().TurnOn();
 
-			// Change the active scene
-			destination.gameObject.SetActive(true);
+			// Turn off rooms first
+			foreach(var sharedRoom in room.sharedRooms) {
+				sharedRoom.gameObject.SetActive(false);
+			}
+			foreach (var door in room.gameObject.GetComponentsInChildren<Door>(true)) {
+				door.enabled = false;
+			}
 			room.gameObject.SetActive(false);
+
+			// Destination Room
+			foreach(var sharedRoom in destination.sharedRooms) {
+				foreach(SpriteRenderer sr in sharedRoom.gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+					sr.sortingLayerName = "Background";
+				}
+				sharedRoom.gameObject.SetActive(true);
+			}
+			foreach (var door in destination.GetComponentsInChildren<Door>(true)) {
+				door.enabled = true;
+			}
+			destination.gameObject.SetActive(true);
+			foreach (SpriteRenderer sr in destination.gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+				sr.sortingLayerName = "World";
+			}
+			destination.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
 
 			// Find the closest door and move to the closest door
 			var destinationDoor = destination.paths.OrderBy(x => Vector2.Distance(x.transform.position, transform.position));

@@ -192,9 +192,11 @@ namespace Objects.Movable.Characters
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
 				if (InspectionIsInvalid(raycastHit)) continue;
+				if(raycastHit.collider.GetComponent<Objects.Object>().enabled == false) continue;
 				inspectedObject = raycastHit.collider.GetComponent<IInspectable>();
 				if (inspectedObject != null)
 				{
+					Debug.Log("Inpecting " + raycastHit.collider.name);
 					inspectedObject.InspectionAction(this, raycastHit);
 					return;
 				}
