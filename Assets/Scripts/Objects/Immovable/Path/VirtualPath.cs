@@ -54,10 +54,10 @@ namespace Objects.Immovable.Path
 				}
 				sharedRoom.gameObject.SetActive(true);
 			}
+			destination.gameObject.SetActive(true);
 			foreach (var door in destination.GetComponentsInChildren<Door>(true)) {
 				door.enabled = true;
 			}
-			destination.gameObject.SetActive(true);
 			foreach (SpriteRenderer sr in destination.gameObject.GetComponentsInChildren<SpriteRenderer>()) {
 				sr.sortingLayerName = "World";
 			}
