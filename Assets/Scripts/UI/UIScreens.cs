@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,11 +37,17 @@ namespace UI
 		}
 
 		public Stack<UIObject> currentPanelStack = new Stack<UIObject>();
+		public Dictionary<string, Font> fonts = new Dictionary<string, Font>();
 
         public T Find<T>()
             where T : UIGameObject
         {
             return UIFolder.GetComponentInChildren<T>();
-        }   
+        }
+
+		public void LoadFonts() {
+			Font font = Resources.Load<Font>("Fonts/Munro.ttf");
+			fonts.Add("Munro", font);
+		}
     }
 }

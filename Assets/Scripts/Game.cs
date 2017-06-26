@@ -25,6 +25,7 @@ public class Game : MonoBehaviour {
         else if (main != this) Destroy(gameObject);
         DontDestroyOnLoad(gameObject);
 
+		UI.LoadFonts();
 		dataPath = Application.dataPath;
 		saves = new Saves();
 		InvokeRepeating("PeriodicUpdate", 0.0f, 5.0f);

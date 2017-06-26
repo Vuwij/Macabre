@@ -26,7 +26,8 @@ namespace Objects
 		}
 
 		Object objectInFront;
-		GameObject hoverText;
+		GameObject hoverText = null;
+		float hoverTextTimer = 0.0f;
 		public Texture2D footprint;
 		public Sprite highlight;
 		public string interactionText = "Press T to Interact";
@@ -35,6 +36,7 @@ namespace Objects
 		protected virtual void Start()
         {
 			UpdateSortingLayer();
+			InvokeRepeating("KillHoverText", 0.0f, 0.1f);
         }
 
 		public virtual void UpdateSortingLayer() {
@@ -137,20 +139,22 @@ namespace Objects
 
 		}
 
-		void OnMouseOver() {
-			Debug.Log("Hovering over " + name);
-
-			if(hoverText == null)
+		public void ShowHoverText(float duration = 0.2f) {
+			Debug.Log("Hovering over" + this.name);
+			hoverTextTimer = duration;
+			if(hoverText == null) {
 				hoverText = new GameObject("HoverText", typeof(HoverText));
+			}
 			hoverText.transform.parent = transform;
-//			var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-//			position.Scale(new Vector3(0.5f, 0.5f));
-//			hoverText.transform.position = position;
+			hoverText.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
 		}
 
-		void OnMouseExit() {
-			Destroy(hoverText);
-			hoverText = null;
+		void KillHoverText() {
+			if(hoverText != null) {
+				hoverTextTimer = hoverTextTimer - 0.1f;
+				if(hoverTextTimer <= 0)
+					Destroy(hoverText);
+			}
 		}
     }
 }

@@ -25,7 +25,7 @@ namespace Objects
 		void Start ()
 		{
 			textMesh.text = o.name;
-			textMesh.fontSize = 60;
+			textMesh.fontSize = 16;
 			meshRenderer.sortingLayerName = "GameUI";
 		}
 	}

@@ -20,6 +20,16 @@ namespace Objects.Movable.Characters.Individuals
 					movementSpeed * Input.GetAxisRaw("Vertical"));
 			}
 		}
+		Vector2 mousePosition
+		{
+			get {
+				Vector2 click = Input.mousePosition;
+				var offset = click - new Vector2(320.0f, 180.0f);
+				offset.Scale(new Vector2(0.5f, 0.5f));
+				click = offset + new Vector2(320.0f, 180.0f);
+				return Camera.main.ScreenToWorldPoint(click);
+			}
+		}
 		UIScreens UI {
 			get { return Game.main.UI; }
 		}
@@ -33,6 +43,7 @@ namespace Objects.Movable.Characters.Individuals
             base.Start();
             TeleportCameraToPlayer();
 			InvokeRepeating("DialogueNearestObject", 0.0f, 0.1f);
+			InvokeRepeating("HoverOverObject", 0.0f, 0.1f);
         }
 
 		protected override void Update()
@@ -87,18 +98,12 @@ namespace Objects.Movable.Characters.Individuals
 		void MouseClicked() {
 			if (Input.GetMouseButtonDown(0)) {
 				// Detect if object is nearby
-				Vector2 click = Input.mousePosition;
-				var offset = click - new Vector2(320.0f, 180.0f);
-				offset.Scale(new Vector2(0.5f, 0.5f));
-				click = offset + new Vector2(320.0f, 180.0f);
-
-				var wclick = Camera.main.ScreenToWorldPoint(click);
-
-				var obj = FindInspectablePixelAroundPosition(wclick);
+				var obj = FindInspectablePixelAroundPosition(mousePosition);
 				if(obj != null) { // Walk to the object and then interact
+					Debug.Log(obj.name + "clicked");
 				}
 				else { // Simply walk to the destination
-					destinationPosition = wclick;
+					destinationPosition = mousePosition;
 				}
 			}
 		}
@@ -140,6 +145,11 @@ namespace Objects.Movable.Characters.Individuals
 			else {
 				UI.Find<GameDialogue>().TurnOff();
 			}
+		}
+
+		void HoverOverObject() {
+			var obj = FindInspectablePixelAroundPosition(mousePosition);
+			if(obj != null) obj.ShowHoverText();
 		}
     }
 }
