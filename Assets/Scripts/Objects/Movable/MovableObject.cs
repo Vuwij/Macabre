@@ -14,6 +14,7 @@ namespace Objects.Movable
 		}
 
 		CollisionCircle collisionbox;
+		protected Vector2? destinationPosition;
 
 		protected override void Start() {
 			collisionbox = new CollisionCircle(gameObject);

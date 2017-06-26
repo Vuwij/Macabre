@@ -38,34 +38,69 @@ namespace Objects.Movable.Characters.Individuals
 		protected override void Update()
 		{
 			// Movement
-			rigidbody2D.velocity = positionLocked ? Vector2.zero : inputVelocity;
+			if(destinationPosition != null) {
+				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < 1.0f) destinationPosition = null;
+
+				Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
+				var direction = (Vector3) destinationPosition - transform.position;
+				var directionN = Vector3.Normalize(direction);
+				rigidbody2D.velocity = (Vector2) directionN * walkingSpeed;
+			}
+			else rigidbody2D.velocity = positionLocked ? Vector2.zero : inputVelocity;
+
 			AnimateMovement();
 
 			// Keyboard
 			KeyPressed();
+
+			// Mouse Click
+			MouseClicked();
 
 			base.Update();
 		}
 
 		void KeyPressed() {
 
-			// Key Maps for Inventory
-			if (Input.GetButtonDown ("Inventory")) {
-				if(!Game.main.UI.currentPanelStack.Contains(UI.Find<DarkScreen>()))
-					UI.Find<InventoryPanel>().TurnOn();
-				else
-					UI.Find<InventoryPanel>().TurnOff();
+			if(Input.anyKey) {
+				//destinationPosition = null;
+
+				// Key Maps for Inventory
+				if (Input.GetButtonDown ("Inventory")) {
+					if(!Game.main.UI.currentPanelStack.Contains(UI.Find<DarkScreen>()))
+						UI.Find<InventoryPanel>().TurnOn();
+					else
+						UI.Find<InventoryPanel>().TurnOff();
+				}
+				if (Input.GetButtonDown ("Inspect")) 
+					Inspect();
+				if (Input.GetKeyDown(KeyCode.Alpha1))
+					KeyPressed(1);
+				if (Input.GetKeyDown(KeyCode.Alpha2))
+					KeyPressed(2);
+				if (Input.GetKeyDown(KeyCode.Alpha3))
+					KeyPressed(3);
+				if (Input.GetKeyDown(KeyCode.Alpha4))
+					KeyPressed(4);
 			}
-			if (Input.GetButtonDown ("Inspect")) 
-				Inspect();
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-				KeyPressed(1);
-			if (Input.GetKeyDown(KeyCode.Alpha2))
-				KeyPressed(2);
-			if (Input.GetKeyDown(KeyCode.Alpha3))
-				KeyPressed(3);
-			if (Input.GetKeyDown(KeyCode.Alpha4))
-				KeyPressed(4);
+		}
+
+		void MouseClicked() {
+			if (Input.GetMouseButtonDown(0)) {
+				// Detect if object is nearby
+				Vector2 click = Input.mousePosition;
+				var offset = click - new Vector2(320.0f, 180.0f);
+				offset.Scale(new Vector2(0.5f, 0.5f));
+				click = offset + new Vector2(320.0f, 180.0f);
+
+				var wclick = Camera.main.ScreenToWorldPoint(click);
+
+				var obj = FindInspectablePixelAroundPosition(wclick);
+				if(obj != null) { // Walk to the object and then interact
+				}
+				else { // Simply walk to the destination
+					destinationPosition = wclick;
+				}
+			}
 		}
 
 		void TeleportCameraToPlayer()

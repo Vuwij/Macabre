@@ -83,6 +83,50 @@ namespace Objects
 			return null;
 		}
 
+		protected Object FindInspectablePixelAroundPosition(Vector2 position) {
+			Vector3 castStart = (Vector3) position;
+			castStart.z = -10.0f;
+
+			RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 2, Vector2.zero);
+
+			Objects.Object closestObject = null;
+			int closestObjectSortingOrder = 0;
+			int closestObjectSortingLayer = 0;
+			foreach (RaycastHit2D raycastHit in castStar)
+			{
+
+				if(raycastHit.collider.gameObject.GetComponentInChildren<IInspectable>() == null) continue;
+				var spriteRenderer = raycastHit.collider.gameObject.GetComponentInChildren<SpriteRenderer>();
+				if(spriteRenderer == null) continue;
+
+				Sprite sprite = spriteRenderer.sprite;
+				Rect rect = sprite.rect;
+				int x = Mathf.FloorToInt(rect.x);
+				int y = Mathf.FloorToInt(rect.y);
+				int width = Mathf.FloorToInt(rect.width);
+				int height = Mathf.FloorToInt(rect.height);
+
+				Vector2 objectToMouse = position - ((Vector2) raycastHit.collider.gameObject.transform.position - sprite.pivot);
+				//Debug.DrawLine(position, ((Vector2) raycastHit.collider.gameObject.transform.position - sprite.pivot), Color.red, 10.0f);
+
+				if(objectToMouse.x < 0 || objectToMouse.y < 0) continue;
+				if(objectToMouse.x > width) continue;
+				if(objectToMouse.y > height) continue;
+
+				Color c = sprite.texture.GetPixel(x + Mathf.FloorToInt(objectToMouse.x), y + Mathf.FloorToInt(objectToMouse.y));
+				if(c.a == 0) continue;
+
+				if(closestObject == null
+					|| spriteRenderer.sortingLayerID < closestObjectSortingLayer
+					|| spriteRenderer.sortingOrder < closestObjectSortingOrder) {
+					closestObject = raycastHit.collider.gameObject.GetComponent<Objects.Object>();
+					closestObjectSortingLayer = spriteRenderer.sortingLayerID;
+					closestObjectSortingOrder = spriteRenderer.sortingOrder;
+				}
+			}
+			return closestObject;
+		}
+
 		public void BorderHighlight(Color c, int thickness) {
 			if(spriteRenderer == null) return;
 			var sprite = spriteRenderer.sprite;
