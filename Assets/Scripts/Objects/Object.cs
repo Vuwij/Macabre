@@ -26,6 +26,7 @@ namespace Objects
 		}
 
 		Object objectInFront;
+		GameObject hoverText;
 		public Texture2D footprint;
 		public Sprite highlight;
 		public string interactionText = "Press T to Interact";
@@ -69,7 +70,7 @@ namespace Objects
 			return null;
 		}
 
-		protected Object FindInspectableAtPosition(Vector2 position) {
+		protected Object FindInspectableAroundPosition(Vector2 position) {
 			Vector3 castStart = (Vector3) position;
 			castStart.z = -10.0f;
 			RaycastHit[] hits = Physics.RaycastAll(position, Vector3.back);
@@ -90,6 +91,22 @@ namespace Objects
 			var texture = sprite.texture;
 			var rect = sprite.rect;
 
+		}
+
+		void OnMouseOver() {
+			Debug.Log("Hovering over " + name);
+
+			if(hoverText == null)
+				hoverText = new GameObject("HoverText", typeof(HoverText));
+			hoverText.transform.parent = transform;
+//			var position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+//			position.Scale(new Vector3(0.5f, 0.5f));
+//			hoverText.transform.position = position;
+		}
+
+		void OnMouseExit() {
+			Destroy(hoverText);
+			hoverText = null;
 		}
     }
 }
