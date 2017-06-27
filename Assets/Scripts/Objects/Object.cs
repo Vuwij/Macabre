@@ -139,7 +139,7 @@ namespace Objects
 
 		}
 
-		public void ShowHoverText(float duration = 0.2f) {
+		public void ShowHoverText(float duration = 50.2f) {
 			Debug.Log("Hovering over" + this.name);
 			hoverTextTimer = duration;
 			if(hoverText == null) {

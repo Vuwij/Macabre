@@ -25,8 +25,13 @@ namespace Objects
 		void Start ()
 		{
 			textMesh.text = o.name;
-			textMesh.fontSize = 16;
+			textMesh.anchor = TextAnchor.MiddleCenter;
+			textMesh.fontSize = 102;
 			meshRenderer.sortingLayerName = "GameUI";
+		}
+
+		void Update() {
+			textMesh.font = Game.main.UI.fonts["Munro_small"];
 		}
 	}
 }

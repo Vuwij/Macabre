@@ -46,8 +46,10 @@ namespace UI
         }
 
 		public void LoadFonts() {
-			Font font = Resources.Load<Font>("Fonts/Munro.ttf");
+			Font font = Resources.Load("Fonts/Munro", typeof(Font)) as Font;
 			fonts.Add("Munro", font);
+			font = Resources.Load("Fonts/Munro_small", typeof(Font)) as Font;
+			fonts.Add("Munro_small", font);
 		}
     }
 }
