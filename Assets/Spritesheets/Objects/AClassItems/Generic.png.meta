@@ -23,12 +23,12 @@ TextureImporter:
     21300032: Generic_16
     21300034: Generic_17
     21300036: Generic_18
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -38,12 +38,10 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -54,9 +52,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -64,12 +60,36 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Carrot
+    - serializedVersion: 2
+      name: Carrot
       rect:
         serializedVersion: 2
         x: 1
@@ -80,7 +100,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Stick
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Stick
       rect:
         serializedVersion: 2
         x: 18
@@ -91,7 +113,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Pie
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Pie
       rect:
         serializedVersion: 2
         x: 35
@@ -102,7 +126,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_3
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_3
       rect:
         serializedVersion: 2
         x: 52
@@ -113,7 +139,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_4
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_4
       rect:
         serializedVersion: 2
         x: 69
@@ -124,7 +152,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_5
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_5
       rect:
         serializedVersion: 2
         x: 86
@@ -135,7 +165,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_6
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_6
       rect:
         serializedVersion: 2
         x: 103
@@ -146,7 +178,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_7
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_7
       rect:
         serializedVersion: 2
         x: 120
@@ -157,7 +191,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_8
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_8
       rect:
         serializedVersion: 2
         x: 137
@@ -168,7 +204,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_9
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_9
       rect:
         serializedVersion: 2
         x: 154
@@ -179,7 +217,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_10
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_10
       rect:
         serializedVersion: 2
         x: 171
@@ -190,7 +230,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_11
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_11
       rect:
         serializedVersion: 2
         x: 188
@@ -201,7 +243,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_12
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_12
       rect:
         serializedVersion: 2
         x: 205
@@ -212,7 +256,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_13
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_13
       rect:
         serializedVersion: 2
         x: 222
@@ -223,7 +269,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_14
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_14
       rect:
         serializedVersion: 2
         x: 239
@@ -234,7 +282,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_15
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_15
       rect:
         serializedVersion: 2
         x: 256
@@ -245,7 +295,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_16
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_16
       rect:
         serializedVersion: 2
         x: 1
@@ -256,7 +308,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_17
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_17
       rect:
         serializedVersion: 2
         x: 18
@@ -267,7 +321,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Generic_18
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Generic_18
       rect:
         serializedVersion: 2
         x: 35
@@ -278,8 +334,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
-  assetBundleVariant:
+  assetBundleVariant: 

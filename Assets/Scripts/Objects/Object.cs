@@ -26,6 +26,7 @@ namespace Objects
 		}
 
 		Object objectInFront;
+		static GameObject hoverTemplate = null;
 		GameObject hoverText = null;
 		float hoverTextTimer = 0.0f;
 		public Texture2D footprint;
@@ -139,14 +140,16 @@ namespace Objects
 
 		}
 
-		public void ShowHoverText(float duration = 50.2f) {
+		public void ShowHoverText(float duration = 0.2f) {
 			Debug.Log("Hovering over" + this.name);
-			hoverTextTimer = duration;
-			if(hoverText == null) {
-				hoverText = new GameObject("HoverText", typeof(HoverText));
+			if(hoverTemplate == null) {
+				hoverTemplate = Resources.Load<GameObject>("UI/Dialogue/ItemDialogue");
 			}
-			hoverText.transform.parent = transform;
-			hoverText.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+			hoverTextTimer = duration;
+			if(hoverText != null) return;
+			hoverText = Instantiate(hoverTemplate, transform);
+			hoverText.GetComponent<MeshRenderer>().sortingLayerName = "GameUI";
+			hoverText.GetComponent<TextMesh>().text = name;
 		}
 
 		void KillHoverText() {

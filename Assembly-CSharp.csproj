@@ -65,7 +65,6 @@
      <Compile Include="Assets\Scripts\GameInput.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\Objects\CollisionCircle.cs" />
-     <Compile Include="Assets\Scripts\Objects\HoverText.cs" />
      <Compile Include="Assets\Scripts\Objects\IInspectable.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\Building\Building.cs" />
      <Compile Include="Assets\Scripts\Objects\Immovable\Building\Individual\Bakery.cs" />

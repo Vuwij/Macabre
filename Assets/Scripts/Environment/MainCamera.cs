@@ -45,7 +45,7 @@ namespace Environment
             DontDestroyOnLoad(this);
         }
 
-        void Update() { 
+        void LateUpdate() { 
 			destination = playerPosition;
 
 			if (Vector2.Distance(transform.position, destination) >= 0.01f)
