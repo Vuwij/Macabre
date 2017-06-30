@@ -97,7 +97,7 @@ namespace Objects
 			int closestObjectSortingLayer = 0;
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
-
+				if(raycastHit.collider.gameObject == this.gameObject) continue;
 				if(raycastHit.collider.gameObject.GetComponentInChildren<IInspectable>() == null) continue;
 				var spriteRenderer = raycastHit.collider.gameObject.GetComponentInChildren<SpriteRenderer>();
 				if(spriteRenderer == null) continue;
