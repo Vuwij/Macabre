@@ -36,6 +36,7 @@ namespace Objects.Movable.Characters.Individuals
 
 		[HideInInspector]
 		public bool isInsideBuilding;
+		Objects.Object pendingInspection;
 		const float triggerInspectionThreshold = 25.0f;
 
 		protected override void Start()
@@ -99,8 +100,10 @@ namespace Objects.Movable.Characters.Individuals
 			if (Input.GetMouseButtonDown(0)) {
 				// Detect if object is nearby
 				var obj = FindInspectablePixelAroundPosition(mousePosition);
+
 				if(obj != null) { // Walk to the object and then interact
-					Debug.Log(obj.name + "clicked");
+					destinationPosition = mousePosition;
+					pendingInspection = obj;
 				}
 				else { // Simply walk to the destination
 					destinationPosition = mousePosition;
