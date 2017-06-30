@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Objects.Inventory;
+using System.Collections;
 
 namespace Objects.Immovable.Items
 {
@@ -31,6 +32,14 @@ namespace Objects.Immovable.Items
 		public void InspectionAction(Object obj, RaycastHit2D hit)
 		{
 			var character = obj as Movable.Characters.Character;
+			character.isPickingUp = true;
+			StartCoroutine(AddItemIntoInventory(character));
+		}
+
+		IEnumerator AddItemIntoInventory(Movable.Characters.Character character)
+		{
+			yield return new WaitForSeconds(1.0f);
+			// Now do your thing here
 			if (character != null)
 			{
 				bool addedToInventory = character.AddToInventory(this);

@@ -51,8 +51,16 @@ namespace Objects.Movable.Characters.Individuals
 		{
 			// Movement
 			if(destinationPosition != null) {
-				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < 1.0f) destinationPosition = null;
+				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < 1.0f) {
 
+					// Inspectable object
+					if(pendingInspection is IInspectable) {
+						inspectedObject = pendingInspection as IInspectable;
+						(pendingInspection as IInspectable).InspectionAction(this);
+						pendingInspection = null;
+					}
+					destinationPosition = null;
+				}
 				Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
 				var direction = (Vector3) destinationPosition - transform.position;
 				var directionN = Vector3.Normalize(direction);
@@ -107,6 +115,7 @@ namespace Objects.Movable.Characters.Individuals
 				}
 				else { // Simply walk to the destination
 					destinationPosition = mousePosition;
+					pendingInspection = null;
 				}
 			}
 		}

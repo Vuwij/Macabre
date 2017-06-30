@@ -3,7 +3,7 @@
 namespace Objects
 {
 	// This interface tells you an object can be inspected
-	interface IInspectable
+	public interface IInspectable
     {
 		void InspectionAction(Object controller, RaycastHit2D hit = new RaycastHit2D());
     }

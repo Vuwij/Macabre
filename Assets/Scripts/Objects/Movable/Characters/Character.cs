@@ -81,6 +81,12 @@ namespace Objects.Movable.Characters
 				animator.SetBool("IsSitting", value);
 			}
 		}
+		public bool isPickingUp
+		{
+			set {
+				animator.SetTrigger("IsPickup");
+			}
+		}
 		protected bool positionLocked
 		{
 			get {
@@ -172,10 +178,11 @@ namespace Objects.Movable.Characters
 		#region Inspection
 
 		RaycastHit2D hit;
-		IInspectable inspectedObject;
+		protected IInspectable inspectedObject;
 
 		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
 		{
+			
 			if(conversationState != null && conversationState.conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse) return;
 			Dialogue(0);
 		}
