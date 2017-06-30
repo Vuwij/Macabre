@@ -53,7 +53,7 @@ namespace Objects.Movable.Characters.Individuals
 			if(destinationPosition != null) {
 				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < 1.0f) {
 
-					// Inspectable object
+					// Inspectable object // TODO stop when proxmity to object is reached
 					if(pendingInspection is IInspectable) {
 						inspectedObject = pendingInspection as IInspectable;
 						(pendingInspection as IInspectable).InspectionAction(this);
@@ -106,6 +106,11 @@ namespace Objects.Movable.Characters.Individuals
 
 		void MouseClicked() {
 			if (Input.GetMouseButtonDown(0)) {
+				if(isSittingDown) {
+					isSittingDown = false;
+					return;
+				}
+
 				// Detect if object is nearby
 				var obj = FindInspectablePixelAroundPosition(mousePosition);
 

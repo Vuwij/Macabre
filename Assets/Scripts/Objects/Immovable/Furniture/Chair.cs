@@ -32,29 +32,15 @@ namespace Objects.Immovable.Furniture
 					characterFromPosition = character.transform.position;
 					character.orientationX = OrientationX;
 					character.orientationY = OrientationY;
-					if(OrientationY == 1) {
-						characterFoot = new GameObject("Feet", typeof(SpriteRenderer));
-						characterFoot.transform.parent = character.transform;
-						characterFoot.transform.localPosition = character.childObject.transform.localPosition;
-						var s = characterFoot.GetComponent<SpriteRenderer>();
-						if(OrientationX == 1)
-							s.sprite = character.extraSprites.rightFeet;
-						else
-							s.sprite = character.extraSprites.leftFeet;
-						s.sortingLayerName = "World";
-						s.sortingOrder = spriteRenderer.sortingOrder - 1;
-					}
 					character.isSittingDown = true;
 					character.transform.position = characterPosition;
 				} else {
 					interactionText = "Press T to Sit Down";
-					if(characterFoot != null) Destroy(characterFoot);
 					character.isSittingDown = false;
 					character.transform.position = characterFromPosition;
 				}
 			}
 		}
-
 		#endregion
 	}
 }

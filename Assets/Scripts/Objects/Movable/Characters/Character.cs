@@ -78,6 +78,23 @@ namespace Objects.Movable.Characters
 				return animator.GetBool("IsSitting");
 			}
 			set {
+				if(value) {
+					if(orientationY == 1) {
+						characterFoot = new GameObject("Feet", typeof(SpriteRenderer));
+						characterFoot.transform.parent = transform;
+						characterFoot.transform.localPosition = childObject.transform.localPosition;
+						var s = characterFoot.GetComponent<SpriteRenderer>();
+						if(orientationX == 1)
+							s.sprite = extraSprites.rightFeet;
+						else
+							s.sprite = extraSprites.leftFeet;
+						s.sortingLayerName = "World";
+						s.sortingOrder = spriteRenderer.sortingOrder - 1;
+					}
+				} else {
+					if(characterFoot != null)
+						Destroy(characterFoot);
+				}
 				animator.SetBool("IsSitting", value);
 			}
 		}
@@ -114,6 +131,7 @@ namespace Objects.Movable.Characters
 			public Sprite rightFeet;
 		}
 		public ExtraSprites extraSprites;
+		GameObject characterFoot;
 
 		protected void AnimateMovement()
 		{
