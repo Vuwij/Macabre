@@ -191,19 +191,18 @@ namespace Objects.Movable.Characters
 			return conversationState;
 		}
 
+		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
+		{
+			if(conversationState != null && conversationState.conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse) return;
+			Dialogue(0);
+		}
+
 		#endregion
 
 		#region Inspection
 
 		RaycastHit2D hit;
 		protected IInspectable inspectedObject;
-
-		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
-		{
-			
-			if(conversationState != null && conversationState.conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse) return;
-			Dialogue(0);
-		}
 
 		public void KeyPressed (int keyPressed = 0)
 		{

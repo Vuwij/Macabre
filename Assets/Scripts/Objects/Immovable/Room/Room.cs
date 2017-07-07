@@ -44,54 +44,55 @@ namespace Objects.Immovable.Rooms
 				return wall.points;
 			}
 		}
-		protected PolygonCollider2D playerShadow; // The top part of the room where the player its located
-		Material shadowMaterial;
-		float debounceTriggerTime;
 
 		protected override void Start() {
-			shadowMaterial = Resources.Load("Materials/Shadow", typeof(Material)) as Material;
-			createShadows();
-
+			if(name != "Exterior") {
+				foreach (SpriteRenderer sr in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+					sr.sortingLayerName = "Background";
+				}
+			}
+			foreach (SpriteRenderer sr in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+				sr.sortingLayerName = "World";
+			}
 			base.Start();
 		}
 
-		protected virtual void createShadows() {
-			
+		public void SetOpacity(float opacity) {
+			foreach(var obj in GetComponentsInChildren<SpriteRenderer>()) {
+				var c = obj.color;
+				c.a = opacity;
+				obj.color = c;
+			}
 		}
 
-		void OnTriggerEnter2D(Collider2D collider) {
-			// Debounces trigger
-			if(Time.time - debounceTriggerTime < 0.1) return;
-			debounceTriggerTime = Time.time;
-
-			var obj = collider.gameObject.GetComponent<Movable.MovableObject>();
-			if (collider.isTrigger) return;
-			if (obj != null) {
-				var c = spriteRenderer.color;
-				c.a = 0.3f;
-				spriteRenderer.color = c;
+		void OnEnable() {
+			// Doors
+			foreach (var door in gameObject.GetComponentsInChildren<Door>(true)) {
+				door.enabled = true;
 			}
-
-			// Creates the child shadow
-			var childShadow = new GameObject();
-			childShadow.name = this.name + " Shadow";
-			childShadow.transform.parent = transform;
-			childShadow.transform.position = transform.position + new Vector3(0, 0, -1);
-			var polygon = childShadow.AddComponent<Polygon>();
-			polygon.pc2.points = wallPoints;
-			polygon.mr.material = shadowMaterial;
-			polygon.Refresh();
+			// Sorting Layers
+			foreach (SpriteRenderer sr in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+				sr.sortingLayerName = "World";
+			}
+			gameObject.GetComponent<SpriteRenderer>().sortingLayerName = "Background";
+			// Shared Rooms
+			foreach(var room in sharedRooms) {
+				room.gameObject.SetActive(true);
+			}
 		}
 
-		void OnTriggerExit2D(Collider2D collider) {
-			var obj = collider.gameObject.GetComponent<Movable.MovableObject>();
-			if (collider.isTrigger) return;
-			if (obj != null) {
-				var c = spriteRenderer.color;
-				c.a = 1.0f;
-				spriteRenderer.color = c;
+		void OnDisable() {
+			// Doors
+			foreach (var door in gameObject.GetComponentsInChildren<Door>(true)) {
+				door.enabled = false;
 			}
-			GameObject.Destroy(GameObject.Find(this.name + " Shadow"));
+			// Sorting Layers
+			foreach (SpriteRenderer sr in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
+				sr.sortingLayerName = "Background";
+			}
+			foreach(var room in sharedRooms) {
+				room.gameObject.SetActive(false);
+			}
 		}
     }
 }

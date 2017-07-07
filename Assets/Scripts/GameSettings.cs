@@ -22,7 +22,7 @@ public struct GameSettings {
     public static int conversationChoiceOptions = 4;
     public static float characterWalkingSpeed = 20.0f;
     public static float characterRunningSpeed = 80.0f;
-    public static float inspectRadius = 22.0f;
+    public static float inspectRadius = 15.0f;
 
     // Item stats
     public static float dropDistance = 9.0f;

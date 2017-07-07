@@ -51,7 +51,7 @@ namespace Objects.Immovable.Items
 			}
 		}
 
-		public override void UpdateSortingLayer ()
+		public override void UpdateSortingLayer (int? offset = null)
 		{
 			if(transform.parent != null) {
 				if(transform.parent.GetComponent<IItemContainer>() != null) {

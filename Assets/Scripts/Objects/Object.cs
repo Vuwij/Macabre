@@ -40,7 +40,8 @@ namespace Objects
 			InvokeRepeating("KillHoverText", 0.0f, 0.1f);
         }
 
-		public virtual void UpdateSortingLayer() {
+		public virtual void UpdateSortingLayer(int? offset = null) {
+			if(offset != null) sortingOffset = (int) offset;
 			float yPos = (int) ((1000 - transform.position.y) * 10) + sortingOffset;
 			spriteRenderer.sortingOrder = (int) yPos;
 		}
@@ -57,12 +58,13 @@ namespace Objects
 			return null;
 		}
 
-		protected Object FindNearestObject<T>()
+		protected Object FindNearestObject<T>(float radius = 10.0f)
 		{
-			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, GameSettings.inspectRadius, Vector2.zero);
+			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, radius, Vector2.zero);
 
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
+				if(raycastHit.collider.isTrigger) continue;
 				T hit = raycastHit.collider.GetComponentInChildren<T>();
 				if (hit != null) {
 					if(raycastHit.collider.gameObject != gameObject) {

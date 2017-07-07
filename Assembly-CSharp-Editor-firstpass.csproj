@@ -52,11 +52,10 @@
      <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\EllipseCollider2D_Editor.cs" />
      <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\RoundedBoxCollider2D_Editor.cs" />
      <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\Editor\StarCollider2D_Editor.cs" />
-     <None Include="Assets\GameData\Master\SQL functions\UpdateTablesScript.txt" />
+     <None Include="Assets\GameData\Master\SQL\UpdateTablesScript.txt" />
      <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
      <None Include="Assets\Plugins\PixelPerfect\README.txt" />
      <None Include="Assets\GameData\Saves.xml" />
-     <None Include="Assets\GameData\Master\world.xml" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

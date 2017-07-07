@@ -48,11 +48,10 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\Menu\MacabreCollider.cs" />
      <Compile Include="Assets\Editor\Menu\MacabreFootprint.cs" />
-     <None Include="Assets\GameData\Master\SQL functions\UpdateTablesScript.txt" />
+     <None Include="Assets\GameData\Master\SQL\UpdateTablesScript.txt" />
      <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
      <None Include="Assets\Plugins\PixelPerfect\README.txt" />
      <None Include="Assets\GameData\Saves.xml" />
-     <None Include="Assets\GameData\Master\world.xml" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>

@@ -7,6 +7,7 @@ using UI.Panels;
 using UI.Screens;
 using UI.Dialogues;
 using Objects.Immovable;
+using Objects.Immovable.Items;
 
 namespace Objects.Movable.Characters.Individuals
 {
@@ -37,7 +38,7 @@ namespace Objects.Movable.Characters.Individuals
 		[HideInInspector]
 		public bool isInsideBuilding;
 		Objects.Object pendingInspection;
-		const float triggerInspectionThreshold = 25.0f;
+		const float triggerInspectionThreshold = 15.0f;
 
 		protected override void Start()
         {
@@ -51,7 +52,11 @@ namespace Objects.Movable.Characters.Individuals
 		{
 			// Movement
 			if(destinationPosition != null) {
-				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < 1.0f) {
+				float distanceToStop = collisionbox.radius;
+				if(pendingInspection is Item) 
+					distanceToStop = 1.0f;
+				
+				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < distanceToStop) {
 
 					// Inspectable object // TODO stop when proxmity to object is reached
 					if(pendingInspection is IInspectable) {
@@ -61,7 +66,7 @@ namespace Objects.Movable.Characters.Individuals
 					}
 					destinationPosition = null;
 				}
-				Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
+				//Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
 				var direction = (Vector3) destinationPosition - transform.position;
 				var directionN = Vector3.Normalize(direction);
 				rigidbody2D.velocity = (Vector2) directionN * walkingSpeed;
@@ -108,18 +113,32 @@ namespace Objects.Movable.Characters.Individuals
 			if (Input.GetMouseButtonDown(0)) {
 				if(isSittingDown) {
 					isSittingDown = false;
-					return;
 				}
 
 				// Detect if object is nearby
 				var obj = FindInspectablePixelAroundPosition(mousePosition);
 
+				Vector2 hitposition = new Vector2();
+				var rcasthits = Physics2D.LinecastAll(transform.position, mousePosition);
+				//Debug.DrawRay(transform.position, mousePosition - (Vector2) transform.position, Color.blue, 10.0f);
+				foreach(var hit in rcasthits) {
+					if(hit.transform.gameObject == this.gameObject) continue;
+					if(hit.collider.isTrigger) continue;
+
+					Debug.Log(hit.transform.name);
+					Debug.Log(hit.point);
+					Debug.DrawLine((Vector2) transform.position, (Vector2) hit.point, Color.red, 10.0f);
+					hitposition = hit.point;
+					break;
+				}
+
+				if(hitposition != Vector2.zero) destinationPosition = hitposition;
+				else destinationPosition = mousePosition;
+
 				if(obj != null) { // Walk to the object and then interact
-					destinationPosition = mousePosition;
 					pendingInspection = obj;
 				}
 				else { // Simply walk to the destination
-					destinationPosition = mousePosition;
 					pendingInspection = null;
 				}
 			}
@@ -143,7 +162,7 @@ namespace Objects.Movable.Characters.Individuals
 		}
 
 		void DialogueNearestObject() {
-			var nearestInspectable = FindNearestObject<IInspectable>();
+			var nearestInspectable = FindNearestObject<IInspectable>(triggerInspectionThreshold);
 			if(nearestInspectable != null) {
 //				Debug.Log(nearestInspectable.name);
 				float distanceToInspectable = triggerInspectionThreshold;
@@ -166,7 +185,11 @@ namespace Objects.Movable.Characters.Individuals
 
 		void HoverOverObject() {
 			var obj = FindInspectablePixelAroundPosition(mousePosition);
-			if(obj != null) obj.ShowHoverText();
+			if(obj != null) {
+				if(obj is IInspectable) {
+					obj.ShowHoverText();
+				}
+			}
 		}
     }
 }

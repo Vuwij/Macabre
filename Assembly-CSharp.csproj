@@ -134,11 +134,10 @@
      <Compile Include="Assets\Scripts\UI\Screens\UIScreen.cs" />
      <Compile Include="Assets\Scripts\UI\UIObject.cs" />
      <Compile Include="Assets\Scripts\UI\UIScreens.cs" />
-     <None Include="Assets\GameData\Master\SQL functions\UpdateTablesScript.txt" />
+     <None Include="Assets\GameData\Master\SQL\UpdateTablesScript.txt" />
      <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
      <None Include="Assets\Plugins\PixelPerfect\README.txt" />
      <None Include="Assets\GameData\Saves.xml" />
-     <None Include="Assets\GameData\Master\world.xml" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

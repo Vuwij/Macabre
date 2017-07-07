@@ -37,7 +37,7 @@ namespace UI
 
         public virtual void TurnOff()
         {
-			if (Game.main.UI.CurrentPanel != null && Game.main.UI.CurrentPanel != this) throw new UnityException("Current Panel " + name + " is not the top on stack");
+//			if (Game.main.UI.CurrentPanel != null && Game.main.UI.CurrentPanel != this) {throw new UnityException("Current Panel " + name + " is not the top on stack");
             canvasGroup.alpha = 0;
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
