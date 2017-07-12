@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 58dcd2a6b774048a0873a4add83a47ed
-timeCreated: 1477781884
+timeCreated: 1499781534
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -16,6 +16,12 @@ TextureImporter:
     21300018: HamenTheInnGuy_9
     21300020: HamenTheInnGuy_10
     21300022: HamenTheInnGuy_11
+    21300024: HamenTheInnGuy_12
+    21300026: HamenTheInnGuy_13
+    21300028: HamenTheInnGuy_14
+    21300030: HamenTheInnGuy_15
+    21300032: HamenTheInnGuy_16
+    21300034: HamenTheInnGuy_17
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -93,7 +99,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: HamenTheInnGuy_1
       rect:
@@ -103,10 +109,10 @@ TextureImporter:
         width: 28
         height: 54
       alignment: 9
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: HamenTheInnGuy_2
       rect:
@@ -119,25 +125,25 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: HamenTheInnGuy_3
       rect:
         serializedVersion: 2
-        x: 1
-        y: 111
+        x: 88
+        y: 166
         width: 28
         height: 54
       alignment: 9
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: HamenTheInnGuy_4
       rect:
         serializedVersion: 2
-        x: 30
+        x: 1
         y: 111
         width: 28
         height: 54
@@ -145,11 +151,24 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: HamenTheInnGuy_5
       rect:
         serializedVersion: 2
+        x: 30
+        y: 111
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_6
+      rect:
+        serializedVersion: 2
         x: 59
         y: 111
         width: 28
@@ -158,24 +177,37 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
-    - serializedVersion: 2
-      name: HamenTheInnGuy_6
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 56
-        width: 28
-        height: 54
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
       name: HamenTheInnGuy_7
       rect:
         serializedVersion: 2
+        x: 88
+        y: 111
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_8
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_9
+      rect:
+        serializedVersion: 2
         x: 30
         y: 56
         width: 28
@@ -184,9 +216,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: HamenTheInnGuy_8
+      name: HamenTheInnGuy_10
       rect:
         serializedVersion: 2
         x: 59
@@ -197,9 +229,35 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: HamenTheInnGuy_9
+      name: HamenTheInnGuy_11
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_12
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 56
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_13
       rect:
         serializedVersion: 2
         x: 1
@@ -210,9 +268,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: HamenTheInnGuy_10
+      name: HamenTheInnGuy_14
       rect:
         serializedVersion: 2
         x: 30
@@ -223,9 +281,9 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
     - serializedVersion: 2
-      name: HamenTheInnGuy_11
+      name: HamenTheInnGuy_15
       rect:
         serializedVersion: 2
         x: 59
@@ -236,7 +294,33 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      tessellationDetail: -1
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_16
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: HamenTheInnGuy_17
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 1
+        width: 28
+        height: 54
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

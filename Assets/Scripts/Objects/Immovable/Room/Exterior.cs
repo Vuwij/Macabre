@@ -121,10 +121,7 @@ namespace Objects.Immovable.Rooms
 			var obj = collider.gameObject.GetComponent<Movable.MovableObject>();
 			if (collider.isTrigger) return;
 			if (obj != null) {
-				SetOpacity(0.3f);
-				foreach(var room in sharedRooms) {
-					room.SetOpacity(0.3f);
-				}
+				SetOpacity(1.0f);
 			}
 			GameObject.Destroy(GameObject.Find(this.name + " Shadow"));
 		}

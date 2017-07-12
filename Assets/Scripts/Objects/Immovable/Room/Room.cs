@@ -57,18 +57,34 @@ namespace Objects.Immovable.Rooms
 			base.Start();
 		}
 
-		public void SetOpacity(float opacity) {
+		public void SetOpacity(float opacity, float childOpacity = 0.0f) {
+			bool visible = opacity == 1.0f;
+
+			foreach(Room child in sharedRooms) {
+				child.gameObject.SetActive(visible);
+			}
+
+			// The child objects in the room
 			foreach(var obj in GetComponentsInChildren<SpriteRenderer>()) {
 				var c = obj.color;
-				c.a = opacity;
+				if(visible)
+					c.a = 0.0f;
+				else
+					c.a = 1.0f;
 				obj.color = c;
 			}
+			// The room itself
+			var sr = GetComponentInChildren<SpriteRenderer>();
+			var co = sr.color;
+			co.a = opacity;
+			sr.color = co;
 		}
 
-		void OnEnable() {
+		public void OnEnable() {
 			// Doors
 			foreach (var door in gameObject.GetComponentsInChildren<Door>(true)) {
 				door.enabled = true;
+				Debug.Log(door.gameObject.name + "Enabled: " + door.enabled);
 			}
 			// Sorting Layers
 			foreach (SpriteRenderer sr in gameObject.GetComponentsInChildren<SpriteRenderer>()) {
@@ -81,7 +97,7 @@ namespace Objects.Immovable.Rooms
 			}
 		}
 
-		void OnDisable() {
+		public void OnDisable() {
 			// Doors
 			foreach (var door in gameObject.GetComponentsInChildren<Door>(true)) {
 				door.enabled = false;
