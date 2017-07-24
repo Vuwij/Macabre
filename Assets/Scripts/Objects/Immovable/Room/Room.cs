@@ -84,7 +84,7 @@ namespace Objects.Immovable.Rooms
 			// Doors
 			foreach (var door in gameObject.GetComponentsInChildren<Door>(true)) {
 				door.enabled = true;
-				Debug.Log(door.gameObject.name + "Enabled: " + door.enabled);
+//				Debug.Log(door.gameObject.name + "Enabled: " + door.enabled);
 			}
 			// Sorting Layers
 			foreach (SpriteRenderer sr in gameObject.GetComponentsInChildren<SpriteRenderer>()) {

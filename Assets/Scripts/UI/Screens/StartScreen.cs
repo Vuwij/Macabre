@@ -13,13 +13,13 @@ namespace UI.Screens
         {
             TurnOff();
             // The scene contains the barebones of the scene
-            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
-            Scene s = SceneManager.GetSceneByName("Game");
-            SceneManager.SetActiveScene(s);
-            SceneManager.GetActiveScene();
+//            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
+//            Scene s = SceneManager.GetSceneByName("Game");
+//            SceneManager.SetActiveScene(s);
+//            SceneManager.GetActiveScene();
 
             // New save creates all the events and information on the game
-			Game.main.saves.New();
+//			Game.main.saves.New();
         }
 
         public void ContinueGame()

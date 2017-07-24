@@ -58,7 +58,7 @@ namespace Objects.Movable.Characters.Individuals
 				
 				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < distanceToStop) {
 
-					// Inspectable object // TODO stop when proxmity to object is reached
+					// Inspectable object
 					if(pendingInspection is IInspectable) {
 						inspectedObject = pendingInspection as IInspectable;
 						(pendingInspection as IInspectable).InspectionAction(this);
@@ -84,7 +84,7 @@ namespace Objects.Movable.Characters.Individuals
 			base.Update();
 		}
 
-		void KeyPressed() {
+		public override void KeyPressed(int selection = -1) {
 
 			if(Input.anyKey) {
 				//destinationPosition = null;
@@ -98,19 +98,15 @@ namespace Objects.Movable.Characters.Individuals
 				}
 				if (Input.GetButtonDown ("Inspect")) 
 					Inspect();
-				if (Input.GetKeyDown(KeyCode.Alpha1))
-					KeyPressed(1);
-				if (Input.GetKeyDown(KeyCode.Alpha2))
-					KeyPressed(2);
-				if (Input.GetKeyDown(KeyCode.Alpha3))
-					KeyPressed(3);
-				if (Input.GetKeyDown(KeyCode.Alpha4))
-					KeyPressed(4);
+
+				base.KeyPressed();
 			}
 		}
 
 		void MouseClicked() {
 			if (Input.GetMouseButtonDown(0)) {
+				// TODO ignore UI clicks
+
 				if(isSittingDown) {
 					isSittingDown = false;
 				}
@@ -124,6 +120,7 @@ namespace Objects.Movable.Characters.Individuals
 				foreach(var hit in rcasthits) {
 					if(hit.transform.gameObject == this.gameObject) continue;
 					if(hit.collider.isTrigger) continue;
+					if(hit.transform.GetComponent<Item>() != null) continue;
 
 					Debug.Log(hit.transform.name);
 					Debug.Log(hit.point);

@@ -143,7 +143,7 @@ namespace Objects
 		}
 
 		public void ShowHoverText(float duration = 0.2f) {
-			Debug.Log("Hovering over" + this.name);
+			Debug.Log("Hovering over " + this.name);
 			if(hoverTemplate == null) {
 				hoverTemplate = Resources.Load<GameObject>("UI/Dialogue/ItemDialogue");
 			}

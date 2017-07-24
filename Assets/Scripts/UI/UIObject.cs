@@ -15,14 +15,16 @@ namespace UI
                 return GameObject.Find("UI Screen");
             }
         }
-		protected CanvasGroup canvasGroup {
-            get { return gameObject.GetComponent<CanvasGroup>(); }
-        }
-        private Stack<UIObject> currentPanelStack
+		private Stack<UIObject> currentPanelStack
         {
 			get { return Game.main.UI.currentPanelStack; }
         }
 
+		public void Start() {
+			canvasGroup = gameObject.GetComponent<CanvasGroup>();
+		}
+
+		protected CanvasGroup canvasGroup;
 		public bool stackable = true;
 
         public virtual void TurnOn()

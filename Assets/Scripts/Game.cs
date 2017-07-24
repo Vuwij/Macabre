@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UI;
 using Data;
 using Objects;
@@ -28,8 +29,21 @@ public class Game : MonoBehaviour {
 		UI.LoadFonts();
 		dataPath = Application.dataPath;
 		saves = new Saves();
+
 		InvokeRepeating("PeriodicUpdate", 0.0f, 5.0f);
     }
+
+	void Start()
+	{
+		// Start in game mode
+		if(SceneManager.GetActiveScene().name == "Game") {
+			saves.New("Test");
+			saves.Load("Test");
+		}
+		if(SceneManager.GetActiveScene().name == "Start") {
+
+		}
+	}
 
     void Update()
     {

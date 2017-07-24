@@ -5,8 +5,6 @@ using System;
 using System.Data;
 using System.Linq;
 using Mono.Data.SqliteClient;
-
-using Conversation;
 using Objects.Movable.Characters;
 
 /**
@@ -41,9 +39,10 @@ namespace Data.Database {
             public static void FindAndUpdateConversationForCharacter(Character characterTable, ConversationState conversationStateToUpdate)
             {
                 string table = "Conversations_" + characterTable.name;
+				table = table.Replace(" ","");
 
                 // Select all conversations with no prerequisites
-                ExecuteSQLQuery("SELECT * FROM " + table + @" WHERE StateName LIKE 'S%' OR StateName LIKE 's%'");
+                ExecuteSQLQuery("SELECT * FROM `" + table + @"` WHERE StateName LIKE 'S%' OR StateName LIKE 's%'");
 
                 // Fill in the information with the Reader row
                 UpdateStateWithRow(Reader, conversationStateToUpdate);
@@ -53,6 +52,7 @@ namespace Data.Database {
             public static void UpdateConversationForCharacter(string stateName, Character characterTable, ConversationState conversationStateToUpdate)
             {
                 string table = "Conversations_" + characterTable.name;
+				table = table.Replace(" ","");
 
                 // Execute the query
                 ExecuteSQLQuery("SELECT * FROM " + table + @" WHERE StateName LIKE '" + stateName + "'");
@@ -67,15 +67,15 @@ namespace Data.Database {
                 if (Reader.IsDBNull(0)) return;
                 s.stateName = Reader.GetString(0);
                 s.addStates = DatabaseConnection.Utility.StringToStringList(Reader.GetString(1));
-                //s.currentSpeaker = Characters.CharacterControllers.Find(x => x.name == Reader.GetString(2));
+				s.currentSpeaker = GameObject.Find(Reader.GetString(2)).GetComponentInChildren<Character>();
                 s.dialogue = Reader.GetString(3);
 
                 // TODO Link action with string
                 //ParseActionString(Reader.GetString(4));
 
                 s.addEvents = Reader.GetString(5);
-                s.removeEvents = Reader.GetString(6);
-                s.requireEvents = Reader.GetString(7);
+//                s.removeEvents = Reader.GetString(6);
+//                s.requireEvents = Reader.GetString(7);
             }
         }
     }

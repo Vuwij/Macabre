@@ -24,7 +24,7 @@ namespace Objects.Immovable.Items
 		CollisionCircle collisionCircle;
 
 		protected override void Start() {
-			collisionCircle = new CollisionCircle(gameObject, 1);
+			collisionCircle = new CollisionCircle(gameObject, 2);
 			interactionText = "Press T to pick up " + name;
 			base.Start();
 		}

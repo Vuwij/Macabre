@@ -13,7 +13,7 @@ namespace Data
 	[XmlInclude (typeof(Save))]
 	public class Saves
 	{
-		const string serializationURI = "/GameData/Saves.xml";
+		const string serializationURI = "/GameData/saves.xml";
 
 		public Save current;
 		public List<Save> saves;
@@ -55,6 +55,12 @@ namespace Data
 
 		public void New (string name = "")
 		{
+			if(saves.Find(x => x.name == name) != null) {
+				// Overwriting the file
+				saves.Find(x => x.name == name).NewGame();
+				return;
+			}
+
 			if (name == "")
 				name = "Save " + (saves.Count + 1);
             
@@ -76,6 +82,7 @@ namespace Data
 				throw new Exception ("Save " + name + " not found");
 
 			SerializeSaveFile ();
+
 			current.LoadGame ();
 			Game.main.UI.Find<LoadingScreen> ().TurnOff ();
 		}

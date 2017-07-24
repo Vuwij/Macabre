@@ -38,7 +38,8 @@ namespace Data.Database
         {
             using (IDbCommand dbcmd = dbconn.CreateCommand())
             {
-                dbcmd.CommandText = query;
+//				Debug.Log(query);
+				dbcmd.CommandText = query;
                 reader = dbcmd.ExecuteReader();
             }
         }

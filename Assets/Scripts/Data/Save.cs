@@ -53,7 +53,6 @@ namespace Data
 			else this.name = "Save " + System.DateTime.Now;
 
 			Directory.CreateDirectory(fileLocation);
-			File.Copy(masterURI + "/MacabreDB.master.db3", fileLocation + "/MacabreDB.db3");
 		}
 
 		void Add(Save s) {}
@@ -62,6 +61,7 @@ namespace Data
 
 		public void NewGame()
 		{
+			File.Copy(masterURI + "/MacabreDB.master.db3", fileLocation + "/MacabreDB.db3", true);
 		}
 
 		public void LoadGame()

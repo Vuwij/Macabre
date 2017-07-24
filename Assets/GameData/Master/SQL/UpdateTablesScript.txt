@@ -1,13 +1,12 @@
 .open ../MacabreDB.master.db3
 .mode csv
-.import ../Conversations/Conversations_GerdnesAberdeen.csv Conversations_GerdnesAberdeen
-.import ../Conversations/Conversations_OenyusTheDrunk.csv Conversations_OenyusTheDrunk
-.import ../Conversations/Conversations_HamenTheInnkeeper.csv Conversations_HamenTheInnkeeper
-.import ../Conversations/Conversations_OwinThePardoner.csv Conversations_OwinThePardoner
-.import ../Conversations/Conversations_RohezAberdeen.csv Conversations_RohezAberdeen
-.import ../Conversations/Game_Characters.csv Game_Characters
-.import ../Conversations/Game_Events.csv Game_Events
-
-.import ../Items/Items_ClassA.csv Items_ClassA
-.import ../Items/Items_ClassB.csv Items_ClassB
-.import ../Items/Items_Combine.csv Items_Combine
+.import ../Tables/Conversations_GerdnesAberdeen.csv Conversations_GerdnesAberdeen
+.import ../Tables/Conversations_OenyusTheDrunk.csv Conversations_OenyusTheDrunk
+.import ../Tables/Conversations_HamenTheInnkeeper.csv Conversations_HamenTheInnkeeper
+.import ../Tables/Conversations_OwinThePardoner.csv Conversations_OwinThePardoner
+.import ../Tables/Conversations_RohezAberdeen.csv Conversations_RohezAberdeen
+.import ../Tables/Game_Characters.csv Game_Characters
+.import ../Tables/Game_Events.csv Game_Events
+.import ../Tables/Items_ClassA.csv Items_ClassA
+.import ../Tables/Items_ClassB.csv Items_ClassB
+.import ../Tables/Items_Combine.csv Items_Combine

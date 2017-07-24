@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Extensions;
-using Conversation;
 using System.Linq;
 using Objects.Immovable.Items;
 using Objects.Inventory;
@@ -177,16 +176,20 @@ namespace Objects.Movable.Characters
 		[HideInInspector]
 		public bool isTalking = false;
 
-		public static ConversationState conversationState;
+		public static ConversationState conversationState; // Null if no conversation is happening
 
 		// Invoked everytime when the spacebar is pressed or an decision is made
-		public ConversationState Dialogue(int decision = 0)
+		public ConversationState InvokeDialogue(int decision = 0)
 		{
-			// Check if the character exists in database
-			if (conversationState == null) conversationState = new ConversationState(this);
-			else conversationState = conversationState.GetNextState(decision);
+			if (conversationState == null)
+				conversationState = new ConversationState(this);
+			else
+				conversationState = conversationState.GetNextState(decision);
 
-			ConversationState.DisplayState(conversationState);
+			if(conversationState != null)
+				conversationState.DisplayState();
+			else
+				ConversationState.TurnOff();
 
 			return conversationState;
 		}
@@ -194,7 +197,7 @@ namespace Objects.Movable.Characters
 		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
 		{
 			if(conversationState != null && conversationState.conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse) return;
-			Dialogue(0);
+			InvokeDialogue(0);
 		}
 
 		#endregion
@@ -204,10 +207,20 @@ namespace Objects.Movable.Characters
 		RaycastHit2D hit;
 		protected IInspectable inspectedObject;
 
-		public void KeyPressed (int keyPressed = 0)
+		public virtual void KeyPressed (int selection = -1)
 		{
-			if (conversationState.InputIsValid(keyPressed))
-				conversationState.character.Dialogue(keyPressed - 1);
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+				selection = 0;
+			if (Input.GetKeyDown(KeyCode.Alpha2))
+				selection = 1;
+			if (Input.GetKeyDown(KeyCode.Alpha3))
+				selection = 2;
+			if (Input.GetKeyDown(KeyCode.Alpha4))
+				selection = 3;
+
+			if (selection != -1)
+				if (conversationState.InputIsValid(selection))
+					conversationState.character.InvokeDialogue(selection);
 		}
 
 		public void Inspect()
