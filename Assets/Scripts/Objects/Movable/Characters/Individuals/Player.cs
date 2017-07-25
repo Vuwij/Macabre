@@ -69,7 +69,7 @@ namespace Objects.Movable.Characters.Individuals
 				//Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
 				var direction = (Vector3) destinationPosition - transform.position;
 				var directionN = Vector3.Normalize(direction);
-				rigidbody2D.velocity = (Vector2) directionN * walkingSpeed;
+				rigidbody2D.velocity = positionLocked ? Vector2.zero : (Vector2) directionN * walkingSpeed;
 			}
 			else rigidbody2D.velocity = positionLocked ? Vector2.zero : inputVelocity;
 
@@ -98,9 +98,8 @@ namespace Objects.Movable.Characters.Individuals
 				}
 				if (Input.GetButtonDown ("Inspect")) 
 					Inspect();
-
-				base.KeyPressed();
 			}
+			base.KeyPressed(selection);
 		}
 
 		void MouseClicked() {

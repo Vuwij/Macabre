@@ -44,7 +44,7 @@ namespace Objects.Movable.Characters
 		public bool InputIsValid(int input)
 		{
 			if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
-			if (input > 0 && input < NextStateCount) return true;
+			if (input >= 0 && input < NextStateCount) return true;
 			return false;
 		}
 
@@ -140,7 +140,9 @@ namespace Objects.Movable.Characters
 
 		void LockAllCharacterPosition()
 		{
+			Debug.Log("Locking positions");
 			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation) {
+				Debug.Log(character.name);
 				if(character == null) continue;
 				character.isTalking = true;
 			}

@@ -80,12 +80,12 @@ namespace UI.Dialogues
 
         public void ResponsePressed(int i)
         {
-			GameObject.Find("Player").GetComponent<Player>().KeyPressed(i);
+			GameObject.Find("Player").GetComponent<Character>().KeyPressed(i);
         }
 
         public void ContinuePressed()
         {
-			GameObject.Find("Player").GetComponent<Player>().InspectionAction(GameObject.Find("Player").GetComponent<Player>(), new RaycastHit2D());
+			GameObject.Find("Player").GetComponent<Character>().InspectionAction(GameObject.Find("Player").GetComponent<Player>(), new RaycastHit2D());
         }
 
         public void Reset()

@@ -186,10 +186,14 @@ namespace Objects.Movable.Characters
 			else
 				conversationState = conversationState.GetNextState(decision);
 
-			if(conversationState != null)
+			if(conversationState != null) {
 				conversationState.DisplayState();
-			else
+				isTalking = true;
+			}
+			else {
 				ConversationState.TurnOff();
+				isTalking = false;
+			}
 
 			return conversationState;
 		}
