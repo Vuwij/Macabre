@@ -141,10 +141,28 @@ namespace Objects.Movable.Characters
 		void LockAllCharacterPosition()
 		{
 			Debug.Log("Locking positions");
-			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation) {
+			foreach (var character in AllCharactersInConversation) {
 				Debug.Log(character.name);
 				if(character == null) continue;
 				character.isTalking = true;
+			}
+			var player = GameObject.Find("Player").GetComponent<Player>();
+			player.isTalking = true;
+
+			// Make all the characters face each other
+			var firstCharacter = AllCharactersInConversation[0];
+			Vector2 center = (firstCharacter.transform.position - player.transform.position);
+			Vector2.Scale(center, new Vector2(0.5f, 0.5f));
+			center = (Vector2) player.transform.position + center;
+
+			Debug.DrawLine(player.transform.position, center, Color.red, 10.0f);
+			player.GetComponentInChildren<Animator>().SetFloat("MoveSpeed-x", center.x - player.transform.position.x);
+			player.GetComponentInChildren<Animator>().SetFloat("MoveSpeed-y", center.y - player.transform.position.y);
+			foreach(var character in AllCharactersInConversation) {
+				var anim = character.GetComponentInChildren<Animator>();
+				anim.SetFloat("MoveSpeed-x", center.x - character.transform.position.x);
+				anim.SetFloat("MoveSpeed-y", center.y - character.transform.position.y);
+				anim.SetBool("IsActive", true);
 			}
 		}
 
@@ -153,7 +171,13 @@ namespace Objects.Movable.Characters
 			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation) {
 				if(character == null) continue;
 				character.isTalking = false;
+				var anim = character.GetComponentInChildren<Animator>();
+				anim.SetFloat("MoveSpeed-x", 0.0f);
+				anim.SetFloat("MoveSpeed-y", 0.0f);
+				anim.SetBool("IsActive", false);
 			}
+			var player = GameObject.Find("Player").GetComponent<Player>();
+			player.isTalking = false;
 		}
 
 		#endregion

@@ -173,8 +173,7 @@ namespace Objects.Movable.Characters
 
 		#region Conversation
 
-		[HideInInspector]
-		public bool isTalking = false;
+		public bool isTalking;
 
 		public static ConversationState conversationState; // Null if no conversation is happening
 
@@ -188,11 +187,9 @@ namespace Objects.Movable.Characters
 
 			if(conversationState != null) {
 				conversationState.DisplayState();
-				isTalking = true;
 			}
 			else {
 				ConversationState.TurnOff();
-				isTalking = false;
 			}
 
 			return conversationState;

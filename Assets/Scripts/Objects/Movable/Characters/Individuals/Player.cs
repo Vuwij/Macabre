@@ -105,7 +105,6 @@ namespace Objects.Movable.Characters.Individuals
 		void MouseClicked() {
 			if (Input.GetMouseButtonDown(0)) {
 				// TODO ignore UI clicks
-
 				if(isSittingDown) {
 					isSittingDown = false;
 				}
@@ -128,14 +127,23 @@ namespace Objects.Movable.Characters.Individuals
 					break;
 				}
 
-				if(hitposition != Vector2.zero) destinationPosition = hitposition;
-				else destinationPosition = mousePosition;
+				if(!positionLocked) {
+					if(hitposition != Vector2.zero) {
+						// TODO Slow down character movement
+						destinationPosition = hitposition;
+					}
+					else destinationPosition = mousePosition;
 
-				if(obj != null) { // Walk to the object and then interact
-					pendingInspection = obj;
+					if(obj != null) { // Walk to the object and then interact
+						pendingInspection = obj;
+					}
+					else { // Simply walk to the destination
+						pendingInspection = null;
+					}
 				}
-				else { // Simply walk to the destination
-					pendingInspection = null;
+				else { // Direct interaction with the object
+					if(obj != null)
+						(obj as IInspectable).InspectionAction(this);
 				}
 			}
 		}
