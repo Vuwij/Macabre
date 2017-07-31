@@ -152,7 +152,7 @@ namespace Objects.Movable.Characters
 			// Make all the characters face each other
 			var firstCharacter = AllCharactersInConversation[0];
 			Vector2 center = (firstCharacter.transform.position - player.transform.position);
-			Vector2.Scale(center, new Vector2(0.5f, 0.5f));
+			center = Vector2.Scale(center, new Vector2(0.5f, 0.5f));
 			center = (Vector2) player.transform.position + center;
 
 			Debug.DrawLine(player.transform.position, center, Color.red, 10.0f);
@@ -160,9 +160,11 @@ namespace Objects.Movable.Characters
 			player.GetComponentInChildren<Animator>().SetFloat("MoveSpeed-y", center.y - player.transform.position.y);
 			foreach(var character in AllCharactersInConversation) {
 				var anim = character.GetComponentInChildren<Animator>();
+				anim.SetBool("IsActive", true);
 				anim.SetFloat("MoveSpeed-x", center.x - character.transform.position.x);
 				anim.SetFloat("MoveSpeed-y", center.y - character.transform.position.y);
-				anim.SetBool("IsActive", true);
+				Debug.Log(center.x - character.transform.position.x);
+				Debug.Log(center.y - character.transform.position.y);
 			}
 		}
 
