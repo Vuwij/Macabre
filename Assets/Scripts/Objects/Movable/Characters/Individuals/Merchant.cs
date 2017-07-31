@@ -4,7 +4,7 @@ using System;
 
 namespace Objects.Movable.Characters.Individuals
 {
-    public sealed class Merchant : Character
+    public sealed class Merchant : AICharacter
     {
     }
 }

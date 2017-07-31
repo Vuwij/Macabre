@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Objects.Movable.Characters.Individuals
 {
-    public class Guard : Character
+    public class Guard : AICharacter
     {
     }
 }
