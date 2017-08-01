@@ -15,7 +15,7 @@ namespace Objects.Movable.Characters
     {
 		List<Objects.Movable.Characters.Character> AllCharactersInConversation
 		{
-			get { return FindAllCharactersInConversation(this).Distinct().ToList(); }
+			get { return new List<Objects.Movable.Characters.Character>() {currentSpeaker}; }
 		}
 		int NextStateCount
 		{
@@ -36,6 +36,22 @@ namespace Objects.Movable.Characters
 				foreach(string stateName in addStates)
 				{
 					ConversationState s = new ConversationState(character, this, stateName);
+
+					var reqEventList = SeparateEvents(s.requireEvents);
+					var excEventList = SeparateEvents(s.excludeEvents);
+					Debug.Log(stateName + " " + s.excludeEvents);
+					bool validateRequireEvents = true;
+					foreach(var e in reqEventList) {
+						if(Game.main.eventList.Find(x => (x == e)) == null)
+							validateRequireEvents = false;
+					}
+					foreach(var e in excEventList) {
+						if(Game.main.eventList.Find(x => (x == e)) != null) {
+							validateRequireEvents = false;
+						}
+					}
+					if(validateRequireEvents == false) continue;
+
 					next.Add(s);
 				}
 				return next;
@@ -58,9 +74,11 @@ namespace Objects.Movable.Characters
 		public string[] addStates;
 		public Objects.Movable.Characters.Character currentSpeaker;
 		public string dialogue;
+		public string actions;
 		public string addEvents;
 		public string removeEvents;
 		public string requireEvents;
+		public string excludeEvents;
 
 		public ConversationState(Objects.Movable.Characters.Character speakerController, ConversationState previousState = null, string stateName = "")
 		{
@@ -70,18 +88,20 @@ namespace Objects.Movable.Characters
 			{
 				DatabaseConnection.ConversationDB.FindAndUpdateConversationForCharacter(character, this);
 				LockAllCharacterPosition();
+				UpdateEvents();
 			}
 			else
 				DatabaseConnection.ConversationDB.UpdateConversationForCharacter(stateName, character, this);
 
 			SetCurrentViewFromPreviousState(previousState);
-
 			conversationDialogue = Game.main.UI.Find<ConversationDialogue>();
 			conversationDialogue.TurnOn();
 		}
 
 		public ConversationState GetNextState(int decision = 0)
 		{
+			UpdateEvents();
+
 			if (NextStates.Count == 0)
 			{
 				UnlockAllCharacterPosition();
@@ -97,52 +117,13 @@ namespace Objects.Movable.Characters
 				return NextStates[decision];
 		}
 
-		public void Print()
-		{
-			string stateInfo = "";
-
-			// Basic Info
-			stateInfo += "State: " + stateName + "\n";
-			stateInfo += "Speaker: " + currentSpeaker + "\n";
-			stateInfo += "Next States: " + "\n";
-
-			if(addStates != null)
-				foreach (var nextState in addStates)
-					stateInfo += "  States: " + nextState + "\n";
-
-			// Dialogue
-			stateInfo += "Dialogue: " + dialogue + "\n";
-
-			// Event Info
-			stateInfo += "Events: " + "\n";
-			stateInfo += "  Add Events: " + "\n";
-			foreach (var addEvent in addEvents)
-				stateInfo += "  " + addEvents + "\n";
-			stateInfo += "  Remove Events: " + "\n";
-			foreach (var removeEvents in addEvents)
-				stateInfo += "  " + removeEvents + "\n";
-			stateInfo += "  Require Events: " + "\n";
-			foreach (var requireEvents in addEvents)
-				stateInfo += "  " + requireEvents + "\n";
-
-			Debug.Log(stateInfo);
-		}
-
 		#region Actions
-
-		IEnumerable<Objects.Movable.Characters.Character> FindAllCharactersInConversation(ConversationState root)
-		{
-			yield return currentSpeaker;
-			foreach (ConversationState next in root.NextStates)
-				foreach (var x in FindAllCharactersInConversation(next))
-					yield return x;
-		}
 
 		void LockAllCharacterPosition()
 		{
-			Debug.Log("Locking positions");
+//			Debug.Log("Locking positions");
 			foreach (var character in AllCharactersInConversation) {
-				Debug.Log(character.name);
+//				Debug.Log(character.name);
 				if(character == null) continue;
 				character.isTalking = true;
 			}
@@ -163,8 +144,8 @@ namespace Objects.Movable.Characters
 				anim.SetBool("IsActive", true);
 				anim.SetFloat("MoveSpeed-x", center.x - character.transform.position.x);
 				anim.SetFloat("MoveSpeed-y", center.y - character.transform.position.y);
-				Debug.Log(center.x - character.transform.position.x);
-				Debug.Log(center.y - character.transform.position.y);
+//				Debug.Log(center.x - character.transform.position.x);
+//				Debug.Log(center.y - character.transform.position.y);
 			}
 		}
 
@@ -180,6 +161,32 @@ namespace Objects.Movable.Characters
 			}
 			var player = GameObject.Find("Player").GetComponent<Player>();
 			player.isTalking = false;
+		}
+
+		#endregion
+
+		#region Events
+
+		string[] SeparateEvents(string events) {
+			if(events == null) return new string[]{};
+			events = events.Replace(", ",",");
+			var eventsList = events.Split(',');
+			if(eventsList.Length == 1 && eventsList[0] == "") return new string[]{};
+			return eventsList;
+		}
+
+		void UpdateEvents() {
+			var addEventList = SeparateEvents(addEvents);
+			var removeEventList = SeparateEvents(removeEvents);
+
+			foreach(var e in addEventList) {
+				if(Game.main.eventList.Find(x => x == e) == null)
+					Game.main.eventList.Add(e);
+			}
+			foreach(var e in removeEventList) {
+				if(Game.main.eventList.Find(x => x == e) != null)
+					Game.main.eventList.Remove(e);
+			}
 		}
 
 		#endregion

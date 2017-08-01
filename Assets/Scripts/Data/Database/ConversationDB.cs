@@ -69,13 +69,17 @@ namespace Data.Database {
                 s.addStates = DatabaseConnection.Utility.StringToStringList(Reader.GetString(1));
 				s.currentSpeaker = GameObject.Find(Reader.GetString(2)).GetComponentInChildren<Character>();
                 s.dialogue = Reader.GetString(3);
-
-                // TODO Link action with string
-                //ParseActionString(Reader.GetString(4));
-
+				s.actions = Reader.GetString(4);
                 s.addEvents = Reader.GetString(5);
-//                s.removeEvents = Reader.GetString(6);
-//                s.requireEvents = Reader.GetString(7);
+                s.removeEvents = Reader.GetString(6);
+                if(!Reader.IsDBNull(7))
+					s.requireEvents = Reader.GetString(7);
+				else
+					s.requireEvents = "";
+				if(!Reader.IsDBNull(8))
+					s.excludeEvents = Reader.GetString(8);
+				else
+					s.excludeEvents = "";
             }
         }
     }

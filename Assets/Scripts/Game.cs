@@ -19,6 +19,7 @@ public class Game : MonoBehaviour {
 	public GameInput input = new GameInput();
 	public UIScreens UI = new UIScreens();
 	public GameClock clock = new GameClock();
+	public EventList eventList;
 
 	void Awake()
     {
@@ -29,6 +30,7 @@ public class Game : MonoBehaviour {
 		UI.LoadFonts();
 		dataPath = Application.dataPath;
 		saves = new Saves();
+		eventList = new EventList();
 
 		InvokeRepeating("PeriodicUpdate", 0.0f, 5.0f);
     }

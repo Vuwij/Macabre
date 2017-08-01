@@ -36,13 +36,13 @@ namespace Objects.Movable.Characters
 				return;
 			}
 			else if (movementState == MovementState.idle) {
-				if(IdleMovementType == IdleMovementType.backAndForth) {
+				if(movementType == IdleMovementType.backAndForth) {
 
 				}
-				else if(IdleMovementType == IdleMovementType.multiplePoints) {
+				else if(movementType == IdleMovementType.multiplePoints) {
 
 				}
-				else if(IdleMovementType == IdleMovementType.random) {
+				else if(movementType == IdleMovementType.random) {
 					if(movementPath.Count < 5) {
 
 					}
