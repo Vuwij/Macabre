@@ -111,21 +111,7 @@ namespace Objects.Movable.Characters.Individuals
 
 				// Detect if object is nearby
 				var obj = FindInspectablePixelAroundPosition(mousePosition);
-
-				Vector2 hitposition = new Vector2();
-				var rcasthits = Physics2D.LinecastAll(transform.position, mousePosition);
-				//Debug.DrawRay(transform.position, mousePosition - (Vector2) transform.position, Color.blue, 10.0f);
-				foreach(var hit in rcasthits) {
-					if(hit.transform.gameObject == this.gameObject) continue;
-					if(hit.collider.isTrigger) continue;
-					if(hit.transform.GetComponent<Item>() != null) continue;
-
-					Debug.Log(hit.transform.name);
-					Debug.Log(hit.point);
-					Debug.DrawLine((Vector2) transform.position, (Vector2) hit.point, Color.red, 10.0f);
-					hitposition = hit.point;
-					break;
-				}
+				Vector2 hitposition = FindHitFromRaycast(mousePosition);
 
 				if(!positionLocked) {
 					if(hitposition != Vector2.zero) {
