@@ -5,7 +5,7 @@ namespace Objects.Movable.Characters.Individuals
 {
     public class Guard : AICharacter
     {
-		protected virtual void Start() {
+		protected override void Start() {
 			base.Start();
 		}
     }

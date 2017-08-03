@@ -21,16 +21,7 @@ namespace Objects.Movable.Characters.Individuals
 					movementSpeed * Input.GetAxisRaw("Vertical"));
 			}
 		}
-		Vector2 mousePosition
-		{
-			get {
-				Vector2 click = Input.mousePosition;
-				var offset = click - new Vector2(320.0f, 180.0f);
-				offset.Scale(new Vector2(0.5f, 0.5f));
-				click = offset + new Vector2(320.0f, 180.0f);
-				return Camera.main.ScreenToWorldPoint(click);
-			}
-		}
+
 		UIScreens UI {
 			get { return Game.main.UI; }
 		}

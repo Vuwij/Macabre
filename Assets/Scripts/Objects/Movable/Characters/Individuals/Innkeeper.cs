@@ -8,5 +8,6 @@ namespace Objects.Movable.Characters.Individuals
 		protected override void Start() {
 			base.Start();
 		}
+
     }
 }

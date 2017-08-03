@@ -11,7 +11,7 @@ namespace Objects.Movable
     {
 		protected bool isMoving
 		{
-			get { return (rigidbody2D.velocity.sqrMagnitude >= float.Epsilon); }
+			get { return (rigidbody2D.velocity.sqrMagnitude >= 0.5f); }
 		}
 		protected Vector2 mousePosition
 		{
@@ -40,19 +40,20 @@ namespace Objects.Movable
 		protected Vector2 FindHitFromRaycast(Vector2 dest) {
 			Vector2 hitposition = new Vector2();
 			var rcasthits = Physics2D.LinecastAll(transform.position, dest);
-			Debug.DrawRay(transform.position, mousePosition - (Vector2) transform.position, Color.blue, 10.0f);
+			//Debug.DrawRay(transform.position, mousePosition - (Vector2) transform.position, Color.blue, 10.0f);
+			bool hitSomething = false;
 			foreach(var hit in rcasthits) {
 				if(hit.transform.gameObject == this.gameObject) continue;
 				if(hit.collider.isTrigger) continue;
 				if(hit.transform.GetComponent<Item>() != null) continue;
 
-//				Debug.Log(hit.transform.name);
-//				Debug.Log(hit.point);
 				Debug.DrawLine((Vector2) transform.position, (Vector2) hit.point, Color.red, 10.0f);
 				hitposition = hit.point;
+				hitSomething = true;
 				break;
 			}
-			return hitposition;
+			if(hitSomething) return hitposition;
+			else return dest;
 		}
 
 		protected virtual void OnTriggerStay2D(Collider2D collider)

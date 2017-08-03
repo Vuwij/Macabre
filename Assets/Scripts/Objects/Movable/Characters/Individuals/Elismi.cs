@@ -3,9 +3,9 @@ using System.Collections;
 
 namespace Objects.Movable.Characters.Individuals
 {
-    public class Elismi : Character
+    public class Elismi : AICharacter
     {
-		protected virtual void Start() {
+		protected override void Start() {
 			base.Start();
 		}
     }
