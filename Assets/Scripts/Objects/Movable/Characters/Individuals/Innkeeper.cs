@@ -5,8 +5,9 @@ namespace Objects.Movable.Characters.Individuals
 {
     public sealed class Innkeeper : AICharacter
     {
-		protected void Start() {
+		protected override void Start() {
 			base.Start();
 		}
+
     }
 }
