@@ -68,6 +68,7 @@ namespace Objects.Movable.Characters
 		public Character character;
 		ConversationState previousState;
 		ConversationDialogue conversationDialogue;
+		List<CharacterAction> characterAction = new List<CharacterAction>();
 
 		// From the database information
 		public string stateName;
@@ -161,6 +162,11 @@ namespace Objects.Movable.Characters
 			}
 			var player = GameObject.Find("Player").GetComponent<Player>();
 			player.isTalking = false;
+		}
+
+		void ParseAction()
+		{
+			
 		}
 
 		#endregion

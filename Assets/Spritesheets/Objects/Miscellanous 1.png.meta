@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 07b7fe2959f244f628d8d52d23eb03d3
-timeCreated: 1470803347
+timeCreated: 1501861237
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -72,12 +72,12 @@ TextureImporter:
     21300130: Miscellanous 1_65
     21300132: Miscellanous 1_66
     21300134: Miscellanous 1_67
-  serializedVersion: 2
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
     mipMapFadeDistanceStart: 1
@@ -89,10 +89,8 @@ TextureImporter:
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
@@ -103,9 +101,7 @@ TextureImporter:
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -113,12 +109,36 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Miscellanous 1_0
+    - serializedVersion: 2
+      name: Miscellanous 1_0
       rect:
         serializedVersion: 2
         x: 35
@@ -126,10 +146,12 @@ TextureImporter:
         width: 17
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_1
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_1
       rect:
         serializedVersion: 2
         x: 73
@@ -137,10 +159,12 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_2
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_2
       rect:
         serializedVersion: 2
         x: 106
@@ -148,10 +172,12 @@ TextureImporter:
         width: 6
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_3
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_3
       rect:
         serializedVersion: 2
         x: 128
@@ -159,10 +185,12 @@ TextureImporter:
         width: 13
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_4
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_4
       rect:
         serializedVersion: 2
         x: 144
@@ -170,10 +198,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_5
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_5
       rect:
         serializedVersion: 2
         x: 153
@@ -181,10 +211,12 @@ TextureImporter:
         width: 12
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_6
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_6
       rect:
         serializedVersion: 2
         x: 99
@@ -192,10 +224,12 @@ TextureImporter:
         width: 6
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_7
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_7
       rect:
         serializedVersion: 2
         x: 113
@@ -203,10 +237,12 @@ TextureImporter:
         width: 4
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_8
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_8
       rect:
         serializedVersion: 2
         x: 133
@@ -214,10 +250,12 @@ TextureImporter:
         width: 11
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_9
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_9
       rect:
         serializedVersion: 2
         x: 146
@@ -225,10 +263,12 @@ TextureImporter:
         width: 11
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_10
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_10
       rect:
         serializedVersion: 2
         x: 20
@@ -236,10 +276,12 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_11
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_11
       rect:
         serializedVersion: 2
         x: 43
@@ -247,10 +289,12 @@ TextureImporter:
         width: 13
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_12
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_12
       rect:
         serializedVersion: 2
         x: 75
@@ -258,10 +302,12 @@ TextureImporter:
         width: 13
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_13
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_13
       rect:
         serializedVersion: 2
         x: 82
@@ -269,10 +315,12 @@ TextureImporter:
         width: 13
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_14
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_14
       rect:
         serializedVersion: 2
         x: 100
@@ -280,10 +328,12 @@ TextureImporter:
         width: 8
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_15
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_15
       rect:
         serializedVersion: 2
         x: 111
@@ -291,10 +341,12 @@ TextureImporter:
         width: 5
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_16
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_16
       rect:
         serializedVersion: 2
         x: 128
@@ -302,10 +354,12 @@ TextureImporter:
         width: 8
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_17
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_17
       rect:
         serializedVersion: 2
         x: 137
@@ -313,10 +367,12 @@ TextureImporter:
         width: 9
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_18
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_18
       rect:
         serializedVersion: 2
         x: 147
@@ -324,10 +380,12 @@ TextureImporter:
         width: 9
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_19
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_19
       rect:
         serializedVersion: 2
         x: 157
@@ -335,10 +393,12 @@ TextureImporter:
         width: 9
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_20
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_20
       rect:
         serializedVersion: 2
         x: 10
@@ -346,10 +406,12 @@ TextureImporter:
         width: 5
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_21
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_21
       rect:
         serializedVersion: 2
         x: 17
@@ -357,10 +419,12 @@ TextureImporter:
         width: 9
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_22
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_22
       rect:
         serializedVersion: 2
         x: 38
@@ -368,10 +432,12 @@ TextureImporter:
         width: 7
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_23
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_23
       rect:
         serializedVersion: 2
         x: 54
@@ -379,10 +445,12 @@ TextureImporter:
         width: 22
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_24
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_24
       rect:
         serializedVersion: 2
         x: 86
@@ -390,10 +458,12 @@ TextureImporter:
         width: 8
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_25
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_25
       rect:
         serializedVersion: 2
         x: 91
@@ -401,10 +471,12 @@ TextureImporter:
         width: 12
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_26
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_26
       rect:
         serializedVersion: 2
         x: 126
@@ -412,10 +484,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_27
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_27
       rect:
         serializedVersion: 2
         x: 135
@@ -423,10 +497,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_28
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_28
       rect:
         serializedVersion: 2
         x: 15
@@ -434,10 +510,12 @@ TextureImporter:
         width: 8
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_29
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_29
       rect:
         serializedVersion: 2
         x: 46
@@ -445,10 +523,12 @@ TextureImporter:
         width: 17
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_30
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_30
       rect:
         serializedVersion: 2
         x: 105
@@ -456,10 +536,12 @@ TextureImporter:
         width: 6
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_31
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_31
       rect:
         serializedVersion: 2
         x: 115
@@ -467,10 +549,12 @@ TextureImporter:
         width: 6
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_32
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_32
       rect:
         serializedVersion: 2
         x: 126
@@ -478,10 +562,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_33
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_33
       rect:
         serializedVersion: 2
         x: 135
@@ -489,10 +575,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_34
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_34
       rect:
         serializedVersion: 2
         x: 149
@@ -500,10 +588,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_35
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_35
       rect:
         serializedVersion: 2
         x: 158
@@ -511,10 +601,12 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_36
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_36
       rect:
         serializedVersion: 2
         x: 24
@@ -522,10 +614,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_37
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_37
       rect:
         serializedVersion: 2
         x: 112
@@ -533,10 +627,12 @@ TextureImporter:
         width: 6
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_38
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_38
       rect:
         serializedVersion: 2
         x: 136
@@ -544,10 +640,12 @@ TextureImporter:
         width: 8
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_39
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_39
       rect:
         serializedVersion: 2
         x: 147
@@ -555,10 +653,12 @@ TextureImporter:
         width: 8
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_40
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_40
       rect:
         serializedVersion: 2
         x: 158
@@ -566,10 +666,12 @@ TextureImporter:
         width: 8
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_41
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_41
       rect:
         serializedVersion: 2
         x: 36
@@ -577,10 +679,12 @@ TextureImporter:
         width: 13
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_42
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_42
       rect:
         serializedVersion: 2
         x: 59
@@ -588,10 +692,12 @@ TextureImporter:
         width: 12
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_43
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_43
       rect:
         serializedVersion: 2
         x: 86
@@ -599,10 +705,12 @@ TextureImporter:
         width: 10
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_44
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_44
       rect:
         serializedVersion: 2
         x: 99
@@ -610,10 +718,12 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_45
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_45
       rect:
         serializedVersion: 2
         x: 123
@@ -621,10 +731,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_46
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_46
       rect:
         serializedVersion: 2
         x: 134
@@ -632,10 +744,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_47
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_47
       rect:
         serializedVersion: 2
         x: 145
@@ -643,10 +757,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_48
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_48
       rect:
         serializedVersion: 2
         x: 156
@@ -654,10 +770,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_49
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_49
       rect:
         serializedVersion: 2
         x: 7
@@ -665,10 +783,12 @@ TextureImporter:
         width: 7
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_50
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_50
       rect:
         serializedVersion: 2
         x: 30
@@ -676,10 +796,12 @@ TextureImporter:
         width: 12
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_51
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_51
       rect:
         serializedVersion: 2
         x: 43
@@ -687,10 +809,12 @@ TextureImporter:
         width: 8
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_52
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_52
       rect:
         serializedVersion: 2
         x: 55
@@ -698,10 +822,12 @@ TextureImporter:
         width: 16
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_53
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_53
       rect:
         serializedVersion: 2
         x: 75
@@ -709,10 +835,12 @@ TextureImporter:
         width: 7
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_54
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_54
       rect:
         serializedVersion: 2
         x: 86
@@ -720,10 +848,12 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_55
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_55
       rect:
         serializedVersion: 2
         x: 98
@@ -731,10 +861,12 @@ TextureImporter:
         width: 9
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_56
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_56
       rect:
         serializedVersion: 2
         x: 123
@@ -742,10 +874,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_57
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_57
       rect:
         serializedVersion: 2
         x: 134
@@ -753,10 +887,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_58
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_58
       rect:
         serializedVersion: 2
         x: 145
@@ -764,10 +900,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_59
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_59
       rect:
         serializedVersion: 2
         x: 156
@@ -775,10 +913,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_60
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_60
       rect:
         serializedVersion: 2
         x: 15
@@ -786,10 +926,12 @@ TextureImporter:
         width: 14
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_61
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_61
       rect:
         serializedVersion: 2
         x: 86
@@ -797,10 +939,12 @@ TextureImporter:
         width: 7
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_62
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_62
       rect:
         serializedVersion: 2
         x: 123
@@ -808,10 +952,12 @@ TextureImporter:
         width: 17
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_63
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_63
       rect:
         serializedVersion: 2
         x: 134
@@ -819,10 +965,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_64
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_64
       rect:
         serializedVersion: 2
         x: 145
@@ -830,10 +978,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_65
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_65
       rect:
         serializedVersion: 2
         x: 156
@@ -841,10 +991,12 @@ TextureImporter:
         width: 10
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_66
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_66
       rect:
         serializedVersion: 2
         x: 144
@@ -852,10 +1004,12 @@ TextureImporter:
         width: 8
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Miscellanous 1_67
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: Miscellanous 1_67
       rect:
         serializedVersion: 2
         x: 155
@@ -863,9 +1017,10 @@ TextureImporter:
         width: 23
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 

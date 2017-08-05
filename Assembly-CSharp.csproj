@@ -105,6 +105,7 @@
      <Compile Include="Assets\Scripts\Objects\Inventory\InventoryItemClassB.cs" />
      <Compile Include="Assets\Scripts\Objects\Movable\Characters\AICharacter.cs" />
      <Compile Include="Assets\Scripts\Objects\Movable\Characters\Character.cs" />
+     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterAction.cs" />
      <Compile Include="Assets\Scripts\Objects\Movable\Characters\ConversationState.cs" />
      <Compile Include="Assets\Scripts\Objects\Movable\Characters\ConversationViewStatus.cs" />
      <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Elismi.cs" />
