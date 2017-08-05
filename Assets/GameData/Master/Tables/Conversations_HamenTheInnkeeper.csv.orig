@@ -1,0 +1,30 @@
+StateName,AddStates,CurrentSpeaker,Dialogue,Action,AddEvents,RemoveEvents,RequireEvents,ExcludeEvents
+S1HInnK,"C1A,C1B,C1C",Hamen The Innkeeper,Hello stranger. What can I do for you?,,,,,
+<<<<<<< HEAD
+C1A,R1A,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,1. Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar),,,,ObtainedRoom
+C1B,R1B,Player,"I'd like some ale, a hot meal and a room for the night.",1. Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar),,,ObtainedRoom,
+C1C,R1C,Player,I'm investigating the town for suspicious activity. Do you know anything? ,1. Player: PUTS 10 (Gold) (Inn_Floor1_Counter),,,ObtainedRoom,
+R1A,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","1. Hamen: TAKES 10 (Gold) (Inn_Floor1_Counter)2. Hamen: PUTS (Key)3. Player: STATS (+5 Suspicion)",ObtainedRoom,,,
+R1B,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","1. Player: TAKES (Gold)  (Inn_Floor1_Counter)2. Player: WALKTO (Buildings_Inn_Floor 1 Room 1_Table)3. Hamen: GIVES (Buildings_Floor 2 Room 1_Key)  (Player)4. Hamen: TAKES (Bowl Of Stew)5. Hamen: PUTS (Bowl Of Stew) (Buildings_Inn_Floor 1 Room 1_Table)6. Hamen: WALKTO (Buildings_Inn_Floor 1 Room 1_Bar)7. Hamen: ANIMATE (Hold Mug of Ale)8. Hamen: PUTS (Mug of Ale) (Buildings_Inn_Floor 1 Room_1_Table)9. Hamen: WALKTO (Player)10.Hamen: PUTS (Mug of Ale) (Buildings_Inn_Floor 1 Room_1_Table)11. Hamen: WALKTO (Buildings_Inn_Floor 1 Room 1_Bar)",,,,
+R1C,"C2A,C2B,C2C",Hamen The Innkeeper,Can't say I do there mister. ,"12. Hamen: WALKTO (Buildings_Inn_Floor 1 Room 1_Bar)13. Hamen: ANIMATE (Poliishes Mugs)",,,,
+=======
+C1A,R1A,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,Player: Places (Gold) on (Counter),,,,ObtainedRoom
+C1B,R1B,Player,"I'd like some ale, a hot meal and a room for the night.",Player: Places (Gold) on (Counter),,,,ObtainedRoom
+C1C,R1C,Player,I'm investigating the town for suspicious activity. Do you know anything? ,Player: Places (Gold) on (Counter),,,ObtainedRoom,
+R1A,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","Hamen: Takes (Gold),Hamen: Gives (key),Player: +5 Suspicion",ObtainedRoom,,,
+R1B,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","Player: Takes (Gold), Player: Goto (Table),Hamen: Gives (Key),Hamen: Retrieves (Bowl Of Stew)Hamen: Goto (Mug of Ale),Hamen: Picksup (Mug of Ale),Hamen: Goto (Player),Hamen: Places (Mug of Ale) on (Table),Hamen: Goto (Counter)",,,,
+R1C,"C2A,C2B,C2C",Hamen The Innkeeper,Can't say I do there mister. ,"Hamen: Goto (Counter),Hamen: PolishesMugs",,,,
+>>>>>>> cd2740d3c137fd1919ac54ad215c484ddabb73e6
+C2A,R2A,Player,Keep me informed if you hear anything then. I'll also require a room for the night.,,,,,
+C2B,R2B,Player,I've been sent by the King. Tell me what you know.,,,,,
+C2C,R2C,Player,Alright then. I'll leave you to your business.,,,,,
+R2A,,Hamen The Innkeeper,Of course. Here's the key.,1. Game: END (SleepyHollow),,,,
+R2B,P1,Hamen The Innkeeper,"Look, I've told you. I don't know anything, sir!",,,,,
+R2C,,Hamen The Innkeeper,Have yourself a good night then.,,,,,
+<<<<<<< HEAD
+P1,S1,Player,Tell me the truth pops! What do you KNOW?,1. Hamen: ATTACK (Player),,,,
+S1,,Hamen The Innkeeper,Guards! Help! Assault!,"1. Guards: TELEPORT (Buildings_Inn_Floor 1 Room 1)2. Guards: ATTACK (Player)3. Game: LOCKDOOR (Buildings_Inn_Floor 1 Room 1)",,,,
+=======
+P1,S1,Player,Tell me the truth pops! What do you KNOW?,"Hamen: Attacks (Player),",,,,
+S1,,Hamen The Innkeeper,Guards! Help! Assault!,"Guards: Teleport (Inn Entrance),Guards: Attack (Player),Inndoor: Lock ",,,,
+>>>>>>> cd2740d3c137fd1919ac54ad215c484ddabb73e6
