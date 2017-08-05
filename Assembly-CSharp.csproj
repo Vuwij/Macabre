@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Extensions\SelectableButton.cs" />
      <Compile Include="Assets\Scripts\Extensions\Triangulator.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\GameAction.cs" />
      <Compile Include="Assets\Scripts\GameInput.cs" />
      <Compile Include="Assets\Scripts\GameSettings.cs" />
      <Compile Include="Assets\Scripts\Objects\CollisionCircle.cs" />

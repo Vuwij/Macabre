@@ -102,20 +102,25 @@ namespace Objects.Movable.Characters
 		public ConversationState GetNextState(int decision = 0)
 		{
 			UpdateEvents();
+			ParseAction();
+			RunAction();
 
+			ConversationState nextState;
 			if (NextStates.Count == 0)
 			{
 				UnlockAllCharacterPosition();
-				return null;
+				nextState =  null;
 			}
-			if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
+			else if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
 			{
 				ConversationState c = previousState.NextStates[decision];
 				c.conversationViewStatus = ConversationViewStatus.PlayerResponse;
-				return c;
+				nextState = c;
 			}
 			else
-				return NextStates[decision];
+				nextState = NextStates[decision];
+
+			return nextState;
 		}
 
 		#region Actions
@@ -164,9 +169,16 @@ namespace Objects.Movable.Characters
 			player.isTalking = false;
 		}
 
-		void ParseAction()
-		{
-			
+		void ParseAction() {
+			var actionStrings = actions.Split('\n');
+			foreach(var astring in actionStrings) {
+				if(astring != "") {
+					characterAction.Add(new CharacterAction(astring));
+				}
+			}
+		}
+
+		void RunAction() {
 		}
 
 		#endregion
