@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Data.Database;
+using Data.Databases;
 using Objects.Movable.Characters;
 using Objects.Movable.Characters.Individuals;
 using UI;
@@ -39,7 +39,6 @@ namespace Objects.Movable.Characters
 
 					var reqEventList = SeparateEvents(s.requireEvents);
 					var excEventList = SeparateEvents(s.excludeEvents);
-					Debug.Log(stateName + " " + s.excludeEvents);
 					bool validateRequireEvents = true;
 					foreach(var e in reqEventList) {
 						if(Game.main.eventList.Find(x => (x == e)) == null)
@@ -87,12 +86,12 @@ namespace Objects.Movable.Characters
 			this.previousState = previousState;
 			if (previousState == null)
 			{
-				DatabaseConnection.ConversationDB.FindAndUpdateConversationForCharacter(character, this);
+				Game.main.db.conversations.FindAndUpdateConversationForCharacter(character, this);
 				LockAllCharacterPosition();
 				UpdateEvents();
 			}
 			else
-				DatabaseConnection.ConversationDB.UpdateConversationForCharacter(stateName, character, this);
+				Game.main.db.conversations.UpdateConversationForCharacter(stateName, character, this);
 
 			SetCurrentViewFromPreviousState(previousState);
 			conversationDialogue = Game.main.UI.Find<ConversationDialogue>();

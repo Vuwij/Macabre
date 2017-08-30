@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Data.Database;
+using Data.Databases;
 using Objects.Immovable.Items;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ namespace Objects.Inventory
 
             // If a combination could be found
             if (a.count == 1 && b.count == 1)
-				combined = DatabaseConnection.ItemDB.FindCombination(a[0], b[0]);
+				combined = Game.main.db.items.FindCombination(a[0], b[0]);
 
             if (combined != null)
             {

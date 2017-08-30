@@ -20,7 +20,7 @@ namespace UI
 			get { return Game.main.UI.currentPanelStack; }
         }
 
-		public void Start() {
+		protected virtual void Start() {
 			canvasGroup = gameObject.GetComponent<CanvasGroup>();
 		}
 

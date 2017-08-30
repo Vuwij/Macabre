@@ -6,7 +6,7 @@ using Objects.Inventory.Individual;
 using Objects.Inventory;
 using Objects.Movable.Characters;
 using UI.Panels.Inventory;
-using Data.Database;
+using Data.Databases;
 using Objects.Immovable.Items;
 using Objects.Movable.Characters.Individuals;
 
@@ -28,9 +28,11 @@ namespace UI.Panels
 
         #region Display
 
-        private void Start()
+        protected override void Start()
         {
-            Transform classAObjectsParent = gameObject.GetComponentsInChildren<Transform>()
+			base.Start ();
+
+			Transform classAObjectsParent = gameObject.GetComponentsInChildren<Transform>()
                                 .Where(x => x.name == "Class A Objects")
                                 .FirstOrDefault();
             Transform classBObjectsParent = gameObject.GetComponentsInChildren<Transform>()

@@ -9,7 +9,7 @@ R1A,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stai
 R1B,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","1. Player: TAKES (Gold)  (Inn_Floor1_Counter)
 2. Player: WALKTO (Buildings_Inn_Floor 1 Room 1_Table)
 3. Hamen: GIVES (Buildings_Floor 2 Room 1_Key)  (Player)
-4. Hamen: TAKES (Bowl Of Stew)
+4. Hamen: CREATEITEM (Bowl Of Stew)
 5. Hamen: PUTS (Bowl Of Stew) (Buildings_Inn_Floor 1 Room 1_Table)
 6. Hamen: WALKTO (Buildings_Inn_Floor 1 Room 1_Bar)
 7. Hamen: ANIMATE (Hold Mug of Ale)
