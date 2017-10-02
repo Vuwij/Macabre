@@ -67,7 +67,7 @@ namespace Objects.Movable.Characters
 		public Character character;
 		ConversationState previousState;
 		ConversationDialogue conversationDialogue;
-		List<CharacterAction> characterAction = new List<CharacterAction>();
+		List<CharacterAction> characterActions = new List<CharacterAction>();
 
 		// From the database information
 		public string stateName;
@@ -169,15 +169,19 @@ namespace Objects.Movable.Characters
 		}
 
 		void ParseAction() {
-			var actionStrings = actions.Split('\n');
-			foreach(var astring in actionStrings) {
-				if(astring != "") {
-					characterAction.Add(new CharacterAction(astring));
-				}
-			}
+//			var actionStrings = actions.Split('\n');
+//			foreach(var astring in actionStrings) {
+//				if(astring != "") {
+//					characterActions.Add(GameAction.GetAction(astring));
+//				}
+//			}
 		}
 
 		void RunAction() {
+			foreach (GameAction action in characterActions) {
+				// TODO Implement Coroutine
+				//action.ExecuteAction ();
+			}
 		}
 
 		#endregion
