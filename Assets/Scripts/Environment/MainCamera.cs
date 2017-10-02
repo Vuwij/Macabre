@@ -5,6 +5,7 @@ using Objects.Movable.Characters;
 using Objects.Movable.Characters.Individuals;
 using Data;
 
+//Changes 
 namespace Environment
 {
     public sealed class MainCamera : MonoBehaviour
