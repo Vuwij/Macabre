@@ -41,7 +41,7 @@ namespace Objects
 		EllipseCollider2D collisionCircle;
 		EllipseCollider2D proximityCircle;
 
-		public CollisionCircle (GameObject gameObject, float radius = 4)
+		public CollisionCircle (GameObject gameObject, float radius = 6)
 		{
 			this.gameObject = gameObject;
 
