@@ -117,23 +117,23 @@ namespace Objects
                 //Debug.DrawLine(otherleftWorld, otherrightWorld);
 
                 if (DistanceBetween4pointsAbs(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.8 &&
-                    leftWorld.x < (otherrightWorld.x + 1) && topWorld.x > (otherbottomWorld.x - 1) &&
-                    leftWorld.y < (otherrightWorld.y + 1) && topWorld.y > (otherbottomWorld.y - 1))
+                    leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
+                    leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
                     restrictNW = true;
                 
                 if (DistanceBetween4pointsAbs(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.8 &&
-                    topWorld.x < (otherbottomWorld.x + 1) && rightWorld.x > (otherleftWorld.x - 1) &&
-                    topWorld.y > (otherbottomWorld.y - 1) && rightWorld.y < (otherleftWorld.y + 1))
+                    topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+                    topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
                     restrictNE = true;
                 
                 if (DistanceBetween4pointsAbs(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 0.8 &&
-                    leftWorld.x < (otherrightWorld.x + 1) && bottomWorld.x > (othertopWorld.x - 1) &&
-                    leftWorld.y > (otherrightWorld.y - 1) && bottomWorld.y < (othertopWorld.y + 1))
+                    leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
+                    leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
                     restrictSW = true;
 
                 if (DistanceBetween4pointsAbs(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 0.8 &&
-                    bottomWorld.x < (othertopWorld.x + 1) && rightWorld.x > (otherleftWorld.x - 1) &&
-                    bottomWorld.y < (othertopWorld.y + 1) && rightWorld.y > (otherleftWorld.y - 1))
+                    bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+                    bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
                     restrictSE = true;
             }
 
