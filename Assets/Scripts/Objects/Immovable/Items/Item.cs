@@ -20,11 +20,8 @@ namespace Objects.Immovable.Items
 		public List<string> attributes = new List<string>();
 		public Dictionary<string, object> properties = new Dictionary<string, object>();
         public ItemType type = ItemType.InventoryItemClassA;
-        
-		CollisionCircle collisionCircle;
 
 		protected override void Start() {
-			collisionCircle = new CollisionCircle(gameObject, 2);
 			interactionText = "Press T to pick up " + name;
 			base.Start();
 		}
@@ -49,17 +46,6 @@ namespace Objects.Immovable.Items
 					gameObject.transform.parent = character.inventory.folder;
 				}
 			}
-		}
-
-		public override void UpdateSortingLayer (int? offset = null)
-		{
-			if(transform.parent != null) {
-				if(transform.parent.GetComponent<IItemContainer>() != null) {
-					spriteRenderer.sortingOrder = transform.parent.GetComponent<SpriteRenderer>().sortingOrder + 1;
-					spriteRenderer.sortingLayerID = transform.parent.GetComponent<SpriteRenderer>().sortingLayerID;
-				}
-			}
-			else base.UpdateSortingLayer ();
 		}
     }
 }

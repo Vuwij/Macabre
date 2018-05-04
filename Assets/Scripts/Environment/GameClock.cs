@@ -72,15 +72,15 @@ namespace Environment
 
 		public void PeriodicUpdate() {
 			// Lighting of the overworld
-			var backgroundobj = GameObject.Find("Background");
-			var playerobj = GameObject.Find("Player");
-			if(backgroundobj != null && playerobj != null) {
-				var background = backgroundobj.GetComponentInChildren<SpriteRenderer>();
-				var player = playerobj.GetComponent<Player>();
-				if(player.isInsideBuilding) return;
-				float brightness = 0.6f + 0.4f * (float) Math.Cos((double) totalSeconds / 50.0f );
-				background.color = new Color(brightness, brightness, brightness);
-			}
+			//var backgroundobj = GameObject.Find("Background");
+			//var playerobj = GameObject.Find("Player");
+			//if(backgroundobj != null && playerobj != null) {
+			//	var background = backgroundobj.GetComponentInChildren<SpriteRenderer>();
+			//	var player = playerobj.GetComponent<Player>();
+			//	if(player.isInsideBuilding) return;
+			//	float brightness = 0.6f + 0.4f * (float) Math.Cos((double) totalSeconds / 50.0f );
+			//	background.color = new Color(brightness, brightness, brightness);
+			//}
 		}
     }
 }

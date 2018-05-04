@@ -32,18 +32,21 @@ namespace Objects
 		public Texture2D footprint;
 		public Sprite highlight;
 		public string interactionText = "Press T to Interact";
-		protected int sortingOffset = 0;
 
 		protected virtual void Start()
         {
-			UpdateSortingLayer();
 			InvokeRepeating("KillHoverText", 0.0f, 0.1f);
         }
 
-		public virtual void UpdateSortingLayer(int? offset = null) {
-			if(offset != null) sortingOffset = (int) offset;
-			float yPos = (int) ((1000 - transform.position.y) * 10) + sortingOffset;
-			spriteRenderer.sortingOrder = (int) yPos;
+        protected virtual void Update()
+        {
+        }
+
+        // Topologically sorts all neighbouring colliders with the current object
+        public virtual void UpdateSortingLayer() {
+            PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+            Debug.Assert(pixelCollider != null);
+            pixelCollider.TopologicalSortNearbySortingLayers();
 		}
 
 		protected T FindNearestComponent<T>()

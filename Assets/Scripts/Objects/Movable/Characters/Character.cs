@@ -33,11 +33,11 @@ namespace Objects.Movable.Characters
 				return GetComponentInChildren<Animator>();
 			}
 		}
-		protected float walkingSpeed
+		protected int walkingSpeed
 		{
 			get { return GameSettings.characterWalkingSpeed; }
 		}
-		protected float runningSpeed
+		protected int runningSpeed
 		{
 			get { return GameSettings.characterRunningSpeed; }
 		}
@@ -45,7 +45,7 @@ namespace Objects.Movable.Characters
 		{
 			get { return Input.GetButton("SpeedUp"); }
 		}
-		public float movementSpeed
+		public int movementSpeed
 		{
 			get { return isRunning ? runningSpeed : walkingSpeed; }
 		}
@@ -132,41 +132,22 @@ namespace Objects.Movable.Characters
 		public ExtraSprites extraSprites;
 		GameObject characterFoot;
 
+        protected Vector2 characterVelocity;
+
 		protected void AnimateMovement()
 		{
-			float xDir = 0, yDir = 0;
-
-			if (isMoving)
+            if (characterVelocity != Vector2.zero)
 			{
-				if (rigidbody2D.velocity.x > 0) xDir = movementSpeed;
-				else if (rigidbody2D.velocity.x < 0) xDir = -movementSpeed;
-
-				if (rigidbody2D.velocity.y > 0) yDir = movementSpeed;
-				else if (rigidbody2D.velocity.y < 0) yDir = -movementSpeed;
-
 				animator.SetBool(Animator.StringToHash("IsActive"), false);
 				animator.SetBool(Animator.StringToHash("IsMoving"), true);
-
-				if (xDir != 0) animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), xDir);
-				if (yDir != 0) animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), yDir);
+                animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), characterVelocity.x);
+                animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), characterVelocity.y);
 			}
 			else
 			{
 				animator.SetBool(Animator.StringToHash("IsActive"), true);
 				animator.SetBool(Animator.StringToHash("IsMoving"), false);
 			}
-		}
-
-		protected override void OnTriggerStay2D(Collider2D collider)
-		{
-			if(isSittingDown) {
-				int objSortOrder = (int) ((1000 - ((Chair) inspectedObject).colliderCenter.y) * 10);
-				int thisSortOrder = (int) ((1000 - transform.position.y) * 10);
-				sortingOffset = objSortOrder - thisSortOrder + 1;
-				UpdateSortingLayer();
-			}
-			else
-				base.OnTriggerStay2D(collider);
 		}
 
 		#endregion

@@ -11,7 +11,7 @@ public static class PixelPerfect {
 	
 	public static Vector3 FitToGrid(Vector3 input, float gridSize=0) {
 		if (gridSize<=0) {gridSize=worldPixelSize;}
-		return new Vector3((Mathf.Round(input.x/gridSize)*gridSize), (Mathf.Round(input.y/gridSize)*gridSize), input.z);
+        return new Vector3((Mathf.Round(input.x/(gridSize*2))*(gridSize*2)), (Mathf.Round(input.y/gridSize)*gridSize), input.z);
 	}
 }
 

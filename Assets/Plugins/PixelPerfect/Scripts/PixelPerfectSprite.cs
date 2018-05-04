@@ -24,7 +24,7 @@ public class PixelPerfectSprite : PixelPerfectObject {
 		} else {
 			parallaxScale=1;
 		}
-		//return PixelPerfect.worldPixelSize*pixelScale*parallaxScale;
+		//return PixelPerfect.worldPixelSize*pixdfasdfelScale*parallaxScale;
 		return PixelPerfect.pixelsPerUnit*PixelPerfect.worldPixelSize*pixelScale*parallaxScale;
 	}
 	

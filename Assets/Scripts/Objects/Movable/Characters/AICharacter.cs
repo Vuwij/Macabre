@@ -39,47 +39,10 @@ namespace Objects.Movable.Characters
 		public float idleMovementDelay = 1.0f;
 		float? waitTime;
 
-		protected virtual void Start() {
+        protected override void Start() {
 			base.Start();
 			InvokeRepeating("DecideMovement", 0.0f, 1.0f);
 			movementPath.Enqueue(transform.position);
-		}
-
-		void Update() {
-			base.Update();
-
-			if(destinationPosition != null) {
-//				Debug.Log(collisionbox);
-				float distanceToStop = collisionbox.radius;
-//				if(pendingInspection is Item) 
-//					distanceToStop = 1.0f;
-//
-				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < distanceToStop) {
-
-					// Inspectable object
-//					if(pendingInspection is IInspectable) {
-//						inspectedObject = pendingInspection as IInspectable;
-//						(pendingInspection as IInspectable).InspectionAction(this);
-//						pendingInspection = null;
-//					}
-					destinationPosition = null;
-				}
-				//Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
-				var direction = (Vector3) destinationPosition - transform.position;
-				var directionN = Vector3.Normalize(direction);
-				rigidbody2D.velocity = positionLocked ? Vector2.zero : (Vector2) directionN * walkingSpeed;
-			} else if (waitTime != null && Time.time > waitTime) {
-				if(movementState == MovementState.idle) {
-					if(movementPath.Count != 0) {
-						destinationPosition = movementPath.Dequeue();
-					}
-				}
-				waitTime = null;
-			} else if (waitTime == null) {
-				waitTime = Time.time + idleMovementDelay + UnityEngine.Random.Range(-idleMovementDelay, idleMovementDelay);
-			}
-
-			AnimateMovement();
 		}
 
 		void DecideMovement() {

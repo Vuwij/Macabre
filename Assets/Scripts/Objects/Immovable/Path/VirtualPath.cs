@@ -44,7 +44,6 @@ namespace Objects.Immovable.Path
 			// Find the closest door and move to the closest door
 			var destinationDoor = destination.paths.OrderBy(x => Vector2.Distance(x.transform.position, transform.position));
 			characterController.transform.position = (Vector2) destinationDoor.First().transform.position + destinationDoor.First().offset;
-			characterController.UpdateSortingLayer();
 
 			Game.main.UI.Find<DarkScreen>().TurnOff();
 		}

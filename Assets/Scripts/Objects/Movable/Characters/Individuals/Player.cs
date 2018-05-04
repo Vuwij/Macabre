@@ -16,9 +16,27 @@ namespace Objects.Movable.Characters.Individuals
 		Vector2 inputVelocity
 		{
 			get {
-				return new Vector2(
-					movementSpeed * Input.GetAxisRaw("Horizontal") * 2.0f,
-					movementSpeed * Input.GetAxisRaw("Vertical"));
+                PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+                PixelCollider.MovementRestriction mr;
+                mr.restrictNE = false;
+                mr.restrictNW = false;
+                mr.restrictSE = false;
+                mr.restrictSW = false;
+
+                if (pixelCollider != null)
+                    mr = pixelCollider.CheckForCollision();
+
+                //Debug.Log("NE: " + mr.restrictNE + " NW: " + mr.restrictNW + " SE: " + mr.restrictSE + " SW: " + mr.restrictSW);
+
+                if (Input.GetAxisRaw("Horizontal") > 0 && !mr.restrictNE)
+                    return new Vector2(2, 1);
+                else if (Input.GetAxisRaw("Horizontal") < 0 && !mr.restrictSW)
+                    return new Vector2(-2, -1);
+                else if (Input.GetAxisRaw("Vertical") > 0 && !mr.restrictNW)
+                    return new Vector2(-2, 1);
+                else if (Input.GetAxisRaw("Vertical") < -0 && !mr.restrictSE)
+                    return new Vector2(2, -1);
+                return Vector2.zero;
 			}
 		}
 
@@ -37,36 +55,26 @@ namespace Objects.Movable.Characters.Individuals
             TeleportCameraToPlayer();
 			InvokeRepeating("DialogueNearestObject", 0.0f, 0.1f);
 			InvokeRepeating("HoverOverObject", 0.0f, 0.1f);
+            InvokeRepeating("Movement", 0.0f, 1.0f/movementSpeed);
+        }
+
+        void Movement() {
+
+            if (inputVelocity != Vector2.zero && !positionLocked)
+            {
+                Vector2 pos = transform.position;
+                pos.x = pos.x + inputVelocity.x;
+                pos.y = pos.y + inputVelocity.y;
+                transform.position = pos;
+                UpdateSortingLayer();
+            }
+            characterVelocity = inputVelocity;
+            AnimateMovement();
         }
 
 		protected override void Update()
 		{
-			// Movement
-			if(destinationPosition != null) {
-				float distanceToStop = collisionbox.radius;
-				if(pendingInspection is Item) 
-					distanceToStop = 1.0f;
-				
-				if(Vector2.Distance((Vector2) destinationPosition, (Vector2) transform.position) < distanceToStop) {
-
-					// Inspectable object
-					if(pendingInspection is IInspectable) {
-						inspectedObject = pendingInspection as IInspectable;
-						(pendingInspection as IInspectable).InspectionAction(this);
-						pendingInspection = null;
-					}
-					destinationPosition = null;
-				}
-				//Debug.DrawLine(transform.position, (Vector3) destinationPosition, Color.red, 10.0f);
-				var direction = (Vector3) destinationPosition - transform.position;
-				var directionN = Vector3.Normalize(direction);
-				rigidbody2D.velocity = positionLocked ? Vector2.zero : (Vector2) directionN * walkingSpeed;
-			}
-			else rigidbody2D.velocity = positionLocked ? Vector2.zero : inputVelocity;
-
-			AnimateMovement();
-
-			// Keyboard
+            // Keyboard
 			KeyPressed();
 
 			// Mouse Click
@@ -94,35 +102,35 @@ namespace Objects.Movable.Characters.Individuals
 		}
 
 		void MouseClicked() {
-			if (Input.GetMouseButtonDown(0)) {
-				// TODO ignore UI clicks
-				if(isSittingDown) {
-					isSittingDown = false;
-				}
+			//if (Input.GetMouseButtonDown(0)) {
+			//	// TODO ignore UI clicks
+			//	if(isSittingDown) {
+			//		isSittingDown = false;
+			//	}
 
-				// Detect if object is nearby
-				var obj = FindInspectablePixelAroundPosition(mousePosition);
-				Vector2 hitposition = FindHitFromRaycast(mousePosition);
+			//	// Detect if object is nearby
+			//	var obj = FindInspectablePixelAroundPosition(mousePosition);
+			//	Vector2 hitposition = FindHitFromRaycast(mousePosition);
 
-				if(!positionLocked) {
-					if(hitposition != Vector2.zero) {
-						// TODO Slow down character movement
-						destinationPosition = hitposition;
-					}
-					else destinationPosition = mousePosition;
+			//	if(!positionLocked) {
+			//		if(hitposition != Vector2.zero) {
+			//			// TODO Slow down character movement
+			//			destinationPosition = hitposition;
+			//		}
+			//		else destinationPosition = mousePosition;
 
-					if(obj != null) { // Walk to the object and then interact
-						pendingInspection = obj;
-					}
-					else { // Simply walk to the destination
-						pendingInspection = null;
-					}
-				}
-				else { // Direct interaction with the object
-					if(obj != null)
-						(obj as IInspectable).InspectionAction(this);
-				}
-			}
+			//		if(obj != null) { // Walk to the object and then interact
+			//			pendingInspection = obj;
+			//		}
+			//		else { // Simply walk to the destination
+			//			pendingInspection = null;
+			//		}
+			//	}
+			//	else { // Direct interaction with the object
+			//		if(obj != null)
+			//			(obj as IInspectable).InspectionAction(this);
+			//	}
+			//}
 		}
 
 		void TeleportCameraToPlayer()
@@ -135,11 +143,6 @@ namespace Objects.Movable.Characters.Individuals
 				transform.position.y,
 				-10);
 			main.transform.position = newPosition;
-		}
-
-		protected override void OnTriggerStay2D (Collider2D collider)
-		{
-			base.OnTriggerStay2D (collider);
 		}
 
 		void DialogueNearestObject() {

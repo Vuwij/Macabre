@@ -46,13 +46,6 @@ namespace Objects.Immovable.Furniture
 					}
 				}
 			}
-
-			foreach(InventoryItem ii in storage.classAItems) {
-				for(int i = 0; i < ii.items.Count; i++) {
-					if(ii.items[i] == null) continue;
-					ii.items[i].UpdateSortingLayer();
-				}
-			}
 		}
 
 		IEnumerator Destroy(GameObject go)

@@ -34,7 +34,7 @@ namespace Objects.Immovable.Furniture
 					character.orientationY = OrientationY;
 					character.isSittingDown = true;
 					character.transform.position = characterPosition;
-					character.UpdateSortingLayer(0);
+					character.UpdateSortingLayer();
 				} else {
 					interactionText = "Press T to Sit Down";
 					character.isSittingDown = false;

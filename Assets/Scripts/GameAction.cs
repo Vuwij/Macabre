@@ -104,8 +104,6 @@ public class GameAction
 	}
 
 	public virtual void ExecuteAction() {
-		switch (actionType) {
-		}
 	}
 
 	protected GameObject NewItem(string name) {
