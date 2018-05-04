@@ -77,7 +77,7 @@ namespace Objects
                 SpriteRenderer sr = pixelColliders[i].transform.parent.GetComponentInChildren<SpriteRenderer>();
                 Debug.Assert(sr != null);
                 sr.sortingOrder = i;
-                Debug.Log(sr.gameObject.name + " " + sr.sortingOrder.ToString());
+                //Debug.Log(sr.gameObject.name + " " + sr.sortingOrder.ToString());
             }
         }
 
@@ -98,6 +98,7 @@ namespace Objects
             bool restrictSW = false;
             bool restrictSE = false;
 
+            // Collided with other object
             foreach (RaycastHit2D raycastHit in castStar)
             {
                 PixelCollider otherPixelCollider = raycastHit.collider.GetComponent<PixelCollider>();
@@ -115,27 +116,50 @@ namespace Objects
                 //Debug.DrawLine(othertopWorld, otherbottomWorld);
                 //Debug.DrawLine(otherleftWorld, otherrightWorld);
 
-                if (DistanceBetween4pointsAbs(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 1.1 &&
-                    leftWorld.x < otherrightWorld.x && topWorld.x > otherbottomWorld.x &&
-                    leftWorld.y < otherrightWorld.y && topWorld.y > otherbottomWorld.y)
+                if (DistanceBetween4pointsAbs(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.8 &&
+                    leftWorld.x < (otherrightWorld.x + 1) && topWorld.x > (otherbottomWorld.x - 1) &&
+                    leftWorld.y < (otherrightWorld.y + 1) && topWorld.y > (otherbottomWorld.y - 1))
                     restrictNW = true;
                 
-                if (DistanceBetween4pointsAbs(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 1.1 &&
-                    topWorld.x < otherbottomWorld.x && rightWorld.x > otherleftWorld.x &&
-                    topWorld.y > otherbottomWorld.y && rightWorld.y < otherleftWorld.y)
+                if (DistanceBetween4pointsAbs(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.8 &&
+                    topWorld.x < (otherbottomWorld.x + 1) && rightWorld.x > (otherleftWorld.x - 1) &&
+                    topWorld.y > (otherbottomWorld.y - 1) && rightWorld.y < (otherleftWorld.y + 1))
                     restrictNE = true;
                 
-                if (DistanceBetween4pointsAbs(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 1.1 &&
-                    leftWorld.x < otherrightWorld.x && bottomWorld.x > othertopWorld.x &&
-                    leftWorld.y > otherrightWorld.y && bottomWorld.y < othertopWorld.y)
+                if (DistanceBetween4pointsAbs(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 0.8 &&
+                    leftWorld.x < (otherrightWorld.x + 1) && bottomWorld.x > (othertopWorld.x - 1) &&
+                    leftWorld.y > (otherrightWorld.y - 1) && bottomWorld.y < (othertopWorld.y + 1))
                     restrictSW = true;
 
-                if (DistanceBetween4pointsAbs(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 1.1 &&
-                    bottomWorld.x < othertopWorld.x && rightWorld.x > otherleftWorld.x &&
-                    bottomWorld.y < othertopWorld.y && rightWorld.y > otherleftWorld.y)
+                if (DistanceBetween4pointsAbs(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 0.8 &&
+                    bottomWorld.x < (othertopWorld.x + 1) && rightWorld.x > (otherleftWorld.x - 1) &&
+                    bottomWorld.y < (othertopWorld.y + 1) && rightWorld.y > (otherleftWorld.y - 1))
                     restrictSE = true;
             }
 
+            // Collided with floor
+            PixelFloor floor = transform.parent.parent.GetComponent<PixelFloor>();
+            Debug.Assert(floor != null);
+            Debug.Assert(floor.colliderPoints.Length == 4);
+
+            Vector2 floortopWorld = floor.top + (Vector2)floor.transform.position;
+            Vector2 floorbottomWorld = floor.bottom + (Vector2)floor.transform.position;
+            Vector2 floorleftWorld = floor.left + (Vector2)floor.transform.position;
+            Vector2 floorrightWorld = floor.right + (Vector2)floor.transform.position;
+
+            if (DistanceBetween4points(leftWorld, topWorld, floorleftWorld, floortopWorld) < 1.1)
+                restrictNW = true;
+
+            if (DistanceBetween4points(topWorld, rightWorld, floortopWorld, floorrightWorld) < 1.1)
+                restrictNE = true;
+
+            if (DistanceBetween4points(leftWorld, bottomWorld, floorleftWorld, floorbottomWorld) > -1.1)
+                restrictSW = true;
+
+            if (DistanceBetween4points(bottomWorld, rightWorld, floorbottomWorld, floorrightWorld) > -1.1)
+                restrictSE = true;
+
+            // Send off movement restriction
             MovementRestriction movementRestriction;
             movementRestriction.restrictNE = restrictNE;
             movementRestriction.restrictNW = restrictNW;

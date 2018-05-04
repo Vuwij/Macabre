@@ -133,6 +133,7 @@
     <Compile Include="Assets\Scripts\Objects\Movable\MovableObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Object.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelCollider.cs" />
+    <Compile Include="Assets\Scripts\Objects\PixelFloor.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\ConversationDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\GameDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\InspectionDialogue.cs" />
