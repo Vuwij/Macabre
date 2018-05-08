@@ -7,7 +7,7 @@ using System;
 
 namespace UI.Screens
 {
-    public sealed class LoadingScreen : UIScreen, UIGameObject
+    public sealed class LoadingScreen : UIScreen
     {
     }
 }

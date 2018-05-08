@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace UI.Dialogues
 {
-    public sealed class InspectionDialogue : UIDialogue, UIGameObject
+    public sealed class InspectionDialogue : UIDialogue
     {
         public Image inspectionImage
         {

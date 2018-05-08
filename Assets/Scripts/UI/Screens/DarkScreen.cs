@@ -7,7 +7,7 @@ using System;
 
 namespace UI.Screens
 {
-    public sealed class DarkScreen : UIScreen, UIGameObject
+    public sealed class DarkScreen : UIScreen
     {
     }
 }

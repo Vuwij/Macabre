@@ -16,7 +16,7 @@ namespace UI.Panels
 
         public SavePanel savePanel
         {
-			get { return Game.main.UI.Find<SavePanel>(); }
+			get { return null/*GameManager.main.UI.Find<SavePanel>()*/; }
         }
 
         public Save save

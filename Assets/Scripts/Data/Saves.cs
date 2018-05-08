@@ -32,22 +32,22 @@ namespace Data
 
 		void DeserializeSaveFile ()
 		{
-			if (!File.Exists (Game.dataPath + serializationURI)) {
+			if (!File.Exists (GameManager.dataPath + serializationURI)) {
 				saves = new List<Save>();
 				SerializeSaveFile ();
 			}
 
 			XmlSerializer x = new XmlSerializer(typeof(List<Save>));
-			using (StreamReader r = new StreamReader(Game.dataPath + serializationURI))
+			using (StreamReader r = new StreamReader(GameManager.dataPath + serializationURI))
 				saves = (List<Save>) x.Deserialize(r);
 		}
 
 		void SerializeSaveFile ()
 		{
-			File.Delete (Game.dataPath + serializationURI);
+			File.Delete (GameManager.dataPath + serializationURI);
 
 			XmlSerializer x = new XmlSerializer(typeof(List<Save>));
-			using (StreamWriter w = new StreamWriter(Game.dataPath + serializationURI))
+			using (StreamWriter w = new StreamWriter(GameManager.dataPath + serializationURI))
 				x.Serialize(w, saves);
 		}
 
@@ -72,7 +72,6 @@ namespace Data
 
 		public void Load (string name = "")
 		{
-			Game.main.UI.Find<LoadingScreen> ().TurnOn ();
 
 			if (name == "")
 				current = saves.Last();
@@ -84,7 +83,6 @@ namespace Data
 			SerializeSaveFile ();
 
 			current.LoadGame ();
-			Game.main.UI.Find<LoadingScreen> ().TurnOff ();
 		}
 
 		public void Delete (string name)

@@ -41,11 +41,11 @@ namespace Objects.Movable.Characters
 					var excEventList = SeparateEvents(s.excludeEvents);
 					bool validateRequireEvents = true;
 					foreach(var e in reqEventList) {
-						if(Game.main.eventList.Find(x => (x == e)) == null)
+						if(GameManager.main.eventList.Find(x => (x == e)) == null)
 							validateRequireEvents = false;
 					}
 					foreach(var e in excEventList) {
-						if(Game.main.eventList.Find(x => (x == e)) != null) {
+						if(GameManager.main.eventList.Find(x => (x == e)) != null) {
 							validateRequireEvents = false;
 						}
 					}
@@ -86,16 +86,16 @@ namespace Objects.Movable.Characters
 			this.previousState = previousState;
 			if (previousState == null)
 			{
-				Game.main.db.conversations.FindAndUpdateConversationForCharacter(character, this);
+				GameManager.main.db.conversations.FindAndUpdateConversationForCharacter(character, this);
 				LockAllCharacterPosition();
 				UpdateEvents();
 			}
 			else
-				Game.main.db.conversations.UpdateConversationForCharacter(stateName, character, this);
+				GameManager.main.db.conversations.UpdateConversationForCharacter(stateName, character, this);
 
 			SetCurrentViewFromPreviousState(previousState);
-			conversationDialogue = Game.main.UI.Find<ConversationDialogue>();
-			conversationDialogue.TurnOn();
+			//conversationDialogue = GameManager.main.UI.Find<ConversationDialogue>();
+			//conversationDialogue.TurnOn();
 		}
 
 		public ConversationState GetNextState(int decision = 0)
@@ -201,12 +201,12 @@ namespace Objects.Movable.Characters
 			var removeEventList = SeparateEvents(removeEvents);
 
 			foreach(var e in addEventList) {
-				if(Game.main.eventList.Find(x => x == e) == null)
-					Game.main.eventList.Add(e);
+				if(GameManager.main.eventList.Find(x => x == e) == null)
+					GameManager.main.eventList.Add(e);
 			}
 			foreach(var e in removeEventList) {
-				if(Game.main.eventList.Find(x => x == e) != null)
-					Game.main.eventList.Remove(e);
+				if(GameManager.main.eventList.Find(x => x == e) != null)
+					GameManager.main.eventList.Remove(e);
 			}
 		}
 
@@ -260,8 +260,6 @@ namespace Objects.Movable.Characters
 
 		public static void TurnOff()
 		{
-			var conversationDialogue = Game.main.UI.Find<ConversationDialogue>();
-			conversationDialogue.TurnOff();
 		}
 
 		#endregion

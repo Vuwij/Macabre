@@ -9,43 +9,43 @@ using UI.Dialogues;
 
 namespace UI.Panels
 {
-    public sealed class PausePanel : UIPanel, UIGameObject
+    public sealed class PausePanel : UIPanel
     {
         public void Resume()
         {
-            TurnOff();
+            //TurnOff();
         }
 
         public void Load()
         {
-            SavePanel savePanel = Game.main.UI.Find<SavePanel>();
-            savePanel.TurnOn();
+            //SavePanel savePanel = GameManager.main.UI.Find<SavePanel>();
+            //savePanel.TurnOn();
         }
         public void Options()
         {
-			OptionsPanel optionsPanel = Game.main.UI.Find<OptionsPanel>();
-            optionsPanel.TurnOn();
+			//OptionsPanel optionsPanel = GameManager.main.UI.Find<OptionsPanel>();
+            //optionsPanel.TurnOn();
         }
         public void GiveUp()
         {
-            WarningDialogue.Warning("Are you sure you wish to give up?",
-                new List<WarningDialogue.Button>()
-                {
-                    new WarningDialogue.Button("It is never too late", () => { TurnOff(); }),
-					new WarningDialogue.Button("Let me die already", () => { Game.main.Quit(); }),
-                });
+     //       WarningDialogue.Warning("Are you sure you wish to give up?",
+     //           new List<WarningDialogue.Button>()
+     //           {
+     //               new WarningDialogue.Button("It is never too late", () => { TurnOff(); }),
+					//new WarningDialogue.Button("Let me die already", () => { GameManager.main.Quit(); }),
+                //});
         }
 
-        public override void TurnOn()
+        protected override void OnEnable()
         {
-            base.TurnOn();
-			Game.main.Pause();
+            base.OnEnable();
+			GameManager.main.Pause();
         }
 
-        public override void TurnOff()
+        protected override void OnDisable()
         {
-            base.TurnOff();
-			Game.main.Resume();
+            base.OnDisable();
+			GameManager.main.Resume();
         }
     }
 }

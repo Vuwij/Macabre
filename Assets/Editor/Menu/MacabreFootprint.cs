@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using Objects;
 using System.Linq;
-using Objects.Immovable.Rooms;
 
 public class MacabreFootprint : EditorWindow {
     
@@ -37,29 +36,6 @@ public class MacabreFootprint : EditorWindow {
 					o.footprint = (Texture2D)AssetDatabase.LoadAssetAtPath(footprintTextureName, typeof(Texture2D));
 				}
             }
-        }
-    }
-    
-    [MenuItem("Macabre/Object/Find Footprint Collider")]
-    static void FindFootprintCollider()
-    {
-        foreach(GameObject obj in Selection.gameObjects)
-        {
-			var mobjs = obj.GetComponentsInChildren<Objects.Object>(true);
-			foreach(var mobj in mobjs) {
-	            if (mobj == null) continue;
-				if (mobj.GetComponent<SpriteRenderer>() == null) continue;
-
-				if(mobj is Room && !(mobj is Exterior)) {
-					if (mobj.GetComponent<EdgeCollider2D>() != null) continue;
-					var edgeCollider = mobj.gameObject.AddComponent<EdgeCollider2D>();
-					CalculateFootprintEdgeCollider(mobj.GetComponent<SpriteRenderer>(), mobj.footprint, edgeCollider);
-				}
-				else {
-					if (mobj.GetComponent<PolygonCollider2D>() != null) continue;
-					CalculateFootprintPolygonCollider(mobj.GetComponent<SpriteRenderer>(), mobj.footprint);
-				}
-			}
         }
     }
 

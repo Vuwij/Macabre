@@ -15,42 +15,31 @@ namespace UI
                 return GameObject.Find("UI Screen");
             }
         }
-		private Stack<UIObject> currentPanelStack
-        {
-			get { return Game.main.UI.currentPanelStack; }
-        }
 
-		protected virtual void Start() {
-			canvasGroup = gameObject.GetComponent<CanvasGroup>();
-		}
-
-		protected CanvasGroup canvasGroup;
 		public bool stackable = true;
 
-        public virtual void TurnOn()
+        protected virtual void Start() {}
+
+        protected virtual void OnEnable()
         {
-            canvasGroup.alpha = 1;
+            CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;
             canvasGroup.ignoreParentGroups = true;
-			if(stackable)
-            	currentPanelStack.Push(this);
+
+            UIScreenManager screenManager = transform.parent.GetComponent<UIScreenManager>();
+            Debug.Assert(screenManager != null);
+            screenManager.panelStack.Push(this);
         }
 
-        public virtual void TurnOff()
+        protected virtual void OnDisable()
         {
-//			if (Game.main.UI.CurrentPanel != null && Game.main.UI.CurrentPanel != this) {throw new UnityException("Current Panel " + name + " is not the top on stack");
-            canvasGroup.alpha = 0;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.ignoreParentGroups = true;
-			if(stackable)
-            	if(currentPanelStack.Count != 0) currentPanelStack.Pop();
+            CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
+
+            UIScreenManager screenManager = transform.parent.GetComponent<UIScreenManager>();
+            Debug.Assert(screenManager != null);
+            Debug.Assert(screenManager.panelStack.Peek() == this);
+            screenManager.panelStack.Pop();
         }
     }
-
-    /// <summary>
-    /// Interface that forces the UI Object to exist in game
-    /// </summary>
-    public interface UIGameObject { }
 }

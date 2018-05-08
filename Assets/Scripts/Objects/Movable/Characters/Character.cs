@@ -5,12 +5,8 @@ using System.Collections.Generic;
 using Extensions;
 using System.Linq;
 using Objects.Immovable.Items;
-using Objects.Inventory;
-using Objects.Inventory.Individual;
 using Objects.Movable.Characters.Individuals;
 using System.Xml.Serialization;
-using Objects.Immovable;
-using Objects.Immovable.Furniture;
 
 namespace Objects.Movable.Characters
 {
@@ -26,29 +22,18 @@ namespace Objects.Movable.Characters
         {
             get { return gameObject.transform.Find(gameObject.name + "Sprite").gameObject; }
         }
-		Animator animator
+		protected Animator animator
 		{
 			get
 			{
 				return GetComponentInChildren<Animator>();
 			}
 		}
-		protected int walkingSpeed
-		{
-			get { return GameSettings.characterWalkingSpeed; }
-		}
-		protected int runningSpeed
-		{
-			get { return GameSettings.characterRunningSpeed; }
-		}
-		protected bool isRunning
-		{
-			get { return Input.GetButton("SpeedUp"); }
-		}
-		public int movementSpeed
-		{
-			get { return isRunning ? runningSpeed : walkingSpeed; }
-		}
+
+        protected virtual Vector2 inputVelocity {
+            get; set;
+        }
+
 		float inspectRadius
 		{
 			get { return GameSettings.inspectRadius; }
@@ -110,11 +95,33 @@ namespace Objects.Movable.Characters
 			}
 		}
 
+        [Range(1, 20)]
+        public int indoorMovementSpeed = 10;
+        [Range(1, 20)]
+        public int outdoorMovementSpeed = 30;
+
 		protected override void Start()
         {
-			inventory = new CharacterInventory(gameObject, 6, 1);
+            //inventory = new CharacterInventory(gameObject, 6, 1);
 			interactionText = "Press T to talk to " + name;
+
+            InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
+
 			base.Start();
+        }
+
+        void Movement()
+        {
+            if (inputVelocity != Vector2.zero && !positionLocked)
+            {
+                Vector2 pos = transform.position;
+                pos.x = pos.x + inputVelocity.x;
+                pos.y = pos.y + inputVelocity.y;
+                transform.position = pos;
+                UpdateSortingLayer();
+            }
+            characterVelocity = inputVelocity;
+            AnimateMovement();
         }
 
 		protected override void Update()
@@ -189,37 +196,45 @@ namespace Objects.Movable.Characters
 		RaycastHit2D hit;
 		protected IInspectable inspectedObject;
 
-		public virtual void KeyPressed (int selection = -1)
-		{
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-				selection = 0;
-			if (Input.GetKeyDown(KeyCode.Alpha2))
-				selection = 1;
-			if (Input.GetKeyDown(KeyCode.Alpha3))
-				selection = 2;
-			if (Input.GetKeyDown(KeyCode.Alpha4))
-				selection = 3;
-
-			if (selection != -1)
-				if (conversationState.InputIsValid(selection))
-					conversationState.character.InvokeDialogue(selection);
-		}
-
 		public void Inspect()
 		{
-			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, inspectRadius, Vector2.zero);
-			foreach (RaycastHit2D raycastHit in castStar)
-			{
-				if (InspectionIsInvalid(raycastHit)) continue;
-				if(raycastHit.collider.GetComponent<Objects.Object>().enabled == false) continue;
-				inspectedObject = raycastHit.collider.GetComponent<IInspectable>();
-				if (inspectedObject != null)
-				{
-					Debug.Log("Inpecting " + raycastHit.collider.name);
-					inspectedObject.InspectionAction(this, raycastHit);
-					return;
-				}
-			}
+            PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+            var objects = pixelCollider.CheckForInspection();
+            foreach(PixelCollider pc in objects) {
+                Debug.Log(pc.transform.parent.name);
+
+                // Inspected object is a door
+                PixelDoor door = pc.transform.parent.GetComponent<PixelDoor>();
+                if(door != null) {
+                    PixelRoom room = door.destination;
+                    Transform originalroom = transform.parent;
+                    Vector2 destinationOffset = door.dropOffLocation + (Vector2) door.transform.position;
+                    transform.position = destinationOffset;
+                    transform.parent = room.transform;
+                    originalroom.gameObject.SetActive(false);
+                    room.transform.gameObject.SetActive(true);
+
+                    CancelInvoke("Movement");
+                    if(room.name == "Overworld")
+                        InvokeRepeating("Movement", 0.0f, 1.0f / outdoorMovementSpeed);
+                    else
+                        InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
+                    return;
+                }
+
+                // Inspected object is an item
+                PixelItem item = pc.transform.parent.GetComponent<PixelItem>();
+                if(item != null) {
+                    PixelInventory inv = GetComponentInChildren<PixelInventory>();
+                    Debug.Assert(inv != null);
+
+                    animator.SetTrigger(Animator.StringToHash("IsPickup"));
+                    item.gameObject.SetActive(false);
+                    item.transform.parent = inv.transform;
+
+                    return;
+                }
+            }
 		}
 
 		// Cannot Raycast Hit anything on this opject
@@ -245,11 +260,10 @@ namespace Objects.Movable.Characters
 
 		#region Inventory
 
-		public CharacterInventory inventory;
-
 		public bool AddToInventory(Item i)
 		{
-			return inventory.Add(i);
+            //return inventory.Add(i);
+            return false;
 		}
 
 		#endregion

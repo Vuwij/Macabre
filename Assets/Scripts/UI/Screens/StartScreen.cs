@@ -7,11 +7,11 @@ using System;
 
 namespace UI.Screens
 {
-    public sealed class StartScreen : UIScreen, UIGameObject
+    public sealed class StartScreen : UIScreen
     {
         public void NewGame()
         {
-            TurnOff();
+            gameObject.SetActive(false);
             // The scene contains the barebones of the scene
 //            SceneManager.LoadScene("Game", LoadSceneMode.Additive);
 //            Scene s = SceneManager.GetSceneByName("Game");
@@ -24,7 +24,7 @@ namespace UI.Screens
 
         public void ContinueGame()
         {
-            TurnOff();
+            gameObject.SetActive(false);
 
             // The scene contains the barebones of the scene
             SceneManager.LoadScene("Game", LoadSceneMode.Additive);

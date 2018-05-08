@@ -2,7 +2,6 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using Objects.Inventory;
 using System.Collections;
 
 namespace Objects.Immovable.Items
@@ -43,7 +42,7 @@ namespace Objects.Immovable.Items
 				if (addedToInventory)
 				{
 					gameObject.SetActive(false);
-					gameObject.transform.parent = character.inventory.folder;
+					//gameObject.transform.parent = character.inventory.folder;
 				}
 			}
 		}

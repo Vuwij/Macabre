@@ -9,7 +9,7 @@ using UI.Dialogues;
 
 namespace UI.Panels
 {
-    public sealed class SavePanel : UIPanel, UIGameObject
+    public sealed class SavePanel : UIPanel
     {
         Transform saveIconParent
         {
@@ -21,7 +21,7 @@ namespace UI.Panels
         }
 		List<Save> saveList
 		{
-			get { return Game.main.saves.saves; }
+			get { return GameManager.main.saves.saves; }
 		}
 
 		const int saveIconWidth = 40;
@@ -111,12 +111,12 @@ namespace UI.Panels
         
         public void Back()
         {
-            this.TurnOff();
+            //this.TurnOff();
         }
         
-        public override void TurnOn()
+        protected override void OnEnable()
         {
-            base.TurnOn();
+            base.OnEnable();
             Refresh();
         }
     }

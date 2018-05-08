@@ -1,0 +1,82 @@
+﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UI;
+using Data;
+using Objects;
+using Environment;
+using UI.Panels;
+using UI.Dialogues;
+
+/// <summary>
+/// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
+/// </summary>
+public class GameManager : MonoBehaviour {
+	public static GameManager main = null;
+	public static string dataPath;
+
+	public Saves saves;
+	public GameClock clock = new GameClock();
+	public Database db;
+	public EventList eventList;
+
+	void Awake()
+    {
+        if (main == null) main = this;
+        else if (main != this) Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+
+		dataPath = Application.dataPath;
+		saves = new Saves();
+
+		InvokeRepeating("PeriodicUpdate", 0.0f, 5.0f);
+    }
+
+	void Start()
+	{
+		// Start in game mode
+		if(SceneManager.GetActiveScene().name == "Game") {
+			saves.New("Test");
+			saves.Load("Test");
+			db = new Database ();
+			eventList = new EventList ();
+		}
+		if(SceneManager.GetActiveScene().name == "Start") {
+
+		}
+	}
+
+	void PeriodicUpdate()
+	{
+		clock.PeriodicUpdate();
+	}
+
+	void OnApplicationQuit() {}
+
+	#region Pause, Resume, Quit
+
+	public bool gamePaused = false;
+
+    public void Pause() {
+        gamePaused = true;
+    }
+
+    public void Resume()
+    {
+        gamePaused = false;
+    }
+    
+	public void Quit () {
+		if (!gamePaused)
+			Debug.LogError ("Game must be paused before you quit game");
+		else {
+            string message = "Warning, Current Save being deleted, do you wish to continue";
+            WarningDialogue.Button yes = new WarningDialogue.Button("Yes", main.OnApplicationQuit);
+            WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => { });
+
+            WarningDialogue.Warning(message, new List<WarningDialogue.Button>() { yes, no });
+		}
+	}
+
+	#endregion
+}

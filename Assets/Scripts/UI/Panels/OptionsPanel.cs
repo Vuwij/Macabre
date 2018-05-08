@@ -9,7 +9,7 @@ using UI.Dialogues;
 
 namespace UI.Panels
 {
-    public sealed class OptionsPanel : UIPanel, UIGameObject
+    public sealed class OptionsPanel : UIPanel
     {
     }
 }

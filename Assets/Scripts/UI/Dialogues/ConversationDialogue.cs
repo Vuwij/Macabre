@@ -10,7 +10,7 @@ using Objects.Movable.Characters.Individuals;
 
 namespace UI.Dialogues
 {
-    public sealed class ConversationDialogue : UIDialogue, UIGameObject
+    public sealed class ConversationDialogue : UIDialogue
     {
         public string mainText
         {
@@ -80,7 +80,7 @@ namespace UI.Dialogues
 
         public void ResponsePressed(int i)
         {
-			GameObject.Find("Player").GetComponent<Character>().KeyPressed(i);
+			//GameObject.Find("Player").GetComponent<Character>().KeyPressed(i);
         }
 
         public void ContinuePressed()

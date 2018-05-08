@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UI.Dialogues
 {
-    public sealed class WarningDialogue : UIDialogue, UIGameObject
+    public sealed class WarningDialogue : UIDialogue
     {
 		public delegate void WarningAction();
         public class Button
@@ -22,7 +22,7 @@ namespace UI.Dialogues
         
         public static void Warning(string message, List<Button> warningButtons)
         {
-            WarningDialogue warning = Game.main.UI.Find<WarningDialogue>();
+            //WarningDialogue warning = GameManager.main.UI.Find<WarningDialogue>();
         }
     }
 }

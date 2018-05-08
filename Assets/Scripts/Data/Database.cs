@@ -21,7 +21,7 @@ namespace Data
 
 		static string connectionString
 		{
-			get { return "URI=file:" + Game.main.saves.current.database + ",version=3"; }
+			get { return "URI=file:" + GameManager.main.saves.current.database + ",version=3"; }
 		}
 
 		public Database()

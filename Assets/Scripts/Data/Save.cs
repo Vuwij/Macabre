@@ -28,12 +28,12 @@ namespace Data
 		}
 		public string saveURI {
 			get {
-				return Game.dataPath + "/GameData/Saves";
+				return GameManager.dataPath + "/GameData/Saves";
 			}
 		}
 		public string masterURI {
 			get {
-				return Game.dataPath + "/GameData/Master";
+				return GameManager.dataPath + "/GameData/Master";
 			}
 		}
 
