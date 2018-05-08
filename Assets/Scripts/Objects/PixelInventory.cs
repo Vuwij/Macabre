@@ -40,8 +40,15 @@ namespace Objects
             }
         }
 
-        public SmallItemSlot[] smallItems = new SmallItemSlot[6];
-        public BigItemSlot[] bigItems = new BigItemSlot[2];
+		public void Start()
+		{
+            smallItems = new SmallItemSlot[6];
+            bigItems = new BigItemSlot[2];
+            Debug.Assert(smallItems[0] != null);
+		}
+
+        public SmallItemSlot[] smallItems;
+        public BigItemSlot[] bigItems;
 
         public bool AddItem(PixelItem pixelItem) {
 
