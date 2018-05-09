@@ -7,6 +7,8 @@ using Objects;
 using Environment;
 using UI.Panels;
 using UI.Dialogues;
+using System.IO;
+using System.Linq;
 
 /// <summary>
 /// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
@@ -29,31 +31,91 @@ public class GameManager : MonoBehaviour {
 		dataPath = Application.dataPath;
 		saves = new Saves();
 
-		InvokeRepeating("PeriodicUpdate", 0.0f, 5.0f);
+        LoadInventoryInformation();
     }
 
-	void Start()
-	{
-		// Start in game mode
-		if(SceneManager.GetActiveScene().name == "Game") {
-			saves.New("Test");
-			saves.Load("Test");
-			db = new Database ();
-			eventList = new EventList ();
-		}
-		if(SceneManager.GetActiveScene().name == "Start") {
+    void LoadInventoryInformation() {
 
-		}
-	}
+        PixelItem[] items = Resources.LoadAll<PixelItem>("Items");
+        List<PixelItem> itemsList = items.ToList();
+        Debug.Assert(items.Length != 0);
 
-	void PeriodicUpdate()
-	{
-		clock.PeriodicUpdate();
-	}
+        // Item Descriptions
+        using (var reader = new StreamReader(@"Assets/Configuration/Items.csv"))
+        {
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                string[] values = line.Split(',');
 
-	void OnApplicationQuit() {}
+                int id;
+                int.TryParse(values[0], out id);
+                Debug.Assert(id >= 0);
 
-	#region Pause, Resume, Quit
+                string name = values[1];
+                if (name == "Name")
+                    continue;
+                string description = values[2];
+                string[] properties = values[3].Replace(" ", "").Split(',');
+
+                PixelItem item = itemsList.Find((obj) => obj.name == name);
+                if (item == null) continue;
+                item.id = id;
+                item.description = description;
+
+                if(!((properties.Length == 0) || (properties[0] == ""))) {
+                    item.properties = properties;
+                } else {
+                    item.properties = null;
+                }
+            }
+        }
+
+        // Item Combinations
+        using (var reader = new StreamReader(@"Assets/Configuration/ItemsCombine.csv"))
+        {
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                string[] values = line.Split(',');
+
+                int combinedid, id1, id2;
+                int.TryParse(values[0], out combinedid);
+                int.TryParse(values[1], out id1);
+                int.TryParse(values[2], out id2);
+                Debug.Assert(combinedid >= 0);
+                Debug.Assert(id1 >= 0);
+                Debug.Assert(id2 >= 0);
+                if (combinedid == 0 && id1 == 0 && id2 == 0)
+                    continue;
+
+                PixelItem item1 = itemsList.Find((obj) => obj.id == id1);
+                PixelItem item2 = itemsList.Find((obj) => obj.id == id2);
+                PixelItem combinedItem = itemsList.Find((obj) => obj.id == combinedid);
+
+                if (item1 == null) continue;
+                if (item2 == null) continue;
+                if (combinedItem == null) continue;
+
+                item1.combinations.Clear();
+                item2.combinations.Clear();
+
+                PixelItem.Combination combination1 = new PixelItem.Combination();
+                combination1.with = item2;
+                combination1.result = combinedItem;
+                item1.combinations.Add(combination1);
+
+                PixelItem.Combination combination2 = new PixelItem.Combination();
+                combination2.with = item1;
+                combination2.result = combinedItem;
+                item2.combinations.Add(combination2);
+
+                combinedItem.breakapart.Clear();
+                combinedItem.breakapart.Add(item1);
+                combinedItem.breakapart.Add(item2);
+            }
+        }
+    }
 
 	public bool gamePaused = false;
 
@@ -67,16 +129,5 @@ public class GameManager : MonoBehaviour {
     }
     
 	public void Quit () {
-		if (!gamePaused)
-			Debug.LogError ("Game must be paused before you quit game");
-		else {
-            string message = "Warning, Current Save being deleted, do you wish to continue";
-            WarningDialogue.Button yes = new WarningDialogue.Button("Yes", main.OnApplicationQuit);
-            WarningDialogue.Button no = new WarningDialogue.Button("Yes", () => { });
-
-            WarningDialogue.Warning(message, new List<WarningDialogue.Button>() { yes, no });
-		}
 	}
-
-	#endregion
 }

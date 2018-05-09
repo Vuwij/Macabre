@@ -228,9 +228,13 @@ namespace Objects.Movable.Characters
                     PixelInventory inv = GetComponentInChildren<PixelInventory>();
                     Debug.Assert(inv != null);
 
-                    animator.SetTrigger(Animator.StringToHash("IsPickup"));
-                    item.gameObject.SetActive(false);
-                    item.transform.parent = inv.transform;
+                    bool succeed = inv.AddItem(item);
+
+                    if (succeed) {
+                        animator.SetTrigger(Animator.StringToHash("IsPickup"));
+                        item.gameObject.SetActive(false);
+                        item.transform.parent = inv.transform;
+                    }
 
                     return;
                 }

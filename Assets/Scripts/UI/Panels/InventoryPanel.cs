@@ -17,7 +17,11 @@ namespace UI.Panels
             base.OnDisable();
         }
 
-        private void RefreshItems()
+        PixelInventory.ItemSlot itemSelected;
+        int itemSelectedNum = 0;
+        bool isCombining;
+
+        void RefreshItems()
         {
             GameObject player = GameObject.Find("Player");
             PixelInventory pixelInventory = player.GetComponentInChildren<PixelInventory>();
@@ -27,18 +31,29 @@ namespace UI.Panels
             // Small Items
             for (int i = 0; i < 6; ++i) {
                 PixelInventory.SmallItemSlot smallItemSlot = pixelInventory.smallItems[i];
-                Debug.Assert(smallItemSlot != null);
+                if (smallItemSlot == null) return;
                 Transform smallItemParent = inventoryGUI.Find("Small Items");
                 Transform slotUI = smallItemParent.Find("Stack " + (i + 1));
+                Image img = slotUI.GetComponent<Image>();
+                img.color = new Color(255, 255, 255, 0.3f);
 
                 for (int j = 0; j < 4; ++j) {
                     Transform slotObject = slotUI.Find("Background").Find("Object " + (j + 1));
                     Image slotImage = slotObject.GetComponent<Image>();
 
+                    slotImage.color = Color.clear;
                     if (smallItemSlot.items[j] != null) {
                         SpriteRenderer objectUI = smallItemSlot.items[j].GetComponent<SpriteRenderer>();
                         slotImage.sprite = objectUI.sprite;
+                        slotImage.color = Color.white;
                     }
+                }
+
+                Text t = slotUI.Find("Count").GetComponent<Text>();
+                if(pixelInventory.smallItems[i].count >= 2) {
+                    t.text = "x" + pixelInventory.smallItems[i].count;
+                } else {
+                    t.text = "";
                 }
             }
 
@@ -49,62 +64,196 @@ namespace UI.Panels
                 Transform slotUI = bigItemParent.Find("Stack " + (i + 1));
 
                 Image slotImage = slotUI.GetComponent<Image>();
-                SpriteRenderer objectUI = bigItemSlot.item.GetComponent<SpriteRenderer>();
-                slotImage.sprite = objectUI.sprite;
+                if (pixelInventory.bigItems[i].item == null)
+                    slotImage.color = new Color(255, 255, 255, 0.0f);
+                else
+                    slotImage.color = new Color(255, 255, 255, 1.0f);
+
+                if (bigItemSlot.item != null) {
+                    SpriteRenderer objectUI = bigItemSlot.item.GetComponent<SpriteRenderer>();
+                    slotImage.sprite = objectUI.sprite;
+                    slotImage.color = Color.white;
+                }
             }
+
+            // Property Info
+            Text itemname = transform.Find("Item Description Panel").Find("Name").GetComponent<Text>();
+            Text itemdescription = transform.Find("Item Description Panel").Find("Description").GetComponent<Text>();
+            Text itemproperties = transform.Find("Item Description Panel").Find("Properties").GetComponent<Text>();
+            Debug.Assert(itemname != null);
+            Debug.Assert(itemdescription != null);
+            Debug.Assert(itemproperties != null);
+            itemname.text = "";
+            itemdescription.text = "";
+            itemproperties.text = "";
+
+        }
+
+        public void SelectSmallItem(int itemnum) {
+            Debug.Assert(itemnum <= 6 && itemnum > 0);
+
+            GameObject player = GameObject.Find("Player");
+            PixelInventory pixelInventory = player.GetComponentInChildren<PixelInventory>();
+            Debug.Assert(pixelInventory != null);
+
+            Transform inventoryGUI = transform.Find("Inventory GUI");
+            Transform smallItemParent = inventoryGUI.Find("Small Items");
+
+            RefreshItems();
+
+            if (isCombining)
+            {
+                Debug.Assert(itemSelected != null);
+                Debug.Assert(itemSelectedNum > 0 && itemSelectedNum <= 6);
+                PixelInventory.SmallItemSlot item1 = (PixelInventory.SmallItemSlot) itemSelected;
+                PixelInventory.SmallItemSlot item2 = pixelInventory.smallItems[itemnum - 1];
+                pixelInventory.Combine(item1, item2);
+                itemSelectedNum = 0;
+                itemSelected = null;
+
+                Transform button = transform.Find("Inventory GUI").Find("Inventory Buttons").Find("Combine");
+                Image buttonImg = button.GetComponent<Image>();
+                buttonImg.color = new Color(255, 255, 255);
+                isCombining = false;
+
+                RefreshItems();
+
+                return;
+            }
+
+            itemSelectedNum = 0;
+            itemSelected = pixelInventory.smallItems[itemnum - 1];
+            if (itemSelected.empty)
+                return;
+            itemSelectedNum = itemnum;
+
+            // Display Item Info
+            Text itemname = transform.Find("Item Description Panel").Find("Name").GetComponent<Text>();
+            Text itemdescription = transform.Find("Item Description Panel").Find("Description").GetComponent<Text>();
+            Text itemproperties = transform.Find("Item Description Panel").Find("Properties").GetComponent<Text>();
+            Debug.Assert(itemname != null);
+            Debug.Assert(itemdescription != null);
+            Debug.Assert(itemproperties != null);
+
+            PixelItem itemToDescribe = null;
+            for (int i = 0; i < 4; ++i) {
+                if (pixelInventory.smallItems[itemnum - 1].items[i] == null) continue;
+                itemToDescribe = pixelInventory.smallItems[itemnum - 1].items[i];
+                break;
+            }
+            Debug.Assert(itemToDescribe != null);
+
+            itemname.text = itemToDescribe.name;
+            itemdescription.text = itemToDescribe.description;
+            if (itemToDescribe.properties == null)
+                itemproperties.text = "";
+            else
+            {
+                string propertyString = "Properties: \n";
+                for (int i = 0; i < itemToDescribe.properties.Length; ++i)
+                    propertyString = propertyString + itemToDescribe.properties[i] + " ";
+                itemproperties.text = propertyString;
+            }
+
+            Transform slotUIselected = smallItemParent.Find("Stack " + itemnum);
+            Image imgSelected = slotUIselected.GetComponent<Image>();
+            imgSelected.color = new Color(255, 255, 255, 0.8f);
+        }
+
+        public void SelectLargeItem(int itemnum) {
+            Debug.Assert(itemnum <= 2 && itemnum > 0);
+
+            GameObject player = GameObject.Find("Player");
+            PixelInventory pixelInventory = player.GetComponentInChildren<PixelInventory>();
+            Debug.Assert(pixelInventory != null);
+
+            Transform inventoryGUI = transform.Find("Inventory GUI");
+            Transform largeItemParent = inventoryGUI.Find("Big Items");
+
+            RefreshItems();
+
+            if (isCombining) {
+                itemSelectedNum = 0;
+                itemSelected = null;
+
+                Transform button = transform.Find("Inventory GUI").Find("Inventory Buttons").Find("Combine");
+                Image buttonImg = button.GetComponent<Image>();
+                buttonImg.color = new Color(255, 255, 255);
+                isCombining = false;
+
+                RefreshItems();
+            }
+
+            itemSelectedNum = 0;
+            itemSelected = pixelInventory.bigItems[itemnum - 1];
+            if (itemSelected.empty)
+                return;
+            itemSelectedNum = itemnum;
+
+            // Display Item Info
+            Text itemname = transform.Find("Item Description Panel").Find("Name").GetComponent<Text>();
+            Text itemdescription = transform.Find("Item Description Panel").Find("Description").GetComponent<Text>();
+            Text itemproperties = transform.Find("Item Description Panel").Find("Properties").GetComponent<Text>();
+            Debug.Assert(itemname != null);
+            Debug.Assert(itemdescription != null);
+            Debug.Assert(itemproperties != null);
+
+            PixelItem itemToDescribe = pixelInventory.bigItems[itemnum - 1].item;
+            itemname.text = itemToDescribe.name;
+            itemdescription.text = itemToDescribe.description;
+            if (itemToDescribe.properties == null)
+                itemproperties.text = "";
+            else
+            {
+                string propertyString = "Properties: \n";
+                for (int i = 0; i < itemToDescribe.properties.Length; ++i)
+             
+                    propertyString = propertyString + itemToDescribe.properties[i] + " ";
+                itemproperties.text = propertyString;
+            }
+
+            Transform slotUIselected = largeItemParent.Find("Stack " + itemnum);
+            Image imgSelected = slotUIselected.GetComponent<Image>();
+            imgSelected.color = new Color(255, 255, 0, 1.0f);
         }
 
         public void Combine()
         {
-            //if (ItemStackUI.currentlySelected.Count != 2) return;
+            if (itemSelected == null || itemSelected is PixelInventory.BigItemSlot)
+                return;
             
-            //ItemStackUI[] toCombine = ItemStackUI.currentlySelected.ToArray();
-            //if (toCombine[0].Count + toCombine[1].Count > 4) return;
+            Transform button = transform.Find("Inventory GUI").Find("Inventory Buttons").Find("Combine");
+            Image buttonImg = button.GetComponent<Image>();
 
-            //ItemStackUIClassA itemUI1 = null, itemUI2 = null;
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    if (itemStackUIClassAs[i] == toCombine[0])
-            //    {
-            //        itemUI1 = (toCombine[0] as ItemStackUIClassA);
-            //        itemUI2 = (toCombine[1] as ItemStackUIClassA);
-            //        break;
-            //    }
-            //    if(itemStackUIClassAs[i] == toCombine[1])
-            //    {
-            //        itemUI1 = (toCombine[1] as ItemStackUIClassA);
-            //        itemUI2 = (toCombine[0] as ItemStackUIClassA);
-            //        break;
-            //    }
-            //}
-
-            //// Attempt a merge only if the item is single
-            ////if (itemUI1.inventoryItem == null || itemUI2.inventoryItem == null) return;
-            ////itemUI1.inventoryItem += itemUI2.inventoryItem;
-            
-            RefreshItems();
+            if(isCombining == true) {
+                isCombining = false;
+                buttonImg.color = new Color(255, 255, 255);
+            }
+            else {
+                isCombining = true;
+                buttonImg.color = new Color(255, 0, 0);
+            }
         }
 
         public void Seperate()
         {
-            //// Select the currently selected item
-            //if (ItemStackUI.currentlySelected.Count != 1) return;
-            //var itemStack = ItemStackUI.currentlySelected.Peek();
+            if (itemSelected == null)
+                return;
 
-            //// Check if a seperation is possible and remove one from the bundle
-            //if (!(itemStack is ItemStackUIClassA)) return;
-            //if (itemStack.Count <= 1) return;
+            GameObject player = GameObject.Find("Player");
+            PixelInventory pixelInventory = player.GetComponentInChildren<PixelInventory>();
+            Debug.Assert(pixelInventory != null);
 
-            //// Check if there is available space
-            //if (!(itemStackUIClassAs.Any(x => x.Count == 0))) return;
+            pixelInventory.Break(itemSelected);
 
-            //ItemStackUIClassA itemStackUIClassARemoveFrom = itemStack as ItemStackUIClassA;
+            // Stop Combining
+            Transform button = transform.Find("Inventory GUI").Find("Inventory Buttons").Find("Combine");
+            Image buttonImg = button.GetComponent<Image>();
+            isCombining = false;
+            buttonImg.color = new Color(255, 255, 255);
 
-            //// The actual transfer
-            ////var itemToBeTransferred = itemStackUIClassARemoveFrom.inventoryItem.items.Last();
-            ////inventory.Add(itemToBeTransferred);
-            ////itemStackUIClassARemoveFrom.inventoryItem.items.Remove(itemToBeTransferred);
-            
+            itemSelected = null;
+            itemSelectedNum = 0;
             RefreshItems();
         }
 
@@ -115,27 +264,37 @@ namespace UI.Panels
 
         public void Drop()
         {
-            //// Select the currently selected item
-            //if (ItemStackUI.currentlySelected.Count == 0) return;
-            //var itemStack = ItemStackUI.currentlySelected.Dequeue();
+            if (itemSelected == null)
+                return;
 
-            //// Obtain the inventoryItem from the stack
-            //InventoryItem inventoryItem;
-            //if (itemStack is ItemStackUIClassA)
-            //    inventoryItem = (itemStack as ItemStackUIClassA).inventoryItem;
-            //else
-            //    inventoryItem = (itemStack as ItemStackUIClassB).inventoryItem;
+            GameObject player = GameObject.Find("Player");
+            PixelInventory pixelInventory = player.GetComponentInChildren<PixelInventory>();
+            Debug.Assert(pixelInventory != null);
 
-            //// Drop the inventory Item (from PlayerInventory)
-            //inventory.Drop(inventoryItem);
+            // Stop Combining
+            Transform button = transform.Find("Inventory GUI").Find("Inventory Buttons").Find("Combine");
+            Image buttonImg = button.GetComponent<Image>();
+            isCombining = false;
+            buttonImg.color = new Color(255, 255, 255);
 
-            //// Refresh the UI
-            //RefreshItems();
+            pixelInventory.Drop(itemSelected);
+
+            itemSelected = null;
+            itemSelectedNum = 0;
+            RefreshItems();
         }
 
         public void Return()
         {
-            //TurnOff();
+            // Stop Combining
+            Transform button = transform.Find("Inventory GUI").Find("Inventory Buttons").Find("Combine");
+            Image buttonImg = button.GetComponent<Image>();
+            isCombining = false;
+            buttonImg.color = new Color(255, 255, 255);
+
+            itemSelected = null;
+            itemSelectedNum = 0;
+            gameObject.SetActive(false);
         }
     }
 }
