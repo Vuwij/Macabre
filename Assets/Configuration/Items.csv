@@ -1,20 +1,174 @@
 ﻿Id,Name,Description,Properties
-1,Carrot,A Carrot,
-2,Stick,,
-3,Pie,,
-4,Glob,,
-5,Beet,,
-6,Turnip,,
-7,Bowl_Empty,,
-8,Bowl_Greens_100,,
-9,Bowl_Greens_50,,
-10,Bowl_Greens_25,,
-11,Bowl_Spinach_100,,
-12,Bowl_Spinach_50,,
-13,Bowl_Spinach_25,,
-14,Bowl_Rice_100,,
-15,Bowl_Rice_50,,
-16,Bowl_Rice_25,,
-17,Hammer head,,
-18,Hammer stick,,
-19,Hammer,,
+1,Carrot,"A sweet, crispy root vegetable. It smells sweet and fragrant","Food, RootVegetable, Fresh"
+2,Twig,"A thin, sprigy twig",Flamable
+3,Meat Pie,A savoury meat pie with a flaky pastry shell,"Food, Meat, Baked"
+4,Apple,"A fresh, crisp apple","Food, Fresh"
+5,Turnip,"A white, fleshy root vegetable. It smells like sadness","Food, RootVegetable, Fresh"
+6,Radish,"A rough, hearty root vegetable. It tastes like failure","Food, RootVegetable, Fresh"
+7,Wooden Bowl,"A rough, splintery, handmade bowl.",Flamable
+8,Pea Soup,You can roast beef but you can't…,"Food, Soup, Liquid"
+9,Half Full Pea Soup,There's still some soup left,"Food, Soup, Liquid"
+10,Finished Pea Soup,It's empty,"Food, Soup, Liquid"
+11,Cabbage Soup,"Tastes like  dirt, smells like filth","Food, Soup, Liquid"
+12,Half Full Cabbage Soup,There's still some soup left,"Food, Soup, Liquid"
+13,Finished Pea Soup,It's empty,"Food, Soup, Liquid"
+14,Carrot Soup,Just sweet enough not to taste like dirty water,"Food, Soup, Liquid"
+15,Half Empty Carrot Soup,There's still some soup left,"Food, Soup, Liquid"
+16,Finished Carrot Soup,It's empty,"Food, Soup, Liquid"
+17,Hammer head,A heavy chunk of metal with a hole in the bottom.,"Blunt, Heavy, Metal"
+18,Hammer Handle,It seems like it would make a good hammer if it wasn't just a piece of wood,Flamable
+19,Hammer,A simple tool of undeniable usefulness,"Blunt, Heavy, Destructive"
+20,Cabbage,Someone's lost their head,"Food, Fresh"
+21,Acorns,"A handful of hard, tasteless tree nuts",Food
+22,Copper,"3rd Place, still something to be proud of",Metal
+23,Gold,Valuable hunks of metal,Metal
+24,Silver,They're disappointed,Metal
+25,Clam,"Rough on the outside, brine on the inside","Food, Seafood"
+26,Eel,"A long, bony fish. Not much meat on its bones","Container, Glass"
+27,Tuna,It lives in endless pain.,"Food, Seafood, Raw"
+28,Herring,Something about it leads you to conclude that it is of great importance,"Food, Seafood, Raw"
+29,Mackerel,"A dead fish, beginning to smell somewhat","Food, Seafood, Raw"
+30,Sardines,,"Food, Seafood, Raw"
+31,Lobster,A spiny red shellfish,"Food, Seafood, Raw"
+32,Shallot,"Like an onion, only more vindictive","Food, Fresh, Raw"
+33,Rye,,"Raw, Grain"
+34,Wheat,"A bundle of wheat, with the kernels still attached to the stalks","Raw, Grain"
+35,Ribs,The chestcage of some poor beast. Tastes amazing once cooked though,"Food, Meat, Raw"
+36,Spool of thread,A wooden spool of sewing thread. Probably needs a needle to be useful,Flamable
+37,Needle and Thread,,Flamable
+38,Needle,,"Sharp, Metal"
+39,Barley,,"Raw, Grain"
+40,,,
+41,,,
+42,Egg,,"Food, Raw"
+43,Rough Cloth,,Flamable
+44,Raw Porkchop,It's getting a little green at the edges,"Food, Meat, Raw"
+45,Dried Sausage,Ground up meat stuffed into an intestine. Quite salty,"Food, Meat, Raw"
+46,Raw Lambchop,It's getting blood everywhere,"Food, Meat, Raw"
+47,Raw Beef,Juicy.,"Food, Meat, Raw"
+48,Raw Ham,You can see it turnin black through the thick layer of rough salt,"Food, Meat, Raw"
+49,Celery,A stick of fresh celery,"Food, Fresh"
+50,Buttery Loaf,A warm loaf of bread coated liberally in melted fats,"Food, Baked"
+51,Strawberry Pie,"A sweet, flaky pie filled with sweet, putrefying strawberries","Food, Baked"
+52,Stale Loaf,A not so warm loaf of bread coated liberally in nothing,"Food, Stale"
+53,Spoiled Loaf,"A layer of mold covers this dry, hard loaf of what was once bread","Food, Stale"
+54,Blackberry Pie,"A sour, crusty pie filled with dry, bitter blackberries","Food, Baked"
+55,Raw Dough,,Raw
+56,Cream Pastry,,"Food, Baked"
+57,Stale Pastry,,"Food, Stale"
+58,Blueberry Tart,,"Food, Baked"
+59,Knife,,"Sharp, Blade"
+60,Piece of Paper,"A thin, blank sheet of parchment","Flamable, Reusable"
+61,Copper Key,,"Metal, Key"
+62,Silver Key,,"Metal, Key"
+63,Gold Key,,"Metal, Key"
+64,Bone,,Blunt
+65,Cooked Ribs,,"Food, Meat, Cooked"
+66,Grilled Porkchop,,"Food, Meat, Cooked"
+67,Cooked Sausage,,"Food, Meat, Cooked"
+68,Seared Lambchop,,"Food, Meat, Cooked"
+69,Roast Beef,,"Food, Meat, Cooked"
+70,Baked Ham,,"Food, Meat, Cooked"
+71,Grilled Eel,The flesh has been roasted dry and is stuck to the spines,"Food, Seafood, Cooked"
+72,Cooked Tuna,,"Food, Seafood, Cooked"
+73,Grilled Herring,,"Food, Seafood, Cooked"
+74,Seared Mackerel,,"Food, Seafood, Cooked"
+75,Cooked Sardines,,"Food, Seafood, Cooked"
+76,Note,"""Your life is in danger. Act normal, they have eyes everywhere.""",Flamable
+77,,,
+78,,,
+79,,,
+80,,,
+81,Rock,"It's a heavy, dense rock.","Blunt, Heavy, "
+82,Stones,,Blunt
+83,Pebbles,,
+84,,,
+85,,,
+86,Buttery Slice,A thick slice of bread to do with as you please,"Food, Baked"
+87,Slice of Strawberry Pie,The strawberry ,"Food, Baked"
+88,Stale Slice,,"Food, Baked"
+89,Slice of Blackberry Pie,,"Food, Baked"
+90,Glove,,Flamable
+91,Boiled Lobster,,"Food, Seafood, Cooked"
+92,,,
+93,,,
+94,,,
+95,,,
+96,,,
+97,Empty Jar,Its emptiness mirrors your own,"Glass, Container"
+98,Jar of Ale,,"Glass, Alcohol, Liquid, Flamable"
+99,Jar of Wine,,"Glass, Alcohol, Liquid, Flamable"
+100,Jar of Oil,,"Glass, Flamable, Liquid"
+101,Jar of Blood,,"Glass, Raw, Meat, Liquid"
+102,Jar of Dirty Water,,"Glass, Liquid"
+103,Jar of Milk,A suspect jar of cloudy whitish liquid,"Glass, Liquid, Food"
+104,Jar of Soup,,"Glass, Liquid, Food, Soup"
+105,Jar of Water,,"Glass, Liquid"
+106,,,
+107,,,
+108,,,
+109,,,
+110,,,
+111,,,
+112,,,
+113,Empty Bag,A satchel made of some spare cloth sewn together.,"Flamable, Container"
+114,Bag of Gunpowder,,
+115,,,
+116,,,
+117,,,
+118,,,
+119,,,
+120,,,
+121,,,
+122,,,
+123,,,
+124,,,
+125,,,
+126,,,
+127,,,
+128,,,
+129,Empty Bottle,An empty glass vessel coated in a thin layer of scum. Best used to contain liquids,"Glass, Container"
+130,Bottle of Ale,Kind of an odd choice of container for this particular beverage,"Glass, Alcohol, Liquid, Flamable"
+131,Bottle of Wine,"A tall, dark bottle of watery wine. It smells every bit as salty and bitter as it tastes","Glass, Alcohol, Liquid, Flamable"
+132,Bottle of Oil,,"Glass, Flamable, Liquid"
+133,Bottle of Blood,,"Glass, Raw, Meat, Liquid"
+134,Bottle of Dirty Water,,"Glass, Liquid"
+135,Bottle of Milk,,"Glass, Liquid, Food"
+136,Bottle of Soup,,"Glass, Liquid, Food, Soup"
+137,Bottle of Water,,"Glass, Liquid"
+138,,,
+139,,,
+140,,,
+141,,,
+142,,,
+143,,,
+144,,,
+145,Empty Bucket,Several pieces of wood roughly tacked together. Possibly watertight,"Flamable, Container"
+146,Bucket of Ale,Enough alcohol to satiate a problem alcoholic,"Alcohol, Liquid, Flamable"
+147,Bucket of Wine,Enough alcohol to create a problem alcoholic,"Alcohol, Liquid, Flamable"
+148,Bucket of Oil,,"Flamable, Liquid"
+149,Bucket of Blood,,"Raw, Meat, Liquid"
+150,Bucket of Dirty Water,,Liquid
+151,Bucket of Milk,The milk has begun to seep into the wood,"Liquid, Food"
+152,Bucket of Soup,,"Liquid, Food, Soup"
+153,Bucket of Water,A bucket filled to the brim with water,Liquid
+154,,,
+155,,,
+156,,,
+157,Covered Bucket,A bucket covered by a lid.,"Flamable, Container"
+158,Bucket Lid,A wooden lid that covers only buckets,Flamable
+159,,,
+160,,,
+161,Empty Flagon,"The lip of the flagon looks grimy, as though it hasn't been cleaned very well","Flamable, Container"
+162,Flagon of Ale,"A frothing mug of warm, acrid ale","Alcohol, Liquid, Flamable"
+163,Flagon of Wine,Kind of an odd choice of container for this particular beverage,"Alcohol, Liquid, Flamable"
+164,Flagon of Oil,"A cup of sticky black oil, almost like resin","Flamable, Liquid"
+165,Flagon of Blood,You see that the blood is beginning to clump and congeal within the flagon,"Raw, Meat, Liquid"
+166,Flagon of Dirty Water,"A flagon filled with filthy, brackish water",Liquid
+167,Flagon of Milk,"A mug of faintly yellow, tepid milk","Liquid, Food"
+168,Flagon of Soup,"The remnants of sweet, bitter ale have flavored the salty broth to create a vile slurry","Liquid, Food, Soup"
+169,Flagon of Water,The clear water is turned murky by the filthy flagon,Liquid
+170,,,
+171,,,
+172,,,
+173,,,
