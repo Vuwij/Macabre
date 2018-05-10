@@ -16,9 +16,7 @@ namespace UI.Dialogues
         {
             set
             {
-                Text t = this.GetComponentsInChildren<Transform>()
-                    .Where(x => x.name == "Main Text").First()
-                    .GetComponent<Text>();
+                Text t = transform.Find("Main Text").GetComponent<Text>();
                 t.text = value;
             }
         }
@@ -26,9 +24,7 @@ namespace UI.Dialogues
         {
             set
             {
-                Text t = this.GetComponentsInChildren<Transform>()
-                    .Where(x => x.name == "Title Text").First()
-                    .GetComponent<Text>();
+                Text t = transform.Find("Title Text").GetComponent<Text>();
                 t.text = value;
             }
         }
@@ -36,9 +32,7 @@ namespace UI.Dialogues
         {
             set
             {
-                Text t = this.GetComponentsInChildren<Transform>()
-                    .Where(x => x.name == "Continue Button").First()
-                    .GetComponent<Text>();
+                Text t = transform.Find("Continue Button").GetComponent<Text>();
                 t.text = value;
             }
         }
@@ -46,8 +40,7 @@ namespace UI.Dialogues
         {
             set
             {
-                if (value.Length > 4) throw new Exception("Array cannot be greater than 4");
-
+                Debug.Assert(value.Length <= 4);
                 var t = from obj in this.GetComponentsInChildren<Transform>()
                         where obj.name.Contains("Response Text")
                         select obj.GetComponent<Text>();
@@ -61,30 +54,18 @@ namespace UI.Dialogues
         public Sprite mainImage
         {
             set {
-                Image i = GetComponentsInChildren<Image>()
-                    .Where(x => x.gameObject.name == "Image")
-                    .FirstOrDefault();
-                if (i != null)
-                {
-                    i.color = Color.white;
-                    i.sprite = value;
-                }
-            }
-        }
-        public Button[] buttons
-        {
-            get {
-                return GetComponentsInChildren<Button>();
+                Image i = transform.Find("Image").GetComponent<Image>();
+                i.sprite = value;
             }
         }
 
         public void ResponsePressed(int i)
         {
-			//GameObject.Find("Player").GetComponent<Character>().KeyPressed(i);
         }
 
         public void ContinuePressed()
         {
+            
         }
 
         public void Reset()

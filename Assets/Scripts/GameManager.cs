@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
 		saves = new Saves();
 
         LoadInventoryInformation();
+        LoadConversationInformation();
     }
 
     void LoadInventoryInformation() {
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour {
         }
 
         // Item Combinations
-        using (var reader = new StreamReader(@"Assets/Configuration/ItemsCombine.csv"))
+        using (var reader = new StreamReader(@"Assets/Configuration/Item Combine.csv"))
         {
             while (!reader.EndOfStream)
             {
@@ -115,6 +116,10 @@ public class GameManager : MonoBehaviour {
                 combinedItem.breakapart.Add(item2);
             }
         }
+    }
+
+    void LoadConversationInformation() {
+        
     }
 
 	public bool gamePaused = false;
