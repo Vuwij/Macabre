@@ -4,24 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Extensions;
 using System.Linq;
-using Objects.Immovable.Items;
 using Objects.Movable.Characters.Individuals;
 using System.Xml.Serialization;
 
 namespace Objects.Movable.Characters
 {
-	public abstract class Character : MovableObject, IInspectable
+	public abstract class Character : MovableObject
     {
-		Player player
-        {
-            get {
-				return GameObject.Find("Player").GetComponentInChildren<Player>();
-            }
-        }
-		public GameObject childObject
-        {
-            get { return gameObject.transform.Find(gameObject.name + "Sprite").gameObject; }
-        }
 		protected Animator animator
 		{
 			get
@@ -34,10 +23,6 @@ namespace Objects.Movable.Characters
             get; set;
         }
 
-		float inspectRadius
-		{
-			get { return GameSettings.inspectRadius; }
-		}
 		public int orientationX
 		{
 			get {
@@ -66,7 +51,6 @@ namespace Objects.Movable.Characters
 					if(orientationY == 1) {
 						characterFoot = new GameObject("Feet", typeof(SpriteRenderer));
 						characterFoot.transform.parent = transform;
-						characterFoot.transform.localPosition = childObject.transform.localPosition;
 						var s = characterFoot.GetComponent<SpriteRenderer>();
 						if(orientationX == 1)
 							s.sprite = extraSprites.rightFeet;
@@ -82,18 +66,8 @@ namespace Objects.Movable.Characters
 				animator.SetBool("IsSitting", value);
 			}
 		}
-		public bool isPickingUp
-		{
-			set {
-				animator.SetTrigger("IsPickup");
-			}
-		}
-		protected bool positionLocked
-		{
-			get {
-				return isSittingDown || isTalking;
-			}
-		}
+
+        bool positionLocked;
 
         [Range(1, 20)]
         public int indoorMovementSpeed = 10;
@@ -183,12 +157,6 @@ namespace Objects.Movable.Characters
 			return conversationState;
 		}
 
-		public void InspectionAction(Object obj, RaycastHit2D raycastHit)
-		{
-			if(conversationState != null && conversationState.conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse) return;
-			InvokeDialogue(0);
-		}
-
 		#endregion
 
 		#region Inspection
@@ -241,36 +209,6 @@ namespace Objects.Movable.Characters
             }
 		}
 
-		// Cannot Raycast Hit anything on this opject
-		private bool InspectionIsInvalid(RaycastHit2D raycastHit)
-		{
-			// No triggers
-			if (raycastHit.collider.isTrigger) return true;
-
-			// If hit a character
-			if (raycastHit.collider.GetComponent<Character>() != null)
-			{
-				// Cannot hit itself
-				if (raycastHit.collider.GetComponent<Character>() == this) return true;
-
-				// Can only get circle collider
-				if (raycastHit.collider is PolygonCollider2D) return false;
-			}   
-
-			return false;
-		}
-
 		#endregion
-
-		#region Inventory
-
-		public bool AddToInventory(Item i)
-		{
-            //return inventory.Add(i);
-            return false;
-		}
-
-		#endregion
-
 	}
 }

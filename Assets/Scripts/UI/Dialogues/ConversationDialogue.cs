@@ -85,7 +85,6 @@ namespace UI.Dialogues
 
         public void ContinuePressed()
         {
-			GameObject.Find("Player").GetComponent<Character>().InspectionAction(GameObject.Find("Player").GetComponent<Player>(), new RaycastHit2D());
         }
 
         public void Reset()

@@ -8,7 +8,6 @@ using UI.Screens;
 using UnityEngine.Animations;
 using UI.Dialogues;
 using Objects.Immovable;
-using Objects.Immovable.Items;
 
 namespace Objects.Movable.Characters.Individuals
 {

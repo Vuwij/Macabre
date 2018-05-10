@@ -295,19 +295,19 @@ namespace Objects
             if (other == this)
                 return 0;
 
-            if(DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -1)
+            if(DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -1.5)
                 if(aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y)
                     return 1;
 
-            if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -1)
+            if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -1.5)
                 if (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y)
                     return 1;
 
-            if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -1)
+            if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -1.5)
                 if (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y)
                     return -1;
 
-            if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -1)
+            if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -1.5)
                 if (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y)
                     return -1;
 

@@ -1,10 +1,0 @@
-StateName,AddStates,CurrentSpeaker,Dialogue,Action,AddEvents,RemoveEvents,RequireEvents,ExcludeEvents
-S1HInnK,"C1A,C1B,C1C",GrannyGin,"Who the hell are you? What the hell do you want? I don‰Ûªt care, go find yourself a table that isn‰Ûªt occupied.",,,,,
-C1A,R1A,Player,"Pardon me, Ma‰Ûªam. Just looking for a place to sit and have an ale, that's all.",,,,,
-C1B,R1B,Player,"I was just following that awful corpse smell. And then suddenly, here I am. ",,,,,
-C1C,R1C,Player,,,,,,
-R1A,"C2A,C2B",GrannyGin,Well you can't sit here. Get lost.,,,,,
-R1B,,GrannyGin,I'm going to beat you over the head with your own spine until you're choking on blood!,"GrannyGin: StandsUp,GrannyGin: WavesMug,GrannyGin: PassesOut",,,,
-R1C,,GrannyGin,,,,,,
-C2A,,Player,Alright then ma'am. Thank you for your time.,,,,,
-C2B,,Player,"You know what, I think I'm just going to sit down.","Player: SitsDown,GrannyGin: StandsUp,GrannyGin: WavesMug,GrannyGin: Screams,GrannyGin: PassesOut",,,,

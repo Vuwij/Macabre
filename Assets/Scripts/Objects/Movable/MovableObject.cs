@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Objects;
 using Objects.Immovable;
-using Objects.Immovable.Items;
 
 namespace Objects.Movable
 {
@@ -39,7 +38,6 @@ namespace Objects.Movable
 			foreach(var hit in rcasthits) {
 				if(hit.transform.gameObject == this.gameObject) continue;
 				if(hit.collider.isTrigger) continue;
-				if(hit.transform.GetComponent<Item>() != null) continue;
 
 				Debug.DrawLine((Vector2) transform.position, (Vector2) hit.point, Color.red, 10.0f);
 				hitposition = hit.point;

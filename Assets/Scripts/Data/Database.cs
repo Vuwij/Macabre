@@ -14,7 +14,6 @@ namespace Data
 		public static Database main;
 		public Databases.Characters characters;
 		public Databases.Conversations conversations;
-		public Databases.Items items;
 
 		public IDataReader reader;
 		public IDbConnection dbconn;
@@ -32,7 +31,6 @@ namespace Data
 			main = this;
 			characters = new Data.Databases.Characters (this);
 			conversations = new Data.Databases.Conversations (this);
-			items = new Data.Databases.Items (this);
 		}
 
 		~Database()
