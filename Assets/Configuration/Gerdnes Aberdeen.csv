@@ -1,4 +1,4 @@
-﻿State Name,Next State,Requirement,Condition,Speaker,Dialogue,Action,,
+﻿State Name,Next State,Update Condition,Require Condition,Speaker,Dialogue,Action,,
 S1,"C1A,C1B,C1C",,,Gerdnes Aberdeen,Why hello there dearie. Would you like to try one of my Marvelous Meat Pies? They're piping hot and only 10 copper each!,,,
 C1A,R1A,,,Player,"Why yes, I would.",Player: Places (Gold) on (Counter),,
 C1B,R1B,,,Player,"No, perhaps another time.",Player: Places (Gold) on (Counter),,

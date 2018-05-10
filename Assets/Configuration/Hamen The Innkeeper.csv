@@ -1,13 +1,14 @@
-﻿State Name,Next State,Requirement,Condition,Speaker,Dialogue,Action
+﻿State Name,Next State,Update Condition,Require Condition,Speaker,Dialogue,Action
 Silent,S1HInnK,,,,,
 S1HInnK,"C1A, C1B, C1C",,,Hamen The Innkeeper,Hello stranger. What can I do for you?,
-C1A,R1A,,ObtainedRoom = 0,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
-C1B,R1B,,ObtainedRoom = 1,Player,"I'd like some ale, a hot meal and a room for the night.",Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
-C1C,R1C,,ObtainedRoom = 1,Player,I'm investigating the town for suspicious activity. Do you know anything? ,Player: PUTS 10 (Gold) (Inn_Floor1_Counter)
-R1A,,ObtainedRoom = 1,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","Hamen: Takes (Gold),
+C1A,R1A,,Game.ObtainedRoom = 0,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
+C1B,R1B,,"Game.ObtainedRoom = 1
+Game.DrunkAle = 0",Player,"I'd like some ale, a hot meal and a room for the night.",Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
+C1C,R1C,,Game.ObtainedRoom = 1,Player,I'm investigating the town for suspicious activity. Do you know anything? ,Player: PUTS 10 (Gold) (Inn_Floor1_Counter)
+R1A,,Game.ObtainedRoom = 1,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","Hamen: Takes (Gold),
 Hamen: Gives (key),
 Player: +5 Suspicion"
-R1B,,,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","Player: Takes (Gold), 
+R1B,,Game.DrunkAle = 1,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","Player: Takes (Gold), 
 Player: Goto (Table),
 Hamen: Gives (Key),
 Hamen: Retrieves (Bowl Of Stew)

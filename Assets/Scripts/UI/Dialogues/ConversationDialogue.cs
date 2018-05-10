@@ -12,14 +12,6 @@ namespace UI.Dialogues
 {
     public sealed class ConversationDialogue : UIDialogue
     {
-        public string mainText
-        {
-            set
-            {
-                Text t = transform.Find("Main Text").GetComponent<Text>();
-                t.text = value;
-            }
-        }
         public string titleText
         {
             set
@@ -28,11 +20,11 @@ namespace UI.Dialogues
                 t.text = value;
             }
         }
-        public string continueText
+        public string mainText
         {
             set
             {
-                Text t = transform.Find("Continue Button").GetComponent<Text>();
+                Text t = transform.Find("Main Text").GetComponent<Text>();
                 t.text = value;
             }
         }
@@ -41,16 +33,23 @@ namespace UI.Dialogues
             set
             {
                 Debug.Assert(value.Length <= 4);
-                var t = from obj in this.GetComponentsInChildren<Transform>()
+                var t = from obj in this.GetComponentsInChildren<Transform>(true)
                         where obj.name.Contains("Response Text")
                         select obj.GetComponent<Text>();
 
                 Text[] text = t.ToArray();
-                for (int i = 0; i < value.Length; i++)
-                    text[i].text = value[i];
+				for (int i = 0; i < value.Length; i++)
+				{
+					text[i].text = value[i];
+					if(value[i] != "") {
+						text[i].gameObject.SetActive(true);
+					}
+					else {
+						text[i].gameObject.SetActive(false);
+					}
+				}
             }
         }
-
         public Sprite mainImage
         {
             set {
@@ -65,7 +64,6 @@ namespace UI.Dialogues
 
         public void ContinuePressed()
         {
-            
         }
 
         public void Reset()
@@ -75,5 +73,11 @@ namespace UI.Dialogues
             responseTexts = new string[4] { "", "", "", "" };
             mainImage = null;
         }
-    }
+
+		protected override void OnEnable()
+		{
+			Reset();
+			base.OnEnable();
+		}
+	}
 }

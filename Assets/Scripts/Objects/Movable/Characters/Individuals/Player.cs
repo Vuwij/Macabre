@@ -80,19 +80,17 @@ namespace Objects.Movable.Characters.Individuals
                 }
 
                 // Conversation
-                int selection = -1;
+                int selection = 0;
                 if (Input.GetKeyDown(KeyCode.Alpha1))
-                    selection = 0;
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
                     selection = 1;
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
                     selection = 2;
-                else if (Input.GetKeyDown(KeyCode.Alpha4))
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
                     selection = 3;
-
-                if (selection != -1)
-                    if (conversationState.InputIsValid(selection))
-                        conversationState.character.InvokeDialogue(selection);
+                else if (Input.GetKeyDown(KeyCode.Alpha4))
+                    selection = 4;
+                if(selection != 0)
+                    Talk(selection);
 			}
 
 		}

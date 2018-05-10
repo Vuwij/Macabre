@@ -69,19 +69,43 @@ namespace Objects.Movable.Characters
 
         bool positionLocked;
 
+        [HideInInspector]
+        public string description;
+
         [Range(1, 20)]
         public int indoorMovementSpeed = 10;
+
         [Range(1, 20)]
         public int outdoorMovementSpeed = 30;
 
-		protected override void Start()
+
+		[Serializable]
+		public struct ExtraSprites {
+			public Sprite leftFeet;
+			public Sprite rightFeet;
+		}
+		public ExtraSprites extraSprites;
+		GameObject characterFoot;
+
+        protected Vector2 characterVelocity;
+
+        protected override void Start()
         {
-            //inventory = new CharacterInventory(gameObject, 6, 1);
-			interactionText = "Press T to talk to " + name;
+            UpdateFromPrefab();
 
             InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
 
-			base.Start();
+            base.Start();
+        }
+
+        void UpdateFromPrefab() {
+            Character prefab = Resources.Load<Character>("Characters/" + name);
+			if(prefab == null) {
+				Debug.LogError(name + " not found in prefab");
+				Debug.Assert(prefab != null);
+			}
+            conversationStates = prefab.conversationStates;
+            currentConversationState = prefab.currentConversationState;
         }
 
         void Movement()
@@ -98,22 +122,10 @@ namespace Objects.Movable.Characters
             AnimateMovement();
         }
 
-		protected override void Update()
-		{
-			base.Update();
-		}
-
-		#region Movement and Animation
-
-		[Serializable]
-		public struct ExtraSprites {
-			public Sprite leftFeet;
-			public Sprite rightFeet;
-		}
-		public ExtraSprites extraSprites;
-		GameObject characterFoot;
-
-        protected Vector2 characterVelocity;
+        protected override void Update()
+        {
+            base.Update();
+        }
 
 		protected void AnimateMovement()
 		{
@@ -131,38 +143,10 @@ namespace Objects.Movable.Characters
 			}
 		}
 
-		#endregion
-
-		#region Conversation
-
-		public bool isTalking;
-
-		public static ConversationState conversationState; // Null if no conversation is happening
-
-		// Invoked everytime when the spacebar is pressed or an decision is made
-		public ConversationState InvokeDialogue(int decision = 0)
-		{
-			if (conversationState == null)
-				conversationState = new ConversationState(this);
-			else
-				conversationState = conversationState.GetNextState(decision);
-
-			if(conversationState != null) {
-				conversationState.DisplayState();
-			}
-			else {
-				ConversationState.TurnOff();
-			}
-
-			return conversationState;
-		}
-
-		#endregion
-
-		#region Inspection
-
-		RaycastHit2D hit;
-		protected IInspectable inspectedObject;
+		public Character currrentlySpeakingTo;
+		public ConversationState currentConversationState;
+        public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
+		public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
 
 		public void Inspect()
 		{
@@ -206,9 +190,31 @@ namespace Objects.Movable.Characters
 
                     return;
                 }
+
+                // Inspected object is a character
+				currrentlySpeakingTo = pc.transform.parent.GetComponent<Character>();
+				if(currrentlySpeakingTo != null) {
+					currrentlySpeakingTo.currentConversationState.Display();
+					if (currrentlySpeakingTo.currentConversationState.nextStates.Count <= 1){
+						currrentlySpeakingTo.currentConversationState = currrentlySpeakingTo.currentConversationState.NextState();
+						currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+					}
+                }
             }
 		}
 
-		#endregion
+        public void Talk(int selection) {
+			if (currrentlySpeakingTo.currentConversationState.nextStates.Count == 1)
+				return;
+
+			ConversationState nextState = currrentlySpeakingTo.currentConversationState.NextState(selection);
+			if (nextState == null) 
+				return;
+			else 
+				currrentlySpeakingTo.currentConversationState = nextState;
+			
+			currrentlySpeakingTo.currentConversationState.DisplayCurrent();     
+			currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+        }
 	}
 }
