@@ -5,35 +5,46 @@ using System;
 using UnityEditor;
 #endif
 
-public class PixelPerfectSprite : PixelPerfectObject {
-	
-	SpriteRenderer spriteRenderer {get { if (spriteRenderer_==null) {spriteRenderer_=GetComponent<SpriteRenderer>();} return spriteRenderer_;}}
+public class PixelPerfectSprite : PixelPerfectObject
+{
+
+	SpriteRenderer spriteRenderer { get { if (spriteRenderer_ == null) { spriteRenderer_ = GetComponent<SpriteRenderer>(); } return spriteRenderer_; } }
 	SpriteRenderer spriteRenderer_;
-	
-	new protected void LateUpdate() {
+
+	new protected void LateUpdate()
+	{
 		base.LateUpdate();
-		if (pixelPerfectCamera != null && !pixelPerfectCamera.normalCamera.orthographic) {
+		if (pixelPerfectCamera != null && !pixelPerfectCamera.normalCamera.orthographic)
+		{
 			spriteRenderer.sortingOrder = -parallaxLayer;
 		}
 	}
-	
-	override protected float GetTransformScaleFactor() {
+
+	override protected float GetTransformScaleFactor()
+	{
 		float parallaxScale;
-		if (pixelPerfectCamera!=null && !pixelPerfectCamera.normalCamera.orthographic) {
-			parallaxScale=pixelPerfectCamera.GetParallaxLayerScale(parallaxLayer);
-		} else {
-			parallaxScale=1;
+		if (pixelPerfectCamera != null && !pixelPerfectCamera.normalCamera.orthographic)
+		{
+			parallaxScale = pixelPerfectCamera.GetParallaxLayerScale(parallaxLayer);
+		}
+		else
+		{
+			parallaxScale = 1;
 		}
 		//return PixelPerfect.worldPixelSize*pixdfasdfelScale*parallaxScale;
-		return PixelPerfect.pixelsPerUnit*PixelPerfect.worldPixelSize*pixelScale*parallaxScale;
+		return PixelPerfect.pixelsPerUnit * PixelPerfect.worldPixelSize * pixelScale * parallaxScale;
 	}
-	
-	override protected Vector2 GetPivotToCenter() {
-		try {
-			Vector2 normalizedPivot = new Vector2 (spriteRenderer.sprite.rect.width * 0.5f - spriteRenderer.sprite.pivot.x, spriteRenderer.sprite.rect.height * 0.5f - spriteRenderer.sprite.pivot.y);
-			return (new Vector2 (normalizedPivot.x, normalizedPivot.y)) * pixelScale * PixelPerfect.worldPixelSize;
-		} catch (NullReferenceException) {
-			throw new UnityException ("Sprite Renderer not included in this gameobject");
+
+	override protected Vector2 GetPivotToCenter()
+	{
+		try
+		{
+			Vector2 normalizedPivot = new Vector2(spriteRenderer.sprite.rect.width * 0.5f - spriteRenderer.sprite.pivot.x, spriteRenderer.sprite.rect.height * 0.5f - spriteRenderer.sprite.pivot.y);
+			return (new Vector2(normalizedPivot.x, normalizedPivot.y)) * pixelScale * PixelPerfect.worldPixelSize;
+		}
+		catch (NullReferenceException)
+		{
+			throw new UnityException("Sprite Renderer not included in this gameobject");
 		}
 	}
 	

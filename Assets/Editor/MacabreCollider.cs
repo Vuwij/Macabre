@@ -4,7 +4,6 @@ using System.Collections;
 
 public class MacabreFootprints : EditorWindow {
     
-	[MenuItem ("Macabre/Collider/Remove Internal Shapes", true)]
     static bool Validate () {
         // Check if there are any selected GameObject with more than one path
         foreach (GameObject lObj in Selection.gameObjects) {
@@ -17,7 +16,6 @@ public class MacabreFootprints : EditorWindow {
         return false;
     }
 
-	[MenuItem ("Macabre/Collider/Add New Path")]
 	static void AddPath() {
 		foreach (GameObject lObj in Selection.gameObjects) {
 			PolygonCollider2D lCollider = lObj.GetComponent<PolygonCollider2D>();
@@ -33,42 +31,6 @@ public class MacabreFootprints : EditorWindow {
 			lCollider.pathCount++;
 			lCollider.SetPath (lCollider.pathCount-1, lPath);
 
-		}
-	}
-
-	[MenuItem ("Macabre/Collider/Clean Up Object Paths")]
-	static void CleanUpObjectPaths() {
-		foreach (GameObject lObj in Selection.gameObjects) {
-			//Debug.Log (lObj);
-			foreach(PolygonCollider2D pCollider2D in lObj.GetComponents<PolygonCollider2D>()) {
-				
-				Undo.RecordObject (pCollider2D, "Remove Interior Shapes");
-				
-				var points = pCollider2D.points;
-				
-				for(int i = 0; i < pCollider2D.points.Length; i++) {
-					points[i].Scale(new Vector2(32.0f, 32.0f));
-					points[i] = new Vector2(Mathf.Round(points[i].x), Mathf.Round(points[i].y));
-					points[i].Scale(new Vector2(0.03125f, 0.03125f));
-				}
-				pCollider2D.points = points;
-			}
-		}
-		foreach (GameObject lObj in Selection.gameObjects) {
-			//Debug.Log (lObj);
-			foreach(EdgeCollider2D eCollider2D in lObj.GetComponents<EdgeCollider2D>()) {
-				
-				Undo.RecordObject (eCollider2D, "Remove Interior Shapes");
-				
-				var points = eCollider2D.points;
-				
-				for(int i = 0; i < eCollider2D.points.Length; i++) {
-					points[i].Scale(new Vector2(32.0f, 32.0f));
-					points[i] = new Vector2(Mathf.Round(points[i].x), Mathf.Round(points[i].y));
-					points[i].Scale(new Vector2(0.03125f, 0.03125f));
-				}
-				eCollider2D.points = points;
-			}
 		}
 	}
 
@@ -107,8 +69,7 @@ public class MacabreFootprints : EditorWindow {
 			}
 		}
 	}
-
-    [MenuItem ("Macabre/Collider/Remove Internal Shapes")]
+    
     static void RemoveShapes () {
         foreach (GameObject lObj in Selection.gameObjects) {
             PolygonCollider2D lCollider = lObj.GetComponent<PolygonCollider2D>();
