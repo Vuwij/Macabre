@@ -8,6 +8,80 @@ using System.Linq;
 
 public class MacabreFootprint : EditorWindow {
     
+
+	[MenuItem ("Macabre/Object/Find Object Footprints")]
+	static void FindObjectFootprint() {
+		if (Selection.gameObjects.Count() != 1) return;
+
+		Objects.Object o = Selection.gameObjects[0].GetComponent<Objects.Object>();
+		if (o == null) return;
+        
+        // Get original sprite, continue if fail
+        SpriteRenderer originalSpriteRenderer = o.GetComponent<SpriteRenderer>();
+		if (originalSpriteRenderer == null) return;
+		if (originalSpriteRenderer.sprite == null) return;
+
+        // Undo if made mistake
+        Undo.RecordObject(o, "Set Object Footprint");
+
+        // Recreate the footprint if there isn't one               
+        if (o.transform.GetComponentInChildren<PixelCollider>() != null)
+            DestroyImmediate(o.transform.GetComponentInChildren<PixelCollider>().gameObject);
+
+        GameObject footprint = new GameObject("Footprint");
+        footprint.AddComponent<PixelCollider>();
+        footprint.AddComponent<SpriteRenderer>();
+        footprint.transform.parent = o.transform;
+
+        PixelCollider pixelCollider = o.GetComponentInChildren<PixelCollider>();
+        SpriteRenderer footprintSpriteRenderer = pixelCollider.GetComponent<SpriteRenderer>();
+        PolygonCollider2D polygonCollider2D = pixelCollider.GetComponent<PolygonCollider2D>();
+
+        // Find the footprint
+        string textureName = AssetDatabase.GetAssetPath(originalSpriteRenderer.sprite.texture);
+        string textureNameWithFootprint = textureName.Replace(".png", "");
+        string footprintTextureName = textureNameWithFootprint + "Footprint.png";
+        if (!File.Exists(footprintTextureName))
+        {
+            Debug.LogError("Footprint Texture not found: " + footprintTextureName);
+        }
+        Debug.Assert(File.Exists(footprintTextureName));
+
+        // Make a copy of the texture's footprint
+        AssetImporter originalImporter = AssetImporter.GetAtPath(textureName);
+        AssetImporter footprintImporter = AssetImporter.GetAtPath(footprintTextureName);
+        EditorUtility.CopySerializedIfDifferent(originalImporter, footprintImporter);
+        footprintImporter.SaveAndReimport();
+
+        TextureImporter footprintTextureImporter = (TextureImporter)AssetImporter.GetAtPath(footprintTextureName);
+        SpriteMetaData[] spriteMetaDatas = footprintTextureImporter.spritesheet;
+        for (int s = 0; s < spriteMetaDatas.Length; ++s)
+        {
+            Rect rect = spriteMetaDatas[s].rect;
+            rect.x = rect.x - 3;
+            rect.width = rect.width + 6;
+            rect.y = rect.y - 8;
+            rect.height = rect.height + 16;
+            spriteMetaDatas[s].rect = rect;
+        }
+        footprintTextureImporter.spritesheet = spriteMetaDatas;
+
+        EditorUtility.SetDirty(footprintTextureImporter);
+        footprintTextureImporter.SaveAndReimport();
+        AssetDatabase.ImportAsset(footprintTextureName, ImportAssetOptions.ForceUpdate);
+
+        UnityEngine.Object[] sprites = AssetDatabase.LoadAllAssetsAtPath(footprintTextureName);
+        footprintSpriteRenderer.sprite = (Sprite)sprites.Where((x) => x.name == originalSpriteRenderer.sprite.name).First();
+        footprintSpriteRenderer.sortingLayerName = "Background";
+        footprintSpriteRenderer.sortingOrder = 10;
+        footprint.transform.localPosition = Vector3.zero;
+        footprintSpriteRenderer.color = new Color(255, 255, 255, 0.5f);
+
+        // Collider
+        PolygonCollider2D collider = footprint.AddComponent<PolygonCollider2D>();
+        CalculateFootprintPolygonCollider(originalSpriteRenderer, footprintSpriteRenderer, collider);
+	}
+
 	[MenuItem ("Macabre/Object/Find Room Footprints")]
     static void FindRoomFootprints () {
 
@@ -77,10 +151,7 @@ public class MacabreFootprint : EditorWindow {
 				footprintSpriteRenderer.sortingOrder = 10;
 				footprint.transform.localPosition = Vector3.zero;
 				footprintSpriteRenderer.color = new Color(255, 255, 255, 0.5f);
-
-                // Pixel Perfect
-				footprint.AddComponent<PixelPerfectSprite>();
-                
+    
                 // Collider
 				PolygonCollider2D collider = footprint.AddComponent<PolygonCollider2D>();
 				CalculateFootprintPolygonCollider(originalSpriteRenderer, footprintSpriteRenderer, collider);            
