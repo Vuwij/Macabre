@@ -13,256 +13,162 @@ namespace Objects.Movable.Characters
 {
     public class ConversationState
     {
-		List<Objects.Movable.Characters.Character> AllCharactersInConversation
-		{
-			get { return new List<Objects.Movable.Characters.Character>() {currentSpeaker}; }
-		}
-		int NextStateCount
-		{
-			get
-			{
-				if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
-					return previousState.addStates.Length + 1;
-				else return 1;
-			}
-		}
-		List<ConversationState> NextStates
-		{
-			get
-			{
-				List<ConversationState> next = new List<ConversationState>();
-				if (addStates == null) return next;
+		public Character character;
 
-				foreach(string stateName in addStates)
-				{
-					ConversationState s = new ConversationState(character, this, stateName);
+		public string stateName;
+        public List<ConversationState> nextStates = new List<ConversationState>();
+        public string updateCondition;
+        public string requireCondition;
+        public Character speaker;
+        public string dialogue;
+        public List<CharacterAction> actions = new List<CharacterAction>();
 
-					var reqEventList = SeparateEvents(s.requireEvents);
-					var excEventList = SeparateEvents(s.excludeEvents);
-					bool validateRequireEvents = true;
-					foreach(var e in reqEventList) {
-						if(GameManager.main.eventList.Find(x => (x == e)) == null)
-							validateRequireEvents = false;
-					}
-					foreach(var e in excEventList) {
-						if(GameManager.main.eventList.Find(x => (x == e)) != null) {
-							validateRequireEvents = false;
+        ConversationDialogue conversationDialogue
+        {
+            get
+            {
+                UIScreenManager screenManager = UnityEngine.Object.FindObjectOfType<UIScreenManager>();
+                ConversationDialogue c = screenManager.GetComponentInChildren<ConversationDialogue>(true);
+                Debug.Assert(c != null);
+                return c;
+            }
+        }
+
+		public List<ConversationState> enabledNextStates {
+			get {
+				List<ConversationState> conversationStates = new List<ConversationState>();
+				foreach(ConversationState c in nextStates) {
+					Dictionary<string, string> conditionList = ParseConditionList(c.requireCondition);
+
+					bool passConditions = true;
+					foreach(KeyValuePair<string, string> kvp in conditionList) {
+						// Check Temporary Events
+						if(!kvp.Key.Contains("Game.")) {
+							if (character.characterEvents.ContainsKey(kvp.Key)) {
+								if (character.characterEvents[kvp.Key] != kvp.Value) {
+									passConditions = false;
+                                    continue;
+                                }
+                            }
+						}
+						else {
+                            GameManager gameManager = UnityEngine.Object.FindObjectOfType<GameManager>();
+                            Debug.Assert(gameManager != null);
+
+							string gameKey = kvp.Key.Replace("Game.", "");
+
+							if (gameManager.gameEvents.ContainsKey(gameKey)) {
+								if (gameManager.gameEvents[gameKey] != kvp.Value) {
+									passConditions = false;
+                                    continue;
+                                }
+                            }
 						}
 					}
-					if(validateRequireEvents == false) continue;
 
-					next.Add(s);
+					if (passConditions)
+						conversationStates.Add(c);
 				}
-				return next;
+
+				return conversationStates;
 			}
 		}
-		public bool InputIsValid(int input)
-		{
-			if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
-			if (input >= 0 && input < NextStateCount) return true;
-			return false;
-		}
+        
+		Dictionary<string, string> ParseConditionList(string s) {
+			Dictionary<string, string> conditionList = new Dictionary<string, string>();
 
-		public ConversationViewStatus conversationViewStatus = ConversationViewStatus.Empty;
-		public Character character;
-		ConversationState previousState;
-		ConversationDialogue conversationDialogue;
-		List<CharacterAction> characterActions = new List<CharacterAction>();
-
-		// From the database information
-		public string stateName;
-		public string[] addStates;
-		public Objects.Movable.Characters.Character currentSpeaker;
-		public string dialogue;
-		public string actions;
-		public string addEvents;
-		public string removeEvents;
-		public string requireEvents;
-		public string excludeEvents;
-
-		public ConversationState(Objects.Movable.Characters.Character speakerController, ConversationState previousState = null, string stateName = "")
-		{
-			this.character = speakerController;
-			this.previousState = previousState;
-			if (previousState == null)
-			{
-				GameManager.main.db.conversations.FindAndUpdateConversationForCharacter(character, this);
-				LockAllCharacterPosition();
-				UpdateEvents();
+			string[] conditions = s.Split('\n');
+			if (conditions[0] == "")
+				return conditionList;
+			
+			foreach(var cond in conditions) {
+				string c = cond.Replace(" ", "");
+				Debug.Assert(c.Contains("="));
+				string[] statement = c.Split('=');
+				Debug.Assert(statement.Length == 2);
+				conditionList.Add(statement[0], statement[1]);
 			}
-			else
-				GameManager.main.db.conversations.UpdateConversationForCharacter(stateName, character, this);
 
-			SetCurrentViewFromPreviousState(previousState);
-			//conversationDialogue = GameManager.main.UI.Find<ConversationDialogue>();
-			//conversationDialogue.TurnOn();
+			return conditionList;
+		}
+        
+		public void UpdateConversationConditions() {
+			Dictionary<string, string> conditionList = ParseConditionList(updateCondition);
+            foreach (KeyValuePair<string, string> kvp in conditionList)
+            {
+                // Check Temporary Events
+                if (!kvp.Key.Contains("Game.")) {
+					if (character.characterEvents.ContainsKey(kvp.Key))
+						character.characterEvents[kvp.Key] = kvp.Value;
+					else
+						character.characterEvents.Add(kvp.Key, kvp.Value);
+                }
+                else
+                {
+                    GameManager gameManager = UnityEngine.Object.FindObjectOfType<GameManager>();
+                    Debug.Assert(gameManager != null);
+
+					string gameKey = kvp.Key.Replace("Game.", "");
+					if (gameManager.gameEvents.ContainsKey(gameKey))
+						gameManager.gameEvents[gameKey] = kvp.Value;
+                    else
+						gameManager.gameEvents.Add(gameKey, kvp.Value);
+                }
+            }
 		}
 
-		public ConversationState GetNextState(int decision = 0)
-		{
-			UpdateEvents();
-			ParseAction();
-			RunAction();
-
-			ConversationState nextState;
-			if (NextStates.Count == 0)
-			{
-				UnlockAllCharacterPosition();
-				nextState =  null;
-			}
-			else if (conversationViewStatus == ConversationViewStatus.PlayerMultipleReponse)
-			{
-				ConversationState c = previousState.NextStates[decision];
-				c.conversationViewStatus = ConversationViewStatus.PlayerResponse;
-				nextState = c;
-			}
-			else
-				nextState = NextStates[decision];
-
-			return nextState;
-		}
-
-		#region Actions
-
-		void LockAllCharacterPosition()
-		{
-//			Debug.Log("Locking positions");
-			foreach (var character in AllCharactersInConversation) {
-//				Debug.Log(character.name);
-				if(character == null) continue;
-				character.isTalking = true;
-			}
-			var player = GameObject.Find("Player").GetComponent<Player>();
-			player.isTalking = true;
-
-			// Make all the characters face each other
-			var firstCharacter = AllCharactersInConversation[0];
-			Vector2 center = (firstCharacter.transform.position - player.transform.position);
-			center = Vector2.Scale(center, new Vector2(0.5f, 0.5f));
-			center = (Vector2) player.transform.position + center;
-
-			Debug.DrawLine(player.transform.position, center, Color.red, 10.0f);
-			player.GetComponentInChildren<Animator>().SetFloat("MoveSpeed-x", center.x - player.transform.position.x);
-			player.GetComponentInChildren<Animator>().SetFloat("MoveSpeed-y", center.y - player.transform.position.y);
-			foreach(var character in AllCharactersInConversation) {
-				var anim = character.GetComponentInChildren<Animator>();
-				anim.SetBool("IsActive", true);
-				anim.SetFloat("MoveSpeed-x", center.x - character.transform.position.x);
-				anim.SetFloat("MoveSpeed-y", center.y - character.transform.position.y);
-//				Debug.Log(center.x - character.transform.position.x);
-//				Debug.Log(center.y - character.transform.position.y);
-			}
-		}
-
-		void UnlockAllCharacterPosition()
-		{
-			foreach (Objects.Movable.Characters.Character character in AllCharactersInConversation) {
-				if(character == null) continue;
-				character.isTalking = false;
-				var anim = character.GetComponentInChildren<Animator>();
-				anim.SetFloat("MoveSpeed-x", 0.0f);
-				anim.SetFloat("MoveSpeed-y", 0.0f);
-				anim.SetBool("IsActive", false);
-			}
-			var player = GameObject.Find("Player").GetComponent<Player>();
-			player.isTalking = false;
-		}
-
-		void ParseAction() {
-//			var actionStrings = actions.Split('\n');
-//			foreach(var astring in actionStrings) {
-//				if(astring != "") {
-//					characterActions.Add(GameAction.GetAction(astring));
-//				}
-//			}
-		}
-
-		void RunAction() {
-			foreach (GameAction action in characterActions) {
-				// TODO Implement Coroutine
-				//action.ExecuteAction ();
-			}
-		}
-
-		#endregion
-
-		#region Events
-
-		string[] SeparateEvents(string events) {
-			if(events == null) return new string[]{};
-			events = events.Replace(", ",",");
-			var eventsList = events.Split(',');
-			if(eventsList.Length == 1 && eventsList[0] == "") return new string[]{};
-			return eventsList;
-		}
-
-		void UpdateEvents() {
-			var addEventList = SeparateEvents(addEvents);
-			var removeEventList = SeparateEvents(removeEvents);
-
-			foreach(var e in addEventList) {
-				if(GameManager.main.eventList.Find(x => x == e) == null)
-					GameManager.main.eventList.Add(e);
-			}
-			foreach(var e in removeEventList) {
-				if(GameManager.main.eventList.Find(x => x == e) != null)
-					GameManager.main.eventList.Remove(e);
-			}
-		}
-
-		#endregion
-
-		#region Display
-
-		void SetCurrentViewFromPreviousState(ConversationState previousState)
-		{
-			if (previousState == null)
-			{
-				if (currentSpeaker is Player) conversationViewStatus = ConversationViewStatus.PlayerResponse;
-				else conversationViewStatus = ConversationViewStatus.CharacterResponse;
-			}
-			else conversationViewStatus = IdentifyCurrentViewFromPreviousState(previousState);
-		}
-
-		ConversationViewStatus IdentifyCurrentViewFromPreviousState(ConversationState previousState)
-		{
-			if (previousState.addStates.Count() == 0) return ConversationViewStatus.Empty;
-			if (previousState.addStates.Count() > 1) return ConversationViewStatus.PlayerMultipleReponse;
-			if (previousState.currentSpeaker is Player)
-				return ConversationViewStatus.CharacterResponse;
-			else return ConversationViewStatus.PlayerResponse;
-		}
-
-		public void DisplayState()
+		public void DisplayCurrent()
 		{
 			conversationDialogue.Reset();
+			conversationDialogue.gameObject.SetActive(true);
 
-			switch (conversationViewStatus)
-			{
-			case ConversationViewStatus.PlayerMultipleReponse:
-				conversationDialogue.mainImage = currentSpeaker.GetComponentInChildren<SpriteRenderer>().sprite;
-				conversationDialogue.responseTexts = (from state in previousState.NextStates
-					select state.dialogue).ToArray();
-				conversationDialogue.continueText = "";
-				return;
-			case ConversationViewStatus.CharacterResponse:
-			case ConversationViewStatus.PlayerResponse:
-				conversationDialogue.mainImage = currentSpeaker.GetComponentInChildren<SpriteRenderer>().sprite;
-				conversationDialogue.titleText = currentSpeaker.name;
-				conversationDialogue.mainText = dialogue;
-				conversationDialogue.continueText = "Space to Continue";
-				return;
-			case ConversationViewStatus.Empty:
-			default:
-				return;
-			}
+			SpriteRenderer spriteRenderer = speaker.GetComponentInChildren<SpriteRenderer>();
+            conversationDialogue.mainImage = spriteRenderer.sprite;
+            conversationDialogue.titleText = speaker.name;
+            conversationDialogue.mainText = dialogue;
 		}
 
-		public static void TurnOff()
-		{
+        public void Display()
+        {
+			conversationDialogue.Reset();
+
+			if (nextStates.Count == 1) {
+				ConversationState nextState = enabledNextStates[0];
+                if (nextState.stateName == "" || nextState.stateName == "Silent") {
+                    conversationDialogue.gameObject.SetActive(false);
+					character.characterEvents.Clear();
+                }
+                else
+                {
+					SpriteRenderer spriteRenderer = nextState.speaker.GetComponentInChildren<SpriteRenderer>();
+                    Debug.Assert(spriteRenderer != null);
+					conversationDialogue.gameObject.SetActive(true);
+					conversationDialogue.mainImage = spriteRenderer.sprite;
+                    conversationDialogue.titleText = nextState.speaker.name;
+                    conversationDialogue.mainText = nextState.dialogue;
+                }
+            }
+            else
+            {
+				conversationDialogue.gameObject.SetActive(true);
+
+				SpriteRenderer spriteRenderer = enabledNextStates[0].speaker.GetComponentInChildren<SpriteRenderer>();
+                Debug.Assert(spriteRenderer != null);
+                conversationDialogue.mainImage = spriteRenderer.sprite;
+
+                List<string> responsetexts = new List<string>();
+				foreach (ConversationState state in enabledNextStates)
+                    responsetexts.Add(state.dialogue);
+                    
+                conversationDialogue.responseTexts = responsetexts.ToArray();            
+            }
+        }
+
+		public ConversationState NextState(int option = 1) {
+			if (enabledNextStates.Count == 1)
+				return enabledNextStates[0];
+			if (option > enabledNextStates.Count) return null;
+			return enabledNextStates[option - 1];
 		}
-
-		#endregion
-
     }
 }

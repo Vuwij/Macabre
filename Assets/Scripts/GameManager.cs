@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using UI;
+using Objects.Movable.Characters;
 using Data;
 using Objects;
 using Environment;
-using UI.Panels;
-using UI.Dialogues;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using CsvHelper;
 
 /// <summary>
 /// The Game Manager is responsible for loading everything in the correct order. Individual files do not load themselves
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour {
 	public Saves saves;
 	public GameClock clock = new GameClock();
 	public Database db;
-	public EventList eventList;
+	public Dictionary<string, string> gameEvents = new Dictionary<string, string>();
 
 	void Awake()
     {
@@ -42,12 +41,12 @@ public class GameManager : MonoBehaviour {
         Debug.Assert(items.Length != 0);
 
         // Item Descriptions
-        using (var reader = new StreamReader(@"Assets/Configuration/Items.csv"))
+		using (var reader = new StreamReader(@"Assets/Configuration/Items.csv"))
         {
-            while (!reader.EndOfStream)
+			while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                string[] values = line.Split(',');
+                string[] values = CsvSplit(line);
 
                 int id;
                 int.TryParse(values[0], out id);
@@ -78,7 +77,7 @@ public class GameManager : MonoBehaviour {
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                string[] values = line.Split(',');
+                string[] values = CsvSplit(line);
 
                 int combinedid, id1, id2;
                 int.TryParse(values[0], out combinedid);
@@ -119,7 +118,107 @@ public class GameManager : MonoBehaviour {
     }
 
     void LoadConversationInformation() {
-        
+        Character[] characters = Resources.LoadAll<Character>("Characters");
+        List<Character> characterList = characters.ToList();
+        Debug.Assert(characters.Length != 0);
+
+        // Character information
+        using (var reader = new StreamReader(@"Assets/Configuration/Characters.csv")) {
+            var line = reader.ReadLine();
+            string[] values = CsvSplit(line);
+
+            string characterName = values[0];
+            string description = values[1];
+            string attackdamage = values[2];
+            string health = values[3];
+
+            Character character = characterList.Find((obj) => obj.name == characterName);
+            if (character != null) {
+                character.description = description;
+            }
+        }
+
+        // Conversations
+        foreach (Character character in characterList)
+        {
+			if (character.name == "Player") continue;
+
+			using (var reader = new StreamReader(@"Assets/Configuration/" + character.name + ".csv"))
+            {
+				using (var csvreader = new CsvReader(reader))
+				{
+					csvreader.Configuration.HasHeaderRecord = true;
+					character.conversationStates.Clear();
+
+					while (csvreader.Read())
+					{
+						string stateName = csvreader.GetField(0);
+						string nextState = csvreader.GetField(1);
+						string updateCondition = csvreader.GetField(2);
+						string requireCondition = csvreader.GetField(3);
+						string speaker = csvreader.GetField(4);
+						string dialogue = csvreader.GetField(5);
+						string action = csvreader.GetField(6);
+
+						if (stateName == "") continue;
+                        if (stateName == "State Name") continue;
+
+                        ConversationState conversationState = new ConversationState();
+						conversationState.character = character;
+
+                        conversationState.stateName = stateName;
+						conversationState.updateCondition = updateCondition;
+						conversationState.requireCondition = requireCondition;
+
+                        Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
+                        if (stateName != "Silent")
+                        {
+                            if (speakerCharacter == null) Debug.LogError(speaker + " not found on Character sheet " + character.name + " State: " + stateName);
+                            Debug.Assert(speakerCharacter != null);
+                        }
+                        conversationState.speaker = speakerCharacter;
+                        conversationState.dialogue = dialogue;
+
+                        character.conversationStates.Add(stateName, conversationState);
+					}
+				}
+            }
+
+            // Connnect the states
+            using (var reader = new StreamReader(@"Assets/Configuration/" + character.name + ".csv"))
+            {
+				using (var csvreader = new CsvReader(reader))
+				{
+					csvreader.Configuration.HasHeaderRecord = true;
+
+                    while (csvreader.Read())
+                    {
+						string stateName = csvreader.GetField(0);
+						string nextState = csvreader.GetField(1);
+                        
+                        string[] nextStateSplit = nextState.Replace(" ", "").Split(',');
+						if (nextStateSplit[0] == "") nextStateSplit[0] = "Silent";
+
+                        if (stateName == "State Name") continue;
+						if (stateName == "") continue;
+
+						if(!character.conversationStates.ContainsKey(stateName)) {
+							Debug.LogError(character.name + "is missing state " + stateName);
+						}
+						Debug.Assert(character.conversationStates.ContainsKey(stateName));
+                        foreach (string s in nextStateSplit)
+                        {
+                            Debug.Assert(s != "");
+                            Debug.Assert(character.conversationStates[s] != null);
+                            character.conversationStates[stateName].nextStates.Add(character.conversationStates[s]);
+                        }
+                    }
+				}
+            }
+
+            Debug.Assert(character.conversationStates["Silent"] != null);
+            character.currentConversationState = character.conversationStates["Silent"];
+        }
     }
 
 	public bool gamePaused = false;
@@ -128,11 +227,26 @@ public class GameManager : MonoBehaviour {
         gamePaused = true;
     }
 
-    public void Resume()
-    {
+    public void Resume() {
         gamePaused = false;
     }
     
 	public void Quit () {
 	}
+
+    public string[] CsvSplit(string input) {
+        string pattern = "(?:^|,)(?=[^\"]|(\")?)\"?((?(1)[^\"]*|[^,\"]*))\"?(?=,|$)";
+
+        List<string> result = new List<string>();
+
+        MatchCollection collection = Regex.Matches(input, pattern);
+        foreach(Match m in collection) {
+            Group g = m.Groups[2];
+            if(g != null) {
+                result.Add(g.Value);
+            }
+        }
+
+        return result.ToArray();
+    }
 }
