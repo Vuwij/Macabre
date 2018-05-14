@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Objects
 {
@@ -72,35 +73,92 @@ namespace Objects
                 if (otherPixelCollider.ParentIsContainer()) continue;
                 pixelColliders.Add(otherPixelCollider);
             }
+         
+			pixelColliders = TopologicalSort(pixelColliders);
+			pixelColliders.Reverse();
 
-            // Bubble Sort
-            for (int i = 0; i < pixelColliders.Count; ++i) {
-                for (int j = 0; j < pixelColliders.Count; ++j) {
-                    if (i == j) continue;
-                    if(pixelColliders[i].CompareTo(pixelColliders[j]) == -1) {
-                        PixelCollider temp = pixelColliders[i];
-                        pixelColliders[i] = pixelColliders[j];
-                        pixelColliders[j] = temp;
-                    }
-                }
-            }
+			Transform previousTransform = null;
 
             for (int i = 0; i < pixelColliders.Count; ++i) {
                 SpriteRenderer sr = pixelColliders[i].transform.parent.GetComponentInChildren<SpriteRenderer>();
-                Debug.Assert(sr != null);
+				if (sr == null) continue;
                 sr.sortingOrder = i * 2;
 
                 // Child objects
                 PixelCollider[] childobjects = pixelColliders[i].transform.parent.GetComponentsInChildren<PixelCollider>();
                 foreach(PixelCollider co in childobjects) {
                     SpriteRenderer srchild = co.transform.parent.GetComponentInChildren<SpriteRenderer>();
-                    Debug.Assert(srchild != null);
+					if (srchild == null) continue;
                     srchild.sortingOrder = i * 2 + 1;
                 }
-
+                
+				if (previousTransform != null && sr.gameObject.transform != previousTransform) {
+					Debug.DrawLine(previousTransform.position, sr.gameObject.transform.position, Color.red, 10.0f);
+				}
+				previousTransform = sr.gameObject.transform;
                 //Debug.Log(sr.gameObject.name + " " + sr.sortingOrder.ToString());
             }
         }
+
+		public List<PixelCollider> TopologicalSort(List<PixelCollider> pixelColliders) {
+
+			// Find adjacency list
+			List<KeyValuePair<PixelCollider, PixelCollider>> adjacencyList = new List<KeyValuePair<PixelCollider, PixelCollider>>();
+            
+			for (int i = 0; i < pixelColliders.Count; ++i) {
+                for (int j = 0; j < pixelColliders.Count; ++j) {
+                    if (i >= j) continue;
+                    int comparison = pixelColliders[i].CompareTo(pixelColliders[j]);
+					if (comparison == 1) {
+						adjacencyList.Add(new KeyValuePair<PixelCollider, PixelCollider>(pixelColliders[i], pixelColliders[j]));
+					}
+					else if (comparison == -1) {
+						adjacencyList.Add(new KeyValuePair<PixelCollider, PixelCollider>(pixelColliders[j], pixelColliders[i]));
+                    }
+                }
+            }
+
+            // Print adjacency list
+			//foreach(var obj in adjacencyList) {
+			//	Debug.Log(obj.Key.transform.parent.name + " -> " + obj.Value.transform.parent.name);
+			//}
+
+			// Kahn's Algorithm
+            List<PixelCollider> sortedPixelColliders = new List<PixelCollider>();
+            List<PixelCollider> noIncomingEdgeColliders = new List<PixelCollider>();
+            
+			for (int i = 0; i < pixelColliders.Count; ++i) {
+				if (!adjacencyList.Any((x) => x.Value == pixelColliders[i]))
+					noIncomingEdgeColliders.Add(pixelColliders[i]);
+            }
+
+			//foreach (var obj in noIncomingEdgeColliders)
+    //        {
+				//Debug.Log(obj.transform.parent.name);
+            //}
+
+            while (noIncomingEdgeColliders.Count > 0)
+            {
+                PixelCollider first = noIncomingEdgeColliders[0];
+				noIncomingEdgeColliders.Remove(first);
+				sortedPixelColliders.Add(first);
+
+				List<KeyValuePair<PixelCollider, PixelCollider>> objs = adjacencyList.Where((x) => x.Key == first).ToList();
+				for (int i = 0; i < objs.Count(); ++i) {
+					adjacencyList.Remove(objs[i]);
+					if (!adjacencyList.Any((x) => x.Value == objs[i].Value)){
+						noIncomingEdgeColliders.Add(objs[i].Value);
+                    }
+				}
+            }
+
+			//Debug.Log("Sorted");
+			//foreach (var obj in sortedPixelColliders) {
+            //    Debug.Log(obj.transform.parent.name);
+            //}
+
+			return sortedPixelColliders;
+		}
 
         // Finds nearest other pixel collider, same as check for collision, but returns a list of objects instead
         public List<PixelCollider> CheckForInspection()
@@ -202,30 +260,34 @@ namespace Objects
                 Vector2 otherleftWorld = otherPixelCollider.left + (Vector2) otherTransform.position;
                 Vector2 otherrightWorld = otherPixelCollider.right + (Vector2) otherTransform.position;
 
-                //Debug.DrawLine(othertopWorld, otherbottomWorld);
-                //Debug.DrawLine(otherleftWorld, otherrightWorld);
+                Debug.DrawLine(othertopWorld, otherbottomWorld);
+                Debug.DrawLine(otherleftWorld, otherrightWorld);
 
-                if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.8 &&
+                if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
+				    DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
                     leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
                     leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
                     restrictNW = true;
                 
-                if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.8 &&
+                if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
+				    DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -2.0 &&
                     topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                     topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
                     restrictNE = true;
                 
-                if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.8 &&
+                if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
+				    DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 2.0 &&
                     leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
                     leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
                     restrictSW = true;
 
-                if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.8 &&
+                if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
+				    DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 2.0 &&
                     bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                     bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
                     restrictSE = true;
             }
-
+            
             // Collided with floor
             PixelRoom floor = transform.parent.parent.GetComponent<PixelRoom>();
             Debug.Assert(floor != null);
@@ -236,16 +298,16 @@ namespace Objects
             Vector2 floorleftWorld = floor.left + (Vector2)floor.transform.position;
             Vector2 floorrightWorld = floor.right + (Vector2)floor.transform.position;
 
-            if (DistanceBetween4points(leftWorld, topWorld, floorleftWorld, floortopWorld) < 1.1)
+            if (DistanceBetween4points(leftWorld, topWorld, floorleftWorld, floortopWorld) < 0)
                 restrictNW = true;
 
-            if (DistanceBetween4points(topWorld, rightWorld, floortopWorld, floorrightWorld) < 1.1)
+			if (DistanceBetween4points(topWorld, rightWorld, floortopWorld, floorrightWorld) < 0)
                 restrictNE = true;
 
-            if (DistanceBetween4points(leftWorld, bottomWorld, floorleftWorld, floorbottomWorld) > -1.1)
+			if (DistanceBetween4points(leftWorld, bottomWorld, floorleftWorld, floorbottomWorld) > 0)
                 restrictSW = true;
 
-            if (DistanceBetween4points(bottomWorld, rightWorld, floorbottomWorld, floorrightWorld) > -1.1)
+			if (DistanceBetween4points(bottomWorld, rightWorld, floorbottomWorld, floorrightWorld) > 0)
                 restrictSE = true;
 
             // Send off movement restriction
@@ -295,23 +357,27 @@ namespace Objects
             if (other == this)
                 return 0;
 
-            if(DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -1.5)
+			int comparison = 0;
+
+            if(DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
                 if(aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y)
-                    return 1;
+                    comparison = 1;
 
-            if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -1.5)
+            if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
                 if (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y)
-                    return 1;
+				    comparison = 1;
 
-            if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -1.5)
+            if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
                 if (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y)
-                    return -1;
+				    comparison = -1;
 
-            if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -1.5)
+            if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
                 if (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y)
-                    return -1;
+				    comparison = -1;
 
-            return 0;
+			//Debug.Log("Comparison: " + transform.parent.name + " - " + other.transform.parent.name + ": " + comparison);
+
+			return comparison;
         }
 
         public bool ParentIsContainer() {

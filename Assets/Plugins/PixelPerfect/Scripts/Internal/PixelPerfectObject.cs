@@ -89,9 +89,10 @@ public class PixelPerfectObject : MonoBehaviour
         if (useParentTransform)
         {
             transform.localPosition = Vector3.zero;
+
         }
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, GetPixelPerfectDepth());
+		transform.position = new Vector3(transform.position.x, transform.position.y, GetPixelPerfectDepth());
 
         spriteOrigin = (Vector2)(transform.position) + GetPivotToOrigin();
 
@@ -111,7 +112,9 @@ public class PixelPerfectObject : MonoBehaviour
         }
         else
         {
-            return transform.position.z;
+			if (useParentTransform)
+				return transform.parent.position.z;
+			return transform.position.z;
         }
     }
 

@@ -43,31 +43,37 @@ public class GameManager : MonoBehaviour {
         // Item Descriptions
 		using (var reader = new StreamReader(@"Assets/Configuration/Items.csv"))
         {
-			while (!reader.EndOfStream)
+			using (var csvreader = new CsvReader(reader))
             {
-                var line = reader.ReadLine();
-                string[] values = CsvSplit(line);
+                csvreader.Configuration.HasHeaderRecord = true;
 
-                int id;
-                int.TryParse(values[0], out id);
-                Debug.Assert(id >= 0);
+				while (csvreader.Read())
+				{
+					int id;
+					int.TryParse(csvreader.GetField(0), out id);
+					Debug.Assert(id >= 0);
 
-                string name = values[1];
-                if (name == "Name")
-                    continue;
-                string description = values[2];
-                string[] properties = values[3].Replace(" ", "").Split(',');
+					string objname = csvreader.GetField(1);
+					if (objname == "Name") continue;
+					if (objname == "") continue;
 
-                PixelItem item = itemsList.Find((obj) => obj.name == name);
-                if (item == null) continue;
-                item.id = id;
-                item.description = description;
+					string description = csvreader.GetField(2);
+					string[] properties = csvreader.GetField(3).Replace(" ", "").Split(',');
 
-                if(!((properties.Length == 0) || (properties[0] == ""))) {
-                    item.properties = properties;
-                } else {
-                    item.properties = null;
-                }
+					PixelItem item = itemsList.Find((obj) => obj.name == objname);
+					if (item == null) continue;
+					item.id = id;
+					item.description = description;
+
+					if (!((properties.Length == 0) || (properties[0] == "")))
+					{
+						item.properties = properties;
+					}
+					else
+					{
+						item.properties = null;
+					}
+				}
             }
         }
 
