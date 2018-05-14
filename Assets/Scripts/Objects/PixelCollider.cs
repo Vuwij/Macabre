@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Objects
 {
-    public class PixelCollider : MonoBehaviour, IComparable<PixelCollider>
+	public class PixelCollider : MonoBehaviour, IComparable<PixelCollider>
     {
         public class MovementRestriction {
             public bool restrictNW = false;
@@ -20,7 +20,7 @@ namespace Objects
         Vector2 top, bottom, left, right;
         Vector2[] colliderPoints;
 
-        public bool isTrigger;
+        public bool noSorting;
 
         int pixelProximity = 4; // 3 pixels away from the object
         Vector2 topP, bottomP, leftP, rightP;
@@ -71,6 +71,7 @@ namespace Objects
                 PixelCollider otherPixelCollider = raycastHit.collider.GetComponent<PixelCollider>();
                 if (otherPixelCollider == null) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
+				if (otherPixelCollider.noSorting) continue;
                 pixelColliders.Add(otherPixelCollider);
             }
          
@@ -87,6 +88,7 @@ namespace Objects
                 // Child objects
                 PixelCollider[] childobjects = pixelColliders[i].transform.parent.GetComponentsInChildren<PixelCollider>();
                 foreach(PixelCollider co in childobjects) {
+					if (co == pixelColliders[i]) continue;
                     SpriteRenderer srchild = co.transform.parent.GetComponentInChildren<SpriteRenderer>();
 					if (srchild == null) continue;
                     srchild.sortingOrder = i * 2 + 1;
@@ -161,10 +163,10 @@ namespace Objects
 		}
 
         // Finds nearest other pixel collider, same as check for collision, but returns a list of objects instead
-        public List<PixelCollider> CheckForInspection()
+		public List<PixelCollision> CheckForInspection()
         {
-            List<PixelCollider> pixelColliders = new List<PixelCollider>();
-
+			List<PixelCollision> pixelCollisions = new List<PixelCollision>();
+            
             Vector3 castStart = transform.position;
             castStart.z = -10.0f;
 
@@ -190,41 +192,51 @@ namespace Objects
                 Vector2 otherleftWorld = otherPixelCollider.left + (Vector2)otherTransform.position;
                 Vector2 otherrightWorld = otherPixelCollider.right + (Vector2)otherTransform.position;
 
-                //Debug.DrawLine(othertopWorld, otherbottomWorld);
-                //Debug.DrawLine(otherleftWorld, otherrightWorld);
+				Direction direction = Direction.All;
+				List<PixelCollider> pixelColliders = new List<PixelCollider>();
 
                 if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.8 &&
                     leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
                     leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
                 {
-                    pixelColliders.Add(otherPixelCollider);
+					direction = Direction.NW;
+					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
                 else if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.8 &&
                     topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                          topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
                 {
-                    pixelColliders.Add(otherPixelCollider);
+					direction = Direction.NE;
+					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
                 else if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.8 &&
                     leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
                          leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
                 {
-                    pixelColliders.Add(otherPixelCollider);
+					direction = Direction.SW;
+					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
                 else if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.8 &&
                     bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                          bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
                 {
-                    pixelColliders.Add(otherPixelCollider);
+					direction = Direction.SE;
+					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
                 
+				foreach(PixelCollider pc in pixelColliders) {
+					PixelCollision pixelCollision;
+					pixelCollision.direction = direction;
+					pixelCollision.pixelCollider = pc;
+					pixelCollisions.Add(pixelCollision);
+				}            
             }
-
-            return pixelColliders;
+            
+			return pixelCollisions;
         }
 
         public MovementRestriction CheckForCollision()
@@ -409,4 +421,13 @@ namespace Objects
             return pixelColliders;
         }
     }
+
+	public enum Direction {
+        NE, SE, NW, SW, All
+    }
+
+	public struct PixelCollision {
+		public Direction direction;
+		public PixelCollider pixelCollider;
+	}
 }

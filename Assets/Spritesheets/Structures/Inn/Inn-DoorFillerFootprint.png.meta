@@ -119,10 +119,10 @@ TextureImporter:
       name: Inn-Door Filler_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 3
-        width: 33
-        height: 77
+        x: 7
+        y: 7
+        width: 37
+        height: 69
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,7 +130,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cbf56b14c22244fbdbcf5c2565f886f1
+      spriteID: 033b711fbc3034926a59e6afa1ffb08e
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d5404e3792d314e8aaa9b7ee4ffeb085
     vertices: []
     indices: 
     edges: []

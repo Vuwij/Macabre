@@ -5,21 +5,27 @@ using System.Collections.Generic;
 using System.IO;
 using Objects;
 using System.Linq;
+using Objects.Movable.Characters;
 
 public class MacabreFootprint : EditorWindow {
     
+	static int leftExtension = 4;
+	static int rightExtension = 5;
+	static int upExtension = 4;
+	static int downExtension = 4;
+
 
 	[MenuItem ("Macabre/Object/Find Object Footprints")]
 	static void FindObjectFootprint() {
 		if (Selection.gameObjects.Count() != 1) return;
 
-		Objects.Object o = Selection.gameObjects[0].GetComponent<Objects.Object>();
-		if (o == null) return;
+		GameObject o = Selection.gameObjects[0];
         
         // Get original sprite, continue if fail
         SpriteRenderer originalSpriteRenderer = o.GetComponent<SpriteRenderer>();
 		if (originalSpriteRenderer == null) return;
 		if (originalSpriteRenderer.sprite == null) return;
+		if (o.GetComponent<Character>() != null) return;
 
         // Undo if made mistake
         Undo.RecordObject(o, "Set Object Footprint");
@@ -35,7 +41,6 @@ public class MacabreFootprint : EditorWindow {
 
         PixelCollider pixelCollider = o.GetComponentInChildren<PixelCollider>();
         SpriteRenderer footprintSpriteRenderer = pixelCollider.GetComponent<SpriteRenderer>();
-        PolygonCollider2D polygonCollider2D = pixelCollider.GetComponent<PolygonCollider2D>();
 
         // Find the footprint
         string textureName = AssetDatabase.GetAssetPath(originalSpriteRenderer.sprite.texture);
@@ -58,10 +63,10 @@ public class MacabreFootprint : EditorWindow {
         for (int s = 0; s < spriteMetaDatas.Length; ++s)
         {
             Rect rect = spriteMetaDatas[s].rect;
-            rect.x = rect.x - 3;
-            rect.width = rect.width + 6;
-            rect.y = rect.y - 8;
-            rect.height = rect.height + 16;
+			rect.x = rect.x - leftExtension;
+            rect.width = rect.width + leftExtension + rightExtension;
+            rect.y = rect.y - downExtension;
+            rect.height = rect.height + downExtension + upExtension;
             spriteMetaDatas[s].rect = rect;
         }
         footprintTextureImporter.spritesheet = spriteMetaDatas;
@@ -77,6 +82,9 @@ public class MacabreFootprint : EditorWindow {
         footprint.transform.localPosition = Vector3.zero;
         footprintSpriteRenderer.color = new Color(255, 255, 255, 0.5f);
 
+		// Pixel Perfect
+		footprint.AddComponent<PixelPerfectSprite>();
+
         // Collider
         PolygonCollider2D collider = footprint.AddComponent<PolygonCollider2D>();
         CalculateFootprintPolygonCollider(originalSpriteRenderer, footprintSpriteRenderer, collider);
@@ -88,6 +96,7 @@ public class MacabreFootprint : EditorWindow {
         foreach (GameObject objs in Selection.gameObjects) {
 
 			if (objs.GetComponent<PixelRoom>() == null) continue;
+			objs.GetComponent<PixelRoom>().GetComponent<SpriteRenderer>().sortingOrder = 0;
 
 			for (int i = 0; i < objs.transform.childCount; ++i)
 			{
@@ -97,6 +106,7 @@ public class MacabreFootprint : EditorWindow {
 				SpriteRenderer originalSpriteRenderer = o.GetComponent<SpriteRenderer>();
                 if (originalSpriteRenderer == null) continue;
                 if (originalSpriteRenderer.sprite == null) continue;
+				if (o.GetComponent<Character>() != null) continue;
 
                 // Undo if made mistake
                 Undo.RecordObject(o, "Set Object Footprint");
@@ -112,7 +122,6 @@ public class MacabreFootprint : EditorWindow {
 
                 PixelCollider pixelCollider = o.GetComponentInChildren<PixelCollider>();
                 SpriteRenderer footprintSpriteRenderer = pixelCollider.GetComponent<SpriteRenderer>();
-                PolygonCollider2D polygonCollider2D = pixelCollider.GetComponent<PolygonCollider2D>();
                 
                 // Find the footprint
                 string textureName = AssetDatabase.GetAssetPath(originalSpriteRenderer.sprite.texture);
@@ -133,10 +142,10 @@ public class MacabreFootprint : EditorWindow {
 				SpriteMetaData[] spriteMetaDatas = footprintTextureImporter.spritesheet;
 				for (int s = 0; s < spriteMetaDatas.Length; ++s) {
 					Rect rect = spriteMetaDatas[s].rect;
-					rect.x = rect.x - 3;
-					rect.width = rect.width + 6;
-					rect.y = rect.y - 8;
-					rect.height = rect.height + 16;
+					rect.x = rect.x - leftExtension;
+					rect.width = rect.width + leftExtension + rightExtension;
+					rect.y = rect.y - downExtension;
+					rect.height = rect.height + downExtension + upExtension;
 					spriteMetaDatas[s].rect = rect;
 				}
 				footprintTextureImporter.spritesheet = spriteMetaDatas;
@@ -150,8 +159,11 @@ public class MacabreFootprint : EditorWindow {
 				footprintSpriteRenderer.sortingLayerName = "Background";
 				footprintSpriteRenderer.sortingOrder = 10;
 				footprint.transform.localPosition = Vector3.zero;
-				footprintSpriteRenderer.color = new Color(255, 255, 255, 0.5f);
+				footprintSpriteRenderer.color = new Color(0, 0, 0, 0.5f);
     
+				// Pixel Perfect
+                footprint.AddComponent<PixelPerfectSprite>();
+
                 // Collider
 				PolygonCollider2D collider = footprint.AddComponent<PolygonCollider2D>();
 				CalculateFootprintPolygonCollider(originalSpriteRenderer, footprintSpriteRenderer, collider);            
@@ -275,13 +287,12 @@ public class MacabreFootprint : EditorWindow {
 			leftVector = leftVector + new Vector2(1.0f, 0.5f);
 			rightVector = rightVector + new Vector2(0.0f, 0.5f);
 
-			Vector2[] points = new Vector2[5]
+			Vector2[] points = new Vector2[4]
 			{
 				topVector,
 				rightVector,
 				bottomVector,
-				leftVector,
-				topVector
+				leftVector
 			};
 
 			colorPoints[colorPoints.ElementAt(c).Key] = points;
@@ -290,6 +301,7 @@ public class MacabreFootprint : EditorWindow {
 		if(colorPoints.Count == 0) return;
 
 		polygonCollider2D.pathCount = colorPoints.Count;
+		polygonCollider2D.isTrigger = true;
 
 		int index = 0;
 		foreach(var c in colorPoints) {

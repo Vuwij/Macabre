@@ -88,6 +88,7 @@ namespace Objects.Movable.Characters
 		GameObject characterFoot;
 
         protected Vector2 characterVelocity;
+		protected Vector2 facingDirection;
 
         protected override void Start()
         {
@@ -116,9 +117,13 @@ namespace Objects.Movable.Characters
                 pos.x = pos.x + inputVelocity.x;
                 pos.y = pos.y + inputVelocity.y;
                 transform.position = pos;
-                UpdateSortingLayer();
+                UpdateSortingLayer();            
             }
-            characterVelocity = inputVelocity;
+			characterVelocity = inputVelocity;
+
+			if(characterVelocity != Vector2.zero)
+			    facingDirection = characterVelocity;
+
             AnimateMovement();
         }
 
@@ -129,18 +134,19 @@ namespace Objects.Movable.Characters
 
 		protected void AnimateMovement()
 		{
-            if (characterVelocity != Vector2.zero)
+			if (characterVelocity != Vector2.zero)
 			{
 				animator.SetBool(Animator.StringToHash("IsActive"), false);
 				animator.SetBool(Animator.StringToHash("IsMoving"), true);
-                animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), characterVelocity.x);
-                animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), characterVelocity.y);
 			}
 			else
 			{
 				animator.SetBool(Animator.StringToHash("IsActive"), true);
 				animator.SetBool(Animator.StringToHash("IsMoving"), false);
 			}
+
+			animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), facingDirection.x);
+			animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), facingDirection.y);
 		}
 
 		public Character currrentlySpeakingTo;
@@ -152,30 +158,38 @@ namespace Objects.Movable.Characters
 		{
             PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
             var objects = pixelCollider.CheckForInspection();
-            foreach(PixelCollider pc in objects) {
-                Debug.Log(pc.transform.parent.name);
+			foreach(PixelCollision pc in objects) {
+				Debug.Log(pc.pixelCollider.transform.parent.name);
 
                 // Inspected object is a door
-                PixelDoor door = pc.transform.parent.GetComponent<PixelDoor>();
+				PixelDoor door = pc.pixelCollider.transform.parent.GetComponent<PixelDoor>();
                 if(door != null) {
+					if(door.interactionDirection != Direction.All) {
+						if (door.interactionDirection != pc.direction) continue;
+					}
+                    
                     PixelRoom room = door.destination;
                     Transform originalroom = transform.parent;
                     Vector2 destinationOffset = door.dropOffLocation + (Vector2) door.transform.position;
+					facingDirection = destinationOffset - (Vector2)transform.position;
                     transform.position = destinationOffset;
                     transform.parent = room.transform;
-                    originalroom.gameObject.SetActive(false);
+					originalroom.gameObject.SetActive(false);
                     room.transform.gameObject.SetActive(true);
+                    UpdateSortingLayer();
 
                     CancelInvoke("Movement");
+					AnimateMovement();
                     if(room.name == "Overworld")
                         InvokeRepeating("Movement", 0.0f, 1.0f / outdoorMovementSpeed);
                     else
                         InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
+                    
                     return;
                 }
 
                 // Inspected object is an item
-                PixelItem item = pc.transform.parent.GetComponent<PixelItem>();
+				PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
                 if(item != null) {
                     PixelInventory inv = GetComponentInChildren<PixelInventory>();
                     Debug.Assert(inv != null);
@@ -192,7 +206,7 @@ namespace Objects.Movable.Characters
                 }
 
                 // Inspected object is a character
-				currrentlySpeakingTo = pc.transform.parent.GetComponent<Character>();
+				currrentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
 				if(currrentlySpeakingTo != null) {
 					currrentlySpeakingTo.currentConversationState.Display();
 					if (currrentlySpeakingTo.currentConversationState.nextStates.Count <= 1){
