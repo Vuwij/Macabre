@@ -9,10 +9,10 @@ using Objects.Movable.Characters;
 
 public class MacabreFootprint : EditorWindow {
     
-	static int leftExtension = 4;
+	static int leftExtension = 5;
 	static int rightExtension = 5;
-	static int upExtension = 4;
-	static int downExtension = 4;
+	static int upExtension = 10;
+	static int downExtension = 10;
 
 
 	[MenuItem ("Macabre/Object/Find Object Footprints")]
@@ -101,6 +101,7 @@ public class MacabreFootprint : EditorWindow {
 			for (int i = 0; i < objs.transform.childCount; ++i)
 			{
 				Transform o = objs.transform.GetChild(i);
+				if (o.name == "Room Effects") continue;
 
 				// Get original sprite, continue if fail
 				SpriteRenderer originalSpriteRenderer = o.GetComponent<SpriteRenderer>();

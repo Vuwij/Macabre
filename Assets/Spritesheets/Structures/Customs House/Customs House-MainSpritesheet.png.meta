@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 05e0fae458dc37b4a9d119f627fbe78b
-timeCreated: 1467437781
-licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Customs House-MainSpritesheet_0
@@ -41,14 +39,17 @@ TextureImporter:
     21300068: Customs House-MainSpritesheet_34
     21300070: Customs House-MainSpritesheet_35
     21300072: Customs House-MainSpritesheet_36
-  serializedVersion: 2
+  externalObjects: {}
+  serializedVersion: 5
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -56,38 +57,69 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 0
     aniso: 16
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Customs House-MainSpritesheet_0
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_0
       rect:
         serializedVersion: 2
         x: 27
@@ -97,22 +129,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 84.5, y: 101}
-        - {x: 8.5, y: 72}
-        - {x: -22.5, y: 101}
-        - {x: -45.5, y: 101}
-        - {x: -66.5, y: 58}
-        - {x: -120.5, y: -10}
-        - {x: -120.5, y: -67}
-        - {x: -100.5, y: -84}
-        - {x: -64.5, y: -101}
-        - {x: -38.5, y: -101}
-        - {x: 24.5, y: -73}
-        - {x: 120.5, y: -19}
-        - {x: 120.5, y: 42}
-        - {x: 92.5, y: 101}
-    - name: Customs House-MainSpritesheet_1
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23632f3a88d5d4347b578a3191e7c5b2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_1
       rect:
         serializedVersion: 2
         x: 767
@@ -122,16 +149,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -6.5, y: 25.5}
-        - {x: -16.5, y: 25.5}
-        - {x: -20.5, y: 23.5}
-        - {x: -20.5, y: -11.5}
-        - {x: 7.5, y: -25.5}
-        - {x: 17.5, y: -25.5}
-        - {x: 20.5, y: -23.5}
-        - {x: 20.5, y: 12.5}
-    - name: Customs House-MainSpritesheet_2
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4e20fd7bdbf54d0f839607258fdab1b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_2
       rect:
         serializedVersion: 2
         x: 1061
@@ -142,7 +170,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_3
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08e99ac5fe47f4648badef40d2318701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_3
       rect:
         serializedVersion: 2
         x: 1067
@@ -153,7 +190,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_4
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af9383038a9ea4e87a838a4f34c196e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_4
       rect:
         serializedVersion: 2
         x: 1077
@@ -164,7 +210,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_5
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6035118c55f3b425ea12d943934f3cfa
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_5
       rect:
         serializedVersion: 2
         x: 425
@@ -175,7 +230,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_6
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0a4af309e7d84dba9b37175f3f38219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_6
       rect:
         serializedVersion: 2
         x: 157
@@ -185,16 +249,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -6.5, y: 25.5}
-        - {x: -16.5, y: 25.5}
-        - {x: -20.5, y: 23.5}
-        - {x: -20.5, y: -11.5}
-        - {x: 7.5, y: -25.5}
-        - {x: 17.5, y: -25.5}
-        - {x: 20.5, y: -23.5}
-        - {x: 20.5, y: 12.5}
-    - name: Customs House-MainSpritesheet_7
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aba34e41eec3c45b69d7da24a1f87c1e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_7
       rect:
         serializedVersion: 2
         x: 205
@@ -204,16 +269,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -0.5, y: 21}
-        - {x: -31.5, y: 8}
-        - {x: -31.5, y: -18}
-        - {x: -24.5, y: -21}
-        - {x: 7.5, y: -21}
-        - {x: 31.5, y: -15}
-        - {x: 31.5, y: 13}
-        - {x: 16.5, y: 21}
-    - name: Customs House-MainSpritesheet_8
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a0ee21545e4643cbb4167728d1f54cf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_8
       rect:
         serializedVersion: 2
         x: 465
@@ -224,7 +290,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_9
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 790336485af934a8db3fa6a5c56a6efe
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_9
       rect:
         serializedVersion: 2
         x: 521
@@ -235,7 +310,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_10
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 073ac4f53f0c84440930f72c4eee5455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_10
       rect:
         serializedVersion: 2
         x: 530
@@ -246,7 +330,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_11
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cfee518cc54f42df9a06808fc06be14
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_11
       rect:
         serializedVersion: 2
         x: 543
@@ -257,7 +350,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_12
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35ec914b806a6420ca4342fb5de5bda1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_12
       rect:
         serializedVersion: 2
         x: 743
@@ -268,7 +370,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_13
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df006320872a2409b97d06f67d5b8fe4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_13
       rect:
         serializedVersion: 2
         x: 795
@@ -279,7 +390,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_14
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce206204e997b468781354449a72e1cd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_14
       rect:
         serializedVersion: 2
         x: 818
@@ -290,7 +410,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_15
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c8bf0559d1f34e7b8375d544723f765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_15
       rect:
         serializedVersion: 2
         x: 961
@@ -300,20 +429,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 47.5, y: 3.5}
-        - {x: 11.5, y: 23.5}
-        - {x: -6.5, y: 23.5}
-        - {x: -47.5, y: 5.5}
-        - {x: -47.5, y: -6.5}
-        - {x: -35.5, y: -12.5}
-        - {x: -33.5, y: -12.5}
-        - {x: 1.5, y: -23.5}
-        - {x: 11.5, y: -23.5}
-        - {x: 13.5, y: -21.5}
-        - {x: 36.5, y: -13.5}
-        - {x: 47.5, y: -8.5}
-    - name: Customs House-MainSpritesheet_16
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8388411bdb66142aeb307aee0fb40d3d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_16
       rect:
         serializedVersion: 2
         x: 500
@@ -324,7 +450,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_17
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b892e9211fb049baa36473b6902f9bd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_17
       rect:
         serializedVersion: 2
         x: 753
@@ -335,7 +470,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_18
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32ed8971c94c44a89a1bc5c298329558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_18
       rect:
         serializedVersion: 2
         x: 827
@@ -346,7 +490,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_19
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8b3fda17dbd34569bf0b92b41e0ccb6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_19
       rect:
         serializedVersion: 2
         x: 93
@@ -356,15 +509,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -21.5, y: 19}
-        - {x: -27.5, y: 11}
-        - {x: -27.5, y: -14}
-        - {x: -14.5, y: -19}
-        - {x: 1.5, y: -19}
-        - {x: 27.5, y: -4}
-        - {x: 27.5, y: 19}
-    - name: Customs House-MainSpritesheet_20
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d52d919d719544d00adc77d0f3c9c8d6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_20
       rect:
         serializedVersion: 2
         x: 391
@@ -375,7 +530,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_21
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d72c1ac06e6a4a46bfe9f1ab57533c5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_21
       rect:
         serializedVersion: 2
         x: 607
@@ -385,17 +549,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 27.5, y: 27.5}
-        - {x: 11.5, y: 27.5}
-        - {x: -7.5, y: 21.5}
-        - {x: -31.5, y: 8.5}
-        - {x: -31.5, y: -27.5}
-        - {x: -14.5, y: -27.5}
-        - {x: 2.5, y: -20.5}
-        - {x: 31.5, y: -6.5}
-        - {x: 31.5, y: 24.5}
-    - name: Customs House-MainSpritesheet_22
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68b11d8d6671f43f1b8e2b08fa32adc2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_22
       rect:
         serializedVersion: 2
         x: 699
@@ -406,7 +570,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_23
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e257107a17cfa4b44801ba519d138736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_23
       rect:
         serializedVersion: 2
         x: 929
@@ -417,7 +590,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_24
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b631289983c047cf9165b9693b2aafb
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_24
       rect:
         serializedVersion: 2
         x: 905
@@ -428,7 +610,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_25
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3a30a1e0b0f498b98cb3b740f779e2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_25
       rect:
         serializedVersion: 2
         x: 995
@@ -439,7 +630,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_26
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c81cd84a0242f4da783a3104443ab2a8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_26
       rect:
         serializedVersion: 2
         x: 97
@@ -450,7 +650,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_27
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa60210a6065487481be866d5dd0c7c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_27
       rect:
         serializedVersion: 2
         x: 387
@@ -461,7 +670,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_28
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38893d14fa3134663bb74f375c70e601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_28
       rect:
         serializedVersion: 2
         x: 389
@@ -472,7 +690,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_29
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83498091e02964aba9ea5d436f0db1ae
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_29
       rect:
         serializedVersion: 2
         x: 607
@@ -482,25 +709,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 94.5, y: 100.5}
-        - {x: 77.5, y: 100.5}
-        - {x: -26.5, y: 72.5}
-        - {x: -120.5, y: -22.5}
-        - {x: -120.5, y: -64.5}
-        - {x: -100.5, y: -83.5}
-        - {x: -73.5, y: -100.5}
-        - {x: -7.5, y: -100.5}
-        - {x: 67.5, y: -59.5}
-        - {x: 120.5, y: -18.5}
-        - {x: 120.5, y: 42.5}
-      - - {x: -57.5, y: 39.5}
-        - {x: -48.5, y: 35.5}
-        - {x: -45.5, y: 36.5}
-        - {x: -45.5, y: 46.5}
-        - {x: -47.5, y: 48.5}
-        - {x: -58.5, y: 42.5}
-    - name: Customs House-MainSpritesheet_30
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22a3f492807d84c60b71054472e81c99
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_30
       rect:
         serializedVersion: 2
         x: 961
@@ -510,21 +729,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -29.5, y: 83.5}
-        - {x: -58.5, y: 83.5}
-        - {x: -59.5, y: 82.5}
-        - {x: -79.5, y: 41.5}
-        - {x: -79.5, y: -19.5}
-        - {x: -67.5, y: -25.5}
-        - {x: -65.5, y: -25.5}
-        - {x: -30.5, y: -74.5}
-        - {x: -13.5, y: -83.5}
-        - {x: -1.5, y: -83.5}
-        - {x: 33.5, y: -75.5}
-        - {x: 79.5, y: -53.5}
-        - {x: 79.5, y: 15.5}
-    - name: Customs House-MainSpritesheet_31
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f477552807ea443d81d1e63b4126b4b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_31
       rect:
         serializedVersion: 2
         x: 137
@@ -534,14 +749,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -19.5, y: 27.5}
-        - {x: -25.5, y: 27.5}
-        - {x: -25.5, y: -26.5}
-        - {x: -6.5, y: -27.5}
-        - {x: 25.5, y: -27.5}
-        - {x: 25.5, y: 5.5}
-    - name: Customs House-MainSpritesheet_32
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15c82ce85d253427db4f5819c3dfddb0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_32
       rect:
         serializedVersion: 2
         x: 427
@@ -551,17 +769,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -25.5, y: 27.5}
-        - {x: -25.5, y: -9.5}
-        - {x: -9.5, y: -16.5}
-        - {x: -6.5, y: -11.5}
-        - {x: 2.5, y: -21.5}
-        - {x: 15.5, y: -27.5}
-        - {x: 25.5, y: -27.5}
-        - {x: 25.5, y: 10.5}
-        - {x: -18.5, y: 27.5}
-    - name: Customs House-MainSpritesheet_33
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7234219d05a8d44538e027ff112c301e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_33
       rect:
         serializedVersion: 2
         x: 717
@@ -571,14 +789,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -25.5, y: 27.5}
-        - {x: -25.5, y: -7.5}
-        - {x: 14.5, y: -27.5}
-        - {x: 25.5, y: -27.5}
-        - {x: 25.5, y: 10.5}
-        - {x: -18.5, y: 27.5}
-    - name: Customs House-MainSpritesheet_34
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfa9a75f8fa7942aea9b17191c9a8b7d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_34
       rect:
         serializedVersion: 2
         x: 961
@@ -589,7 +810,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Customs House-MainSpritesheet_35
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 548f8c3df6004430e8ab70022b6239ab
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_35
       rect:
         serializedVersion: 2
         x: 107
@@ -599,16 +829,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -0.5, y: 32.5}
-        - {x: -28.5, y: -4.5}
-        - {x: -28.5, y: -28.5}
-        - {x: -15.5, y: -32.5}
-        - {x: 2.5, y: -32.5}
-        - {x: 28.5, y: -16.5}
-        - {x: 28.5, y: 26.5}
-        - {x: 15.5, y: 32.5}
-    - name: Customs House-MainSpritesheet_36
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29704069b83fb4e139396b9b5515f8d3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_36
       rect:
         serializedVersion: 2
         x: 295
@@ -618,25 +849,23 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 133.5, y: -11}
-        - {x: 140.5, y: 18}
-        - {x: 140.5, y: 32}
-        - {x: 96.5, y: 116}
-        - {x: 87.5, y: 116}
-        - {x: 26.5, y: 85}
-        - {x: -33.5, y: 116}
-        - {x: -69.5, y: 46}
-        - {x: -140.5, y: -24}
-        - {x: -140.5, y: -36}
-        - {x: -124.5, y: -73}
-        - {x: -71.5, y: -98}
-        - {x: -57.5, y: -101}
-        - {x: -24.5, y: -116}
-        - {x: 11.5, y: -116}
-        - {x: 62.5, y: -90}
-        - {x: 115.5, y: -62}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db6b834f95c394500b41f46f893b18b5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
