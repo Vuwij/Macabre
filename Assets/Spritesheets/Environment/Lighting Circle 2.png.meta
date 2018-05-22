@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Spritesheets/Environment/Lighting Circle.png.meta
 guid: 79de35caeb61e904a8ab09e28c30bc47
+=======
+guid: 1ab1449c70b33da42be132cf9523d003
+>>>>>>> 73b7434b213c9638b2dd20f91f754e598b12c0c4:Assets/Spritesheets/Environment/Lighting Circle 2.png.meta
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -29,12 +33,21 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD:Assets/Spritesheets/Environment/Lighting Circle.png.meta
     filterMode: 0
     aniso: -1
     mipBias: -1
     wrapU: 1
     wrapV: 1
     wrapW: 1
+=======
+    filterMode: -1
+    aniso: -1
+    mipBias: -1
+    wrapU: -1
+    wrapV: -1
+    wrapW: -1
+>>>>>>> 73b7434b213c9638b2dd20f91f754e598b12c0c4:Assets/Spritesheets/Environment/Lighting Circle 2.png.meta
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
@@ -46,10 +59,17 @@ TextureImporter:
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
+<<<<<<< HEAD:Assets/Spritesheets/Environment/Lighting Circle.png.meta
   alphaUsage: 0
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 1
+=======
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 0
+>>>>>>> 73b7434b213c9638b2dd20f91f754e598b12c0c4:Assets/Spritesheets/Environment/Lighting Circle 2.png.meta
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -58,6 +78,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
+<<<<<<< HEAD:Assets/Spritesheets/Environment/Lighting Circle.png.meta
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -102,6 +123,8 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: WebGL
+=======
+>>>>>>> 73b7434b213c9638b2dd20f91f754e598b12c0c4:Assets/Spritesheets/Environment/Lighting Circle 2.png.meta
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
