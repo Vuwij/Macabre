@@ -86,7 +86,7 @@ public class PixelPerfectObject : MonoBehaviour
 
     void SetPixelPerfectPosition()
     {
-        if (useParentTransform)
+		if (useParentTransform)
         {
             transform.localPosition = Vector3.zero;
 

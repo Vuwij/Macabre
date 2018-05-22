@@ -9,8 +9,8 @@ using Objects.Movable.Characters;
 
 public class MacabreFootprint : EditorWindow {
     
-	static int leftExtension = 5;
-	static int rightExtension = 5;
+	static int leftExtension = 6; // Must be even
+	static int rightExtension = 6;
 	static int upExtension = 10;
 	static int downExtension = 10;
 
