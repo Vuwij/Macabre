@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 7a52bec0143802c43b35a25b787cc987
-timeCreated: 1467437943
-licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Vineyard-MainSpritesheet_0
@@ -25,14 +23,17 @@ TextureImporter:
     21300036: Vineyard-MainSpritesheet_18
     21300038: Vineyard-MainSpritesheet_19
     21300040: Vineyard-MainSpritesheet_20
-  serializedVersion: 2
+  externalObjects: {}
+  serializedVersion: 5
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -40,38 +41,69 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 0
     aniso: 16
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Vineyard-MainSpritesheet_0
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_0
       rect:
         serializedVersion: 2
         x: 40
@@ -81,38 +113,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 168.5, y: 40}
-        - {x: 163.5, y: 58}
-        - {x: 151.5, y: 69}
-        - {x: 115.5, y: 144}
-        - {x: 108.5, y: 147}
-        - {x: 62.5, y: 122}
-        - {x: 38.5, y: 160}
-        - {x: 12.5, y: 149}
-        - {x: -24.5, y: 168}
-        - {x: -39.5, y: 168}
-        - {x: -66.5, y: 113}
-        - {x: -63.5, y: 84}
-        - {x: -95.5, y: 50}
-        - {x: -95.5, y: 47}
-        - {x: -93.5, y: 44}
-        - {x: -104.5, y: 12}
-        - {x: -101.5, y: -19}
-        - {x: -113.5, y: -15}
-        - {x: -144.5, y: -35}
-        - {x: -150.5, y: -39}
-        - {x: -168.5, y: -97}
-        - {x: -168.5, y: -108}
-        - {x: -164.5, y: -110}
-        - {x: -162.5, y: -110}
-        - {x: -143.5, y: -100}
-        - {x: -8.5, y: -168}
-        - {x: 1.5, y: -168}
-        - {x: 158.5, y: -90}
-        - {x: 160.5, y: -87}
-        - {x: 168.5, y: -5}
-    - name: Vineyard-MainSpritesheet_1
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dd173fa01ec64c608a2ee8adca6f761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_1
       rect:
         serializedVersion: 2
         x: 436
@@ -122,15 +133,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -62.5, y: 28.5}
-        - {x: -62.5, y: 19.5}
-        - {x: 27.5, y: -28.5}
-        - {x: 44.5, y: -28.5}
-        - {x: 62.5, y: -21.5}
-        - {x: 62.5, y: -0.5}
-        - {x: -50.5, y: 28.5}
-    - name: Vineyard-MainSpritesheet_2
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 804f834682999455081de53421d66c98
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_2
       rect:
         serializedVersion: 2
         x: 860
@@ -140,20 +153,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -34.5, y: 38.5}
-        - {x: -52.5, y: 38.5}
-        - {x: -52.5, y: 9.5}
-        - {x: -48.5, y: 7.5}
-        - {x: -46.5, y: 7.5}
-        - {x: -41.5, y: 11.5}
-        - {x: -21.5, y: -6.5}
-        - {x: -8.5, y: -26.5}
-        - {x: 15.5, y: -38.5}
-        - {x: 52.5, y: -38.5}
-        - {x: 52.5, y: -3.5}
-        - {x: 16.5, y: 14.5}
-    - name: Vineyard-MainSpritesheet_3
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed55bf50fa6794d62bce73797afb9adf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_3
       rect:
         serializedVersion: 2
         x: 968
@@ -163,20 +173,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -28.5, y: 51.5}
-        - {x: -50.5, y: 51.5}
-        - {x: -50.5, y: -3.5}
-        - {x: -46.5, y: -5.5}
-        - {x: -44.5, y: -5.5}
-        - {x: -39.5, y: -1.5}
-        - {x: -20.5, y: -50.5}
-        - {x: -20.5, y: -51.5}
-        - {x: -8.5, y: -51.5}
-        - {x: 50.5, y: -24.5}
-        - {x: 50.5, y: 35.5}
-        - {x: 49.5, y: 36.5}
-    - name: Vineyard-MainSpritesheet_4
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d33a784a7a714c10ba89c79f094af75
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_4
       rect:
         serializedVersion: 2
         x: 1253
@@ -186,22 +193,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 36.5, y: -1}
-        - {x: 0.5, y: 21}
-        - {x: -21.5, y: 29}
-        - {x: -36.5, y: 29}
-        - {x: -43.5, y: 25}
-        - {x: -48.5, y: 21}
-        - {x: -48.5, y: 9}
-        - {x: -44.5, y: 1}
-        - {x: -28.5, y: -3}
-        - {x: 7.5, y: -21}
-        - {x: 21.5, y: -29}
-        - {x: 48.5, y: -29}
-        - {x: 48.5, y: -17}
-        - {x: 47.5, y: -17}
-    - name: Vineyard-MainSpritesheet_5
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57516507e5b354717945bac69891f540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_5
       rect:
         serializedVersion: 2
         x: 668
@@ -211,17 +213,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -49, y: 36.5}
-        - {x: 3, y: -58.5}
-        - {x: 15, y: -65.5}
-        - {x: 36, y: -65.5}
-        - {x: 49, y: -49.5}
-        - {x: 49, y: -25.5}
-        - {x: 1, y: 65.5}
-        - {x: -8, y: 65.5}
-        - {x: -49, y: 49.5}
-    - name: Vineyard-MainSpritesheet_6
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31bb78412d622497f80455a5432e2d02
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_6
       rect:
         serializedVersion: 2
         x: 956
@@ -231,20 +233,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 56, y: 70}
-        - {x: 8, y: 52}
-        - {x: -65, y: 88}
-        - {x: -95, y: 88}
-        - {x: -105, y: 53}
-        - {x: -105, y: -37}
-        - {x: -76, y: -83}
-        - {x: -60, y: -88}
-        - {x: 72, y: -88}
-        - {x: 100, y: -74}
-        - {x: 105, y: -63}
-        - {x: 105, y: -27}
-    - name: Vineyard-MainSpritesheet_7
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 590c6ebb7452740cc8d6185bd384dd5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_7
       rect:
         serializedVersion: 2
         x: 1468
@@ -254,18 +253,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 11.5, y: 63.5}
-        - {x: -4.5, y: 63.5}
-        - {x: -25.5, y: 58.5}
-        - {x: -44.5, y: -42.5}
-        - {x: -44.5, y: -56.5}
-        - {x: -29.5, y: -63.5}
-        - {x: -18.5, y: -63.5}
-        - {x: -15.5, y: -60.5}
-        - {x: 44.5, y: 11.5}
-        - {x: 44.5, y: 28.5}
-    - name: Vineyard-MainSpritesheet_8
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92035b22d283541eba33c18f4c043035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_8
       rect:
         serializedVersion: 2
         x: 44
@@ -275,16 +273,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -41.5, y: 30.5}
-        - {x: -56.5, y: 24.5}
-        - {x: -56.5, y: 10.5}
-        - {x: 30.5, y: -30.5}
-        - {x: 47.5, y: -30.5}
-        - {x: 56.5, y: -24.5}
-        - {x: 56.5, y: -11.5}
-        - {x: -24.5, y: 30.5}
-    - name: Vineyard-MainSpritesheet_9
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f57a80c8f94bb4d42a79710719a509c4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_9
       rect:
         serializedVersion: 2
         x: 960
@@ -294,16 +293,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 11.5, y: 27}
-        - {x: -3.5, y: 27}
-        - {x: -27.5, y: 13}
-        - {x: -27.5, y: -27}
-        - {x: 23.5, y: -27}
-        - {x: 25.5, y: -25}
-        - {x: 27.5, y: -20}
-        - {x: 27.5, y: 22}
-    - name: Vineyard-MainSpritesheet_10
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a02bddd5896242128609e2d4b98a894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_10
       rect:
         serializedVersion: 2
         x: 1048
@@ -314,7 +314,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Vineyard-MainSpritesheet_11
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85296268bdd60441bbd257b4ad8c231a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_11
       rect:
         serializedVersion: 2
         x: 1072
@@ -325,7 +334,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Vineyard-MainSpritesheet_12
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e88b832fb21d47018b02e884b4ae5cc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_12
       rect:
         serializedVersion: 2
         x: 1120
@@ -336,7 +354,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Vineyard-MainSpritesheet_13
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 111c29f3078d64536bdcaee395ba9811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_13
       rect:
         serializedVersion: 2
         x: 1144
@@ -347,7 +374,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Vineyard-MainSpritesheet_14
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74fd6b9d3cd5d4bad995d9da110d1d84
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_14
       rect:
         serializedVersion: 2
         x: 228
@@ -357,16 +393,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 19.5, y: 70.5}
-        - {x: -64.5, y: 31.5}
-        - {x: -64.5, y: -55.5}
-        - {x: -29.5, y: -70.5}
-        - {x: -11.5, y: -70.5}
-        - {x: 64.5, y: -30.5}
-        - {x: 64.5, y: 55.5}
-        - {x: 36.5, y: 70.5}
-    - name: Vineyard-MainSpritesheet_15
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36ca76a03750e4f0383372573c454438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_15
       rect:
         serializedVersion: 2
         x: 532
@@ -376,16 +413,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -30.5, y: 75.5}
-        - {x: -74.5, y: 53.5}
-        - {x: -74.5, y: -46.5}
-        - {x: 3.5, y: -75.5}
-        - {x: 24.5, y: -75.5}
-        - {x: 74.5, y: -52.5}
-        - {x: 74.5, y: 35.5}
-        - {x: -12.5, y: 75.5}
-    - name: Vineyard-MainSpritesheet_16
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fc2c5474720d454289e103d8ad5b00c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_16
       rect:
         serializedVersion: 2
         x: 1010
@@ -395,15 +433,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -37.5, y: 41.5}
-        - {x: -37.5, y: -24.5}
-        - {x: 2.5, y: -41.5}
-        - {x: 24.5, y: -41.5}
-        - {x: 37.5, y: -34.5}
-        - {x: 37.5, y: 28.5}
-        - {x: 14.5, y: 41.5}
-    - name: Vineyard-MainSpritesheet_17
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7cab5cd10de846a3a41e27b3c5037c1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_17
       rect:
         serializedVersion: 2
         x: 1392
@@ -413,16 +453,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -28.5, y: 75.5}
-        - {x: -74.5, y: 49.5}
-        - {x: -74.5, y: -31.5}
-        - {x: -16.5, y: -75.5}
-        - {x: 44.5, y: -75.5}
-        - {x: 74.5, y: -64.5}
-        - {x: 74.5, y: 37.5}
-        - {x: -12.5, y: 75.5}
-    - name: Vineyard-MainSpritesheet_18
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b2e3aaf9247b4676b10376069fb2ac2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_18
       rect:
         serializedVersion: 2
         x: 276
@@ -432,15 +473,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -26.5, y: 52.5}
-        - {x: -32.5, y: 52.5}
-        - {x: -32.5, y: 28.5}
-        - {x: 16.5, y: -47.5}
-        - {x: 26.5, y: -52.5}
-        - {x: 32.5, y: -52.5}
-        - {x: 32.5, y: 23.5}
-    - name: Vineyard-MainSpritesheet_19
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04eb92d52b34b424980bdd6973cf9b21
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_19
       rect:
         serializedVersion: 2
         x: 676
@@ -450,14 +493,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -20.5, y: 43}
-        - {x: -31.5, y: 43}
-        - {x: -31.5, y: -14}
-        - {x: 26.5, y: -43}
-        - {x: 31.5, y: -43}
-        - {x: 31.5, y: -7}
-    - name: Vineyard-MainSpritesheet_20
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a666b2c46744ff5825823ab85ec028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Vineyard-MainSpritesheet_20
       rect:
         serializedVersion: 2
         x: 918
@@ -467,16 +513,23 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -13.5, y: 57.5}
-        - {x: -35.5, y: 31.5}
-        - {x: -35.5, y: -50.5}
-        - {x: -18.5, y: -57.5}
-        - {x: -2.5, y: -57.5}
-        - {x: 35.5, y: -35.5}
-        - {x: 35.5, y: 25.5}
-        - {x: 8.5, y: 57.5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26a0fc8eedb034dc18cef785c2e277d2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

@@ -145,9 +145,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_0
       rect:
         serializedVersion: 2
-        x: 76
+        x: 75
         y: 1580
-        width: 155
+        width: 157
         height: 155
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -156,7 +156,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eada6de33a79940f388495746e84533a
+      spriteID: 22d58536da09345a2a80f1aca42f3a82
       vertices: []
       indices: 
       edges: []
@@ -165,9 +165,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_1
       rect:
         serializedVersion: 2
-        x: 730
+        x: 729
         y: 1668
-        width: 29
+        width: 31
         height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -176,7 +176,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f079b1029ca34c888c65a76c37c52ab
+      spriteID: 30634f1413f1843989f95dd092bbdfe1
       vertices: []
       indices: 
       edges: []
@@ -185,9 +185,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_3
       rect:
         serializedVersion: 2
-        x: 1027
+        x: 1026
         y: 1671
-        width: 33
+        width: 35
         height: 43
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -196,7 +196,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9631ff8e8400e4872bfd0519a268df5d
+      spriteID: bab0343487a5948c6be624fb583f9f9c
       vertices: []
       indices: 
       edges: []
@@ -205,9 +205,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_4
       rect:
         serializedVersion: 2
-        x: 414
+        x: 413
         y: 1640
-        width: 43
+        width: 45
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -216,7 +216,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b2adc625aab784bb2a456b5c2e4e01e8
+      spriteID: 8c39164b6fb644f7db8a6766f5713f80
       vertices: []
       indices: 
       edges: []
@@ -225,9 +225,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_5
       rect:
         serializedVersion: 2
-        x: 704
+        x: 703
         y: 1639
-        width: 27
+        width: 29
         height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -236,7 +236,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 555f3aaf6281a466f8dd1cdceb2a8bb0
+      spriteID: 9328cfb1cec064c0dba73f1c3fd9d392
       vertices: []
       indices: 
       edges: []
@@ -245,9 +245,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_6
       rect:
         serializedVersion: 2
-        x: 976
+        x: 975
         y: 1633
-        width: 45
+        width: 47
         height: 50
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -256,7 +256,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 299695f6bc97c45b8be806b499cbbeeb
+      spriteID: 2ae2b6afe1b1f4d8f89ab593a4807d00
       vertices: []
       indices: 
       edges: []
@@ -265,9 +265,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_7
       rect:
         serializedVersion: 2
-        x: 1042
+        x: 1041
         y: 1621
-        width: 53
+        width: 55
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -276,7 +276,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 304ec8104a69544a7817ada325c18b43
+      spriteID: 0127996a250ac44f9b97d0f696d09d38
       vertices: []
       indices: 
       edges: []
@@ -285,9 +285,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_8
       rect:
         serializedVersion: 2
-        x: 750
+        x: 749
         y: 1584
-        width: 45
+        width: 47
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -296,7 +296,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 48d5440ce713042b096381667417b6ba
+      spriteID: 6dcad2a6daf7e47d78c64feb379bc1da
       vertices: []
       indices: 
       edges: []
@@ -305,9 +305,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_9
       rect:
         serializedVersion: 2
-        x: 168
+        x: 167
         y: 1249
-        width: 23
+        width: 25
         height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -316,7 +316,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d3917aed3f05e4763b70ceb3265b3727
+      spriteID: 648100a893f07451baed398d0b105554
       vertices: []
       indices: 
       edges: []
@@ -325,9 +325,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_10
       rect:
         serializedVersion: 2
-        x: 432
+        x: 431
         y: 1293
-        width: 21
+        width: 23
         height: 39
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -336,7 +336,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d635a53ec13b94313893621906ee89e6
+      spriteID: 9dd41c5d181c3434b9911bc85608dd3e
       vertices: []
       indices: 
       edges: []
@@ -345,9 +345,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_11
       rect:
         serializedVersion: 2
-        x: 480
+        x: 479
         y: 1223
-        width: 51
+        width: 53
         height: 61
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -356,7 +356,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7e4138a011a2479a8173471859f1d58
+      spriteID: 70992c8caead4407fb35af86e104bec6
       vertices: []
       indices: 
       edges: []
@@ -365,9 +365,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_12
       rect:
         serializedVersion: 2
-        x: 774
+        x: 773
         y: 1199
-        width: 49
+        width: 51
         height: 88
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -376,7 +376,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4fd660207dcbb4cbea221b663f314d4c
+      spriteID: 03051142a8c9c4dedb0a500f04797946
       vertices: []
       indices: 
       edges: []
@@ -385,9 +385,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_13
       rect:
         serializedVersion: 2
-        x: 968
+        x: 967
         y: 1186
-        width: 171
+        width: 173
         height: 177
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -396,7 +396,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a1ca36523c8bb40468f375ed3524cdc5
+      spriteID: 02dfddbd680a84543acafd818694474e
       vertices: []
       indices: 
       edges: []
@@ -405,9 +405,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_14
       rect:
         serializedVersion: 2
-        x: 76
+        x: 75
         y: 892
-        width: 135
+        width: 137
         height: 193
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -416,7 +416,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e6584c05bf07d4f219a919515d4e2105
+      spriteID: 81443bde95caf4f49bdebb56189f3d8d
       vertices: []
       indices: 
       edges: []
@@ -425,9 +425,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_15
       rect:
         serializedVersion: 2
-        x: 384
+        x: 383
         y: 931
-        width: 48
+        width: 50
         height: 105
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -436,7 +436,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3c945019d8e9c4095895c5ab9959ed82
+      spriteID: 0317fdc70001e41a58b07576e8937000
       vertices: []
       indices: 
       edges: []
@@ -445,9 +445,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_17
       rect:
         serializedVersion: 2
-        x: 738
+        x: 737
         y: 971
-        width: 38
+        width: 40
         height: 57
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -456,7 +456,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d71f2ef5c11cc4cd48ad5fbd3190407c
+      spriteID: fa79e0dd26663470b95effc48684af56
       vertices: []
       indices: 
       edges: []
@@ -465,9 +465,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_18
       rect:
         serializedVersion: 2
-        x: 695
+        x: 694
         y: 948
-        width: 22
+        width: 24
         height: 29
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -476,7 +476,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a7b79bedb1e2b4f4a943a7cca4560d8a
+      spriteID: f7077136407794d9fbce1aa0ffa68cec
       vertices: []
       indices: 
       edges: []
@@ -485,9 +485,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_19
       rect:
         serializedVersion: 2
-        x: 1004
+        x: 1003
         y: 921
-        width: 58
+        width: 60
         height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -496,7 +496,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 27bf3874bb4b24224a7ba9caeac51e4f
+      spriteID: 1b4541dca40254fb8b2d06e6e5a7b55c
       vertices: []
       indices: 
       edges: []
@@ -505,9 +505,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_20
       rect:
         serializedVersion: 2
-        x: 1064
+        x: 1063
         y: 920
-        width: 41
+        width: 43
         height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -516,7 +516,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a9d9fb27e39a4f1593cf9a6f384a079
+      spriteID: de268ad215faa40b684250246119ac3c
       vertices: []
       indices: 
       edges: []
@@ -525,9 +525,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_21
       rect:
         serializedVersion: 2
-        x: 390
+        x: 389
         y: 594
-        width: 37
+        width: 39
         height: 53
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -536,7 +536,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0f2958709f9714f94beb36b324b6aac3
+      spriteID: 2bba8be32737a409c9da57f410e527a6
       vertices: []
       indices: 
       edges: []
@@ -545,9 +545,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_22
       rect:
         serializedVersion: 2
-        x: 474
+        x: 473
         y: 582
-        width: 30
+        width: 32
         height: 40
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -556,7 +556,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 305d7095c68094120bceafb0fcf794fe
+      spriteID: f63f96eb90a9f4ca580c1d2a25fbd91f
       vertices: []
       indices: 
       edges: []
@@ -565,9 +565,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_23
       rect:
         serializedVersion: 2
-        x: 676
+        x: 675
         y: 516
-        width: 135
+        width: 137
         height: 189
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -576,7 +576,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c70b13f2707b54d3eb703c608055243a
+      spriteID: 9448828ce893b43f28a082cafb0a0642
       vertices: []
       indices: 
       edges: []
@@ -585,9 +585,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_24
       rect:
         serializedVersion: 2
-        x: 922
+        x: 921
         y: 399
-        width: 255
+        width: 257
         height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -596,7 +596,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cba6781f7ea86443c9766055ab356435
+      spriteID: 4a43a80d99ab1478d8ac0041e4722232
       vertices: []
       indices: 
       edges: []
@@ -605,9 +605,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_25
       rect:
         serializedVersion: 2
-        x: 170
+        x: 169
         y: 578
-        width: 35
+        width: 37
         height: 35
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -616,7 +616,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a85284398aa3549af9dc4f363f22c3f8
+      spriteID: 8545a178ac4db4f5ea0eb1578b88f9a7
       vertices: []
       indices: 
       edges: []
@@ -625,9 +625,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_26
       rect:
         serializedVersion: 2
-        x: 132
+        x: 131
         y: 535
-        width: 31
+        width: 33
         height: 51
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -636,7 +636,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8b21cdbf98cda4d2284ee90469430d0d
+      spriteID: 8ff0ed5e1d649474ba26f2cf098079f3
       vertices: []
       indices: 
       edges: []
@@ -645,9 +645,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_27
       rect:
         serializedVersion: 2
-        x: 21
+        x: 20
         y: 91
-        width: 258
+        width: 260
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -656,7 +656,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8dca1804532f34447891c23d184bbd35
+      spriteID: 7d96141b5170b4242920b7dc4fa4d41c
       vertices: []
       indices: 
       edges: []

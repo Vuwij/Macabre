@@ -9,10 +9,10 @@ using Objects.Movable.Characters;
 
 public class MacabreFootprint : EditorWindow {
     
-	static int leftExtension = 6; // Must be even
-	static int rightExtension = 6;
-	static int upExtension = 10;
-	static int downExtension = 10;
+	static int leftExtension = 2; // Must be even
+	static int rightExtension = 2;
+	static int upExtension = 2;
+	static int downExtension = 2;
 
 
 	[MenuItem ("Macabre/Object/Find Object Footprints")]

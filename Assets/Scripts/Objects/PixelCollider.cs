@@ -21,13 +21,16 @@ namespace Objects
         Vector2[] colliderPoints;
 
         public bool noSorting;
+		public bool noCollision;
 
         int pixelProximity = 4; // 3 pixels away from the object
         Vector2 topP, bottomP, leftP, rightP;
 
         void Awake()
         {
-            collider2D = GetComponent<PolygonCollider2D>();
+			if (noCollision) return;
+
+			collider2D = GetComponent<PolygonCollider2D>();
 
             Debug.Assert(collider2D != null);
             Debug.Assert(collider2D.points.Length == 4);
@@ -72,6 +75,7 @@ namespace Objects
                 if (otherPixelCollider == null) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
 				if (otherPixelCollider.noSorting) continue;
+				if (otherPixelCollider.noCollision) continue;
                 pixelColliders.Add(otherPixelCollider);
             }
          
@@ -86,12 +90,10 @@ namespace Objects
                 sr.sortingOrder = i * 2;
 
                 // Child objects
-                PixelCollider[] childobjects = pixelColliders[i].transform.parent.GetComponentsInChildren<PixelCollider>();
-                foreach(PixelCollider co in childobjects) {
-					if (co == pixelColliders[i]) continue;
-                    SpriteRenderer srchild = co.transform.parent.GetComponentInChildren<SpriteRenderer>();
-					if (srchild == null) continue;
-                    srchild.sortingOrder = i * 2 + 1;
+				SpriteRenderer[] childobjects = pixelColliders[i].transform.parent.GetComponentsInChildren<SpriteRenderer>();
+				foreach(SpriteRenderer co in childobjects) {
+					if (co == sr) continue;
+                    co.sortingOrder = i * 2 + 1;
                 }
                 
 				if (previousTransform != null && sr.gameObject.transform != previousTransform) {
@@ -181,6 +183,7 @@ namespace Objects
             {
                 PixelCollider otherPixelCollider = raycastHit.collider.GetComponent<PixelCollider>();
                 if (otherPixelCollider == null) continue;
+				if (otherPixelCollider.noCollision) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
 
                 Transform otherTransform = otherPixelCollider.gameObject.transform;
@@ -261,6 +264,7 @@ namespace Objects
             {
                 PixelCollider otherPixelCollider = raycastHit.collider.GetComponent<PixelCollider>();
                 if (otherPixelCollider == null) continue;
+				if (otherPixelCollider.noCollision) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
 
                 Transform otherTransform = otherPixelCollider.gameObject.transform;
@@ -419,6 +423,27 @@ namespace Objects
             }
 
             return pixelColliders;
+        }
+
+		public List<SpriteRenderer> GetChildSpriteRenderers()
+        {
+			List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
+
+            for (int i = 0; i < transform.parent.childCount; ++i)
+            {
+                Transform t = transform.parent.GetChild(i);
+                for (int j = 0; j < t.childCount; ++j)
+                {
+                    Transform t2 = t.GetChild(j);
+					SpriteRenderer pc = t2.GetComponent<SpriteRenderer>();
+                    if (pc != null)
+                    {
+                        spriteRenderers.Add(pc);
+                    }
+                }
+            }
+
+            return spriteRenderers;
         }
     }
 
