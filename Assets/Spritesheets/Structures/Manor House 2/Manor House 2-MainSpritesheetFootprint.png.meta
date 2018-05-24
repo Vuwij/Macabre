@@ -1,17 +1,52 @@
 fileFormatVersion: 2
 guid: 5320cf34c2f3c4e3ebb517d7d9154c35
-timeCreated: 1468660006
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
-  serializedVersion: 2
+  fileIDToRecycleName:
+    21300000: Manor House 2-MainSpritesheet_0
+    21300002: Manor House 2-MainSpritesheet_1
+    21300004: Manor House 2-MainSpritesheet_2
+    21300006: Manor House 2-MainSpritesheet_3
+    21300008: Manor House 2-MainSpritesheet_4
+    21300010: Manor House 2-MainSpritesheet_5
+    21300012: Manor House 2-MainSpritesheet_6
+    21300014: Manor House 2-MainSpritesheet_7
+    21300016: Manor House 2-MainSpritesheet_8
+    21300018: Manor House 2-MainSpritesheet_9
+    21300020: Manor House 2-MainSpritesheet_10
+    21300022: Manor House 2-MainSpritesheet_11
+    21300024: Manor House 2-MainSpritesheet_12
+    21300026: Manor House 2-MainSpritesheet_13
+    21300028: Manor House 2-MainSpritesheet_14
+    21300030: Manor House 2-MainSpritesheet_15
+    21300032: Manor House 2-MainSpritesheet_16
+    21300034: Manor House 2-MainSpritesheet_17
+    21300036: Manor House 2-MainSpritesheet_18
+    21300038: Manor House 2-MainSpritesheet_19
+    21300040: Manor House 2-MainSpritesheet_20
+    21300042: Manor House 2-MainSpritesheet_21
+    21300044: Manor House 2-MainSpritesheet_22
+    21300046: Manor House 2-MainSpritesheet_23
+    21300048: Manor House 2-MainSpritesheet_24
+    21300050: Manor House 2-MainSpritesheet_25
+    21300052: Manor House 2-MainSpritesheet_26
+    21300054: Manor House 2-MainSpritesheet_27
+    21300056: Manor House 2-MainSpritesheet_28
+    21300058: Manor House 2-MainSpritesheet_29
+    21300060: Manor House 2-MainSpritesheet_30
+    21300062: Manor House 2-MainSpritesheet_31
+    21300064: Manor House 2-MainSpritesheet_32
+    21300066: Manor House 2-MainSpritesheet_33
+  externalObjects: {}
+  serializedVersion: 5
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -19,38 +54,788 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 16
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: 12
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
-    sprites: []
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 3097
+        width: 236
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36bd0ce50a7574cfa92f1b1d250b1421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 3161
+        width: 23
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e29ee93afbbb54d73880e9537963b7c3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 3139
+        width: 22
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abffde21ce7ad47f59187c532da6a629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 3121
+        width: 24
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54954c288b52649e18b23c927dfdef06
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 2887
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eec7fe5e27c94177becf4c52892672f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 2757
+        width: 29
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baaae2a5b0f0a4a27be8242669518e6a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 2755
+        width: 31
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aea6664f874f440a9a22b8dc6d114ee
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 749
+        y: 2770
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b9255315aa2a4c84b3562c47bd1bac7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 2493
+        width: 29
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1fcdb1e15f5b481aaf611827cfe2f6c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 2508
+        width: 19
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 143c04b966ed24cffae8bfe87d4bcf0f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 2508
+        width: 19
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92bc2c1ee385a4b46a897028d41cca1a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 853
+        y: 2386
+        width: 34
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75423883181484aeab82190c5fd2fec6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 1979
+        width: 27
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f36e16bbb7f3549d2898702613bdb6df
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 1997
+        width: 19
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 181c6646c9b274d22b621eb4c777113c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 721
+        y: 1997
+        width: 17
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b354eb2cca4234b73a6552aede788e74
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 1018
+        y: 2010
+        width: 19
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 884515bfff10240dc8c96a796b11a99c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 1718
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa560ce30997f42a3b2cace6adb29aec
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 1735
+        width: 21
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7a4e45a088f443a8b526c2f724d0960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 1693
+        width: 65
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e38bb71a37756495a8ee45e4f9e5bd75
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 1701
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4256dd22fabf947288f5745b236f7716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 1377
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9cd3dfc961948379005c5862d0afde
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 1294
+        width: 134
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3ea9e1ba606c493e9c2199878a1acf0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 1249
+        width: 88
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d241b9533dc3436ba7afd4cecf4c8a5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 1232
+        width: 36
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35f9c5c50f650474eaadd6b5d3fef9f1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 870
+        width: 49
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9623ef37a054a4d80a03351609932061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 875
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 777f93f93ca3f4a9c81099bae198afa1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 865
+        width: 24
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bc04544ac0fe409cb32c4926e343178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 860
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4483a53a5c81640aab9cebb8663f375c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 484
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3182a092491349858f8847a803c8d20
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 484
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01892f79cab4546828bb5f224805dfca
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 484
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 448be9e290add43a7ae9c7588fadb0cd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 484
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0d66ab1c33fa4215b292e59541bb382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 105
+        width: 25
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22c1c045797074127807d20be82349dc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Manor House 2-MainSpritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 58
+        width: 188
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d33ee316d6ab431eb2f50d18e25eaee
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
