@@ -1,10 +1,51 @@
 fileFormatVersion: 2
 guid: 526e46753bc0b4cef98eb4117089a8d6
-timeCreated: 1468659453
-licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
-  serializedVersion: 4
+  fileIDToRecycleName:
+    21300000: Bakery-MainSpritesheet_0
+    21300002: Bakery-MainSpritesheet_1
+    21300004: Bakery-MainSpritesheet_2
+    21300006: Bakery-MainSpritesheet_3
+    21300008: Bakery-MainSpritesheet_4
+    21300010: Bakery-MainSpritesheet_5
+    21300012: Bakery-MainSpritesheet_6
+    21300014: Bakery-MainSpritesheet_7
+    21300016: Bakery-MainSpritesheet_8
+    21300018: Bakery-MainSpritesheet_9
+    21300020: Bakery-MainSpritesheet_10
+    21300022: Bakery-MainSpritesheet_11
+    21300024: Bakery-MainSpritesheet_12
+    21300026: Bakery-MainSpritesheet_13
+    21300028: Bakery-MainSpritesheet_14
+    21300030: Bakery-MainSpritesheet_18
+    21300032: Bakery-MainSpritesheet_19
+    21300034: Bakery-MainSpritesheet_20
+    21300036: Bakery-MainSpritesheet_21
+    21300038: Bakery-MainSpritesheet_22
+    21300040: Bakery-MainSpritesheet_23
+    21300042: Bakery-MainSpritesheet_26
+    21300044: Bakery-MainSpritesheet_29
+    21300046: Bakery-MainSpritesheet_30
+    21300048: Bakery-MainSpritesheet_35
+    21300050: Bakery-MainSpritesheet_39
+    21300052: Bakery-MainSpritesheet_45
+    21300054: Bakery-MainSpritesheet_46
+    21300056: Bakery-MainSpritesheet_47
+    21300058: Bakery-MainSpritesheet_48
+    21300060: Bakery-MainSpritesheet_49
+    21300062: Bakery-MainSpritesheet_50
+    21300064: Bakery-MainSpritesheet_51
+    21300066: Bakery-MainSpritesheet_52
+    21300068: Bakery-MainSpritesheet_53
+    21300070: Bakery-MainSpritesheet_54
+    21300072: Bakery-MainSpritesheet_55
+    21300074: Bakery-MainSpritesheet_56
+    21300076: Bakery-MainSpritesheet_57
+    21300078: Bakery-MainSpritesheet_58
+    21300080: Bakery-MainSpritesheet_59
+    21300082: Bakery-MainSpritesheet_60
+  externalObjects: {}
+  serializedVersion: 5
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
@@ -12,6 +53,8 @@ TextureImporter:
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -27,49 +70,907 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 0
     aniso: 16
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
+  singleChannelComponent: 0
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
-  - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-  - buildTarget: Standalone
-    maxTextureSize: 8192
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 1525
+        width: 304
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71207ed18c7004f6aaf950bd3be3b0a2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 1573
+        width: 163
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b9d2df38d9424c3bbcfc31f1147d3f8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 1633
+        width: 59
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d96ab227d364b40abb6bc90cfaeb7355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1271
+        y: 1661
+        width: 28
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc8cc633f557418a9f8ac1959821860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1295
+        y: 1655
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccdfdd074a65d42fb9aed7f119e94022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 1379
+        width: 11
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 374f5af97f79341d6a9a545e72e0a830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 1359
+        width: 12
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e030f059e4ca4d758f66b46d8cbb775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1238
+        y: 1354
+        width: 11
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44a559785a846400c87e85e5f51182b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 1245
+        y: 1372
+        width: 16
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2894810fc6db47698b0a87807fbe3b5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 1266
+        y: 1382
+        width: 14
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1cd2a04c7cc344b8a8be71cb099a0adc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 1285
+        y: 1379
+        width: 14
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 693baa6527b9c4fe18729ff77bdc18e8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 1296
+        y: 1373
+        width: 14
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f428e3cab894e41a8876258a8cf47ebd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 1326
+        y: 1349
+        width: 12
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fed69828cd864189892e5c33120e1e2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 1333
+        y: 1399
+        width: 11
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4f5d52da9c4e48e08a7dec98b41131a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 1367
+        width: 12
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86f90a8d9f7da4b9e80fe4702e55f6c2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 1311
+        width: 69
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f17ae6a659664ad4881684462a9ec89
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 1318
+        width: 61
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8de7183b01515493cb5bc97a3f8b152e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 1345
+        width: 19
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d673ee2d916bc43db918b92aa99e0064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 1345
+        width: 21
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55082e98f066944e2be5ef537e05fffe
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 1343
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42717237f202c4b84ac690a2895510fc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 1346
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb990b704901948a3b6fbd34167ad0da
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 1331
+        width: 23
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f05346afe79c477eb1919bc382e2b97
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 534
+        y: 1326
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbc9bd16caa24406eb9ee4f0705e57b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 1326
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74efbfe6f7b174acf83d0d585035cac1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1314
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 044c0114c447d42e384ddbf7feb0ae72
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 1245
+        y: 1282
+        width: 54
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6325801e11ab41bc9ce036260b2fe5c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_45
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 973
+        width: 163
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ec3a2dbd750f4201a3e8de722f25f8d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_46
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 973
+        width: 163
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc60166cb973b4616a3eb1c366ff958e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_47
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 961
+        width: 79
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 037923a07a34b4d2db883720a76a7f49
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_48
+      rect:
+        serializedVersion: 2
+        x: 1211
+        y: 994
+        width: 25
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5427e60008e744a0a8140b35a2dade19
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_49
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 683
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 843e656b76d00472e823f7f015425669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_50
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 683
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e27e8f92809894074b21d7533407eda5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_51
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 633
+        width: 111
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8126a2070facd4136aa475ba205ff4ad
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_52
+      rect:
+        serializedVersion: 2
+        x: 1103
+        y: 666
+        width: 19
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e17e3d90ba449c3b8cedaeb1af15a1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_53
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 646
+        width: 55
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fcaa5169fd434d16b99dc8dba0b8484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_54
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 377
+        width: 119
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27050536493f046429c930ba2a28ccf8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_55
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 422
+        width: 39
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9391c8887a92c4daebc7aa7126b13f27
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_56
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 481
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e018521a431fb4d69b8059c5bed3c2a5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_57
+      rect:
+        serializedVersion: 2
+        x: 489
+        y: 459
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e986ecc703d134977b39802c30522d75
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_58
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 389
+        width: 59
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84e526abc08174f14963acab2b53e00a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_59
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 389
+        width: 25
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9736a6ef841cf4ad2b614f90d1024200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bakery-MainSpritesheet_60
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 99
+        width: 54
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7136ee22be23444e29f27733a8773a0c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
