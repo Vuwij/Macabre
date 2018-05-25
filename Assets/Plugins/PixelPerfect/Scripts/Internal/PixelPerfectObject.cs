@@ -88,8 +88,7 @@ public class PixelPerfectObject : MonoBehaviour
     {
 		if (useParentTransform)
         {
-            transform.localPosition = Vector3.zero;
-
+            transform.localPosition = Vector3.zero;         
         }
 
 		transform.position = new Vector3(transform.position.x, transform.position.y, GetPixelPerfectDepth());
@@ -102,6 +101,14 @@ public class PixelPerfectObject : MonoBehaviour
         pixelCorrection = fixedSpriteCenter - (Vector2)(transform.position);
 
         transform.position += (Vector3)pixelCorrection;
+
+		var pps = GetComponent<SpriteRenderer>();
+		if(pps != null && pps.sprite != null) {
+			float width = pps.sprite.rect.width;
+			if((int) width % 2 == 0) {
+				transform.position += new Vector3(0.5f, 0, 0);
+			}
+		}
     }
 
     float GetPixelPerfectDepth()
