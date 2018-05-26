@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 0ec92e4532282884dbf161649bdc943a
-timeCreated: 1467437665
-licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Blacksmith-MainSpritesheet_0
@@ -28,14 +26,17 @@ TextureImporter:
     21300042: Blacksmith-MainSpritesheet_21
     21300044: Blacksmith-MainSpritesheet_22
     21300046: Blacksmith-MainSpritesheet_23
-  serializedVersion: 2
+  externalObjects: {}
+  serializedVersion: 5
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
@@ -43,38 +44,69 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 0
+  isReadable: 1
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 7
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 0
     aniso: 16
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: Blacksmith-MainSpritesheet_0
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_0
       rect:
         serializedVersion: 2
         x: 8
@@ -84,26 +116,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 84, y: -111}
-        - {x: 111, y: -102}
-        - {x: 117, y: -97}
-        - {x: 117, y: -14}
-        - {x: 105, y: 40}
-        - {x: 96, y: 127}
-        - {x: 88, y: 135}
-        - {x: 59, y: 135}
-        - {x: -71, y: 78}
-        - {x: -117, y: 23}
-        - {x: -117, y: 11}
-        - {x: -98, y: -90}
-        - {x: -13, y: -131}
-        - {x: 18, y: -135}
-        - {x: 43, y: -135}
-        - {x: 45, y: -134}
-        - {x: 47, y: -131}
-        - {x: 56, y: -92}
-    - name: Blacksmith-MainSpritesheet_1
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15129addd3c2643f58f68a451729fdcf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_1
       rect:
         serializedVersion: 2
         x: 399
@@ -114,7 +137,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_2
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aebea5469ff4f4b8c9f093938a8560e9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_2
       rect:
         serializedVersion: 2
         x: 673
@@ -125,7 +157,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_3
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 390b3369a12dc446bbd4af50ac76c40f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_3
       rect:
         serializedVersion: 2
         x: 739
@@ -136,7 +177,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_4
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 439d02319c11f49f9ae88c2fa36280f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_4
       rect:
         serializedVersion: 2
         x: 909
@@ -146,16 +196,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 19.5, y: 41.5}
-        - {x: -56.5, y: 8.5}
-        - {x: -56.5, y: -32.5}
-        - {x: -29.5, y: -41.5}
-        - {x: -13.5, y: -41.5}
-        - {x: 56.5, y: -3.5}
-        - {x: 56.5, y: 11.5}
-        - {x: 29.5, y: 41.5}
-    - name: Blacksmith-MainSpritesheet_5
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51a983328ad6d451393f7b01855a580a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_5
       rect:
         serializedVersion: 2
         x: 459
@@ -166,7 +217,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_6
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9173a991eff0c4c86a0a9ebd74fe64c3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_6
       rect:
         serializedVersion: 2
         x: 41
@@ -176,17 +236,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 47.5, y: 72.5}
-        - {x: 16.5, y: 72.5}
-        - {x: -66.5, y: 25.5}
-        - {x: -66.5, y: -45.5}
-        - {x: -10.5, y: -72.5}
-        - {x: 45.5, y: -72.5}
-        - {x: 56.5, y: -69.5}
-        - {x: 66.5, y: -26.5}
-        - {x: 66.5, y: 67.5}
-    - name: Blacksmith-MainSpritesheet_7
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4222e2759dcc42f9989f2caa3f18013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_7
       rect:
         serializedVersion: 2
         x: 387
@@ -197,7 +257,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_8
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a30b7f78f5df541e6ae8525933c36f1d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_8
       rect:
         serializedVersion: 2
         x: 407
@@ -208,7 +277,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_9
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6734b85ee79a4142b92cc72a6c4c4d3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_9
       rect:
         serializedVersion: 2
         x: 589
@@ -218,16 +296,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 10.5, y: 49.5}
-        - {x: -42.5, y: -14.5}
-        - {x: -42.5, y: -47.5}
-        - {x: -34.5, y: -49.5}
-        - {x: -13.5, y: -49.5}
-        - {x: 38.5, y: 26.5}
-        - {x: 42.5, y: 33.5}
-        - {x: 42.5, y: 49.5}
-    - name: Blacksmith-MainSpritesheet_10
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff14161e3c52a4f749a20e84664fe78e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_10
       rect:
         serializedVersion: 2
         x: 877
@@ -237,14 +316,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -12.5, y: 35.5}
-        - {x: -18.5, y: 35.5}
-        - {x: -18.5, y: -19.5}
-        - {x: 13.5, y: -35.5}
-        - {x: 18.5, y: -35.5}
-        - {x: 18.5, y: 20.5}
-    - name: Blacksmith-MainSpritesheet_11
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4c833f74651a422d930ac11e95f64f9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_11
       rect:
         serializedVersion: 2
         x: 561
@@ -254,17 +336,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 43.5, y: 92.5}
-        - {x: -49.5, y: 46.5}
-        - {x: -84.5, y: 10.5}
-        - {x: -84.5, y: -58.5}
-        - {x: -23.5, y: -92.5}
-        - {x: -6.5, y: -92.5}
-        - {x: 84.5, y: -49.5}
-        - {x: 84.5, y: 27.5}
-        - {x: 51.5, y: 92.5}
-    - name: Blacksmith-MainSpritesheet_12
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c96bffbcfd534941b8007f757b914f9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_12
       rect:
         serializedVersion: 2
         x: 879
@@ -275,7 +357,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_13
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8633de9b43f3e4715b0e1d173f2cbbf4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_13
       rect:
         serializedVersion: 2
         x: 951
@@ -285,15 +376,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -12.5, y: 35}
-        - {x: -19.5, y: 33}
-        - {x: -19.5, y: -28}
-        - {x: -4.5, y: -35}
-        - {x: 19.5, y: -35}
-        - {x: 19.5, y: 27}
-        - {x: 3.5, y: 35}
-    - name: Blacksmith-MainSpritesheet_14
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05e8b5a63cdf94e09b42301a0a9cd448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_14
       rect:
         serializedVersion: 2
         x: 105
@@ -303,17 +396,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: 15.5, y: 54.5}
-        - {x: -52.5, y: 23.5}
-        - {x: -52.5, y: -40.5}
-        - {x: -34.5, y: -54.5}
-        - {x: -2.5, y: -54.5}
-        - {x: 31.5, y: -43.5}
-        - {x: 52.5, y: -23.5}
-        - {x: 52.5, y: 43.5}
-        - {x: 32.5, y: 54.5}
-    - name: Blacksmith-MainSpritesheet_15
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0331bd81eb93433380e07e496d09b9b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_15
       rect:
         serializedVersion: 2
         x: 400
@@ -324,7 +417,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_16
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 979878c8c108a4cd0862550615dee796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_16
       rect:
         serializedVersion: 2
         x: 420
@@ -335,7 +437,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_17
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa954d20f0d214d5e9affac586b1d420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_17
       rect:
         serializedVersion: 2
         x: 443
@@ -346,7 +457,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_18
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f69fa6499a17948629d84952b757d7a2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_18
       rect:
         serializedVersion: 2
         x: 821
@@ -356,16 +476,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -24.5, y: 23}
-        - {x: -30.5, y: 21}
-        - {x: -30.5, y: -7}
-        - {x: -2.5, y: -23}
-        - {x: 18.5, y: -23}
-        - {x: 30.5, y: -18}
-        - {x: 30.5, y: 5}
-        - {x: 3.5, y: 23}
-    - name: Blacksmith-MainSpritesheet_19
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 466b4a729e9bb451c83f41b2255b13c1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_19
       rect:
         serializedVersion: 2
         x: 905
@@ -375,15 +496,17 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -17.5, y: 28.5}
-        - {x: -20.5, y: 27.5}
-        - {x: -20.5, y: -14.5}
-        - {x: 2.5, y: -28.5}
-        - {x: 20.5, y: -28.5}
-        - {x: 20.5, y: 15.5}
-        - {x: -2.5, y: 28.5}
-    - name: Blacksmith-MainSpritesheet_20
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49ba6c1ade5724726a78c219441f099f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_20
       rect:
         serializedVersion: 2
         x: 365
@@ -394,7 +517,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_21
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75c84b01f49464b58a92755dfd327418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_21
       rect:
         serializedVersion: 2
         x: 397
@@ -405,7 +537,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_22
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d9d6563b29a045f6be6cc480fee4618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_22
       rect:
         serializedVersion: 2
         x: 456
@@ -416,7 +557,16 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Blacksmith-MainSpritesheet_23
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a68f8a9efd3cc46b8a6f71c7d561cf7a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blacksmith-MainSpritesheet_23
       rect:
         serializedVersion: 2
         x: 862
@@ -427,7 +577,22 @@ TextureImporter:
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eceae9e872dc4d9b8d555b0d314d54d
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
   spritePackingTag: 
   userData: 
   assetBundleName: 
