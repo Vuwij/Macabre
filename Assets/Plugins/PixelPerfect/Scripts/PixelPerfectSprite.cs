@@ -44,11 +44,12 @@ public class PixelPerfectSprite : PixelPerfectObject
 		}
 		catch (NullReferenceException)
 		{
-			throw new UnityException("Sprite Renderer not included in this gameobject");
+			return Vector2.zero;
 		}
 	}
 	
 	override protected Vector2 GetCenterToOrigin() {
+		if (spriteRenderer.sprite == null) return Vector2.zero;
 		return (new Vector2(-(float)spriteRenderer.sprite.rect.width*0.5f, (float)spriteRenderer.sprite.rect.height*0.5f))*pixelScale*PixelPerfect.worldPixelSize;
 	}
 }

@@ -86,29 +86,34 @@ public class PixelPerfectObject : MonoBehaviour
 
     void SetPixelPerfectPosition()
     {
+		if (name == "Footprint") {
+			transform.localPosition = Vector3.zero;
+            return;
+        }
+
 		if (useParentTransform)
         {
             transform.localPosition = Vector3.zero;         
         }
-
+        
 		transform.position = new Vector3(transform.position.x, transform.position.y, GetPixelPerfectDepth());
 
         spriteOrigin = (Vector2)(transform.position) + GetPivotToOrigin();
 
         fixedSpriteOrigin = PixelPerfect.FitToGrid(spriteOrigin, PixelPerfect.worldPixelSize * pixelCompoundScale);
-
-        fixedSpriteCenter = fixedSpriteOrigin - GetPivotToOrigin();
-        pixelCorrection = fixedSpriteCenter - (Vector2)(transform.position);
-
-        transform.position += (Vector3)pixelCorrection;
-
-		var pps = GetComponent<SpriteRenderer>();
-		if(pps != null && pps.sprite != null) {
-			float width = pps.sprite.rect.width;
-			if((int) width % 2 == 0) {
-				transform.position += new Vector3(0.5f, 0, 0);
-			}
+                
+		if((int)GetPivotToCenter().x % 2 == 1) {
+	        if(fixedSpriteOrigin.x > 1.0f)
+	            fixedSpriteOrigin = fixedSpriteOrigin - new Vector2(1.0f, 0);
+            else
+				fixedSpriteOrigin = fixedSpriteOrigin + new Vector2(1.0f, 0);
 		}
+
+		fixedSpriteCenter = fixedSpriteOrigin - GetPivotToOrigin();
+
+		pixelCorrection = fixedSpriteCenter - (Vector2)(transform.position);
+
+		transform.position += (Vector3)pixelCorrection;
     }
 
     float GetPixelPerfectDepth()

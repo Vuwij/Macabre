@@ -286,8 +286,8 @@ public class MacabreFootprint : EditorWindow {
 			topVector = topVector + new Vector2(1.0f, 0.5f);
 			bottomVector = bottomVector + new Vector2(1.0f, 0.5f);
 			leftVector = leftVector + new Vector2(1.0f, 0.5f);
-			rightVector = rightVector + new Vector2(0.0f, 0.5f);
-
+			rightVector = rightVector + new Vector2(1.0f, 0.5f);
+            
 			Vector2[] points = new Vector2[4]
 			{
 				topVector,
