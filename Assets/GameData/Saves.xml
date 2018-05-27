@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfSave xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Save>
-    <time>0</time>
-    <name>Test</name>
-  </Save>
-</ArrayOfSave>
