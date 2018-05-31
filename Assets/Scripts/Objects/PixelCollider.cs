@@ -271,6 +271,7 @@ namespace Objects
                 if (otherPixelCollider == null) continue;
 				if (otherPixelCollider.noCollision) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
+				if (!OtherPixelColliderSameParent(otherPixelCollider)) continue;
 
                 Transform otherTransform = otherPixelCollider.gameObject.transform;
 
@@ -450,8 +451,22 @@ namespace Objects
 
             return spriteRenderers;
         }
-    }
 
+		bool OtherPixelColliderSameParent(PixelCollider pc)
+        {
+			return pc.GetPixelRoom() == this.GetPixelRoom();
+        }
+
+		PixelRoom GetPixelRoom()
+        {
+			PixelRoom pixelRoom = transform.parent.parent.GetComponent<PixelRoom>();
+			if (pixelRoom == null) pixelRoom = transform.parent.GetComponent<PixelRoom>();
+			Debug.Assert(pixelRoom != null);
+			return pixelRoom;
+        }
+
+    }
+   
 	public enum Direction {
         NE, SE, NW, SW, All
     }

@@ -10,6 +10,20 @@ public class PixelRoom : MonoBehaviour {
     public Vector2 top, bottom, left, right;
     [HideInInspector]
     public Vector2[] colliderPoints;
+    
+	public enum Layer {
+        Front,
+        World,
+        Back
+    }
+
+	[System.Serializable]
+	public struct OtherVisibleRoom {
+		public PixelRoom room;
+		public Layer layer;
+	}
+
+	public OtherVisibleRoom[] otherVisibleRooms;
 
     void Awake()
     {
@@ -36,4 +50,66 @@ public class PixelRoom : MonoBehaviour {
                 right = colliderPoints[i];
         }
     }
+
+	public void OnEnable()
+	{
+		SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+		foreach(SpriteRenderer sr in spriteRenderers) {
+			SetSortingLayer(Layer.World, sr);
+		}
+
+		foreach(OtherVisibleRoom room in otherVisibleRooms) {
+			room.room.gameObject.SetActive(true);
+			SpriteRenderer[] srs = room.room.GetComponentsInChildren<SpriteRenderer>(true);
+            foreach (SpriteRenderer sr in srs) {
+				SetSortingLayer(room.layer, sr);
+            }
+		}
+	}
+
+	void SetSortingLayer(Layer layer, SpriteRenderer sr) {
+		if (layer == Layer.World)
+		{
+			if (sr.sortingLayerName == "Front - World")
+				sr.sortingLayerName = "World";
+			else if (sr.sortingLayerName == "Back - World")
+				sr.sortingLayerName = "World";
+			else if (sr.sortingLayerName == "Front - Foreground")
+				sr.sortingLayerName = "Foreground";
+			else if (sr.sortingLayerName == "Back - Foreground")
+				sr.sortingLayerName = "Foreground";
+			else if (sr.sortingLayerName == "Front - Background")
+				sr.sortingLayerName = "Background";
+			else if (sr.sortingLayerName == "Back - Background")
+				sr.sortingLayerName = "Background";
+		}
+		else if (layer == Layer.Back) {
+			if (sr.sortingLayerName == "Front - World")
+				sr.sortingLayerName = "Back - World";
+            else if (sr.sortingLayerName == "World")
+				sr.sortingLayerName = "Back - World";
+            else if (sr.sortingLayerName == "Foreground")
+				sr.sortingLayerName = "Back - Foreground";
+            else if (sr.sortingLayerName == "Back - Foreground")
+				sr.sortingLayerName = "Back - Foreground";
+            else if (sr.sortingLayerName == "Front - Background")
+				sr.sortingLayerName = "Back - Background";
+            else if (sr.sortingLayerName == "Background")
+				sr.sortingLayerName = "Back - Background";
+		}
+		else if (layer == Layer.Front) {
+			if (sr.sortingLayerName == "World")
+				sr.sortingLayerName = "Front - World";
+            else if (sr.sortingLayerName == "Back - World")
+				sr.sortingLayerName = "Front - World";
+            else if (sr.sortingLayerName == "Foreground")
+				sr.sortingLayerName = "Front - Foreground";
+            else if (sr.sortingLayerName == "Back - Foreground")
+				sr.sortingLayerName = "Front - Foreground";
+            else if (sr.sortingLayerName == "Background")
+				sr.sortingLayerName = "Front - Background";
+            else if (sr.sortingLayerName == "Back - Background")
+				sr.sortingLayerName = "Front - Background";
+		}
+	}
 }

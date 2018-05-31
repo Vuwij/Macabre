@@ -180,6 +180,7 @@ namespace Objects.Movable.Characters
                     transform.parent = room.transform;
 					originalroom.gameObject.SetActive(false);
                     room.transform.gameObject.SetActive(true);
+					room.OnEnable();
                     UpdateSortingLayer();
 
                     CancelInvoke("Movement");
