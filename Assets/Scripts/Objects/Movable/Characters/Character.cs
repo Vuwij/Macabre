@@ -88,7 +88,7 @@ namespace Objects.Movable.Characters
 		GameObject characterFoot;
 
         protected Vector2 characterVelocity;
-		protected Vector2 facingDirection;
+		protected Vector2 facingDirection;      
 
         protected override void Start()
         {
@@ -117,7 +117,7 @@ namespace Objects.Movable.Characters
                 pos.x = pos.x + inputVelocity.x;
                 pos.y = pos.y + inputVelocity.y;
                 transform.position = pos;
-                UpdateSortingLayer();            
+                UpdateSortingLayer();
             }
 			characterVelocity = inputVelocity;
 
@@ -166,6 +166,10 @@ namespace Objects.Movable.Characters
                 if(door != null) {
 					if(door.interactionDirection != Direction.All) {
 						if (door.interactionDirection != pc.direction) continue;
+						if (facingDirection.x > 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NE) continue;
+						if (facingDirection.x > 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SE) continue;
+						if (facingDirection.x < 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NW) continue;
+						if (facingDirection.x < 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SW) continue;
 					}
                     
                     PixelRoom room = door.destination;

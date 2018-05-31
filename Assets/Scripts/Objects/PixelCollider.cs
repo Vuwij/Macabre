@@ -56,6 +56,11 @@ namespace Objects
                     right = colliderPoints[i];
             }
 
+			top += collider2D.offset;
+			bottom += collider2D.offset;
+			left += collider2D.offset;
+			right += collider2D.offset;
+
             topP = top + new Vector2(0, pixelProximity);
             bottomP = bottom + new Vector2(0, -pixelProximity);
             leftP = left + new Vector2(-2 * pixelProximity, 0);
@@ -198,7 +203,7 @@ namespace Objects
 				Direction direction = Direction.All;
 				List<PixelCollider> pixelColliders = new List<PixelCollider>();
 
-                if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.8 &&
+                if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
                     leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
                     leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
                 {
@@ -206,7 +211,7 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
-                else if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.8 &&
+                else if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
                     topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                          topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
                 {
@@ -214,7 +219,7 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
-                else if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.8 &&
+                else if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
                     leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
                          leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
                 {
@@ -222,7 +227,7 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
-                else if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.8 &&
+                else if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
                     bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                          bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
                 {
@@ -314,16 +319,16 @@ namespace Objects
             Vector2 floorleftWorld = floor.left + (Vector2)floor.transform.position;
             Vector2 floorrightWorld = floor.right + (Vector2)floor.transform.position;
 
-            if (DistanceBetween4points(leftWorld, topWorld, floorleftWorld, floortopWorld) < 0)
+            if (DistanceBetween4points(leftWorld, topWorld, floorleftWorld, floortopWorld) < 0.4)
                 restrictNW = true;
 
-			if (DistanceBetween4points(topWorld, rightWorld, floortopWorld, floorrightWorld) < 0)
+			if (DistanceBetween4points(topWorld, rightWorld, floortopWorld, floorrightWorld) < 0.4)
                 restrictNE = true;
 
-			if (DistanceBetween4points(leftWorld, bottomWorld, floorleftWorld, floorbottomWorld) > 0)
+			if (DistanceBetween4points(leftWorld, bottomWorld, floorleftWorld, floorbottomWorld) > -0.4)
                 restrictSW = true;
 
-			if (DistanceBetween4points(bottomWorld, rightWorld, floorbottomWorld, floorrightWorld) > 0)
+			if (DistanceBetween4points(bottomWorld, rightWorld, floorbottomWorld, floorrightWorld) > -0.4)
                 restrictSE = true;
 
             // Send off movement restriction

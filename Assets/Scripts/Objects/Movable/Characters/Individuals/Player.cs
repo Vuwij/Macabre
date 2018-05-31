@@ -33,6 +33,16 @@ namespace Objects.Movable.Characters.Individuals
                 if (pixelCollider != null)
                     mr = pixelCollider.CheckForCollision();
 
+				if (Input.GetAxisRaw("Horizontal") > 0 && mr.restrictNE)
+					facingDirection = new Vector2(2, 1);
+                else if (Input.GetAxisRaw("Horizontal") < 0 && mr.restrictSW)
+					facingDirection = new Vector2(-2, -1);
+                else if (Input.GetAxisRaw("Vertical") > 0 && mr.restrictNW)
+					facingDirection = new Vector2(-2, 1);
+                else if (Input.GetAxisRaw("Vertical") < -0 && mr.restrictSE)
+					facingDirection = new Vector2(2, -1);
+
+
                 if (Input.GetAxisRaw("Horizontal") > 0 && !mr.restrictNE)
                     return new Vector2(2, 1);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && !mr.restrictSW)

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -86,7 +87,7 @@ public class PixelPerfectObject : MonoBehaviour
 
     void SetPixelPerfectPosition()
     {
-		if (name == "Footprint") {
+		if (name == "Footprint" && transform.parent.tag != "Character") {
 			transform.localPosition = Vector3.zero;
             return;
         }

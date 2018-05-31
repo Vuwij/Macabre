@@ -13,7 +13,7 @@ namespace Objects
 		{
 #if UNITY_EDITOR
 			Gizmos.color = Color.white;
-			Gizmos.DrawIcon(transform.position + (Vector3)dropOffLocation, "Destination");
+			Gizmos.DrawSphere(transform.position + (Vector3)dropOffLocation, 1.0f);
 #endif
 		}
 	}
