@@ -1,26 +1,54 @@
 fileFormatVersion: 2
-guid: b6a0f97cb92451e4998293d97f7aadaf
+guid: 8c5c2e0b9064044e1bb0cf140bedf3f5
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Shack-MainSpritesheet_0
-    21300002: Shack-MainSpritesheet_1
-    21300004: Shack-MainSpritesheet_2
-    21300006: Shack-MainSpritesheet_3
-    21300008: Shack-MainSpritesheet_4
-    21300010: Shack-MainSpritesheet_5
-    21300012: Shack-MainSpritesheet_6
-    21300014: Shack-MainSpritesheet_7
-    21300016: Shack-MainSpritesheet_8
-    21300018: Shack-MainSpritesheet_9
-    21300020: Shack-MainSpritesheet_10
-    21300022: Shack-MainSpritesheet_11
-    21300024: Shack-MainSpritesheet_12
-    21300026: Shack-MainSpritesheet_13
+    21300000: Church-MainSpritesheet_3
+    21300002: Church-MainSpritesheet_6
+    21300004: Church-MainSpritesheet_7
+    21300006: Church-MainSpritesheet_8
+    21300008: Church-MainSpritesheet_12
+    21300010: Church-MainSpritesheet_13
+    21300012: Church-MainSpritesheet_14
+    21300014: Church-MainSpritesheet_19
+    21300016: Church-MainSpritesheet_20
+    21300018: Church-MainSpritesheet_21
+    21300020: Church-MainSpritesheet_22
+    21300022: Church-MainSpritesheet_23
+    21300024: Church-MainSpritesheet_29
+    21300026: Church-MainSpritesheet_30
+    21300028: Church-MainSpritesheet_31
+    21300030: Church-MainSpritesheet_32
+    21300032: Church-MainSpritesheet_33
+    21300034: Church-MainSpritesheet_0
+    21300036: Church-MainSpritesheet_1
+    21300038: Church-MainSpritesheet_2
+    21300040: Church-MainSpritesheet_4
+    21300042: Church-MainSpritesheet_5
+    21300044: Church-MainSpritesheet_9
+    21300046: Church-MainSpritesheet_10
+    21300048: Church-MainSpritesheet_11
+    21300050: Church-MainSpritesheet_15
+    21300052: Church-MainSpritesheet_16
+    21300054: Church-MainSpritesheet_17
+    21300056: Church-MainSpritesheet_18
+    21300058: Church-MainSpritesheet_24
+    21300060: Church-MainSpritesheet_25
+    21300062: Church-MainSpritesheet_26
+    21300064: Church-MainSpritesheet_27
+    21300066: Church-MainSpritesheet_28
+    21300068: Church-MainSpritesheet_34
+    21300070: Church-MainSpritesheet_35
+    21300072: Church-MainSpritesheet_36
+    21300074: Church-MainSpritesheet_37
+    21300076: Church-MainSpritesheet_38
+    21300078: Church-MainSpritesheet_39
+    21300080: Church-MainSpritesheet_40
+    21300082: Church-MainSpritesheet_41
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -39,12 +67,12 @@ TextureImporter:
   generateCubemap: 6
   cubemapConvolution: 0
   seamlessCubemap: 0
-  textureFormat: 1
+  textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
+    aniso: 16
     mipBias: -1
     wrapU: 1
     wrapV: 1
@@ -83,14 +111,14 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 12
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: iPhone
@@ -129,281 +157,341 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_0
+      name: Church-MainSpritesheet_15
       rect:
         serializedVersion: 2
-        x: 0
-        y: 522
-        width: 183
-        height: 174
+        x: 3209
+        y: 2185
+        width: 250
+        height: 311
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 4840f57c1248c429e90f99515d2d0d7f
+      spriteID: 1b9294168875745d4ab14208ba950ac0
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_1
+      name: Church-MainSpritesheet_18
       rect:
         serializedVersion: 2
-        x: 217
-        y: 533
-        width: 15
-        height: 48
+        x: 1447
+        y: 2340
+        width: 85
+        height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 864c2c199c91e4016a42fd2129aec4eb
+      spriteID: 2998ecd70c8834a4eaab2add7594179d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_2
+      name: Church-MainSpritesheet_19
       rect:
         serializedVersion: 2
-        x: 388
-        y: 526
-        width: 145
-        height: 158
+        x: 1582
+        y: 2354
+        width: 151
+        height: 99
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 7f0024e1b7fc5420eb205284822a21ff
+      spriteID: 6e27ef0a7cc2e4bd1a88c17fec7fcfb4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_3
+      name: Church-MainSpritesheet_20
       rect:
         serializedVersion: 2
-        x: 511
-        y: 439
-        width: 7
-        height: 5
+        x: 2209
+        y: 2135
+        width: 627
+        height: 349
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 4a20a7e2cc013410e8ecfa22b811a51f
+      spriteID: 1b9c95bbfd4a84d4d8b5859280510bdd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_4
+      name: Church-MainSpritesheet_26
       rect:
         serializedVersion: 2
-        x: 523
-        y: 433
-        width: 7
-        height: 5
+        x: 1405
+        y: 2233
+        width: 89
+        height: 65
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ba6b55e663bfc4dfcb30ede0defa4760
+      spriteID: 0cf53bc2dca304592b4f973c69337251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_5
+      name: Church-MainSpritesheet_27
       rect:
         serializedVersion: 2
-        x: 613
-        y: 409
-        width: 91
-        height: 145
+        x: 1505
+        y: 2247
+        width: 73
+        height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 1b9cf5227322d469e83c8e2823dd943a
+      spriteID: b320895af98574ee58693474588c1cbd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_6
+      name: Church-MainSpritesheet_28
       rect:
         serializedVersion: 2
-        x: 279
-        y: 397
-        width: 11
-        height: 7
+        x: 1623
+        y: 2252
+        width: 85
+        height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 593c9a4f46c864238853347837ed15c1
+      spriteID: cc525bdf7e9ec4ff7aa87164a390015e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_7
+      name: Church-MainSpritesheet_34
       rect:
         serializedVersion: 2
-        x: 89
-        y: 373
-        width: 12
-        height: 5
+        x: 367
+        y: 1211
+        width: 469
+        height: 534
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 6a086c8f89df540e99341a832daea973
+      spriteID: ec7f8bcbc7d814387b6e9f77e73d7e93
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_8
+      name: Church-MainSpritesheet_35
       rect:
         serializedVersion: 2
-        x: 98
-        y: 202
-        width: 67
-        height: 50
+        x: 1367
+        y: 1312
+        width: 448
+        height: 432
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: b7ea74cc510d64351b0462413e959494
+      spriteID: aa57910f6dc9a4394acb6d6b2cbb3a1c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_9
+      name: Church-MainSpritesheet_36
       rect:
         serializedVersion: 2
-        x: 428
-        y: 206
-        width: 25
-        height: 23
+        x: 2463
+        y: 1362
+        width: 350
+        height: 382
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: bd2c5b8354b5642a689d869d566288c7
+      spriteID: f8e713b87390543f1b535b8ee12cbcb4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_10
+      name: Church-MainSpritesheet_37
       rect:
         serializedVersion: 2
-        x: 630
-        y: 227
-        width: 54
-        height: 47
+        x: 3747
+        y: 1335
+        width: 89
+        height: 168
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f001c78797801487696b5a1f20249538
+      spriteID: 50b7a68b1354649f898f0d6fb5603f2f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_11
+      name: Church-MainSpritesheet_38
       rect:
         serializedVersion: 2
-        x: 246
-        y: 184
-        width: 20
-        height: 20
+        x: 754
+        y: 293
+        width: 82
+        height: 207
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 25aec9c2acd8241238f78874ae001f99
+      spriteID: b4fb9a224ef3240d9b957063be3ec9e2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_12
+      name: Church-MainSpritesheet_39
       rect:
         serializedVersion: 2
-        x: 286
-        y: 62
-        width: 22
-        height: 11
+        x: 1209
+        y: 135
+        width: 603
+        height: 609
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a17a2370ab85445c7a52904fa3ab181f
+      spriteID: 31ec17c093df44bcc8f59aee35dd5c3a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shack-MainSpritesheet_13
+      name: Church-MainSpritesheet_40
       rect:
         serializedVersion: 2
-        x: 34
-        y: 24
-        width: 23
-        height: 24
+        x: 2789
+        y: 241
+        width: 89
+        height: 103
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3995018352bf24deab6b189362d9d2a6
+      spriteID: 7fa99322b49d64ffa908200bc9487a8c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 3199
+        y: 130
+        width: 677
+        height: 855
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 724546213be1947789547d0f120eb044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 2345
+        y: 213
+        width: 284
+        height: 435
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63a3ed691521c4e4884bf04cb19223b3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Church-MainSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 2463
+        y: 2485
+        width: 374
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a3969a2581c42a98f710c48790e316
       vertices: []
       indices: 
       edges: []
@@ -411,7 +499,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f78fc2428bd0046c498d00108e446e88
     vertices: []
     indices: 
     edges: []
