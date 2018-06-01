@@ -179,7 +179,8 @@ public class GameManager : MonoBehaviour {
                         Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
                         if (stateName != "Silent")
                         {
-                            if (speakerCharacter == null) Debug.LogError(speaker + " not found on Character sheet " + character.name + " State: " + stateName);
+                            if (speakerCharacter == null) 
+								Debug.LogError(speaker + " not found on Character sheet " + character.name + " State: " + stateName);
                             Debug.Assert(speakerCharacter != null);
                         }
                         conversationState.speaker = speakerCharacter;

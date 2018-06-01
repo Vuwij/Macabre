@@ -82,8 +82,8 @@
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterAction.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\ConversationState.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Elismi.cs" />
+    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Farmer.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Guard.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\HoodedFarmer.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Innkeeper.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Merchant.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Player.cs" />
