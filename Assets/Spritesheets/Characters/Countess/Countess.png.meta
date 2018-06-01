@@ -20,11 +20,29 @@ TextureImporter:
     21300030: ElismiSheet_15
     21300032: ElismiSheet_16
     21300034: ElismiSheet_17
+    21300036: Countess_0
+    21300038: Countess_1
+    21300040: Countess_2
+    21300042: Countess_3
+    21300044: Countess_4
+    21300046: Countess_5
+    21300048: Countess_6
+    21300050: Countess_7
+    21300052: Countess_8
+    21300054: Countess_9
+    21300056: Countess_10
+    21300058: Countess_11
+    21300060: Countess_12
+    21300062: Countess_13
+    21300064: Countess_14
+    21300066: Countess_15
+    21300068: Countess_16
+    21300070: Countess_17
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -67,7 +85,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   maxTextureSizeSet: 0
@@ -133,7 +151,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ElismiSheet_0
+      name: Countess_0
       rect:
         serializedVersion: 2
         x: 1
@@ -147,13 +165,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1d870dc3c3cb4b60a6aa8a3a6efa14b
+      spriteID: 5855aabc2df364443a6b6b662ca1c47f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_1
+      name: Countess_1
       rect:
         serializedVersion: 2
         x: 30
@@ -167,13 +185,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9315cd525d3544b2eb7d58aa4692a4a4
+      spriteID: a229441da3f5543578528ca483ab9d56
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_2
+      name: Countess_2
       rect:
         serializedVersion: 2
         x: 59
@@ -187,13 +205,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e470b842282df42c4a2c02a6f2016992
+      spriteID: 3ddbd06f1c52f4dd0b46b0dd02e2316a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_3
+      name: Countess_3
       rect:
         serializedVersion: 2
         x: 88
@@ -207,13 +225,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6b175558d14e4a7e8147504992c50da
+      spriteID: 512d222e168194f2ab0cba314407b40b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_4
+      name: Countess_4
       rect:
         serializedVersion: 2
         x: 1
@@ -227,13 +245,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a01449ccdbf249caa82ff83e467fe89
+      spriteID: ec8c7fce33b1342af9cacff1f236c5b3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_5
+      name: Countess_5
       rect:
         serializedVersion: 2
         x: 30
@@ -247,13 +265,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bdb92192e7c624dc2b0588ef37aecf8f
+      spriteID: 80e8b993aaee54a5885b2bc40d207f20
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_6
+      name: Countess_6
       rect:
         serializedVersion: 2
         x: 59
@@ -267,13 +285,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ded52fd65ad34a049499c83a76df9a7
+      spriteID: 01fc4e1782f004ac89abffa4624e7c65
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_7
+      name: Countess_7
       rect:
         serializedVersion: 2
         x: 88
@@ -287,13 +305,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4f3311cd6ed84e3cbf23e057884dd56
+      spriteID: 16ec0c0b07dea4dfc85426f00a3c0329
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_8
+      name: Countess_8
       rect:
         serializedVersion: 2
         x: 1
@@ -307,13 +325,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2e2436593b9c4ccf80046bab171da5b
+      spriteID: 79d43109953614ed4a4ef19c4cb19318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_9
+      name: Countess_9
       rect:
         serializedVersion: 2
         x: 30
@@ -327,13 +345,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a55772f37fbeb497cb7cfff8d1433d88
+      spriteID: ea9b8aee2f9ec40a5adc03485a114313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_10
+      name: Countess_10
       rect:
         serializedVersion: 2
         x: 59
@@ -347,13 +365,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c22c23d463094479eb81b18343396474
+      spriteID: 10cb97987113e48da920d82a0d5597cd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_11
+      name: Countess_11
       rect:
         serializedVersion: 2
         x: 88
@@ -367,13 +385,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93db61c7bec1d49e08eef729fa3c88d3
+      spriteID: 163c96c5eaaa94b25bf5dd257bff1b98
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_12
+      name: Countess_12
       rect:
         serializedVersion: 2
         x: 117
@@ -387,13 +405,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fb5c2d21e1ca47ebaf48eb0e8707830
+      spriteID: dc40f1ed688e34946aed95d124f30150
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_13
+      name: Countess_13
       rect:
         serializedVersion: 2
         x: 1
@@ -407,13 +425,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd0bc41da403847c98d9a6e098137d63
+      spriteID: 90fc33b423e624905bce68a09bc290a6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_14
+      name: Countess_14
       rect:
         serializedVersion: 2
         x: 30
@@ -427,13 +445,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 915d4665324664ac98d47ec6308c7fbb
+      spriteID: de75f3cd9021d4472a4bc2bc32ca48dd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_15
+      name: Countess_15
       rect:
         serializedVersion: 2
         x: 59
@@ -447,13 +465,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8a059f1243ac46d7a20479af3ef23fe
+      spriteID: b370c041022504d1582558e817831d88
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_16
+      name: Countess_16
       rect:
         serializedVersion: 2
         x: 88
@@ -467,13 +485,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37e0f82c4748e45739fa073d95ef3fcc
+      spriteID: 17be4e8a0d29f4a36ac32c100435a589
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ElismiSheet_17
+      name: Countess_17
       rect:
         serializedVersion: 2
         x: 117
@@ -487,7 +505,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43ef53440e3bc48a1b85324904484a9b
+      spriteID: 77ea96cafd9314597999b85529762711
       vertices: []
       indices: 
       edges: []
@@ -495,7 +513,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 74438fbc3fb1c41fc8b6c72d8bb165b2
     vertices: []
     indices: 
     edges: []
