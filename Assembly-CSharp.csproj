@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Merchant.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Individuals\Player.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\MovableObject.cs" />
+    <Compile Include="Assets\Scripts\Objects\MultiBodyPixelCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\Object.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelDoor.cs" />
