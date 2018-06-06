@@ -42,32 +42,36 @@ public class MacabreFootprints : EditorWindow {
 
 				Undo.RecordObject (pCollider2D, "Remove Interior Shapes");
 
-				var points = pCollider2D.points;
+				for (int i = 0; i < pCollider2D.pathCount; ++i) {
+					Vector2[] path = pCollider2D.GetPath(i);
 
-				for(int i = 0; i < pCollider2D.points.Length; i++) {
-					points[i].Scale(new Vector2(2.0f, 2.0f));
-					points[i] = new Vector2(Mathf.Round(points[i].x), Mathf.Round(points[i].y));
-					points[i].Scale(new Vector2(0.5f, 0.5f));
-				}
-				pCollider2D.points = points;
+					for (int j = 0; j < path.Length; j++)
+                    {
+                        path[j].Scale(new Vector2(2.0f, 2.0f));
+						path[j] = new Vector2(Mathf.Round(path[j].x), Mathf.Round(path[j].y));
+                        path[j].Scale(new Vector2(0.5f, 0.5f));
+                    }
+
+					pCollider2D.SetPath(i, path);
+				}            
 			}
 		}
-		foreach (GameObject lObj in Selection.gameObjects) {
-			//Debug.Log (lObj);
-			foreach(EdgeCollider2D eCollider2D in lObj.GetComponents<EdgeCollider2D>()) {
+		//foreach (GameObject lObj in Selection.gameObjects) {
+		//	//Debug.Log (lObj);
+		//	foreach(EdgeCollider2D eCollider2D in lObj.GetComponents<EdgeCollider2D>()) {
 				
-				Undo.RecordObject (eCollider2D, "Remove Interior Shapes");
+		//		Undo.RecordObject (eCollider2D, "Remove Interior Shapes");
 				
-				var points = eCollider2D.points;
+		//		var points = eCollider2D.points;
 				
-				for(int i = 0; i < eCollider2D.points.Length; i++) {
-					points[i].Scale(new Vector2(2.0f, 2.0f));
-					points[i] = new Vector2(Mathf.Round(points[i].x), Mathf.Round(points[i].y));
-					points[i].Scale(new Vector2(0.5f, 0.5f));
-				}
-				eCollider2D.points = points;
-			}
-		}
+		//		for(int i = 0; i < eCollider2D.points.Length; i++) {
+		//			points[i].Scale(new Vector2(2.0f, 2.0f));
+		//			points[i] = new Vector2(Mathf.Round(points[i].x), Mathf.Round(points[i].y));
+		//			points[i].Scale(new Vector2(0.5f, 0.5f));
+		//		}
+		//		eCollider2D.points = points;
+		//	}
+		//}
 	}
     
     static void RemoveShapes () {

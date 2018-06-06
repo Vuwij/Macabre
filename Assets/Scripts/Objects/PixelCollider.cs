@@ -8,14 +8,21 @@ namespace Objects
 {
 	public class PixelCollider : MonoBehaviour, IComparable<PixelCollider>
     {
-        public class MovementRestriction {
+		public struct CollisionBody {
+            public Vector2 top;
+            public Vector2 left;
+            public Vector2 right;
+            public Vector2 bottom;
+        }
+
+		public class MovementRestriction {
             public bool restrictNW = false;
             public bool restrictNE = false;
             public bool restrictSW = false;
             public bool restrictSE = false;
         }
 
-        new PolygonCollider2D collider2D;
+        protected new PolygonCollider2D collider2D;
 
         Vector2 top, bottom, left, right;
         Vector2[] colliderPoints;
@@ -23,10 +30,10 @@ namespace Objects
         public bool noSorting;
 		public bool noCollision;
 
-        int pixelProximity = 4; // 3 pixels away from the object
+        protected int pixelProximity = 4; // 3 pixels away from the object
         Vector2 topP, bottomP, leftP, rightP;
 
-        void Awake()
+        protected virtual void Awake()
         {
 			if (noCollision) return;
 
@@ -127,11 +134,6 @@ namespace Objects
                 }
             }
 
-            // Print adjacency list
-			//foreach(var obj in adjacencyList) {
-			//	Debug.Log(obj.Key.transform.parent.name + " -> " + obj.Value.transform.parent.name);
-			//}
-
 			// Kahn's Algorithm
             List<PixelCollider> sortedPixelColliders = new List<PixelCollider>();
             List<PixelCollider> noIncomingEdgeColliders = new List<PixelCollider>();
@@ -140,11 +142,6 @@ namespace Objects
 				if (!adjacencyList.Any((x) => x.Value == pixelColliders[i]))
 					noIncomingEdgeColliders.Add(pixelColliders[i]);
             }
-
-			//foreach (var obj in noIncomingEdgeColliders)
-    //        {
-				//Debug.Log(obj.transform.parent.name);
-            //}
 
             while (noIncomingEdgeColliders.Count > 0)
             {
@@ -160,11 +157,6 @@ namespace Objects
                     }
 				}
             }
-
-			//Debug.Log("Sorted");
-			//foreach (var obj in sortedPixelColliders) {
-            //    Debug.Log(obj.transform.parent.name);
-            //}
 
 			return sortedPixelColliders;
 		}
@@ -190,6 +182,7 @@ namespace Objects
                 if (otherPixelCollider == null) continue;
 				if (otherPixelCollider.noCollision) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
+				if (otherPixelCollider is MultiBodyPixelCollider) continue;
 
                 Transform otherTransform = otherPixelCollider.gameObject.transform;
 
@@ -247,9 +240,11 @@ namespace Objects
 			return pixelCollisions;
         }
 
-        public MovementRestriction CheckForCollision()
+        public virtual MovementRestriction CheckForCollision()
         {
-            Vector3 castStart = transform.position;
+			Debug.Assert(!(this is MultiBodyPixelCollider));
+            
+			Vector3 castStart = transform.position;
             castStart.z = -10.0f;
 
             Vector2 topWorld = top + (Vector2) transform.position;
@@ -275,39 +270,78 @@ namespace Objects
 
                 Transform otherTransform = otherPixelCollider.gameObject.transform;
 
-                Debug.Assert(otherPixelCollider.colliderPoints.Length == 4);
+				if (!(otherPixelCollider is MultiBodyPixelCollider))
+				{
+					Debug.Assert(otherPixelCollider.colliderPoints.Length == 4);
 
-                Vector2 othertopWorld = otherPixelCollider.top + (Vector2) otherTransform.position;
-                Vector2 otherbottomWorld = otherPixelCollider.bottom + (Vector2) otherTransform.position;
-                Vector2 otherleftWorld = otherPixelCollider.left + (Vector2) otherTransform.position;
-                Vector2 otherrightWorld = otherPixelCollider.right + (Vector2) otherTransform.position;
+					Vector2 othertopWorld = otherPixelCollider.top + (Vector2)otherTransform.position;
+					Vector2 otherbottomWorld = otherPixelCollider.bottom + (Vector2)otherTransform.position;
+					Vector2 otherleftWorld = otherPixelCollider.left + (Vector2)otherTransform.position;
+					Vector2 otherrightWorld = otherPixelCollider.right + (Vector2)otherTransform.position;
 
-                Debug.DrawLine(othertopWorld, otherbottomWorld);
-                Debug.DrawLine(otherleftWorld, otherrightWorld);
+					Debug.DrawLine(othertopWorld, otherbottomWorld);
+					Debug.DrawLine(otherleftWorld, otherrightWorld);
 
-                if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
-				    DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
-                    leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
-                    leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
-                    restrictNW = true;
-                
-                if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
-				    DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -2.0 &&
-                    topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-                    topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
-                    restrictNE = true;
-                
-                if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
-				    DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 2.0 &&
-                    leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
-                    leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
-                    restrictSW = true;
+					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
+						DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
+						leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
+						leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
+						restrictNW = true;
 
-                if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
-				    DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 2.0 &&
-                    bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-                    bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
-                    restrictSE = true;
+					if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
+						DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -2.0 &&
+						topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+						topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
+						restrictNE = true;
+
+					if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
+						DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 2.0 &&
+						leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
+						leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
+						restrictSW = true;
+
+					if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
+						DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 2.0 &&
+						bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+						bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
+						restrictSE = true;
+				}
+				else {
+					MultiBodyPixelCollider multi = otherPixelCollider as MultiBodyPixelCollider;
+					foreach(CollisionBody cbody in multi.collisionBodies) {
+						Vector2 othertopWorld = cbody.top + (Vector2)otherTransform.position;
+						Vector2 otherbottomWorld = cbody.bottom + (Vector2)otherTransform.position;
+						Vector2 otherleftWorld = cbody.left + (Vector2)otherTransform.position;
+						Vector2 otherrightWorld = cbody.right + (Vector2)otherTransform.position;
+
+                        Debug.DrawLine(othertopWorld, otherbottomWorld);
+                        Debug.DrawLine(otherleftWorld, otherrightWorld);
+
+                        if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
+                            DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
+                            leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
+                            leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
+                            restrictNW = true;
+
+                        if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
+                            DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -2.0 &&
+                            topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+                            topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
+                            restrictNE = true;
+
+                        if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
+                            DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 2.0 &&
+                            leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
+                            leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
+                            restrictSW = true;
+
+                        if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
+                            DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 2.0 &&
+                            bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+                            bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
+                            restrictSE = true;
+					}
+				}
             }
             
             // Collided with floor
@@ -360,47 +394,132 @@ namespace Objects
             return dist;
         }
 
-        // Returns 1 if in front of the other
+        // Returns 1 if in front of the other, returns 1 if object is in front of other
         public int CompareTo(PixelCollider other)
         {
-            Debug.Assert(this.colliderPoints.Length == 4);
-            Debug.Assert(other.colliderPoints.Length == 4);
-
-            Vector2 atopWorld = this.top + (Vector2) this.transform.position;
-            Vector2 abottomWorld = this.bottom + (Vector2) this.transform.position;
-            Vector2 aleftWorld = this.left + (Vector2) this.transform.position;
-            Vector2 arightWorld = this.right + (Vector2) this.transform.position;
-
-            Vector2 btopWorld = other.top + (Vector2) other.transform.position;
-            Vector2 bbottomWorld = other.bottom + (Vector2) other.transform.position;
-            Vector2 bleftWorld = other.left + (Vector2) other.transform.position;
-            Vector2 brightWorld = other.right + (Vector2) other.transform.position;
-
-            if (other == this)
-                return 0;
-
 			int comparison = 0;
 
-            if(DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
-                if(aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y)
+			if (other == this)
+                return 0;
+
+			if (other is MultiBodyPixelCollider && this is MultiBodyPixelCollider)
+			{
+				MultiBodyPixelCollider a = this as MultiBodyPixelCollider;
+				MultiBodyPixelCollider b = this as MultiBodyPixelCollider;
+                
+				Debug.Assert(a.collisionBodies.Count() > 0);
+				Debug.Assert(b.collisionBodies.Count() > 0);
+
+				// Find the front most box of all the boxes
+
+				// TODO: Top sort for more complicated buildings
+				for (int i = 0; i < a.collisionBodies.Count(); ++i)
+                {
+					for (int j = 0; j < b.collisionBodies.Count(); ++j)
+                    {
+						int comp = CompareTwoCollisionBoxes(a.collisionBodies[i], (Vector2)a.transform.position, b.collisionBodies[j], (Vector2)b.transform.position);
+						if (comp == 1)
+							comparison = 1;
+						if (comp == -1)
+							comparison = -1;
+                    }
+                }
+			}
+			else if (other is MultiBodyPixelCollider || this is MultiBodyPixelCollider)
+			{
+    			MultiBodyPixelCollider multi;
+				PixelCollider single;
+				if (other is MultiBodyPixelCollider)
+				{
+					multi = other as MultiBodyPixelCollider;
+					single = this;
+				}
+				else
+				{
+					multi = this as MultiBodyPixelCollider;
+					single = other;
+				}
+
+				CollisionBody singleBody;
+				singleBody.top = single.top;
+				singleBody.bottom = single.bottom;
+				singleBody.left = single.left;
+				singleBody.right = single.right;
+
+				// If any of the multi are in front of the single, multi wins
+				bool multiInFront = false;
+				for (int i = 0; i < multi.collisionBodies.Count(); ++i) {
+					int comp = CompareTwoCollisionBoxes(multi.collisionBodies[i], (Vector2)multi.transform.position, singleBody, single.transform.position);
+					if (comp == 1) multiInFront = true;
+				}
+
+				if(multiInFront) {
+					if (single == this)
+						return -1;
+					else
+						return 1;
+				}
+				else {
+					if (single == this)
+                        return 1;
+                    else
+                        return -1;
+				}            
+			}
+			else
+			{
+				Debug.Assert(this.colliderPoints.Length == 4);
+				Debug.Assert(other.colliderPoints.Length == 4);
+
+				CollisionBody a;
+				a.top = this.top;
+				a.bottom = this.bottom;
+				a.left = this.left;
+				a.right = this.right;
+                
+				CollisionBody b;
+                b.top = other.top;
+				b.bottom = other.bottom;
+                b.left = other.left;
+				b.right = other.right;
+
+				return CompareTwoCollisionBoxes(a, (Vector2)this.transform.position, b, (Vector2)other.transform.position);
+				//Debug.Log("Comparison: " + transform.parent.name + " - " + other.transform.parent.name + ": " + comparison);
+			}
+			return comparison;
+        }
+
+		int CompareTwoCollisionBoxes(CollisionBody a, Vector2 aPosition, CollisionBody b, Vector2 bPosition) {
+			int comparison = 0;
+
+			Vector2 atopWorld = a.top + aPosition;
+			Vector2 abottomWorld = a.bottom + aPosition;
+			Vector2 aleftWorld = a.left + aPosition;
+			Vector2 arightWorld = a.right + aPosition;
+
+			Vector2 btopWorld = b.top + bPosition;
+			Vector2 bbottomWorld = b.bottom + bPosition;
+			Vector2 bleftWorld = b.left + bPosition;
+			Vector2 brightWorld = b.right + bPosition;
+
+            if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
+                if (aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y)
                     comparison = 1;
 
             if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
                 if (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y)
-				    comparison = 1;
+                    comparison = 1;
 
             if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
                 if (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y)
-				    comparison = -1;
+                    comparison = -1;
 
             if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
                 if (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y)
-				    comparison = -1;
-
-			//Debug.Log("Comparison: " + transform.parent.name + " - " + other.transform.parent.name + ": " + comparison);
+                    comparison = -1;
 
 			return comparison;
-        }
+		}
 
         public bool ParentIsContainer() {
             for (int i = 0; i < transform.parent.parent.childCount; ++i)
