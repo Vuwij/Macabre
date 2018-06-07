@@ -200,9 +200,9 @@ TextureImporter:
       name: Inn-MainSpritesheet_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 1610
-        width: 309
+        width: 308
         height: 294
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -979,7 +979,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 06e807cbd95eb4e70a6d1b0208c231b7
     vertices: []
     indices: 
     edges: []
