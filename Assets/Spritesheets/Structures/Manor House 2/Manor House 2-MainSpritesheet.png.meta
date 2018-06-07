@@ -152,9 +152,9 @@ TextureImporter:
       name: Manor House 2-MainSpritesheet_0
       rect:
         serializedVersion: 2
-        x: 22
+        x: 23
         y: 3099
-        width: 232
+        width: 231
         height: 296
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
