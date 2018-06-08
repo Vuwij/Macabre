@@ -30,6 +30,7 @@ namespace Objects
         public bool noSorting;
 		public bool noCollision;
 		public float visibilityInFront = 0.25f;
+		public bool inspectChildObjects = false;
 
         protected int pixelProximity = 4; // 3 pixels away from the object
         Vector2 topP, bottomP, leftP, rightP;
@@ -184,9 +185,9 @@ namespace Objects
                 }
             }
             
-			foreach(var adj in adjacencyList) {
-				Debug.Log(adj.Key.transform.parent.name + " -> " + adj.Value.transform.parent.name);            
-			}
+			//foreach(var adj in adjacencyList) {
+			//	Debug.Log(adj.Key.transform.parent.name + " -> " + adj.Value.transform.parent.name);            
+			//}
 
 			// Kahn's Algorithm
             List<PixelCollider> sortedPixelColliders = new List<PixelCollider>();
@@ -578,7 +579,7 @@ namespace Objects
             for (int i = 0; i < transform.parent.parent.childCount; ++i)
             {
                 Transform t = transform.parent.parent.GetChild(i);
-                if (t.GetComponent<PixelCollider>() == true)
+				if (t.GetComponent<PixelCollider>() == true && !t.GetComponent<PixelCollider>().inspectChildObjects) 
                     return true;
             }
             return false;
@@ -632,8 +633,12 @@ namespace Objects
 		PixelRoom GetPixelRoom()
         {
 			PixelRoom pixelRoom = transform.parent.parent.GetComponent<PixelRoom>();
-			if (pixelRoom == null) pixelRoom = transform.parent.GetComponent<PixelRoom>();
-			Debug.Assert(pixelRoom != null);
+			if (pixelRoom == null)
+				pixelRoom = transform.parent.GetComponent<PixelRoom>();
+			if (pixelRoom == null) {
+				Debug.Assert(transform.parent.parent.parent != null);
+				pixelRoom = transform.parent.parent.parent.GetComponent<PixelRoom>();
+			}
 			return pixelRoom;
         }
 
