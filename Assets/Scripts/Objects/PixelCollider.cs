@@ -79,7 +79,7 @@ namespace Objects
             Vector3 castStart = transform.position;
             castStart.z = -10.0f;
 
-            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 25, Vector2.zero);
+            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 23, Vector2.zero);
             List<PixelCollider> pixelColliders = new List<PixelCollider>();
 
             foreach (RaycastHit2D raycastHit in castStar)
@@ -184,9 +184,9 @@ namespace Objects
                 }
             }
             
-			//foreach(var adj in adjacencyList) {
-			//	Debug.Log(adj.Key.transform.parent.name + " -> " + adj.Value.transform.parent.name);            
-			//}
+			foreach(var adj in adjacencyList) {
+				Debug.Log(adj.Key.transform.parent.name + " -> " + adj.Value.transform.parent.name);            
+			}
 
 			// Kahn's Algorithm
             List<PixelCollider> sortedPixelColliders = new List<PixelCollider>();
@@ -501,24 +501,23 @@ namespace Objects
 				singleBody.right = single.right;
 
 				// If any of the multi are in front of the single, multi wins
-				bool multiInFront = false;
+				int multiInFront = 0;
 				for (int i = 0; i < multi.collisionBodies.Count(); ++i) {
 					int comp = CompareTwoCollisionBoxes(multi.collisionBodies[i], (Vector2)multi.transform.position, singleBody, single.transform.position);
-					if (comp == 1) multiInFront = true;
+					if (comp == 1) multiInFront = 1;
+					if (comp == -1) multiInFront = -1;
 				}
 
-				if(multiInFront) {
-					if (single == this)
-						return -1;
-					else
-						return 1;
+				if (single != this)
+				{
+					comparison = multiInFront;               
 				}
 				else {
-					if (single == this)
-                        return 1;
-                    else
-                        return -1;
-				}            
+					if (multiInFront == 1)
+						comparison = -1;
+					if (multiInFront == -1)
+						comparison = 1;
+				}      
 			}
 			else
 			{

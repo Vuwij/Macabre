@@ -645,9 +645,9 @@ TextureImporter:
       name: Guardhouse-MainSpritesheet_27
       rect:
         serializedVersion: 2
-        x: 26
+        x: 25
         y: 101
-        width: 248
+        width: 249
         height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -664,7 +664,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7b130acfdd38b4866a30ae593bfee22d
     vertices: []
     indices: 
     edges: []

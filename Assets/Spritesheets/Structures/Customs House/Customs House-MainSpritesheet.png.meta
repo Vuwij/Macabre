@@ -42,6 +42,7 @@ TextureImporter:
     21300074: Customs House-MainSpritesheet_37
     21300076: Customs House-MainSpritesheet_38
     21300078: Customs House-MainSpritesheet_39
+    21300080: Customs House-MainSpritesheet_40
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -917,6 +918,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: a30ca3c1edee84642b747166c052e0e2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Customs House-MainSpritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 691
+        y: 65
+        width: 129
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5db6a5057f2dd437e9d256a1bfaa1206
       vertices: []
       indices: 
       edges: []
