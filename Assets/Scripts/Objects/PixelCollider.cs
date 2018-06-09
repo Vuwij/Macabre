@@ -29,6 +29,8 @@ namespace Objects
 
         public bool noSorting;
 		public bool noCollision;
+		public float visibilityInFront = 0.25f;
+		public bool inspectChildObjects = false;
 
         protected int pixelProximity = 4; // 3 pixels away from the object
         Vector2 topP, bottomP, leftP, rightP;
@@ -78,7 +80,7 @@ namespace Objects
             Vector3 castStart = transform.position;
             castStart.z = -10.0f;
 
-            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 20, Vector2.zero);
+            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 23, Vector2.zero);
             List<PixelCollider> pixelColliders = new List<PixelCollider>();
 
             foreach (RaycastHit2D raycastHit in castStar)
@@ -114,6 +116,55 @@ namespace Objects
 				previousTransform = sr.gameObject.transform;
                 //Debug.Log(sr.gameObject.name + " " + sr.sortingOrder.ToString());
             }
+
+			// Place the player in front of colliding objects
+			PixelCollider player = pixelColliders.Find((obj) => obj.transform.parent.tag == "Player");
+			if(player != null) {
+				for (int i = 0; i < pixelColliders.Count; ++i) {
+					int comparison = player.CompareTo(pixelColliders[i]);
+					if (pixelColliders[i] == player) continue;
+					if (comparison == -1) {
+						SpriteRenderer sr = pixelColliders[i].transform.parent.GetComponentInChildren<SpriteRenderer>();
+                        if (sr == null) continue;
+						Color color = sr.color;
+						color.a = pixelColliders[i].visibilityInFront;
+						sr.color = color;
+
+                        // Child objects
+                        SpriteRenderer[] childobjects = pixelColliders[i].transform.parent.GetComponentsInChildren<SpriteRenderer>();
+                        foreach (SpriteRenderer co in childobjects)
+                        {
+                            if (co == sr) continue;
+							Color cocolor = co.color;
+							if (co.name == "Shadow")
+								cocolor.a = 0.8f;
+							else
+							    cocolor.a = pixelColliders[i].visibilityInFront;
+							co.color = cocolor;
+                        }
+					}
+					else {
+						SpriteRenderer sr = pixelColliders[i].transform.parent.GetComponentInChildren<SpriteRenderer>();
+                        if (sr == null) continue;
+                        Color color = sr.color;
+                        color.a = 1;
+                        sr.color = color;
+
+                        // Child objects
+                        SpriteRenderer[] childobjects = pixelColliders[i].transform.parent.GetComponentsInChildren<SpriteRenderer>();
+                        foreach (SpriteRenderer co in childobjects)
+                        {
+                            if (co == sr) continue;
+                            Color cocolor = co.color;
+							if (co.name == "Shadow")
+                                cocolor.a = 0.3f;
+							else
+                                cocolor.a = 1;
+                            co.color = cocolor;
+                        }
+					}
+				}
+			}         
         }
 
 		public List<PixelCollider> TopologicalSort(List<PixelCollider> pixelColliders) {
@@ -133,6 +184,10 @@ namespace Objects
                     }
                 }
             }
+            
+			//foreach(var adj in adjacencyList) {
+			//	Debug.Log(adj.Key.transform.parent.name + " -> " + adj.Value.transform.parent.name);            
+			//}
 
 			// Kahn's Algorithm
             List<PixelCollider> sortedPixelColliders = new List<PixelCollider>();
@@ -405,7 +460,7 @@ namespace Objects
 			if (other is MultiBodyPixelCollider && this is MultiBodyPixelCollider)
 			{
 				MultiBodyPixelCollider a = this as MultiBodyPixelCollider;
-				MultiBodyPixelCollider b = this as MultiBodyPixelCollider;
+				MultiBodyPixelCollider b = other as MultiBodyPixelCollider;
                 
 				Debug.Assert(a.collisionBodies.Count() > 0);
 				Debug.Assert(b.collisionBodies.Count() > 0);
@@ -447,24 +502,23 @@ namespace Objects
 				singleBody.right = single.right;
 
 				// If any of the multi are in front of the single, multi wins
-				bool multiInFront = false;
+				int multiInFront = 0;
 				for (int i = 0; i < multi.collisionBodies.Count(); ++i) {
 					int comp = CompareTwoCollisionBoxes(multi.collisionBodies[i], (Vector2)multi.transform.position, singleBody, single.transform.position);
-					if (comp == 1) multiInFront = true;
+					if (comp == 1) multiInFront = 1;
+					if (comp == -1) multiInFront = -1;
 				}
 
-				if(multiInFront) {
-					if (single == this)
-						return -1;
-					else
-						return 1;
+				if (single != this)
+				{
+					comparison = multiInFront;               
 				}
 				else {
-					if (single == this)
-                        return 1;
-                    else
-                        return -1;
-				}            
+					if (multiInFront == 1)
+						comparison = -1;
+					if (multiInFront == -1)
+						comparison = 1;
+				}      
 			}
 			else
 			{
@@ -525,7 +579,7 @@ namespace Objects
             for (int i = 0; i < transform.parent.parent.childCount; ++i)
             {
                 Transform t = transform.parent.parent.GetChild(i);
-                if (t.GetComponent<PixelCollider>() == true)
+				if (t.GetComponent<PixelCollider>() == true && !t.GetComponent<PixelCollider>().inspectChildObjects) 
                     return true;
             }
             return false;
@@ -579,8 +633,12 @@ namespace Objects
 		PixelRoom GetPixelRoom()
         {
 			PixelRoom pixelRoom = transform.parent.parent.GetComponent<PixelRoom>();
-			if (pixelRoom == null) pixelRoom = transform.parent.GetComponent<PixelRoom>();
-			Debug.Assert(pixelRoom != null);
+			if (pixelRoom == null)
+				pixelRoom = transform.parent.GetComponent<PixelRoom>();
+			if (pixelRoom == null) {
+				Debug.Assert(transform.parent.parent.parent != null);
+				pixelRoom = transform.parent.parent.parent.GetComponent<PixelRoom>();
+			}
 			return pixelRoom;
         }
 

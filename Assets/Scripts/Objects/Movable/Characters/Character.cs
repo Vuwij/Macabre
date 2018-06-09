@@ -94,8 +94,11 @@ namespace Objects.Movable.Characters
         {
             UpdateFromPrefab();
 
-            InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
-
+			if(transform.parent.name == "Overworld")
+				InvokeRepeating("Movement", 0.0f, 1.0f / outdoorMovementSpeed);
+			else
+				InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
+			
             base.Start();
         }
 
