@@ -2,6 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Layer
+{
+    Front,
+    World,
+    Back
+}
+
+[System.Serializable]
+public struct OtherVisibleRoom
+{
+    public PixelRoom room;
+    public Layer layer;
+}
+
 public class PixelRoom : MonoBehaviour {
 
     new PolygonCollider2D collider2D;
@@ -11,18 +25,6 @@ public class PixelRoom : MonoBehaviour {
     [HideInInspector]
     public Vector2[] colliderPoints;
     
-	public enum Layer {
-        Front,
-        World,
-        Back
-    }
-
-	[System.Serializable]
-	public struct OtherVisibleRoom {
-		public PixelRoom room;
-		public Layer layer;
-	}
-
 	public OtherVisibleRoom[] otherVisibleRooms;
 
     void Awake()
@@ -66,6 +68,14 @@ public class PixelRoom : MonoBehaviour {
             }
 		}
 	}
+
+	public void OnDisable()
+	{
+		foreach (OtherVisibleRoom room in otherVisibleRooms) {
+			room.room.gameObject.SetActive(false);
+        }
+	}
+
 
 	void SetSortingLayer(Layer layer, SpriteRenderer sr) {
 		if (layer == Layer.World)

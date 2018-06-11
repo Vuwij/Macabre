@@ -142,6 +142,13 @@ namespace Objects
 							    cocolor.a = pixelColliders[i].visibilityInFront;
 							co.color = cocolor;
                         }
+                        
+                        // If the object is a exterior, hide the insides of the room
+						if (pixelColliders[i].transform.parent.GetComponent<PixelExterior>() != null) {
+							PixelRoom room = sr.GetComponent<PixelRoom>();
+							//room.HideOtherVisibleRooms();
+						}
+
 					}
 					else {
 						SpriteRenderer sr = pixelColliders[i].transform.parent.GetComponentInChildren<SpriteRenderer>();
@@ -161,6 +168,13 @@ namespace Objects
 							else
                                 cocolor.a = 1;
                             co.color = cocolor;
+                        }
+
+						// If the object is a room, hide the insides of the room
+						if (pixelColliders[i].transform.parent.GetComponent<PixelExterior>() != null)
+                        {
+                            PixelRoom room = sr.GetComponent<PixelRoom>();
+							//room.ShowOtherVisibleRooms();
                         }
 					}
 				}
@@ -250,8 +264,9 @@ namespace Objects
 
 				Direction direction = Direction.All;
 				List<PixelCollider> pixelColliders = new List<PixelCollider>();
-
-                if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
+                
+				if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 2 &&
+                    DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -10.0 &&
                     leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
                     leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
                 {
@@ -259,24 +274,27 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
-                else if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
-                    topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+				else if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 2 &&
+                         DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -10.0 &&
+                         topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                          topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
                 {
 					direction = Direction.NE;
 					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
-                else if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
-                    leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
+				else if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -2 &&
+                         DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 10.0 &&
+                         leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
                          leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
                 {
 					direction = Direction.SW;
 					pixelColliders.Add(otherPixelCollider);
                     pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
                 }
-                else if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
-                    bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
+				else if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -2 &&
+                         DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 10.0 &&
+                         bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
                          bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
                 {
 					direction = Direction.SE;
@@ -336,8 +354,8 @@ namespace Objects
 
 					Debug.DrawLine(othertopWorld, otherbottomWorld);
 					Debug.DrawLine(otherleftWorld, otherrightWorld);
-
-					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
+                    
+					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 2.4 &&
 						DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
 						leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
 						leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
