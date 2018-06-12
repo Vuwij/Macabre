@@ -22,8 +22,7 @@ namespace Objects
 
 	public class PixelRoom : MonoBehaviour
 	{
-
-		new PolygonCollider2D collider2D;
+        new PolygonCollider2D collider2D;
 
 		[HideInInspector]
 		public Vector2 top, bottom, left, right;
@@ -31,6 +30,7 @@ namespace Objects
 		public Vector2[] colliderPoints;
 
 		public OtherVisibleRoom[] otherVisibleRooms;
+		public int RoomWalkingSpeed = 10;
 
 		void Awake()
 		{

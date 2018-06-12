@@ -94,11 +94,9 @@ namespace Objects.Movable.Characters
         {
             UpdateFromPrefab();
 
-			if(transform.parent.name == "Overworld")
-				InvokeRepeating("Movement", 0.0f, 1.0f / outdoorMovementSpeed);
-			else
-				InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
-			
+			PixelRoom room = transform.parent.GetComponent<PixelRoom>();
+			InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
+
             base.Start();
         }
 
@@ -190,10 +188,8 @@ namespace Objects.Movable.Characters
 
                     CancelInvoke("Movement");
 					AnimateMovement();
-                    if(room.name == "Overworld")
-                        InvokeRepeating("Movement", 0.0f, 1.0f / outdoorMovementSpeed);
-                    else
-                        InvokeRepeating("Movement", 0.0f, 1.0f / indoorMovementSpeed);
+
+					InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
                     
                     return;
                 }

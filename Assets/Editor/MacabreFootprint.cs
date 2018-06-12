@@ -96,7 +96,8 @@ public class MacabreFootprint : EditorWindow {
         foreach (GameObject objs in Selection.gameObjects) {
 
 			if (objs.GetComponent<PixelRoom>() == null) continue;
-			objs.GetComponent<PixelRoom>().GetComponent<SpriteRenderer>().sortingOrder = 0;
+			SpriteRenderer roomSpriteRenderer = objs.GetComponent<PixelRoom>().GetComponent<SpriteRenderer>();
+			if(roomSpriteRenderer != null) roomSpriteRenderer.sortingOrder = 0;
 
 			for (int i = 0; i < objs.transform.childCount; ++i)
 			{
