@@ -181,10 +181,12 @@ namespace Objects.Movable.Characters
 					facingDirection = destinationOffset - (Vector2)transform.position;
                     transform.position = destinationOffset;
                     transform.parent = room.transform;
+                    
 					originalroom.gameObject.SetActive(false);
                     room.transform.gameObject.SetActive(true);
 					room.OnEnable();
-                    UpdateSortingLayer();
+                    
+					UpdateSortingLayer();
 
                     CancelInvoke("Movement");
 					AnimateMovement();

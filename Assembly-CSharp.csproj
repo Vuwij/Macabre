@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Objects\Object.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelCollider.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelDoor.cs" />
+    <Compile Include="Assets\Scripts\Objects\PixelExterior.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelInventory.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelItem.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelRoom.cs" />
