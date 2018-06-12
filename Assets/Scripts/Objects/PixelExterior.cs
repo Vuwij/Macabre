@@ -13,15 +13,28 @@ namespace Objects
 			foreach (OtherVisibleRoom room in otherVisibleRooms)
 			{
 				// Show all objects
-                foreach (SpriteRenderer sr in room.room.GetComponentsInChildren<SpriteRenderer>())
-                {
-                    Color c = sr.color;
-					if (sr.name != "Footprint" && !sr.name.Contains("Shadow"))
+				for (int i = 0; i < room.room.transform.childCount; ++i)
+				{
+					Transform obj = room.room.transform.GetChild(i);
+
+					SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+					if (sr != null && sr.name != "Footprint")
+					{
+						Color c = sr.color;
 						c.a = 1.0f;
-					else
-						continue;
-                    sr.color = c;
-                }
+						sr.color = c;
+
+						foreach (SpriteRenderer srchild in sr.GetComponentsInChildren<SpriteRenderer>())
+						{
+							if (srchild != null && srchild.name != "Footprint")
+							{
+								Color ccc = srchild.color;
+								ccc.a = 0.8f;
+								srchild.color = ccc;
+							}
+						}
+					}
+				}
                 // Except the room
                 SpriteRenderer spriteRenderer = room.room.GetComponent<SpriteRenderer>();
                 Color cc = spriteRenderer.color;
@@ -34,20 +47,46 @@ namespace Objects
 			foreach (OtherVisibleRoom room in otherVisibleRooms)
             {
 				// Hide all objects
-                foreach (SpriteRenderer sr in room.room.GetComponentsInChildren<SpriteRenderer>())
-                {
-					if (sr.name == "Footprint" || sr.name.Contains("Shadow"))
-                        continue; 
-					Color c = sr.color;
-                    c.a = 0;
-                    sr.color = c;
-                }
+				for (int i = 0; i < room.room.transform.childCount; ++i) {
+					Transform obj = room.room.transform.GetChild(i);
+                    
+					SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+					if (sr != null) {
+						Color c = sr.color;
+                        c.a = 0;
+                        sr.color = c;
+
+						foreach (SpriteRenderer srchild in sr.GetComponentsInChildren<SpriteRenderer>())
+                        {
+                            if (srchild != null)
+                            {
+                                Color ccc = srchild.color;
+                                ccc.a = 0;
+                                srchild.color = ccc;
+                            }
+                        }
+					}               
+				}
+
                 // Except the room
                 SpriteRenderer spriteRenderer = room.room.GetComponent<SpriteRenderer>();
                 Color cc = spriteRenderer.color;
-                cc.a = 0.3f;
+				cc.a = GetVisibilityInFront();
                 spriteRenderer.color = cc;
             }
-		}      
+		} 
+       
+		float GetVisibilityInFront() {
+			for (int i = 0; i < transform.childCount; ++i)
+			{
+				Transform t = transform.GetChild(i);
+				MultiBodyPixelCollider multiBodyPixelCollider = t.GetComponent<MultiBodyPixelCollider>();
+				if(multiBodyPixelCollider != null)
+				{
+					return multiBodyPixelCollider.visibilityInFront;
+				}
+			}
+			throw new System.Exception("No Multibody Pixel Collider for " + this.name);
+		}
 	}
 }

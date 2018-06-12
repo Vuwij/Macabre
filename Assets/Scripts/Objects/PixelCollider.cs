@@ -90,6 +90,7 @@ namespace Objects
                 if (otherPixelCollider.ParentIsContainer()) continue;
 				if (otherPixelCollider.noSorting) continue;
 				if (otherPixelCollider.noCollision) continue;
+				if (!OtherPixelColliderSameParent(otherPixelCollider)) continue;
                 pixelColliders.Add(otherPixelCollider);
             }
          
@@ -163,7 +164,12 @@ namespace Objects
                             if (co == sr) continue;
                             Color cocolor = co.color;
 							if (co.name == "Shadow")
-                                cocolor.a = 0.3f;
+							{
+								if (co.transform.parent.GetComponent<PixelExterior>() != null)
+									cocolor.a = 0.0f;
+								else
+									cocolor.a = 0.3f;
+							}
 							else
                                 cocolor.a = 1;
                             co.color = cocolor;
