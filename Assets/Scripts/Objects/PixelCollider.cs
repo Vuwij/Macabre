@@ -143,11 +143,10 @@ namespace Objects
 							co.color = cocolor;
                         }
                         
-                        // If the object is a exterior, hide the insides of the room
-						if (pixelColliders[i].transform.parent.GetComponent<PixelExterior>() != null) {
-							PixelRoom room = sr.GetComponent<PixelRoom>();
-							//room.HideOtherVisibleRooms();
-						}
+						// If the object is a room, hide the insides of the room
+                        PixelExterior exterior = pixelColliders[i].transform.parent.GetComponent<PixelExterior>();
+                        if (exterior != null)
+							exterior.HideAllRooms();
 
 					}
 					else {
@@ -171,11 +170,9 @@ namespace Objects
                         }
 
 						// If the object is a room, hide the insides of the room
-						if (pixelColliders[i].transform.parent.GetComponent<PixelExterior>() != null)
-                        {
-                            PixelRoom room = sr.GetComponent<PixelRoom>();
-							//room.ShowOtherVisibleRooms();
-                        }
+						PixelExterior exterior = pixelColliders[i].transform.parent.GetComponent<PixelExterior>();
+						if (exterior != null)
+							exterior.ShowAllRooms();
 					}
 				}
 			}         
