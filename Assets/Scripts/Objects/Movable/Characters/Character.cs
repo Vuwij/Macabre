@@ -67,6 +67,11 @@ namespace Objects.Movable.Characters
 			}
 		}
 
+		public Queue<CharacterTask> characterTasks = new Queue<CharacterTask>();
+
+		List<WayPoint> wayPoints;
+		public Vector2 wayPointVelocity;
+
         bool positionLocked;
 
         [HideInInspector]
@@ -77,8 +82,7 @@ namespace Objects.Movable.Characters
 
         [Range(1, 20)]
         public int outdoorMovementSpeed = 30;
-
-
+        
 		[Serializable]
 		public struct ExtraSprites {
 			public Sprite leftFeet;
@@ -100,6 +104,11 @@ namespace Objects.Movable.Characters
             base.Start();
         }
 
+		protected virtual void FixedUpdate()
+		{
+			StartCoroutine("UpdateCharacterAction");
+		}
+
         void UpdateFromPrefab() {
             Character prefab = Resources.Load<Character>("Characters/" + name);
 			if(prefab == null) {
@@ -112,25 +121,37 @@ namespace Objects.Movable.Characters
 
         void Movement()
         {
-            if (inputVelocity != Vector2.zero && !positionLocked)
-            {
-                Vector2 pos = transform.position;
-                pos.x = pos.x + inputVelocity.x;
-                pos.y = pos.y + inputVelocity.y;
-                transform.position = pos;
-                UpdateSortingLayer();
-            }
-			characterVelocity = inputVelocity;
-
+			if(!positionLocked) {
+				if (inputVelocity != Vector2.zero)
+                {
+                    Vector2 pos = transform.position;
+                    pos.x = pos.x + inputVelocity.x;
+                    pos.y = pos.y + inputVelocity.y;
+                    transform.position = pos;
+                    UpdateSortingLayer();
+					characterVelocity = inputVelocity;
+					if(wayPoints != null)
+						wayPoints.Clear();
+                }
+                else if (wayPointVelocity != Vector2.zero)
+                {
+                    Vector2 pos = transform.position;
+                    pos.x = pos.x + wayPointVelocity.x;
+                    pos.y = pos.y + wayPointVelocity.y;
+                    transform.position = pos;
+                    UpdateSortingLayer();
+					characterVelocity = wayPointVelocity;
+                }
+				else
+				{
+					characterVelocity = Vector2.zero;
+				}
+			}
+                     
 			if(characterVelocity != Vector2.zero)
 			    facingDirection = characterVelocity;
 
             AnimateMovement();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
         }
 
 		protected void AnimateMovement()
@@ -236,5 +257,111 @@ namespace Objects.Movable.Characters
 			currrentlySpeakingTo.currentConversationState.DisplayCurrent();     
 			currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
         }
+              
+		public bool Navigate(Vector2 destination)
+		{
+            // Find and draw the navigational path
+			if(wayPoints == null) {
+				wayPoints = FindPathToDestination(destination);
+				if (wayPoints.Count != 0)
+                {               
+                    WayPoint point = wayPoints.First();
+                    foreach (WayPoint w in wayPoints)
+                    {
+                        Debug.DrawLine(point.position, w.position, Color.red, 10.0f);
+                        point = w;
+                    }
+                }            
+			}
+
+			if (wayPoints.Count == 0) {
+				wayPoints = null;
+				return true;
+			}
+
+			Vector2 direction = wayPoints[0].position - (Vector2)transform.position;
+			if (direction.sqrMagnitude < (new Vector2(2, 1)).sqrMagnitude) {
+				wayPointVelocity = Vector2.zero;
+				wayPoints.RemoveAt(0);
+				return false;
+			}
+
+			if (direction.x > 0 && direction.y > 0)
+				wayPointVelocity = new Vector2(2, 1);
+			else if (direction.x < 0 && direction.y > 0)
+				wayPointVelocity = new Vector2(-2, 1);
+			else if (direction.x > 0 && direction.y < 0)
+				wayPointVelocity = new Vector2(2, -1);
+			else if (direction.x < 0 && direction.y < 0)
+				wayPointVelocity = new Vector2(-2, -1);
+
+			return false;
+		}
+
+		List<WayPoint> FindPathToDestination(Vector2 destination)
+		{
+			PixelCollider pixelCollider = transform.GetComponentInChildren<PixelCollider>();
+			Debug.Assert(pixelCollider != null);
+			PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
+			Debug.Assert(pixelRoom != null);
+
+			// Dijkstra's Algorithm Parameters
+			int stepSize = 5;
+			float minDistanceToTarget = Mathf.Sqrt((stepSize * 2) * (stepSize * 2) + stepSize * stepSize);
+
+			// Initialization
+			HashSet<WayPoint> Q = pixelRoom.GetNavigationalMesh(transform.position, stepSize);
+			WayPoint target = new WayPoint
+            {
+				position = destination,
+				distance = float.MaxValue,
+                previous = null
+            };
+            
+			// Propogation
+			while(Q.Count > 0) {
+				WayPoint u = Q.Aggregate((i1, i2) => i1.distance < i2.distance ? i1 : i2);
+				Q.Remove(u);
+                
+				if (WayPoint.Distance(u, target) < minDistanceToTarget) {
+					target.previous = u;
+
+					List<WayPoint> path = new List<WayPoint>();
+					if (u.previous == null)
+						return path;
+					while(u.previous != null) {
+						path.Add(u);
+						u = u.previous;
+					}
+					path.Add(u);
+					path.Reverse();
+                    return path;
+				}
+
+				foreach(WayPoint v in u.neighbours) {
+					float alt = u.distance + WayPoint.Distance(u, v);
+					if (alt < v.distance) {
+						v.distance = alt;
+						v.previous = u;
+					}
+				}            
+			}
+
+			return new List<WayPoint>();
+		}
+
+		IEnumerator UpdateCharacterAction()
+		{
+			if (characterTasks.Count == 0)
+				yield break;
+
+			CharacterTask t = characterTasks.Peek();
+			if(t.taskType == GameTask.TaskType.NAVIGATE) {
+				bool completed = Navigate((Vector2) t.arguments[0]);
+				if (completed) {
+					characterTasks.Dequeue();
+				}
+			}
+		}
 	}
 }

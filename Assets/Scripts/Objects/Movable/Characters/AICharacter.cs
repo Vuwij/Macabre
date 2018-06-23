@@ -89,8 +89,8 @@ namespace Objects.Movable.Characters
 								}
 							}
 							// Walk to however far it can get
-							var limitedPath = FindHitFromRaycast(decidedPath);
-							movementPath.Enqueue(limitedPath);
+							//var limitedPath = FindHitFromRaycast(decidedPath);
+							//movementPath.Enqueue(limitedPath);
 						}
 					}
 				}

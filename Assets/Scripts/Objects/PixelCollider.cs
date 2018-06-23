@@ -111,9 +111,10 @@ namespace Objects
                     co.sortingOrder = i * 2 + 1;
                 }
                 
-				if (previousTransform != null && sr.gameObject.transform != previousTransform) {
-					Debug.DrawLine(previousTransform.position, sr.gameObject.transform.position, Color.red, 10.0f);
-				}
+				//if (previousTransform != null && sr.gameObject.transform != previousTransform) {
+				//	Debug.DrawLine(previousTransform.position, sr.gameObject.transform.position, Color.red, 10.0f);
+				//}
+
 				previousTransform = sr.gameObject.transform;
                 //Debug.Log(sr.gameObject.name + " " + sr.sortingOrder.ToString());
             }
@@ -355,10 +356,12 @@ namespace Objects
 					Vector2 otherleftWorld = otherPixelCollider.left + (Vector2)otherTransform.position;
 					Vector2 otherrightWorld = otherPixelCollider.right + (Vector2)otherTransform.position;
 
-					Debug.DrawLine(othertopWorld, otherbottomWorld);
-					Debug.DrawLine(otherleftWorld, otherrightWorld);
+					Debug.DrawLine(othertopWorld, otherleftWorld);
+					Debug.DrawLine(otherleftWorld, otherbottomWorld);
+					Debug.DrawLine(otherbottomWorld, otherrightWorld);
+					Debug.DrawLine(otherrightWorld, othertopWorld);
                     
-					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 2.4 &&
+					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 1.4 &&
 						DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
 						leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
 						leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
@@ -390,8 +393,10 @@ namespace Objects
 						Vector2 otherleftWorld = cbody.left + (Vector2)otherTransform.position;
 						Vector2 otherrightWorld = cbody.right + (Vector2)otherTransform.position;
 
-                        Debug.DrawLine(othertopWorld, otherbottomWorld);
-                        Debug.DrawLine(otherleftWorld, otherrightWorld);
+						Debug.DrawLine(othertopWorld, otherleftWorld);
+                        Debug.DrawLine(otherleftWorld, otherbottomWorld);
+                        Debug.DrawLine(otherbottomWorld, otherrightWorld);
+                        Debug.DrawLine(otherrightWorld, othertopWorld);
 
                         if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
                             DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
@@ -453,7 +458,37 @@ namespace Objects
             return movementRestriction;
         }
 
-        float DistanceBetween4points(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2) {
+		public bool CheckForWithinCollider(Vector2 position)
+		{
+			Vector2 topWorld = top + (Vector2)transform.position;
+            Vector2 bottomWorld = bottom + (Vector2)transform.position;
+            Vector2 leftWorld = left + (Vector2)transform.position;
+            Vector2 rightWorld = right + (Vector2)transform.position;
+
+			if (!(this is MultiBodyPixelCollider))
+            {
+				if (this.colliderPoints.Length != 4) {
+					Debug.Log(this.transform.parent.name);
+				}
+				Debug.Assert(this.colliderPoints.Length == 4);
+                
+				if (DistanceBetween4points(leftWorld, topWorld, position, position) > 0.4)
+					return false;
+
+				if (DistanceBetween4points(topWorld, rightWorld, position, position) > 0.4)
+					return false;
+
+				if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -0.4)
+					return false;
+
+				if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -0.4)
+					return false;
+            }         
+
+			return true;
+		}
+
+		public static float DistanceBetween4points(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2) {
             float m = (a2.y - a1.y) / (a2.x - a1.x); // Slope of parallel lines
             float i1 = a1.y - a1.x * m; // Intercept 1
             float i2 = b1.y - b1.x * m; // Intercept 2
@@ -461,7 +496,16 @@ namespace Objects
             return dist;
         }
 
-        float DistanceBetween4pointsAbs(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
+		public static float DistanceBetween4pointsOrthographic(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
+        {
+            float m = (a2.y - a1.y) / (a2.x - a1.x); // Slope of parallel lines
+            float i1 = a1.y - a1.x * m; // Intercept 1
+            float i2 = b1.y - b1.x * m; // Intercept 2
+			float dist = (i2 - i1) / 2 / Mathf.Abs(m / Mathf.Sqrt(m * m + 1));
+            return dist;
+        }
+
+		public static float DistanceBetween4pointsAbs(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
         {
             float m = (a2.y - a1.y) / (a2.x - a1.x); // Slope of parallel lines
             float i1 = a1.y - a1.x * m; // Intercept 1
@@ -651,7 +695,7 @@ namespace Objects
 			return pc.GetPixelRoom() == this.GetPixelRoom();
         }
 
-		PixelRoom GetPixelRoom()
+		public PixelRoom GetPixelRoom()
         {
 			PixelRoom pixelRoom = transform.parent.parent.GetComponent<PixelRoom>();
 			if (pixelRoom == null)

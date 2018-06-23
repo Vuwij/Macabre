@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Environment;
 using UI;
 using UI.Panels;
@@ -55,16 +56,27 @@ namespace Objects.Movable.Characters.Individuals
 			}
 		}
 
+		Vector2 mousePosition
+        {
+            get {
+                Vector2 click = Input.mousePosition;
+                var offset = click - new Vector2(320.0f, 180.0f);
+                offset.Scale(new Vector2(0.5f, 0.5f));
+                click = offset + new Vector2(320.0f, 180.0f);
+                return Camera.main.ScreenToWorldPoint(click);
+            }
+        }    
+              
 		protected override void Start()
         {
             base.Start();
         }
 
-		protected override void Update()
+		protected override void FixedUpdate()
 		{
+			MouseClicked();
 			KeyPressed();
-
-			base.Update();
+			base.FixedUpdate();
 		}
 
 		void KeyPressed() {
@@ -102,16 +114,59 @@ namespace Objects.Movable.Characters.Individuals
                 if(selection != 0)
                     Talk(selection);
 			}
-
+            
 		}
 
-		void HoverOverObject() {
-			var obj = FindInspectablePixelAroundPosition(mousePosition);
-			if(obj != null) {
-				if(obj is IInspectable) {
-					obj.ShowHoverText();
+		void MouseClicked() {
+			if(Input.GetMouseButtonDown(0)) {
+				Vector3 castStart = mousePosition;
+				castStart.z = -10.0f;
+
+				RaycastHit2D[] raycastHits = Physics2D.CircleCastAll(mousePosition, 30.0f, Vector2.zero);
+                
+                // Detected inspected objects
+				foreach (var hit in raycastHits)
+                {
+					GameObject obj = hit.collider.gameObject;
+					if (obj == this) continue;
+
+					PixelCollider pixelCollider = obj.GetComponent<PixelCollider>();
+					if (pixelCollider != null)
+					{
+						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
+						if (withinCollider)
+						{
+							Debug.Log(pixelCollider.transform.parent.name);
+							return;
+						}
+					}
+                }
+
+				// Detected inspected rooms (for navigation)
+				foreach (var hit in raycastHits)
+				{
+					GameObject obj = hit.collider.gameObject;
+                    if (obj == this) continue;
+                                   
+                    PixelRoom pixelRoom = obj.GetComponent<PixelRoom>();
+                    if (pixelRoom != null)
+                    {
+						PixelCollider pixelCollider = gameObject.GetComponentInChildren<PixelCollider>();
+						if (pixelCollider == null) continue;
+						if (pixelCollider.GetPixelRoom() != pixelRoom) continue;
+
+						Debug.Log(pixelRoom.name);
+                    }
+
+					// Navigate Maze Room
+					CharacterTask characterTask = new CharacterTask(GameTask.TaskType.NAVIGATE, mousePosition);
+					characterTasks.Enqueue(characterTask);
 				}
 			}
+		}
+        
+		void HoverOverObject() {
+
 		}
     }
 }

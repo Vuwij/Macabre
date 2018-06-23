@@ -21,7 +21,7 @@ namespace Objects.Movable.Characters
         public string requireCondition;
         public Character speaker;
         public string dialogue;
-        public List<CharacterAction> actions = new List<CharacterAction>();
+        public List<CharacterTask> actions = new List<CharacterTask>();
 
         ConversationDialogue conversationDialogue
         {

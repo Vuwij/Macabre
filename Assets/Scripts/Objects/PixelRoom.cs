@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Objects.Movable.Characters;
+using Objects.Movable.Characters.Individuals;
 
 namespace Objects
 {
-
 	public enum Layer
 	{
 		Front,
@@ -19,6 +20,25 @@ namespace Objects
 		public PixelRoom room;
 		public Layer layer;
 	}
+
+	public class WayPoint
+    {
+        public Vector2 position;
+        public float distance = float.MaxValue;
+        public WayPoint previous = null;
+		public List<WayPoint> neighbours = new List<WayPoint>();
+
+        public WayPoint() { }
+        public WayPoint(Vector2 position)
+        {
+            this.position = position;
+        }
+
+        public static float Distance(WayPoint a, WayPoint b)
+        {
+            return Vector2.Distance(a.position, b.position);
+        }
+    }
 
 	public class PixelRoom : MonoBehaviour
 	{
@@ -56,6 +76,11 @@ namespace Objects
 				if (colliderPoints[i].x > right.x)
 					right = colliderPoints[i];
 			}
+
+			top += collider2D.offset;
+            bottom += collider2D.offset;
+            left += collider2D.offset;
+            right += collider2D.offset;
 		}
 
 		public void OnEnable()
@@ -83,9 +108,11 @@ namespace Objects
 
 		public void OnDisable()
 		{
-			foreach (OtherVisibleRoom room in GetAllConnectedRooms())
+			OtherVisibleRoom[] allOtherVisibleRooms = GetAllConnectedRooms();
+			foreach (OtherVisibleRoom room in allOtherVisibleRooms)
 			{
-				room.room.gameObject.SetActive(false);
+				if(room.room != null)
+				    room.room.gameObject.SetActive(false);
 			}
 		}
 
@@ -154,6 +181,118 @@ namespace Objects
 				else if (sr.sortingLayerName == "Back - Background")
 					sr.sortingLayerName = "Front - Background";
 			}
+		}
+
+		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize) {
+
+			Vector2 topWorld = top + (Vector2) transform.position;
+			Vector2 bottomWorld = bottom + (Vector2)transform.position;
+			Vector2 leftWorld = left + (Vector2)transform.position;
+			Vector2 rightWorld = right + (Vector2) transform.position;
+
+            // Should all be positive
+			float topLeft = -PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, topWorld, startPosition, startPosition);
+			float topRight = -PixelCollider.DistanceBetween4pointsOrthographic(topWorld, rightWorld, startPosition, startPosition);
+			float bottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, startPosition, startPosition);
+			float bottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, startPosition, startPosition);
+            
+			Debug.DrawLine(topWorld, leftWorld, Color.blue, 10.0f);
+			Debug.DrawLine(leftWorld, bottomWorld, Color.blue, 10.0f);
+			Debug.DrawLine(bottomWorld, rightWorld, Color.blue, 10.0f);
+			Debug.DrawLine(rightWorld, topWorld, Color.blue, 10.0f);
+
+			Vector2 topLeftPoint = startPosition + new Vector2(-topLeft / 2.23606f * 2, topLeft / 2.23606f);
+			Vector2 topRightPoint = startPosition + new Vector2(topRight / 2.23606f * 2, topRight / 2.23606f);
+			Vector2 bottomLeftPoint = startPosition + new Vector2(-bottomLeft / 2.23606f * 2, -bottomLeft / 2.23606f);
+			Vector2 bottomRightPoint = startPosition + new Vector2(bottomRight / 2.23606f * 2, -bottomRight / 2.23606f);
+            
+			Debug.Assert(topLeft > 0);
+			Debug.Assert(topRight > 0);
+			Debug.Assert(bottomLeft > 0);
+			Debug.Assert(bottomRight > 0);
+
+			float stepSizeLength = (new Vector2(stepSize * 2, stepSize)).magnitude;
+
+			int topLeftSteps = Mathf.FloorToInt (topLeft / stepSizeLength);
+			int topRightSteps = Mathf.FloorToInt (topRight / stepSizeLength);
+			int bottomLeftSteps = Mathf.FloorToInt (bottomLeft / stepSizeLength);
+			int bottomRightSteps = Mathf.FloorToInt (bottomRight / stepSizeLength);
+
+			WayPoint[,] wayPointArray = new WayPoint[bottomLeftSteps + topRightSteps + 1, bottomRightSteps + topLeftSteps + 1];
+
+			for (int i = -bottomLeftSteps; i <= topRightSteps; ++i) {
+				for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
+					Vector2 point = startPosition + new Vector2(stepSize * 2, stepSize) * i + new Vector2(-stepSize * 2, stepSize) * j;
+					WayPoint wayPoint = new WayPoint(point);
+					if (i == 0 && j == 0)
+						wayPoint.distance = 0;
+					wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] = wayPoint;
+				}
+			}
+
+			for (int i = -bottomLeftSteps; i <= topRightSteps; ++i) {
+				for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
+
+					if (i != -bottomLeftSteps) 
+						wayPointArray[i - 1 + bottomLeftSteps, j + bottomRightSteps].neighbours.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+
+					if (i != topRightSteps)
+						wayPointArray[i + 1 + bottomLeftSteps, j + bottomRightSteps].neighbours.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+
+					if (j != -bottomRightSteps)
+						wayPointArray[i + bottomLeftSteps, j - 1 + bottomRightSteps].neighbours.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+
+					if (j != topLeftSteps)
+						wayPointArray[i + bottomLeftSteps, j + 1 + bottomRightSteps].neighbours.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+                }
+            }
+
+			// Remove all waypoints with pixel colliders
+			for (int c = 0; c < transform.childCount; ++c) {
+				Transform t = transform.GetChild(c);
+				if (t.GetComponent<Player>() != null) continue;
+
+				PixelCollider pixelCollider = t.GetComponentInChildren<PixelCollider>(false);
+				if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
+				{
+                    List<WayPoint> badWayPoints = new List<WayPoint>();
+					for (int i = -bottomLeftSteps; i <= topRightSteps; ++i) {
+                        for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
+
+							if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] == null) continue;
+
+							if(pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].position)) {
+								foreach(WayPoint n in wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].neighbours) {
+									n.neighbours.Remove(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+								}
+								wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] = null;
+							}
+                        }
+                    }
+				}         
+			}
+
+			HashSet<WayPoint> wayPoints = new HashSet<WayPoint>();
+
+			for (int i = -bottomLeftSteps; i <= topRightSteps; ++i) {
+                for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
+					if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] != null)
+						wayPoints.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+                }
+            }
+
+			foreach(WayPoint w in wayPoints){
+				foreach(WayPoint n in w.neighbours) {
+					Debug.DrawLine(w.position, n.position, Color.green, 10.0f);
+				}
+			}
+
+			//Debug.DrawLine(startPosition, topLeftPoint, Color.cyan, 10.0f);
+			//Debug.DrawLine(startPosition, topRightPoint, Color.cyan, 10.0f);
+			//Debug.DrawLine(startPosition, bottomLeftPoint, Color.cyan, 10.0f);
+			//Debug.DrawLine(startPosition, bottomRightPoint, Color.cyan, 10.0f);
+
+			return wayPoints;
 		}
 	}
 }
