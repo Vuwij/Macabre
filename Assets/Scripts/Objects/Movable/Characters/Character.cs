@@ -130,8 +130,11 @@ namespace Objects.Movable.Characters
                     transform.position = pos;
                     UpdateSortingLayer();
 					characterVelocity = inputVelocity;
-					if(wayPoints != null)
+					if (wayPoints != null)
+					{
 						wayPoints.Clear();
+						wayPointVelocity = Vector2.zero;
+					}
                 }
                 else if (wayPointVelocity != Vector2.zero)
                 {

@@ -156,11 +156,11 @@ namespace Objects.Movable.Characters.Individuals
 						if (pixelCollider.GetPixelRoom() != pixelRoom) continue;
 
 						Debug.Log(pixelRoom.name);
-                    }
 
-					// Navigate Maze Room
-					CharacterTask characterTask = new CharacterTask(GameTask.TaskType.NAVIGATE, mousePosition);
-					characterTasks.Enqueue(characterTask);
+						// Navigate Maze Room
+                        CharacterTask characterTask = new CharacterTask(GameTask.TaskType.NAVIGATE, mousePosition);
+                        characterTasks.Enqueue(characterTask);
+                    }               
 				}
 			}
 		}

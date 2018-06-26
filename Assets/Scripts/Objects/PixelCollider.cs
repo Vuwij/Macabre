@@ -138,7 +138,7 @@ namespace Objects
                         {
                             if (co == sr) continue;
 							Color cocolor = co.color;
-							if (co.name == "Shadow")
+							if (co.name == "Footprint")
 								cocolor.a = 0.8f;
 							else
 							    cocolor.a = pixelColliders[i].visibilityInFront;
@@ -164,7 +164,7 @@ namespace Objects
                         {
                             if (co == sr) continue;
                             Color cocolor = co.color;
-							if (co.name == "Shadow")
+							if (co.name == "Footprint")
 							{
 								if (co.transform.parent.GetComponent<PixelExterior>() != null)
 									cocolor.a = 0.0f;
@@ -356,10 +356,10 @@ namespace Objects
 					Vector2 otherleftWorld = otherPixelCollider.left + (Vector2)otherTransform.position;
 					Vector2 otherrightWorld = otherPixelCollider.right + (Vector2)otherTransform.position;
 
-					Debug.DrawLine(othertopWorld, otherleftWorld);
-					Debug.DrawLine(otherleftWorld, otherbottomWorld);
-					Debug.DrawLine(otherbottomWorld, otherrightWorld);
-					Debug.DrawLine(otherrightWorld, othertopWorld);
+					Debug.DrawLine(othertopWorld, otherleftWorld, Color.white, 1.0f);
+					Debug.DrawLine(otherleftWorld, otherbottomWorld, Color.white, 1.0f);
+					Debug.DrawLine(otherbottomWorld, otherrightWorld, Color.white, 1.0f);
+					Debug.DrawLine(otherrightWorld, othertopWorld, Color.white, 1.0f);
                     
 					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 1.4 &&
 						DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
@@ -458,7 +458,7 @@ namespace Objects
             return movementRestriction;
         }
 
-		public bool CheckForWithinCollider(Vector2 position)
+		public bool CheckForWithinCollider(Vector2 position, float distance = 0.4f)
 		{
 			Vector2 topWorld = top + (Vector2)transform.position;
             Vector2 bottomWorld = bottom + (Vector2)transform.position;
@@ -472,16 +472,16 @@ namespace Objects
 				}
 				Debug.Assert(this.colliderPoints.Length == 4);
                 
-				if (DistanceBetween4points(leftWorld, topWorld, position, position) > 0.4)
+				if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
 					return false;
 
-				if (DistanceBetween4points(topWorld, rightWorld, position, position) > 0.4)
+				if (DistanceBetween4points(topWorld, rightWorld, position, position) > distance)
 					return false;
 
-				if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -0.4)
+				if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -distance)
 					return false;
 
-				if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -0.4)
+				if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
 					return false;
             }         
 

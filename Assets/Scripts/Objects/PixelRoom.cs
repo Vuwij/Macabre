@@ -261,7 +261,7 @@ namespace Objects
 
 							if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] == null) continue;
 
-							if(pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].position)) {
+							if(pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].position, 0.8f)) {
 								foreach(WayPoint n in wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].neighbours) {
 									n.neighbours.Remove(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
 								}
