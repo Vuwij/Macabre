@@ -3,6 +3,11 @@ seed = 4;
 r = rng(seed);
 mapsize = 2^6+1;
 M = createFractalTerrain(mapsize, 20, 0.99);
+M = log((M+10))/log(1.15);
+% M = 20*real(1.7.^(M))./(1+real(1.7.^(M)));
+% M = sin(M./3)*10; % Craters
+% M = 1.5.^(M); % Mountains
+% M = ones(mapsize, mapsize);
 
 % Discretize z
 Mint = int16(M);
@@ -41,6 +46,14 @@ tileset = '../../Spritesheets/Miscellaneous/NubblocksCube/';
 [A24,~,transparency24] = imread(strcat(tileset,'24.png'));
 [A25,~,transparency25] = imread(strcat(tileset,'25.png'));
 [A26,~,transparency26] = imread(strcat(tileset,'26.png'));
+[A27,~,transparency27] = imread(strcat(tileset,'27.png'));
+[A28,~,transparency28] = imread(strcat(tileset,'28.png'));
+[A29,~,transparency29] = imread(strcat(tileset,'29.png'));
+[A30,~,transparency30] = imread(strcat(tileset,'30.png'));
+[A31,~,transparency31] = imread(strcat(tileset,'31.png'));
+[A32,~,transparency32] = imread(strcat(tileset,'32.png'));
+[A33,~,transparency33] = imread(strcat(tileset,'33.png'));
+[A34,~,transparency34] = imread(strcat(tileset,'34.png'));
 
 
 Image1 = imghandle(A1, transparency1);
@@ -69,6 +82,14 @@ Image23 = imghandle(A23, transparency23);
 Image24 = imghandle(A24, transparency24);
 Image25 = imghandle(A25, transparency25);
 Image26 = imghandle(A26, transparency26);
+Image27 = imghandle(A27, transparency27);
+Image28 = imghandle(A28, transparency28);
+Image29 = imghandle(A29, transparency29);
+Image30 = imghandle(A30, transparency30);
+Image31 = imghandle(A31, transparency31);
+Image32 = imghandle(A32, transparency32);
+Image33 = imghandle(A33, transparency33);
+Image34 = imghandle(A34, transparency34);
 
 l = length(A1);
 
@@ -103,17 +124,17 @@ for i = mapsize-1:-1:1
                 if (dirN && dirW && dirE && dirS)
                     drawImageInLocation(i,j,z,Image20,FinishImage);
                 elseif (dirN && dirW && dirE)
-                    drawImageInLocation(i,j,z,Image26,FinishImage);
+                    drawImageInLocation(i,j,z,Image28,FinishImage);
                 elseif (dirN && dirW && dirS)
-                    drawImageInLocation(i,j,z,Image23,FinishImage);
+                    drawImageInLocation(i,j,z,Image30,FinishImage);
                 elseif (dirN && dirE && dirS)
                     drawImageInLocation(i,j,z,Image26,FinishImage);
                 elseif (dirW && dirE && dirS)
-                    drawImageInLocation(i,j,z,Image24,FinishImage);
+                    drawImageInLocation(i,j,z,Image32,FinishImage);
                 elseif (dirN && dirS)
-                    drawImageInLocation(i,j,z,Image4,FinishImage);
+                    drawImageInLocation(i,j,z,Image34,FinishImage);
                 elseif (dirE && dirW)
-                    drawImageInLocation(i,j,z,Image2,FinishImage);
+                    drawImageInLocation(i,j,z,Image32,FinishImage);
                 elseif (dirN && dirE)
                     drawImageInLocation(i,j,z,Image8,FinishImage);
                 elseif (dirN && dirW)
