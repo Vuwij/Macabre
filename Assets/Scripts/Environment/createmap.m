@@ -54,7 +54,8 @@ tileset = '../../Spritesheets/Miscellaneous/NubblocksCube/';
 [A32,~,transparency32] = imread(strcat(tileset,'32.png'));
 [A33,~,transparency33] = imread(strcat(tileset,'33.png'));
 [A34,~,transparency34] = imread(strcat(tileset,'34.png'));
-
+[A35,~,transparency35] = imread(strcat(tileset,'35.png'));
+[A36,~,transparency36] = imread(strcat(tileset,'36.png'));
 
 Image1 = imghandle(A1, transparency1);
 Image2 = imghandle(A2, transparency2);
@@ -90,6 +91,8 @@ Image31 = imghandle(A31, transparency31);
 Image32 = imghandle(A32, transparency32);
 Image33 = imghandle(A33, transparency33);
 Image34 = imghandle(A34, transparency34);
+Image35 = imghandle(A35, transparency34);
+Image36 = imghandle(A36, transparency34);
 
 l = length(A1);
 
@@ -122,7 +125,7 @@ for i = mapsize-1:-1:1
                     dirS = Mint(i,j-1) < h;
                 end
                 if (dirN && dirW && dirE && dirS)
-                    drawImageInLocation(i,j,z,Image20,FinishImage);
+                    drawImageInLocation(i,j,z,Image35,FinishImage);
                 elseif (dirN && dirW && dirE)
                     drawImageInLocation(i,j,z,Image28,FinishImage);
                 elseif (dirN && dirW && dirS)
