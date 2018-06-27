@@ -39,7 +39,7 @@ namespace Objects
             return Vector2.Distance(a.position, b.position);
         }
     }
-
+    
 	public class PixelRoom : MonoBehaviour
 	{
         new PolygonCollider2D collider2D;
@@ -51,6 +51,8 @@ namespace Objects
 
 		public OtherVisibleRoom[] otherVisibleRooms;
 		public int RoomWalkingSpeed = 10;
+
+		HashSet<WayPoint> navigationMesh;
 
 		void Awake()
 		{
@@ -185,6 +187,9 @@ namespace Objects
 
 		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize) {
 
+			if (navigationMesh != null)
+				return navigationMesh;
+
 			Vector2 topWorld = top + (Vector2) transform.position;
 			Vector2 bottomWorld = bottom + (Vector2)transform.position;
 			Vector2 leftWorld = left + (Vector2)transform.position;
@@ -292,6 +297,8 @@ namespace Objects
 			//Debug.DrawLine(startPosition, bottomLeftPoint, Color.cyan, 10.0f);
 			//Debug.DrawLine(startPosition, bottomRightPoint, Color.cyan, 10.0f);
 
+			navigationMesh = wayPoints;
+            
 			return wayPoints;
 		}
 	}

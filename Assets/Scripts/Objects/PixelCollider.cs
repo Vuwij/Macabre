@@ -459,18 +459,18 @@ namespace Objects
         }
 
 		public bool CheckForWithinCollider(Vector2 position, float distance = 0.4f)
-		{
-			Vector2 topWorld = top + (Vector2)transform.position;
-            Vector2 bottomWorld = bottom + (Vector2)transform.position;
-            Vector2 leftWorld = left + (Vector2)transform.position;
-            Vector2 rightWorld = right + (Vector2)transform.position;
-
+		{         
 			if (!(this is MultiBodyPixelCollider))
             {
 				if (this.colliderPoints.Length != 4) {
 					Debug.Log(this.transform.parent.name);
 				}
 				Debug.Assert(this.colliderPoints.Length == 4);
+
+				Vector2 topWorld = top + (Vector2)transform.position;
+                Vector2 bottomWorld = bottom + (Vector2)transform.position;
+                Vector2 leftWorld = left + (Vector2)transform.position;
+                Vector2 rightWorld = right + (Vector2)transform.position;
                 
 				if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
 					return false;
@@ -483,7 +483,35 @@ namespace Objects
 
 				if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
 					return false;
-            }         
+            }
+			else
+			{
+				MultiBodyPixelCollider multibody = (this as MultiBodyPixelCollider);
+
+				bool inside = false;
+				foreach(CollisionBody body in multibody.collisionBodies) {
+					Vector2 topWorld = body.top + (Vector2)transform.position;
+					Vector2 bottomWorld = body.bottom + (Vector2)transform.position;
+					Vector2 leftWorld = body.left + (Vector2)transform.position;
+					Vector2 rightWorld = body.right + (Vector2)transform.position;
+
+					if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
+						continue;
+
+					if (DistanceBetween4points(topWorld, rightWorld, position, position) > distance)
+						continue;
+
+					if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -distance)
+						continue;
+
+					if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
+						continue;
+
+					inside = true;
+				}
+				if (!inside)
+					return false;
+			}
 
 			return true;
 		}
