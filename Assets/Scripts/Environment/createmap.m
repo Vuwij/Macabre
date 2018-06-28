@@ -1,12 +1,12 @@
 seed = 4;
 
 r = rng(seed);
-mapsize = 2^6+1;
+mapsize = 2^7+1;
 M = createFractalTerrain(mapsize, 20, 0.99);
-M = log((M+10))/log(1.15);
+% M = log((M+10))/log(1.15);
 % M = 20*real(1.7.^(M))./(1+real(1.7.^(M)));
 % M = sin(M./3)*10; % Craters
-% M = 1.5.^(M); % Mountains
+M = 1.4.^(M); % Mountains
 % M = ones(mapsize, mapsize);
 
 % Discretize z
