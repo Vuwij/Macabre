@@ -1,30 +1,30 @@
 ﻿State Name,Next State,Requirement,Condition,Speaker,Dialogue,Action
 Silent,S1HInnK,,,,,
 S1HInnK,"C1A, C1B, C1C",,,Hamen The Innkeeper,Hello stranger. What can I do for you?,
-C1A,R1A,,ObtainedRoom = 0,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
-C1B,R1B,,ObtainedRoom = 1,Player,"I'd like some ale, a hot meal and a room for the night.",Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
-C1C,R1C,,ObtainedRoom = 1,Player,I'm investigating the town for suspicious activity. Do you know anything? ,Player: PUTS 10 (Gold) (Inn_Floor1_Counter)
-R1A,,ObtainedRoom = 1,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","Hamen: Takes (Gold),
-Hamen: Gives (key),
-Player: +5 Suspicion"
-R1B,,,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","Player: Takes (Gold), 
-Player: Goto (Table),
-Hamen: Gives (Key),
-Hamen: Retrieves (Bowl Of Stew)
-Hamen: Goto (Mug of Ale),
-Hamen: Picksup (Mug of Ale),
-Hamen: Goto (Player),
-Hamen: Places (Mug of Ale) on (Table),
-Hamen: Goto (Counter)"
+C1A,R1A,,ObtainedRoom = 0,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+C1B,R1B,,ObtainedRoom = 1,Player,"I'd like some ale, a hot meal and a room for the night.",player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+C1C,R1C,,ObtainedRoom = 1,Player,I'm investigating the town for suspicious activity. Do you know anything? ,player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+R1A,,ObtainedRoom = 1,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","hamen takes 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+hamen gives player 'key'"
+R1B,,,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","hamen takes 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+player goto 'Table'
+hamen gives Player 'Key'
+hamen create 'Bowl of Stew'
+hamen goto 'Bar Side'
+hamen create 'Mug of Ale'
+hamen goto player
+hamen puts 'Mug of Ale' 'Table'
+hamen goto 'Bar Side'"
 R1C,"C2A, C2B, C2C",,,Hamen The Innkeeper,Can't say I do there mister. ,
 ,,,,,,
 C2A,R2A,,,Player,Keep me informed if you hear anything then. I'll also require a room for the night.,
 C2B,R2B,,,Player,I've been sent by the King. Tell me what you know.,
 C2C,R2C,,,Player,Alright then. I'll leave you to your business.,
-R2A,,,,Hamen The Innkeeper,Of course. Here's the key.,Game: END (SleepyHollow)
+R2A,,,,Hamen The Innkeeper,Of course. Here's the key.,game end
 R2B,P1,,,Hamen The Innkeeper,"Look, I've told you. I don't know anything, sir!",
 R2C,,,,Hamen The Innkeeper,Have yourself a good night then.,
-P1,S1,,,Player,Tell me the truth pops! What do you KNOW?,Hamen: ATTACK (Player)
-S1,Silent,,,Hamen The Innkeeper,Guards! Help! Assault!,"Guards: TELEPORT (Buildings_Inn_Floor 1 Room 1)
-Guards: ATTACK (Player)
-Game: LOCKDOOR (Buildings_Inn_Floor 1 Room 1)"
+P1,S1,,,Player,Tell me the truth pops! What do you KNOW?,hamen attack player
+S1,Silent,,,Hamen The Innkeeper,Guards! Help! Assault!,"guard teleport 'Inn Floor 1 Room 1' 'Front Door'
+guard attack player
+lockdoor 'Inn Floor 1 Room 1' 'Front Door'
+lockdoor 'Inn Floor 1 Room 1' 'Door'"

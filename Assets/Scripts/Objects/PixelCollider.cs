@@ -138,8 +138,10 @@ namespace Objects
                         {
                             if (co == sr) continue;
 							Color cocolor = co.color;
-							if (co.name == "Footprint")
-								cocolor.a = 0.8f;
+							if (co.name == "Footprint") {
+								if (co.transform.parent.GetComponent<PixelExterior>() != null)
+								    cocolor.a = 0.8f;
+							}
 							else
 							    cocolor.a = pixelColliders[i].visibilityInFront;
 							co.color = cocolor;
@@ -247,7 +249,7 @@ namespace Objects
             Vector2 leftWorld = leftP + (Vector2)transform.position;
             Vector2 rightWorld = rightP + (Vector2)transform.position;
 
-            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 3, Vector2.zero);
+            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius, Vector2.zero);
 
             foreach (RaycastHit2D raycastHit in castStar)
             {
@@ -255,6 +257,7 @@ namespace Objects
                 if (otherPixelCollider == null) continue;
 				if (otherPixelCollider.noCollision) continue;
                 if (otherPixelCollider.ParentIsContainer()) continue;
+				if (!OtherPixelColliderSameParent(otherPixelCollider)) continue;
 				if (otherPixelCollider is MultiBodyPixelCollider) continue;
 
                 Transform otherTransform = otherPixelCollider.gameObject.transform;
@@ -265,6 +268,11 @@ namespace Objects
                 Vector2 otherbottomWorld = otherPixelCollider.bottom + (Vector2)otherTransform.position;
                 Vector2 otherleftWorld = otherPixelCollider.left + (Vector2)otherTransform.position;
                 Vector2 otherrightWorld = otherPixelCollider.right + (Vector2)otherTransform.position;
+
+				Debug.DrawLine(othertopWorld, otherleftWorld, Color.yellow, 1.0f);
+				Debug.DrawLine(otherleftWorld, otherbottomWorld, Color.yellow, 1.0f);
+				Debug.DrawLine(otherbottomWorld, otherrightWorld, Color.yellow, 1.0f);
+				Debug.DrawLine(otherrightWorld, othertopWorld, Color.yellow, 1.0f);
 
 				Direction direction = Direction.All;
 				List<PixelCollider> pixelColliders = new List<PixelCollider>();
@@ -311,6 +319,7 @@ namespace Objects
 					pixelCollision.direction = direction;
 					pixelCollision.pixelCollider = pc;
 					pixelCollisions.Add(pixelCollision);
+
 				}            
             }
             
@@ -329,7 +338,7 @@ namespace Objects
             Vector2 leftWorld = left + (Vector2)  transform.position;
             Vector2 rightWorld = right + (Vector2)  transform.position;
 
-            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 2, Vector2.zero);
+            RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius, Vector2.zero);
 
             bool restrictNW = false;
             bool restrictNE = false;
@@ -460,7 +469,40 @@ namespace Objects
 
 		public bool CheckForWithinCollider(Vector2 position, float distance = 0.4f)
 		{         
-			if (!(this is MultiBodyPixelCollider))
+			if (this is MultiBodyPixelCollider && (this as MultiBodyPixelCollider).collisionBodies.Count() != 0)
+			{
+                MultiBodyPixelCollider multibody = (this as MultiBodyPixelCollider);
+
+				bool inside = false;
+                foreach (CollisionBody body in multibody.collisionBodies)
+                {
+                    Vector2 topWorld = body.top + (Vector2)transform.position;
+                    Vector2 bottomWorld = body.bottom + (Vector2)transform.position;
+                    Vector2 leftWorld = body.left + (Vector2)transform.position;
+                    Vector2 rightWorld = body.right + (Vector2)transform.position;
+
+                    if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
+                        continue;
+
+                    if (DistanceBetween4points(topWorld, rightWorld, position, position) > distance)
+                        continue;
+
+                    if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -distance)
+                        continue;
+
+                    if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
+                        continue;
+
+                    // We are inside one of the blocks
+					inside = true;
+					break;
+                }
+				if (inside)
+					return true;
+				else
+					return false;
+            }
+			else
             {
 				if (this.colliderPoints.Length != 4) {
 					Debug.Log(this.transform.parent.name);
@@ -483,35 +525,7 @@ namespace Objects
 
 				if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
 					return false;
-            }
-			else
-			{
-				MultiBodyPixelCollider multibody = (this as MultiBodyPixelCollider);
-
-				bool inside = false;
-				foreach(CollisionBody body in multibody.collisionBodies) {
-					Vector2 topWorld = body.top + (Vector2)transform.position;
-					Vector2 bottomWorld = body.bottom + (Vector2)transform.position;
-					Vector2 leftWorld = body.left + (Vector2)transform.position;
-					Vector2 rightWorld = body.right + (Vector2)transform.position;
-
-					if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
-						continue;
-
-					if (DistanceBetween4points(topWorld, rightWorld, position, position) > distance)
-						continue;
-
-					if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -distance)
-						continue;
-
-					if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
-						continue;
-
-					inside = true;
-				}
-				if (!inside)
-					return false;
-			}
+            }            
 
 			return true;
 		}
@@ -535,12 +549,32 @@ namespace Objects
 
 		public static float DistanceBetween4pointsAbs(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
         {
-            float m = (a2.y - a1.y) / (a2.x - a1.x); // Slope of parallel lines
-            float i1 = a1.y - a1.x * m; // Intercept 1
-            float i2 = b1.y - b1.x * m; // Intercept 2
-            float dist = Mathf.Abs(i2 - i1) / Mathf.Sqrt(m * m + 1);
-            return dist;
+			return Mathf.Abs(DistanceBetween4points(a1, a2, b1, b2));
         }
+
+		public static float DistanceBetween2pointsOrthographic(Vector2 a, Vector2 b, Direction direction)
+		{
+			float m = 0.0f;
+			Debug.Assert(direction != Direction.All);
+			if (direction == Direction.NE)
+				m = 0.5f;
+			else if (direction == Direction.NW)
+				m = -0.5f;
+			else if (direction == Direction.SE)
+                m = -0.5f;
+			else if (direction == Direction.SW)
+                m = 0.5f;
+
+			float i1 = a.y - a.x * m; // Intercept 1
+            float i2 = b.y - b.x * m; // Intercept 2
+            float dist = (i2 - i1) / 2 / Mathf.Abs(m / Mathf.Sqrt(m * m + 1));
+			return dist;
+		}
+
+		public static float DistanceBetween2pointsOrthographicAbs(Vector2 a, Vector2 b, Direction direction)
+		{
+			return Mathf.Abs(DistanceBetween2pointsOrthographicAbs(a, b, direction));
+		}
 
         // Returns 1 if in front of the other, returns 1 if object is in front of other
         public int CompareTo(PixelCollider other)

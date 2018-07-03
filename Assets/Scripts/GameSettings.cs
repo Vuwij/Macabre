@@ -20,8 +20,8 @@ public struct GameSettings {
     public static int characterInventorySize = 20;
     public static int conversationCharacterLimit = 500;
     public static int conversationChoiceOptions = 4;
-
-    public static float inspectRadius = 15.0f;
+    
+    public static float inspectRadius = 8.0f;
 
     // Item stats
     public static float dropDistance = 9.0f;

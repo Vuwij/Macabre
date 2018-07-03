@@ -1,0 +1,12 @@
+{
+    "name": "Tests",
+    "references": [
+        "MacabreAssembly"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

@@ -14,7 +14,18 @@ namespace Objects.Movable.Characters.Individuals
 {
 	public sealed class Player : Character
     {
-        protected override Vector2 inputVelocity
+        bool DebugWindowOpen
+		{
+			get {
+				GameObject debugWindow = GameObject.Find("DebugLogPopup");
+                CanvasGroup canvasGroup = debugWindow.GetComponent<CanvasGroup>();
+                if (!canvasGroup.interactable)
+					return true;
+				return false;
+			}
+		}
+
+		protected override Vector2 inputVelocity
 		{
 			get {
                 PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
@@ -30,6 +41,9 @@ namespace Objects.Movable.Characters.Individuals
 
                 if ((int) Input.GetAxisRaw("Horizontal") == 0 && (int) Input.GetAxisRaw("Vertical") == 0)
                     return Vector2.zero;
+
+				if (DebugWindowOpen)
+					return Vector2.zero;
 
                 if (pixelCollider != null)
                     mr = pixelCollider.CheckForCollision();
@@ -72,17 +86,23 @@ namespace Objects.Movable.Characters.Individuals
             base.Start();
         }
 
-		protected override void FixedUpdate()
+		void FixedUpdate()
+		{
+			KeyPressed();
+		}
+        
+		void Update()
 		{
 			MouseClicked();
-			KeyPressed();
-			base.FixedUpdate();
 		}
 
 		void KeyPressed() {
-
+            
 			if(Input.anyKey) {
-
+				// Console
+				if (DebugWindowOpen)
+					return;
+                
                 // Inventory
                 if (Input.GetButtonDown("Inventory"))
                 {
@@ -118,12 +138,15 @@ namespace Objects.Movable.Characters.Individuals
 		}
 
 		void MouseClicked() {
+			if (DebugWindowOpen)
+				return;
+
 			if(Input.GetMouseButtonDown(0)) {
 				Vector3 castStart = mousePosition;
 				castStart.z = -10.0f;
 
 				RaycastHit2D[] raycastHits = Physics2D.CircleCastAll(mousePosition, 30.0f, Vector2.zero);
-                
+                                
                 // Detected inspected objects
 				foreach (var hit in raycastHits)
                 {
@@ -158,9 +181,9 @@ namespace Objects.Movable.Characters.Individuals
 						Debug.Log(pixelRoom.name);
 
 						// Navigate Maze Room
-                        CharacterTask characterTask = new CharacterTask(GameTask.TaskType.NAVIGATE, mousePosition);
+						CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, mousePosition);
                         characterTasks.Enqueue(characterTask);
-                    }               
+                    }
 				}
 			}
 		}

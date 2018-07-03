@@ -2,6 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Objects.Movable.Characters;
+using Objects.Movable.Characters.Individuals;
+using Objects;
 
 public class GameTask
 {
@@ -13,85 +16,200 @@ public class GameTask
 	public enum TaskType {
 		PUTS,
 		TAKES,
-		NAVIGATE,
+		NAVIGATE,   // Find other rooms
+        WALKTO,     // Walk to a point within a room
+        ENTERDOOR,
 		GIVES,
-		CREATEITEM,
+		CREATE,
 		ANIMATE,
 		TELEPORT,
 		ATTACK,
-		UPDATESTAT
+		UPDATESTAT,
+        NONE
 	}
-	public TaskType taskType;
+	public TaskType taskType = TaskType.NONE;
+	public string actionString = "";
+	public List<string> argumentsString = new List<string>();
 	public List<object> arguments = new List<object>();
+	public Character character;
 
-	// Base components of an task for parsing the task
-	// 1. Player: PUTS 10 (Gold) (Buildings_Inn_Floor 1 Room 1_Bar)
-	// <1> priority - 2 tasks can happen at the same time
-    // <Player> identity - which character/identity is doing what action
-    // <PUTS> action - what the character does
-    // <10> quantity - how much of the item
-	// <(Gold), (Building_Inn_Floor 1 Room 1 bar) - Arguments
-
-	// The string for execution
-    string actionString;
-	string priority;
-	string identity;
-	string action;
-	string quantity;
-	List<string> stringArguments = new List<string> ();
+	public float duration = 3.0f; // Wait for 3 seconds
     
 	public GameTask() {}
 
 	public GameTask(string actionString) {
 		this.actionString = actionString;
-		ParseAction(actionString);
+		BreakUpString();
+		IdentifyTaskType();
+		FindArguments();
 	}
 
-	public GameTask(TaskType taskType, List<string> stringArguments) {
+	public GameTask(TaskType taskType, params object[] arguments) {
 		this.taskType = taskType;
-		this.stringArguments = stringArguments;
-	}   
-
-	public void ParseAction(string actionString) {
-		Regex regex;
-		
-		// Reads the action prority
-		regex = new Regex("\\d+. ?");
-		priority = ParseRegexAndReplace (regex, ref actionString);
-
-		// Read the action identity
-		regex = new Regex("(.*?)+: ?");
-		identity = ParseRegexAndReplace (regex, ref actionString);
-
-		// Read the action
-		regex = new Regex ("^([\\w\\-]+) ?");
-		action = ParseRegexAndReplace (regex, ref actionString);
-
-		// Action Quantity
-		regex = new Regex ("\\d+ ?");
-		quantity = ParseRegexAndReplace (regex, ref actionString);
-
-		// Action Objects
-		regex = new Regex ("\\(([^\\s]+)\\) ?");
-		string argument = " ";
-		while (argument != "") {
-			argument = ParseRegexAndReplace (regex, ref actionString);
-			arguments.Add (argument);
-		}
+        for (int i = 0; i < arguments.Length; ++i)
+			this.arguments.Add(arguments[i]);
 	}
 
-	protected static string ParseRegexAndReplace(Regex regex, ref string actionString) {
-		if(regex.IsMatch(actionString)) {
-			string match = regex.Match (actionString).Captures [0].Value;
-			actionString.Replace (match, "");
-			if (match [match.Length - 1] == ' ')
-				match = match.Remove (match.Length - 1); // Remove the space
-			match = match.Replace ("(", "").Replace (")", "");
-			return match;
+	void BreakUpString() {
+		// Remove the ' ' delimiters
+		string s = actionString;
+		s.Replace("''", "' '"); // adds spaces in case they are not together
+		string[] ss = s.Split('\'');
+		List<string> sss = new List<string>();
+		for (int i = 0; i < ss.Length; ++i) {
+			if(i % 2 == 0) {
+				string[] ssss = ss[i].Split(' ');
+				foreach (string sssss in ssss) {
+					if (sssss == "" || sssss == " ")
+						continue;
+					sss.Add(sssss.Trim());
+				}
+			}
+			else {
+				sss.Add(ss[i].Trim());
+			}
 		}
-		return "";
+
+		argumentsString = sss;
+		//foreach(string z in argumentsString) {
+		//	Debug.Log(z);
+		//}
 	}
 
-	public virtual void ExecuteAction() {
+    // Finds the character and the task type
+	void IdentifyTaskType() {
+
+        // Command always 2nd otherwise its player
+		if (argumentsString[1] == "puts")
+			taskType = TaskType.PUTS;
+		else if (argumentsString[1] == "takes")
+			taskType = TaskType.TAKES;
+		else if (argumentsString[1] == "goto")
+			taskType = TaskType.NAVIGATE;
+		else if (argumentsString[1] == "gives")
+			taskType = TaskType.GIVES;
+		else if (argumentsString[1] == "create")
+			taskType = TaskType.CREATE;
+		else if (argumentsString[1] == "animate")
+			taskType = TaskType.ANIMATE;
+		else if (argumentsString[1] == "teleport")
+            taskType = TaskType.ANIMATE;
+		else if (argumentsString[1] == "attack")
+            taskType = TaskType.ANIMATE;
+		else if (argumentsString[1] == "updatestat")
+            taskType = TaskType.ANIMATE;
+
+		if(taskType != TaskType.NONE) {
+			GameObject gameManagerObj = GameObject.Find("Game Manager");
+            GameManager gameManager = gameManagerObj.GetComponent<GameManager>();
+            string characterName = gameManager.characterNameTranslations[argumentsString[0]];
+            GameObject characterObj = GameObject.Find(characterName);
+            character = characterObj.GetComponent<Character>();
+
+			Debug.Assert(character != null);
+            Debug.Assert(taskType != TaskType.NONE);
+			return;
+		}
+
+		if (argumentsString[0] == "puts")
+            taskType = TaskType.PUTS;
+        else if (argumentsString[0] == "takes")
+            taskType = TaskType.TAKES;
+        else if (argumentsString[0] == "goto")
+            taskType = TaskType.NAVIGATE;
+        else if (argumentsString[0] == "gives")
+            taskType = TaskType.GIVES;
+        else if (argumentsString[0] == "create")
+            taskType = TaskType.CREATE;
+        else if (argumentsString[0] == "animate")
+            taskType = TaskType.ANIMATE;
+        else if (argumentsString[0] == "teleport")
+            taskType = TaskType.ANIMATE;
+        else if (argumentsString[0] == "attack")
+            taskType = TaskType.ANIMATE;
+        else if (argumentsString[0] == "updatestat")
+            taskType = TaskType.ANIMATE;
+
+		GameObject player = GameObject.Find("Player");
+        character = player.GetComponent<Character>();
+        
+		Debug.Assert(character != null);
+        Debug.Assert(taskType != TaskType.NONE);
+	}
+
+	void FindArguments() {
+		if (taskType == TaskType.NAVIGATE)
+        {
+            Debug.Assert(character != null);
+            if (character is Player)
+            {
+                string locationString = argumentsString[1];
+                PixelRoom room = GetObjectOfType<PixelRoom>(locationString);
+                arguments.Add(room);
+
+                string objectString = argumentsString[2];
+                PixelCollider pixelCollider = GetObjectOfType<PixelCollider>(objectString, room.transform);
+                arguments.Add(pixelCollider);
+            }
+        }    
+	}
+
+	T GetObjectOfType<T> (string objectName, Transform parent = null) 
+		where T : MonoBehaviour {
+
+		GameObject obj = null;
+		if (parent == null)
+		{
+			GameObject[] objects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+			foreach(GameObject o in objects) {
+				if (o.name == objectName)
+					obj = o.gameObject;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < parent.childCount; ++i)
+			{
+				if (parent.GetChild(i).name == objectName)
+					obj = parent.GetChild(i).gameObject;
+			}
+		}
+
+		if (obj == null)
+        {
+			Debug.LogWarning(objectName + " not found");
+			return default(T);
+        }
+
+		T t = null;
+		if(typeof(T) == typeof(PixelCollider)) {
+			for (int i = 0; i < obj.transform.childCount; ++i)
+            {
+				t = obj.transform.GetChild(i).GetComponent<PixelCollider>() as T;
+				if (t != null)
+					break;
+            }
+		}
+		else {
+			t = obj.GetComponent<T>();
+		}
+		if (t == null)
+        {
+			Debug.LogWarning(objectName + " does not contain a correct script");
+			return default(T);         
+        }
+
+		return t;      
+	}
+
+	public void Execute() {
+		Debug.Log("Executing " + taskType.ToString() + " for " + character.name);
+		switch (taskType) {
+			case TaskType.NAVIGATE:
+				character.characterTasks.Enqueue(this);
+				break;
+			default:
+				break;
+		}      
 	}
 }

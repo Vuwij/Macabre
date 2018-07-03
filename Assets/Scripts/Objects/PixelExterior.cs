@@ -8,6 +8,26 @@ namespace Objects
 	{
 		public OtherVisibleRoom[] otherVisibleRooms;
 
+		public List<PixelDoor> pixelDoors
+        {
+            get
+            {
+                List<PixelDoor> doors = new List<PixelDoor>();
+
+                for (int i = 0; i < transform.childCount; ++i)
+                {
+                    Transform t = transform.GetChild(i);
+                    PixelDoor door = t.GetComponent<PixelDoor>();
+                    if (door != null)
+                    {
+                        doors.Add(door);
+                    }
+                }
+
+                return doors;
+            }
+        }
+
 		public void ShowAllRooms()
         {
 			foreach (OtherVisibleRoom room in otherVisibleRooms)

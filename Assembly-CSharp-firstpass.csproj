@@ -56,6 +56,24 @@
     <Reference Include="UnityEditor">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PackageManagerUI.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.PackageManagerUI.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.StandardEvents.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\ArcCollider2D.cs" />
@@ -64,6 +82,16 @@
     <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\EllipseCollider2D.cs" />
     <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\RoundedBoxCollider2D.cs" />
     <Compile Include="Assets\Plugins\Custom-2D-Colliders\Custom 2D Colliders\Scripts\StarCollider2D.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\ConsoleMethodAttribute.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogConsole.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogEntry.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogIndexList.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogItem.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogLogcatListener.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogManager.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogPopup.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugLogRecycledListView.cs" />
+    <Compile Include="Assets\Plugins\IngameDebugConsole\Scripts\DebugsOnScrollListener.cs" />
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\Internal\HSBColor.cs" />
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\Internal\PixelPerfect.cs" />
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\Internal\PixelPerfectObject.cs" />
@@ -71,6 +99,7 @@
     <Compile Include="Assets\Plugins\PixelPerfect\Scripts\PixelPerfectSprite.cs" />
     <None Include="Assets\Plugins\PixelPerfect\Scripts\Internal\Resources\PixelPerfectShader.shader" />
     <None Include="Assets\Plugins\PixelPerfect\README.txt" />
+    <None Include="Assets\Plugins\IngameDebugConsole\README.txt" />
     <None Include="Assets\Plugins\CsvHelper\CsvHelper.xml" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/vuwij/UnityProjects/Macabre/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
@@ -630,6 +659,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="MacabreAssembly.csproj">
+      <Project>{8ED7BB08-5BBF-4820-6EFF-74D197BF9CBE}</Project>
+      <Name>MacabreAssembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

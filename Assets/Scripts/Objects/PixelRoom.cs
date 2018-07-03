@@ -20,7 +20,7 @@ namespace Objects
 		public PixelRoom room;
 		public Layer layer;
 	}
-
+    
 	public class WayPoint
     {
         public Vector2 position;
@@ -51,8 +51,44 @@ namespace Objects
 
 		public OtherVisibleRoom[] otherVisibleRooms;
 		public int RoomWalkingSpeed = 10;
+		public int stepSize = 3; // How much steps for the navigation mesh
 
-		HashSet<WayPoint> navigationMesh;
+		HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
+
+		public List<PixelDoor> pixelDoors {
+			get {
+				List <PixelDoor> doors = new List<PixelDoor>();
+
+				for (int i = 0; i < transform.childCount; ++i) {
+					Transform t = transform.GetChild(i);
+					PixelDoor door = t.GetComponent<PixelDoor>();
+					if(door != null) {
+						doors.Add(door);
+					}
+				}
+
+				foreach(PixelExterior exterior in pixelExteriors) {
+					doors.AddRange(exterior.pixelDoors);
+				}
+
+				return doors;
+			}
+		}
+
+		public List<PixelExterior> pixelExteriors {
+            get {
+				List<PixelExterior> exteriors = new List<PixelExterior>();
+
+                for (int i = 0; i < transform.childCount; ++i)  {
+                    Transform t = transform.GetChild(i);
+					PixelExterior exterior = t.GetComponent<PixelExterior>();
+                    if (exterior != null)
+						exteriors.Add(exterior);
+                }
+
+                return exteriors;
+            }
+        }
 
 		void Awake()
 		{
@@ -187,9 +223,14 @@ namespace Objects
 
 		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize) {
 
-			if (navigationMesh != null)
-				return navigationMesh;
-
+			if (navigationMesh.Count != 0) {
+				foreach (WayPoint w in navigationMesh) {
+					w.distance = float.MaxValue;
+					w.previous = null;
+				}
+				return new HashSet<WayPoint>(navigationMesh);
+			}
+			         
 			Vector2 topWorld = top + (Vector2) transform.position;
 			Vector2 bottomWorld = bottom + (Vector2)transform.position;
 			Vector2 leftWorld = left + (Vector2)transform.position;
@@ -229,9 +270,7 @@ namespace Objects
 				for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
 					Vector2 point = startPosition + new Vector2(stepSize * 2, stepSize) * i + new Vector2(-stepSize * 2, stepSize) * j;
 					WayPoint wayPoint = new WayPoint(point);
-					if (i == 0 && j == 0)
-						wayPoint.distance = 0;
-					wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] = wayPoint;
+                    wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] = wayPoint;
 				}
 			}
 
@@ -257,36 +296,42 @@ namespace Objects
 				Transform t = transform.GetChild(c);
 				if (t.GetComponent<Player>() != null) continue;
 
-				PixelCollider pixelCollider = t.GetComponentInChildren<PixelCollider>(false);
-				if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
+				// Get the child pixel collider
+				PixelCollider[] pixelColliders = t.GetComponentsInChildren<PixelCollider>();
+                
+				foreach (PixelCollider pixelCollider in pixelColliders)
 				{
-                    List<WayPoint> badWayPoints = new List<WayPoint>();
-					for (int i = -bottomLeftSteps; i <= topRightSteps; ++i) {
-                        for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
+					if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
+					{
+						List<WayPoint> badWayPoints = new List<WayPoint>();
+						for (int i = -bottomLeftSteps; i <= topRightSteps; ++i)
+						{
+							for (int j = -bottomRightSteps; j <= topLeftSteps; ++j)
+							{
+								if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] == null) continue;
 
-							if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] == null) continue;
-
-							if(pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].position, 0.8f)) {
-								foreach(WayPoint n in wayPointArray[i + bottomLeftSteps,j + bottomRightSteps].neighbours) {
-									n.neighbours.Remove(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+								if (pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps].position, 0.8f))
+								{
+									foreach (WayPoint n in wayPointArray[i + bottomLeftSteps, j + bottomRightSteps].neighbours)
+									{
+										n.neighbours.Remove(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+									}
+									wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] = null;
 								}
-								wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] = null;
 							}
-                        }
-                    }
-				}         
+						}
+					}
+				}
 			}
-
-			HashSet<WayPoint> wayPoints = new HashSet<WayPoint>();
-
+            
 			for (int i = -bottomLeftSteps; i <= topRightSteps; ++i) {
                 for (int j = -bottomRightSteps; j <= topLeftSteps; ++j) {
 					if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] != null)
-						wayPoints.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
+						navigationMesh.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
                 }
             }
-
-			foreach(WayPoint w in wayPoints){
+            
+			foreach(WayPoint w in navigationMesh){
 				foreach(WayPoint n in w.neighbours) {
 					Debug.DrawLine(w.position, n.position, Color.green, 10.0f);
 				}
@@ -296,10 +341,8 @@ namespace Objects
 			//Debug.DrawLine(startPosition, topRightPoint, Color.cyan, 10.0f);
 			//Debug.DrawLine(startPosition, bottomLeftPoint, Color.cyan, 10.0f);
 			//Debug.DrawLine(startPosition, bottomRightPoint, Color.cyan, 10.0f);
-
-			navigationMesh = wayPoints;
-            
-			return wayPoints;
+                        
+			return new HashSet<WayPoint>(navigationMesh);
 		}
 	}
 }
