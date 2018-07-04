@@ -344,5 +344,14 @@ namespace Objects
                         
 			return new HashSet<WayPoint>(navigationMesh);
 		}
+
+		public WayPoint FindClosestWayPoint(Vector2 position)
+		{
+			if (navigationMesh.Count == 0)
+				GetNavigationalMesh(position, this.stepSize);
+
+			WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - position).sqrMagnitude < (i2.position - position).sqrMagnitude ? i1 : i2);
+			return closest;
+		}
 	}
 }

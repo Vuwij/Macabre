@@ -185,46 +185,56 @@ namespace Objects.Movable.Characters
             var objects = pixelCollider.CheckForInspection();
 			foreach(PixelCollision pc in objects) {
 				Debug.Log(pc.pixelCollider.transform.parent.name);
+				InspectObject(pc);
+            }
+		}
 
-                // Inspected object is a door
-				PixelDoor door = pc.pixelCollider.transform.parent.GetComponent<PixelDoor>();
-                if(door != null) {
-					if (door.interactionDirection != Direction.All) {
-                        if (door.interactionDirection != pc.direction) return;
-                        if (facingDirection.x > 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NE) return;
-                        if (facingDirection.x > 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SE) return;
-                        if (facingDirection.x < 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NW) return;
-                        if (facingDirection.x < 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SW) return;
-                    }
-					EnterDoor(door);
-					return;
+		public void InspectObject(PixelCollision pc)
+		{
+			// Inspected object is a door
+            PixelDoor door = pc.pixelCollider.transform.parent.GetComponent<PixelDoor>();
+            if (door != null)
+            {
+				if (door.interactionDirection != Direction.All && pc.direction != Direction.All)
+                {
+                    if (door.interactionDirection != pc.direction) return;
+                    if (facingDirection.x > 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NE) return;
+                    if (facingDirection.x > 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SE) return;
+                    if (facingDirection.x < 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NW) return;
+                    if (facingDirection.x < 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SW) return;
+                }
+                EnterDoor(door);
+                return;
+            }
+
+            // Inspected object is an item
+            PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
+            if (item != null)
+            {
+                PixelInventory inv = GetComponentInChildren<PixelInventory>();
+                Debug.Assert(inv != null);
+
+                bool succeed = inv.AddItem(item);
+
+                if (succeed)
+                {
+                    animator.SetTrigger(Animator.StringToHash("IsPickup"));
+                    item.gameObject.SetActive(false);
+                    item.transform.parent = inv.transform;
                 }
 
-                // Inspected object is an item
-				PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
-                if(item != null) {
-                    PixelInventory inv = GetComponentInChildren<PixelInventory>();
-                    Debug.Assert(inv != null);
+                return;
+            }
 
-                    bool succeed = inv.AddItem(item);
-
-                    if (succeed) {
-                        animator.SetTrigger(Animator.StringToHash("IsPickup"));
-                        item.gameObject.SetActive(false);
-                        item.transform.parent = inv.transform;
-                    }
-
-                    return;
-                }
-
-                // Inspected object is a character
-				currrentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
-				if(currrentlySpeakingTo != null) {
-					currrentlySpeakingTo.currentConversationState.Display();
-					if (currrentlySpeakingTo.currentConversationState.nextStates.Count <= 1){
-						currrentlySpeakingTo.currentConversationState = currrentlySpeakingTo.currentConversationState.NextState();
-						currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
-					}
+            // Inspected object is a character
+            currrentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
+            if (currrentlySpeakingTo != null)
+            {
+                currrentlySpeakingTo.currentConversationState.Display();
+                if (currrentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
+                {
+                    currrentlySpeakingTo.currentConversationState = currrentlySpeakingTo.currentConversationState.NextState();
+                    currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
                 }
             }
 		}
@@ -442,6 +452,19 @@ namespace Objects.Movable.Characters
 			return null;
 		}
 
+		public void WalkAndInspectObject(PixelCollider pixelCollider, Vector2 walkToPosition = default(Vector2))
+		{
+			if (walkToPosition == default(Vector2))
+				walkToPosition = pixelCollider.transform.position;
+			WayPoint position = pixelCollider.FindWalkToPosition(walkToPosition);
+			CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, position.position);
+            characterTasks.Enqueue(characterTask);
+			PixelCollision pc = new PixelCollision();
+			pc.pixelCollider = pixelCollider;
+			pc.direction = Direction.All;
+			CharacterTask inspectTask = new CharacterTask(GameTask.TaskType.INSPECT, pc);
+		}
+
 		IEnumerator UpdateCharacterAction()
 		{
 			while (true)
@@ -474,6 +497,12 @@ namespace Objects.Movable.Characters
 					EnterDoor((PixelDoor)t.arguments[0]);
                     characterTasks.Dequeue();
 				}
+				else if (t.taskType == GameTask.TaskType.INSPECT)
+                {
+                    Debug.Assert(t.arguments.Count() == 1);
+					InspectObject((PixelCollision)t.arguments[0]);
+                    characterTasks.Dequeue();
+                }
 				yield return new WaitForFixedUpdate();
 			}
 		}

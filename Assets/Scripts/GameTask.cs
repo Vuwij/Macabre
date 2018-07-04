@@ -25,6 +25,7 @@ public class GameTask
 		TELEPORT,
 		ATTACK,
 		UPDATESTAT,
+        INSPECT,
         NONE
 	}
 	public TaskType taskType = TaskType.NONE;

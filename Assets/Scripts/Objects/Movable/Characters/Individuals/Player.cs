@@ -79,21 +79,20 @@ namespace Objects.Movable.Characters.Individuals
                 click = offset + new Vector2(320.0f, 180.0f);
                 return Camera.main.ScreenToWorldPoint(click);
             }
-        }    
-              
+        }
+
+		PixelCollider currentHighlighted;
+
 		protected override void Start()
         {
             base.Start();
         }
-
-		void FixedUpdate()
-		{
-			KeyPressed();
-		}
         
 		void Update()
 		{
 			MouseClicked();
+            KeyPressed();
+			HoverOverObject();
 		}
 
 		void KeyPressed() {
@@ -159,7 +158,7 @@ namespace Objects.Movable.Characters.Individuals
 						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
 						if (withinCollider)
 						{
-							Debug.Log(pixelCollider.transform.parent.name);
+							WalkAndInspectObject(pixelCollider, mousePosition);
 							return;
 						}
 					}
@@ -188,8 +187,43 @@ namespace Objects.Movable.Characters.Individuals
 			}
 		}
         
+        // Just highlight the object if your mouse is over it
 		void HoverOverObject() {
+			Vector3 castStart = mousePosition;
+            castStart.z = -10.0f;
 
-		}
+            RaycastHit2D[] raycastHits = Physics2D.CircleCastAll(mousePosition, 30.0f, Vector2.zero);
+
+            // Detected inspected objects
+            foreach (var hit in raycastHits)
+            {
+                GameObject obj = hit.collider.gameObject;
+                if (obj == this) continue;
+
+                PixelCollider pixelCollider = obj.GetComponent<PixelCollider>();
+                if (pixelCollider != null)
+                {
+                    bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
+                    if (withinCollider)
+                    {
+                        //Debug.Log(pixelCollider.transform.parent.name);
+
+						if (currentHighlighted != pixelCollider) {
+							if (currentHighlighted != null)
+                                currentHighlighted.UnHighlightObject();
+							currentHighlighted = pixelCollider;
+                            currentHighlighted.HighlightObject();
+						}
+
+                        return;
+                    }
+                }
+            }
+
+			if (currentHighlighted != null) {
+				currentHighlighted.UnHighlightObject();
+				currentHighlighted = null;
+			}
+		}      
     }
 }

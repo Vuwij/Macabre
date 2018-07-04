@@ -23,13 +23,15 @@ namespace Objects
         }
 
         protected new PolygonCollider2D collider2D;
-
+        
         Vector2 top, bottom, left, right;
         Vector2[] colliderPoints;
 
         public bool noSorting;
 		public bool noCollision;
 		public float visibilityInFront = 0.25f;
+		Color originalColor;
+		Color originalObjColor;
 		public bool inspectChildObjects = false;
 
         protected int pixelProximity = 4; // 3 pixels away from the object
@@ -769,6 +771,42 @@ namespace Objects
 			return pixelRoom;
         }
 
+		public void HighlightObject()
+		{
+			SpriteRenderer spriteRenderer = this.GetComponent<SpriteRenderer>();
+			if(spriteRenderer != null)
+			{
+				originalColor = spriteRenderer.color;
+				Color color = new Color(255f, 255f, 255f, 0.2f);
+				spriteRenderer.color = color;            
+			}
+			SpriteRenderer objRenderer = this.transform.parent.GetComponent<SpriteRenderer>();
+			if(objRenderer != null)
+			{
+				originalObjColor = objRenderer.color;
+				Color color = new Color(255f, 255f, 0, 1.0f);
+				objRenderer.color = color;
+			}
+		}
+
+		public void UnHighlightObject()
+        {
+            SpriteRenderer spriteRenderer = this.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+				spriteRenderer.color = originalColor;
+			
+			SpriteRenderer objRenderer = this.transform.parent.GetComponent<SpriteRenderer>();
+            if (objRenderer != null)
+            {
+				objRenderer.color = originalObjColor;
+            }
+        }
+
+		public WayPoint FindWalkToPosition(Vector2 mousePosition)
+		{
+			PixelRoom room = GetPixelRoom();
+			return room.FindClosestWayPoint(mousePosition);
+		}
     }
    
 	public enum Direction {
