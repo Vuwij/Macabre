@@ -29,8 +29,6 @@ public class GameTask
         NONE
 	}
 	public TaskType taskType = TaskType.NONE;
-	public string actionString = "";
-	public List<string> argumentsString = new List<string>();
 	public List<object> arguments = new List<object>();
 	public Character character;
 
@@ -38,20 +36,48 @@ public class GameTask
     
 	public GameTask() {}
 
-	public GameTask(string actionString) {
-		this.actionString = actionString;
-		BreakUpString();
-		IdentifyTaskType();
-		FindArguments();
-	}
-
 	public GameTask(TaskType taskType, params object[] arguments) {
 		this.taskType = taskType;
         for (int i = 0; i < arguments.Length; ++i)
 			this.arguments.Add(arguments[i]);
 	}
 
-	void BreakUpString() {
+	public static List<GameTask> CreateGameTasks(string actionString) {
+		List<GameTask> gameTasks = new List<GameTask>();
+		List<string> actionStrings = BreakUpString(actionString);
+
+		Character taskCharacter;
+		TaskType type = IdentifyTaskType(actionStrings, out taskCharacter);
+
+		if (type == TaskType.NAVIGATE)
+        {
+			GameTask gameTask = new GameTask();
+			gameTask.taskType = TaskType.NAVIGATE;
+
+			Debug.Assert(taskCharacter != null);
+			if (taskCharacter is Player)
+            {
+                string locationString = actionStrings[1];
+                PixelRoom room = GetObjectOfType<PixelRoom>(locationString);
+				gameTask.arguments.Add(room);
+
+                string objectString = actionStrings[2];
+                PixelCollider pixelCollider = GetObjectOfType<PixelCollider>(objectString, room.transform);
+				gameTask.arguments.Add(pixelCollider);
+				gameTask.character = taskCharacter;
+            }
+			gameTasks.Add(gameTask);
+        }
+		else if (type == TaskType.PUTS)
+        {
+            // Navigate first
+			GameTask gameTask = new GameTask();
+        }
+
+		return gameTasks;
+	}
+
+	static List<string> BreakUpString(string actionString) {
 		// Remove the ' ' delimiters
 		string s = actionString;
 		s.Replace("''", "' '"); // adds spaces in case they are not together
@@ -71,91 +97,77 @@ public class GameTask
 			}
 		}
 
-		argumentsString = sss;
+		return sss;
 		//foreach(string z in argumentsString) {
 		//	Debug.Log(z);
 		//}
 	}
 
     // Finds the character and the task type
-	void IdentifyTaskType() {
+	static TaskType IdentifyTaskType(List<string> actionStrings, out Character character) {
+		TaskType type = TaskType.NONE;
 
-        // Command always 2nd otherwise its player
-		if (argumentsString[1] == "puts")
-			taskType = TaskType.PUTS;
-		else if (argumentsString[1] == "takes")
-			taskType = TaskType.TAKES;
-		else if (argumentsString[1] == "goto")
-			taskType = TaskType.NAVIGATE;
-		else if (argumentsString[1] == "gives")
-			taskType = TaskType.GIVES;
-		else if (argumentsString[1] == "create")
-			taskType = TaskType.CREATE;
-		else if (argumentsString[1] == "animate")
-			taskType = TaskType.ANIMATE;
-		else if (argumentsString[1] == "teleport")
-            taskType = TaskType.ANIMATE;
-		else if (argumentsString[1] == "attack")
-            taskType = TaskType.ANIMATE;
-		else if (argumentsString[1] == "updatestat")
-            taskType = TaskType.ANIMATE;
+		// Command always 2nd otherwise its player
+		if (actionStrings[1] == "puts")
+			type = TaskType.PUTS;
+		else if (actionStrings[1] == "takes")
+			type = TaskType.TAKES;
+		else if (actionStrings[1] == "goto")
+			type = TaskType.NAVIGATE;
+		else if (actionStrings[1] == "gives")
+			type = TaskType.GIVES;
+		else if (actionStrings[1] == "create")
+			type = TaskType.CREATE;
+		else if (actionStrings[1] == "animate")
+			type = TaskType.ANIMATE;
+		else if (actionStrings[1] == "teleport")
+			type = TaskType.ANIMATE;
+		else if (actionStrings[1] == "attack")
+			type = TaskType.ANIMATE;
+		else if (actionStrings[1] == "updatestat")
+			type = TaskType.ANIMATE;
 
-		if(taskType != TaskType.NONE) {
+		if(type != TaskType.NONE) {
 			GameObject gameManagerObj = GameObject.Find("Game Manager");
             GameManager gameManager = gameManagerObj.GetComponent<GameManager>();
-            string characterName = gameManager.characterNameTranslations[argumentsString[0]];
+            string characterName = gameManager.characterNameTranslations[actionStrings[0]];
             GameObject characterObj = GameObject.Find(characterName);
             character = characterObj.GetComponent<Character>();
 
 			Debug.Assert(character != null);
-            Debug.Assert(taskType != TaskType.NONE);
-			return;
+			Debug.Assert(type != TaskType.NONE);
+			return TaskType.NONE;
 		}
 
-		if (argumentsString[0] == "puts")
-            taskType = TaskType.PUTS;
-        else if (argumentsString[0] == "takes")
-            taskType = TaskType.TAKES;
-        else if (argumentsString[0] == "goto")
-            taskType = TaskType.NAVIGATE;
-        else if (argumentsString[0] == "gives")
-            taskType = TaskType.GIVES;
-        else if (argumentsString[0] == "create")
-            taskType = TaskType.CREATE;
-        else if (argumentsString[0] == "animate")
-            taskType = TaskType.ANIMATE;
-        else if (argumentsString[0] == "teleport")
-            taskType = TaskType.ANIMATE;
-        else if (argumentsString[0] == "attack")
-            taskType = TaskType.ANIMATE;
-        else if (argumentsString[0] == "updatestat")
-            taskType = TaskType.ANIMATE;
+		if (actionStrings[0] == "puts")
+			type = TaskType.PUTS;
+        else if (actionStrings[0] == "takes")
+			type = TaskType.TAKES;
+        else if (actionStrings[0] == "goto")
+			type = TaskType.NAVIGATE;
+        else if (actionStrings[0] == "gives")
+			type = TaskType.GIVES;
+        else if (actionStrings[0] == "create")
+			type = TaskType.CREATE;
+        else if (actionStrings[0] == "animate")
+			type = TaskType.ANIMATE;
+        else if (actionStrings[0] == "teleport")
+			type = TaskType.ANIMATE;
+        else if (actionStrings[0] == "attack")
+			type = TaskType.ANIMATE;
+        else if (actionStrings[0] == "updatestat")
+			type = TaskType.ANIMATE;
 
 		GameObject player = GameObject.Find("Player");
         character = player.GetComponent<Character>();
         
 		Debug.Assert(character != null);
-        Debug.Assert(taskType != TaskType.NONE);
+        Debug.Assert(type != TaskType.NONE);
+
+		return type;
 	}
 
-	void FindArguments() {
-		if (taskType == TaskType.NAVIGATE)
-        {
-            Debug.Assert(character != null);
-            if (character is Player)
-            {
-                string locationString = argumentsString[1];
-                PixelRoom room = GetObjectOfType<PixelRoom>(locationString);
-                arguments.Add(room);
-
-                string objectString = argumentsString[2];
-                PixelCollider pixelCollider = GetObjectOfType<PixelCollider>(objectString, room.transform);
-                arguments.Add(pixelCollider);
-            }
-        }    
-	}
-
-	T GetObjectOfType<T> (string objectName, Transform parent = null) 
+	static T GetObjectOfType<T> (string objectName, Transform parent = null) 
 		where T : MonoBehaviour {
 
 		GameObject obj = null;
@@ -208,6 +220,9 @@ public class GameTask
 		switch (taskType) {
 			case TaskType.NAVIGATE:
 				character.characterTasks.Enqueue(this);
+				break;
+			case TaskType.PUTS:
+                
 				break;
 			default:
 				break;

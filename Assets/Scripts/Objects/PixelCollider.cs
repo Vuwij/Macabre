@@ -801,12 +801,6 @@ namespace Objects
 				objRenderer.color = originalObjColor;
             }
         }
-
-		public WayPoint FindWalkToPosition(Vector2 mousePosition)
-		{
-			PixelRoom room = GetPixelRoom();
-			return room.FindClosestWayPoint(mousePosition);
-		}
     }
    
 	public enum Direction {

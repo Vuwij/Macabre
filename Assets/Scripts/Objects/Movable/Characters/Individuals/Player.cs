@@ -155,10 +155,15 @@ namespace Objects.Movable.Characters.Individuals
 					PixelCollider pixelCollider = obj.GetComponent<PixelCollider>();
 					if (pixelCollider != null)
 					{
-						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
+						if (pixelCollider.inspectChildObjects) continue;
+						PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
+						if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
+
+						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);                  
 						if (withinCollider)
 						{
-							WalkAndInspectObject(pixelCollider, mousePosition);
+							Debug.Log(pixelCollider.transform.parent.name);
+							WalkAndInspectObject(pixelCollider, transform.position, mousePosition);
 							return;
 						}
 					}
@@ -203,7 +208,11 @@ namespace Objects.Movable.Characters.Individuals
                 PixelCollider pixelCollider = obj.GetComponent<PixelCollider>();
                 if (pixelCollider != null)
                 {
-                    bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
+					if (pixelCollider.inspectChildObjects) continue;
+					PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
+                    if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
+
+					bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
                     if (withinCollider)
                     {
                         //Debug.Log(pixelCollider.transform.parent.name);

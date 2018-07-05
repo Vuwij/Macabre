@@ -90,7 +90,7 @@ namespace Objects
             }
         }
 
-		void Awake()
+		public void Awake()
 		{
 			collider2D = GetComponent<PolygonCollider2D>();
 
@@ -221,7 +221,10 @@ namespace Objects
 			}
 		}
 
-		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize) {
+		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize = 0) {
+
+			if (stepSize == 0)
+				stepSize = this.stepSize;
 
 			if (navigationMesh.Count != 0) {
 				foreach (WayPoint w in navigationMesh) {
@@ -252,10 +255,10 @@ namespace Objects
 			Vector2 bottomLeftPoint = startPosition + new Vector2(-bottomLeft / 2.23606f * 2, -bottomLeft / 2.23606f);
 			Vector2 bottomRightPoint = startPosition + new Vector2(bottomRight / 2.23606f * 2, -bottomRight / 2.23606f);
             
-			Debug.Assert(topLeft > 0);
-			Debug.Assert(topRight > 0);
-			Debug.Assert(bottomLeft > 0);
-			Debug.Assert(bottomRight > 0);
+			Debug.Assert(topLeft >= 0);
+			Debug.Assert(topRight >= 0);
+			Debug.Assert(bottomLeft >= 0);
+			Debug.Assert(bottomRight >= 0);
 
 			float stepSizeLength = (new Vector2(stepSize * 2, stepSize)).magnitude;
 
@@ -343,15 +346,6 @@ namespace Objects
 			//Debug.DrawLine(startPosition, bottomRightPoint, Color.cyan, 10.0f);
                         
 			return new HashSet<WayPoint>(navigationMesh);
-		}
-
-		public WayPoint FindClosestWayPoint(Vector2 position)
-		{
-			if (navigationMesh.Count == 0)
-				GetNavigationalMesh(position, this.stepSize);
-
-			WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - position).sqrMagnitude < (i2.position - position).sqrMagnitude ? i1 : i2);
-			return closest;
 		}
 	}
 }

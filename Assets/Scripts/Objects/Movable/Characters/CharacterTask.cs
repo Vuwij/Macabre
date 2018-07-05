@@ -12,9 +12,7 @@ namespace Objects.Movable.Characters
 {
 	public class CharacterTask : GameTask
 	{
-		public CharacterTask(string actionString) : base(actionString) {}
-
-		public CharacterTask(TaskType taskType, params object[] arguments) : base(taskType, arguments){
+		public CharacterTask(TaskType taskType, params object[] arguments) : base(taskType, arguments) {
 		}
 	}
 }

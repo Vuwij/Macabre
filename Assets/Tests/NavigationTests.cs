@@ -14,7 +14,7 @@ public class NavigationTest {
 		SceneManager.LoadScene("Game");
 		yield return null;
 		GameObject.Find("Game Manager").SendMessage("AddGameTask", "goto 'Blacksmith Floor 2 Room 1' 'Bed'");
-		yield return new WaitForSeconds(15.0f);
+		yield return new WaitForSeconds(20.0f);
         string parent = GameObject.Find("Player").transform.parent.name;
 		Assert.AreEqual(parent, "Blacksmith Floor 2 Room 1");
     }
@@ -85,4 +85,13 @@ public class NavigationTest {
 		}
     }
 
+	[UnityTest]
+    public IEnumerator PutTest1()
+    {
+        SceneManager.LoadScene("Game");
+        yield return null;
+		GameObject.Find("Game Manager").SendMessage("AddGameTask", "player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'");
+        yield return new WaitForSeconds(20.0f);
+		GameObject barFront = GameObject.Find("Bar Front");
+    }   
 }

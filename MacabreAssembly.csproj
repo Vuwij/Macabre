@@ -96,6 +96,7 @@
     <Compile Include="Assets\Scripts\Objects\PixelInventory.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelItem.cs" />
     <Compile Include="Assets\Scripts\Objects\PixelRoom.cs" />
+    <Compile Include="Assets\Scripts\Objects\PixelStorage.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\ConversationDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\GameDialogue.cs" />
     <Compile Include="Assets\Scripts\UI\Dialogues\InspectionDialogue.cs" />

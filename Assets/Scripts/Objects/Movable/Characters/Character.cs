@@ -97,18 +97,24 @@ namespace Objects.Movable.Characters
         protected override void Start()
         {
             UpdateFromPrefab();
-
-			PixelRoom room = transform.parent.GetComponent<PixelRoom>();
-			InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
-            
+   
             base.Start();         
         }
+
+
 
 		private void OnEnable()
 		{
 			StartCoroutine("UpdateCharacterAction");
+			PixelRoom room = transform.parent.GetComponent<PixelRoom>();
+			InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
 		}
-      
+
+		private void OnDisable()
+		{
+			CancelInvoke("Movement");
+		}
+
 		void UpdateFromPrefab() {
             Character prefab = Resources.Load<Character>("Characters/" + name);
 			if(prefab == null) {
@@ -174,7 +180,7 @@ namespace Objects.Movable.Characters
 			animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), facingDirection.y);
 		}
 
-		public Character currrentlySpeakingTo;
+		public Character currentlySpeakingTo;
 		public ConversationState currentConversationState;
         public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
 		public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
@@ -227,14 +233,14 @@ namespace Objects.Movable.Characters
             }
 
             // Inspected object is a character
-            currrentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
-            if (currrentlySpeakingTo != null)
+			currentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
+            if (currentlySpeakingTo != null)
             {
-                currrentlySpeakingTo.currentConversationState.Display();
-                if (currrentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
+                currentlySpeakingTo.currentConversationState.Display();
+                if (currentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
                 {
-                    currrentlySpeakingTo.currentConversationState = currrentlySpeakingTo.currentConversationState.NextState();
-                    currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+                    currentlySpeakingTo.currentConversationState = currentlySpeakingTo.currentConversationState.NextState();
+                    currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
                 }
             }
 		}
@@ -265,20 +271,20 @@ namespace Objects.Movable.Characters
 		}
 
         public void Talk(int selection) {
-			if (currrentlySpeakingTo == null)
+			if (currentlySpeakingTo == null)
 				return;            
 
-			if (currrentlySpeakingTo.currentConversationState.nextStates.Count == 1)
+			if (currentlySpeakingTo.currentConversationState.nextStates.Count == 1)
 				return;
 
-			ConversationState nextState = currrentlySpeakingTo.currentConversationState.NextState(selection);
+			ConversationState nextState = currentlySpeakingTo.currentConversationState.NextState(selection);
 			if (nextState == null) 
 				return;
 			else 
-				currrentlySpeakingTo.currentConversationState = nextState;
+				currentlySpeakingTo.currentConversationState = nextState;
 			
-			currrentlySpeakingTo.currentConversationState.DisplayCurrent();     
-			currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+			currentlySpeakingTo.currentConversationState.DisplayCurrent();     
+			currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
         }
         
         // Navigates in the current room only
@@ -403,6 +409,15 @@ namespace Objects.Movable.Characters
 				characterTasks.Enqueue(enterDoorTask);
 			}
 
+			Vector2 lastPosition;
+			if (path.Count == 0)
+				lastPosition = transform.position;
+			else
+				lastPosition = path.Last().dropOffWorldLocation;
+
+
+			WalkAndInspectObject(pixelCollider, lastPosition, pixelCollider.transform.position);
+
 			return true;
 		}
 
@@ -452,17 +467,24 @@ namespace Objects.Movable.Characters
 			return null;
 		}
 
-		public void WalkAndInspectObject(PixelCollider pixelCollider, Vector2 walkToPosition = default(Vector2))
+		public void WalkAndInspectObject(PixelCollider pixelCollider, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
 		{
 			if (walkToPosition == default(Vector2))
 				walkToPosition = pixelCollider.transform.position;
-			WayPoint position = pixelCollider.FindWalkToPosition(walkToPosition);
-			CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, position.position);
+			PixelRoom room = pixelCollider.GetPixelRoom();
+			room.gameObject.SetActive(true);
+			HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
+			WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
+			room.gameObject.SetActive(false);
+
+			CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
             characterTasks.Enqueue(characterTask);
+
 			PixelCollision pc = new PixelCollision();
 			pc.pixelCollider = pixelCollider;
 			pc.direction = Direction.All;
 			CharacterTask inspectTask = new CharacterTask(GameTask.TaskType.INSPECT, pc);
+			characterTasks.Enqueue(inspectTask);
 		}
 
 		IEnumerator UpdateCharacterAction()

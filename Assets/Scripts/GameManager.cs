@@ -290,8 +290,10 @@ public class GameManager : MonoBehaviour {
 
     // Command Line Add Game Task
 	public void AddGameTask(string commandString) {
-		GameTask gameTask = new GameTask(commandString);
-		gameTasks.Enqueue(gameTask);
+		List<GameTask> tasks = GameTask.CreateGameTasks(commandString);
+		foreach(GameTask task in tasks) {
+			gameTasks.Enqueue(task);
+		}
 	}
 
 	IEnumerator GameTaskUpdate() {
