@@ -87,8 +87,12 @@ public class PixelPerfectObject : MonoBehaviour
 
     void SetPixelPerfectPosition()
     {
-		if (name == "Footprint" && transform.parent.tag != "Character") {
-			transform.localPosition = Vector3.zero;
+		if (name == "Shadow" && transform.parent.tag != "Character") {
+			if (((int)(transform.parent.position.x * 2)) % 2 != 0)
+				transform.localPosition = new Vector3(0.5f, 0.0f, 0.0f);
+			else
+				transform.localPosition = new Vector3(-0.5f, 0.0f, 0.0f);
+			
             return;
         }
 

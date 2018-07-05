@@ -726,6 +726,10 @@
       <Project>{FD51B7B1-06BB-96D1-B8EF-F7D3CF525809}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
+    <ProjectReference Include="MacabreAssembly.csproj">
+      <Project>{8ED7BB08-5BBF-4820-6EFF-74D197BF9CBE}</Project>
+      <Name>MacabreAssembly</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

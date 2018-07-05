@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using Objects.Movable.Characters;
 using Data;
 using Objects;
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour {
 	public GameClock clock = new GameClock();
 	public Database db;
 	public Dictionary<string, string> gameEvents = new Dictionary<string, string>();
+	public Dictionary<string, string> characterNameTranslations = new Dictionary<string, string>();
+	public Queue<GameTask> gameTasks = new Queue<GameTask>();
+	public List<GameTask> activeTasks = new List<GameTask>();
 
 	void Awake()
     {
@@ -34,7 +38,13 @@ public class GameManager : MonoBehaviour {
         LoadConversationInformation();
     }
 
-    void LoadInventoryInformation() {
+	void Start()
+	{
+		// Update game tasks every second
+		StartCoroutine(GameTaskUpdate());
+	}
+
+	void LoadInventoryInformation() {
 
         PixelItem[] items = Resources.LoadAll<PixelItem>("Items");
         List<PixelItem> itemsList = items.ToList();
@@ -56,7 +66,7 @@ public class GameManager : MonoBehaviour {
 					string objname = csvreader.GetField(1);
 					if (objname == "Name") continue;
 					if (objname == "") continue;
-
+                    
 					string description = csvreader.GetField(2);
 					string[] properties = csvreader.GetField(3).Replace(" ", "").Split(',');
 
@@ -137,11 +147,19 @@ public class GameManager : MonoBehaviour {
             string description = values[1];
             string attackdamage = values[2];
             string health = values[3];
+			string shortnames = values[4];
 
             Character character = characterList.Find((obj) => obj.name == characterName);
             if (character != null) {
                 character.description = description;
             }
+
+			string[] snames = shortnames.Replace(" ", "").Split();
+			foreach(string s in snames) {
+				if (s == "") continue;
+				characterNameTranslations.Add(s, characterName);
+			}
+			characterNameTranslations.Add(characterName, characterName);
         }
 
         // Conversations
@@ -149,79 +167,92 @@ public class GameManager : MonoBehaviour {
         {
 			if (character.name == "Player") continue;
 
-			using (var reader = new StreamReader(@"Assets/Configuration/" + character.name + ".csv"))
-            {
-				using (var csvreader = new CsvReader(reader))
+			try
+			{
+				using (var reader = new StreamReader(@"Assets/Configuration/" + character.name + ".csv"))
 				{
-					csvreader.Configuration.HasHeaderRecord = true;
-					character.conversationStates.Clear();
-
-					while (csvreader.Read())
+					using (var csvreader = new CsvReader(reader))
 					{
-						string stateName = csvreader.GetField(0);
-						string nextState = csvreader.GetField(1);
-						string updateCondition = csvreader.GetField(2);
-						string requireCondition = csvreader.GetField(3);
-						string speaker = csvreader.GetField(4);
-						string dialogue = csvreader.GetField(5);
-						string action = csvreader.GetField(6);
+						csvreader.Configuration.HasHeaderRecord = true;
+						character.conversationStates.Clear();
 
-						if (stateName == "") continue;
-                        if (stateName == "State Name") continue;
+						while (csvreader.Read())
+						{
+							string stateName = csvreader.GetField(0);
+							string nextState = csvreader.GetField(1);
+							string updateCondition = csvreader.GetField(2);
+							string requireCondition = csvreader.GetField(3);
+							string speaker = csvreader.GetField(4);
+							string dialogue = csvreader.GetField(5);
+							string action = csvreader.GetField(6);
 
-                        ConversationState conversationState = new ConversationState();
-						conversationState.character = character;
+							if (stateName == "") continue;
+							if (stateName == "State Name") continue;
 
-                        conversationState.stateName = stateName;
-						conversationState.updateCondition = updateCondition;
-						conversationState.requireCondition = requireCondition;
+							ConversationState conversationState = new ConversationState();
+							conversationState.character = character;
 
-                        Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
-                        if (stateName != "Silent")
-                        {
-                            if (speakerCharacter == null) 
-								Debug.LogError(speaker + " not found on Character sheet " + character.name + " State: " + stateName);
-                            Debug.Assert(speakerCharacter != null);
-                        }
-                        conversationState.speaker = speakerCharacter;
-                        conversationState.dialogue = dialogue;
+							conversationState.stateName = stateName;
+							conversationState.updateCondition = updateCondition;
+							conversationState.requireCondition = requireCondition;
 
-                        character.conversationStates.Add(stateName, conversationState);
+							Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
+							if (stateName != "Silent")
+							{
+								if (speakerCharacter == null)
+									Debug.LogError(speaker + " not found on Character sheet " + character.name + " State: " + stateName);
+								Debug.Assert(speakerCharacter != null);
+							}
+							conversationState.speaker = speakerCharacter;
+							conversationState.dialogue = dialogue;
+
+							character.conversationStates.Add(stateName, conversationState);
+						}
 					}
 				}
+			} catch (FileNotFoundException ex) {
+			    Debug.LogWarning(ex.ToString());
+				continue;
             }
 
-            // Connnect the states
-            using (var reader = new StreamReader(@"Assets/Configuration/" + character.name + ".csv"))
-            {
-				using (var csvreader = new CsvReader(reader))
+			// Connnect the states
+			try
+			{
+				using (var reader = new StreamReader(@"Assets/Configuration/" + character.name + ".csv"))
 				{
-					csvreader.Configuration.HasHeaderRecord = true;
+					using (var csvreader = new CsvReader(reader))
+					{
+						csvreader.Configuration.HasHeaderRecord = true;
 
-                    while (csvreader.Read())
-                    {
-						string stateName = csvreader.GetField(0);
-						string nextState = csvreader.GetField(1);
-                        
-                        string[] nextStateSplit = nextState.Replace(" ", "").Split(',');
-						if (nextStateSplit[0] == "") nextStateSplit[0] = "Silent";
+						while (csvreader.Read())
+						{
+							string stateName = csvreader.GetField(0);
+							string nextState = csvreader.GetField(1);
 
-                        if (stateName == "State Name") continue;
-						if (stateName == "") continue;
+							string[] nextStateSplit = nextState.Replace(" ", "").Split(',');
+							if (nextStateSplit[0] == "") nextStateSplit[0] = "Silent";
 
-						if(!character.conversationStates.ContainsKey(stateName)) {
-							Debug.LogError(character.name + "is missing state " + stateName);
+							if (stateName == "State Name") continue;
+							if (stateName == "") continue;
+
+							if (!character.conversationStates.ContainsKey(stateName))
+							{
+								Debug.LogError(character.name + "is missing state " + stateName);
+							}
+							Debug.Assert(character.conversationStates.ContainsKey(stateName));
+							foreach (string s in nextStateSplit)
+							{
+								Debug.Assert(s != "");
+								Debug.Assert(character.conversationStates[s] != null);
+								character.conversationStates[stateName].nextStates.Add(character.conversationStates[s]);
+							}
 						}
-						Debug.Assert(character.conversationStates.ContainsKey(stateName));
-                        foreach (string s in nextStateSplit)
-                        {
-                            Debug.Assert(s != "");
-                            Debug.Assert(character.conversationStates[s] != null);
-                            character.conversationStates[stateName].nextStates.Add(character.conversationStates[s]);
-                        }
-                    }
+					}
 				}
-            }
+			} catch (FileNotFoundException ex) {
+				Debug.LogWarning(ex.ToString());
+				continue;
+			}
 
             Debug.Assert(character.conversationStates["Silent"] != null);
             character.currentConversationState = character.conversationStates["Silent"];
@@ -256,4 +287,29 @@ public class GameManager : MonoBehaviour {
 
         return result.ToArray();
     }
+
+    // Command Line Add Game Task
+	public void AddGameTask(string commandString) {
+		List<GameTask> tasks = GameTask.CreateGameTasks(commandString);
+		foreach(GameTask task in tasks) {
+			gameTasks.Enqueue(task);
+		}
+	}
+
+	IEnumerator GameTaskUpdate() {
+		while(true) {
+			if (gameTasks.Count == 0) {
+				yield return new WaitForSeconds(0.1f);
+				continue;
+			}
+
+    		GameTask gameTask = gameTasks.Peek();
+            gameTask.Execute();
+            
+			yield return new WaitForSeconds(gameTask.duration);
+			//Debug.Log("Finished Task: " + gameTask.actionString);
+			     
+			gameTasks.Dequeue();
+		}
+	}
 }

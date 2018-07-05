@@ -14,7 +14,18 @@ namespace Objects.Movable.Characters.Individuals
 {
 	public sealed class Player : Character
     {
-        protected override Vector2 inputVelocity
+        bool DebugWindowOpen
+		{
+			get {
+				GameObject debugWindow = GameObject.Find("DebugLogPopup");
+                CanvasGroup canvasGroup = debugWindow.GetComponent<CanvasGroup>();
+                if (!canvasGroup.interactable)
+					return true;
+				return false;
+			}
+		}
+
+		protected override Vector2 inputVelocity
 		{
 			get {
                 PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
@@ -30,6 +41,9 @@ namespace Objects.Movable.Characters.Individuals
 
                 if ((int) Input.GetAxisRaw("Horizontal") == 0 && (int) Input.GetAxisRaw("Vertical") == 0)
                     return Vector2.zero;
+
+				if (DebugWindowOpen)
+					return Vector2.zero;
 
                 if (pixelCollider != null)
                     mr = pixelCollider.CheckForCollision();
@@ -65,24 +79,29 @@ namespace Objects.Movable.Characters.Individuals
                 click = offset + new Vector2(320.0f, 180.0f);
                 return Camera.main.ScreenToWorldPoint(click);
             }
-        }    
-              
+        }
+
+		PixelCollider currentHighlighted;
+
 		protected override void Start()
         {
             base.Start();
         }
-
-		protected override void FixedUpdate()
+        
+		void Update()
 		{
 			MouseClicked();
-			KeyPressed();
-			base.FixedUpdate();
+            KeyPressed();
+			HoverOverObject();
 		}
 
 		void KeyPressed() {
-
+            
 			if(Input.anyKey) {
-
+				// Console
+				if (DebugWindowOpen)
+					return;
+                
                 // Inventory
                 if (Input.GetButtonDown("Inventory"))
                 {
@@ -118,12 +137,15 @@ namespace Objects.Movable.Characters.Individuals
 		}
 
 		void MouseClicked() {
+			if (DebugWindowOpen)
+				return;
+
 			if(Input.GetMouseButtonDown(0)) {
 				Vector3 castStart = mousePosition;
 				castStart.z = -10.0f;
 
 				RaycastHit2D[] raycastHits = Physics2D.CircleCastAll(mousePosition, 30.0f, Vector2.zero);
-                
+                                
                 // Detected inspected objects
 				foreach (var hit in raycastHits)
                 {
@@ -133,10 +155,15 @@ namespace Objects.Movable.Characters.Individuals
 					PixelCollider pixelCollider = obj.GetComponent<PixelCollider>();
 					if (pixelCollider != null)
 					{
-						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
+						if (pixelCollider.inspectChildObjects) continue;
+						PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
+						if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
+
+						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);                  
 						if (withinCollider)
 						{
 							Debug.Log(pixelCollider.transform.parent.name);
+							WalkAndInspectObject(pixelCollider, transform.position, mousePosition);
 							return;
 						}
 					}
@@ -158,15 +185,54 @@ namespace Objects.Movable.Characters.Individuals
 						Debug.Log(pixelRoom.name);
 
 						// Navigate Maze Room
-                        CharacterTask characterTask = new CharacterTask(GameTask.TaskType.NAVIGATE, mousePosition);
+						CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, mousePosition);
                         characterTasks.Enqueue(characterTask);
-                    }               
+                    }
 				}
 			}
 		}
         
+        // Just highlight the object if your mouse is over it
 		void HoverOverObject() {
+			Vector3 castStart = mousePosition;
+            castStart.z = -10.0f;
 
-		}
+            RaycastHit2D[] raycastHits = Physics2D.CircleCastAll(mousePosition, 30.0f, Vector2.zero);
+
+            // Detected inspected objects
+            foreach (var hit in raycastHits)
+            {
+                GameObject obj = hit.collider.gameObject;
+                if (obj == this) continue;
+
+                PixelCollider pixelCollider = obj.GetComponent<PixelCollider>();
+                if (pixelCollider != null)
+                {
+					if (pixelCollider.inspectChildObjects) continue;
+					PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
+                    if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
+
+					bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);
+                    if (withinCollider)
+                    {
+                        //Debug.Log(pixelCollider.transform.parent.name);
+
+						if (currentHighlighted != pixelCollider) {
+							if (currentHighlighted != null)
+                                currentHighlighted.UnHighlightObject();
+							currentHighlighted = pixelCollider;
+                            currentHighlighted.HighlightObject();
+						}
+
+                        return;
+                    }
+                }
+            }
+
+			if (currentHighlighted != null) {
+				currentHighlighted.UnHighlightObject();
+				currentHighlighted = null;
+			}
+		}      
     }
 }

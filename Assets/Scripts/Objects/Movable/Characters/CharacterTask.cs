@@ -12,36 +12,7 @@ namespace Objects.Movable.Characters
 {
 	public class CharacterTask : GameTask
 	{
-		public CharacterTask(string actionString) : base(actionString) {}
-
-		public CharacterTask(TaskType taskType, params object[] arguments) {
-			this.taskType = taskType;
-			for (int i = 0; i < arguments.Length; ++i) {
-				this.arguments.Add(arguments[i]);
-			}
-		}
-
-		public override void ExecuteAction() {
-			switch (taskType) {
-			case TaskType.ANIMATE:
-				break;
-			case TaskType.ATTACK:
-				break;
-			case TaskType.CREATEITEM:
-				break;
-			case TaskType.GIVES:
-				break;
-			case TaskType.PUTS:
-				break;
-			case TaskType.TAKES:
-				break;
-			case TaskType.TELEPORT:
-				break;
-			case TaskType.UPDATESTAT:
-				break;
-			case TaskType.NAVIGATE:
-				break;
-			}
+		public CharacterTask(TaskType taskType, params object[] arguments) : base(taskType, arguments) {
 		}
 	}
 }

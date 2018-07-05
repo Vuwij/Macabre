@@ -67,7 +67,7 @@ namespace Objects.Movable.Characters
 			}
 		}
 
-		public Queue<CharacterTask> characterTasks = new Queue<CharacterTask>();
+		public Queue<GameTask> characterTasks = new Queue<GameTask>();
 
 		List<WayPoint> wayPoints;
 		public Vector2 wayPointVelocity;
@@ -92,24 +92,30 @@ namespace Objects.Movable.Characters
 		GameObject characterFoot;
 
         protected Vector2 characterVelocity;
-		protected Vector2 facingDirection;      
+		protected Vector2 facingDirection;
 
         protected override void Start()
         {
             UpdateFromPrefab();
-
-			PixelRoom room = transform.parent.GetComponent<PixelRoom>();
-			InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
-
-            base.Start();
+   
+            base.Start();         
         }
 
-		protected virtual void FixedUpdate()
+
+
+		private void OnEnable()
 		{
 			StartCoroutine("UpdateCharacterAction");
+			PixelRoom room = transform.parent.GetComponent<PixelRoom>();
+			InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
 		}
 
-        void UpdateFromPrefab() {
+		private void OnDisable()
+		{
+			CancelInvoke("Movement");
+		}
+
+		void UpdateFromPrefab() {
             Character prefab = Resources.Load<Character>("Characters/" + name);
 			if(prefab == null) {
 				Debug.LogError(name + " not found in prefab");
@@ -174,7 +180,7 @@ namespace Objects.Movable.Characters
 			animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), facingDirection.y);
 		}
 
-		public Character currrentlySpeakingTo;
+		public Character currentlySpeakingTo;
 		public ConversationState currentConversationState;
         public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
 		public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
@@ -185,87 +191,108 @@ namespace Objects.Movable.Characters
             var objects = pixelCollider.CheckForInspection();
 			foreach(PixelCollision pc in objects) {
 				Debug.Log(pc.pixelCollider.transform.parent.name);
+				InspectObject(pc);
+            }
+		}
 
-                // Inspected object is a door
-				PixelDoor door = pc.pixelCollider.transform.parent.GetComponent<PixelDoor>();
-                if(door != null) {
-					if(door.interactionDirection != Direction.All) {
-						if (door.interactionDirection != pc.direction) continue;
-						if (facingDirection.x > 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NE) continue;
-						if (facingDirection.x > 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SE) continue;
-						if (facingDirection.x < 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NW) continue;
-						if (facingDirection.x < 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SW) continue;
-					}
-                    
-                    PixelRoom room = door.destination;
-                    Transform originalroom = transform.parent;
-                    Vector2 destinationOffset = door.dropOffLocation + (Vector2) door.transform.position;
-					facingDirection = destinationOffset - (Vector2)transform.position;
-                    transform.position = destinationOffset;
-                    transform.parent = room.transform;
-                    
-					originalroom.gameObject.SetActive(false);
-                    room.transform.gameObject.SetActive(true);
-					room.OnEnable();
-                    
-					UpdateSortingLayer();
+		public void InspectObject(PixelCollision pc)
+		{
+			// Inspected object is a door
+            PixelDoor door = pc.pixelCollider.transform.parent.GetComponent<PixelDoor>();
+            if (door != null)
+            {
+				if (door.interactionDirection != Direction.All && pc.direction != Direction.All)
+                {
+                    if (door.interactionDirection != pc.direction) return;
+                    if (facingDirection.x > 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NE) return;
+                    if (facingDirection.x > 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SE) return;
+                    if (facingDirection.x < 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NW) return;
+                    if (facingDirection.x < 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SW) return;
+                }
+                EnterDoor(door);
+                return;
+            }
 
-                    CancelInvoke("Movement");
-					AnimateMovement();
+            // Inspected object is an item
+            PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
+            if (item != null)
+            {
+                PixelInventory inv = GetComponentInChildren<PixelInventory>();
+                Debug.Assert(inv != null);
 
-					InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
-                    
-                    return;
+                bool succeed = inv.AddItem(item);
+
+                if (succeed)
+                {
+                    animator.SetTrigger(Animator.StringToHash("IsPickup"));
+                    item.gameObject.SetActive(false);
+                    item.transform.parent = inv.transform;
                 }
 
-                // Inspected object is an item
-				PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
-                if(item != null) {
-                    PixelInventory inv = GetComponentInChildren<PixelInventory>();
-                    Debug.Assert(inv != null);
+                return;
+            }
 
-                    bool succeed = inv.AddItem(item);
-
-                    if (succeed) {
-                        animator.SetTrigger(Animator.StringToHash("IsPickup"));
-                        item.gameObject.SetActive(false);
-                        item.transform.parent = inv.transform;
-                    }
-
-                    return;
-                }
-
-                // Inspected object is a character
-				currrentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
-				if(currrentlySpeakingTo != null) {
-					currrentlySpeakingTo.currentConversationState.Display();
-					if (currrentlySpeakingTo.currentConversationState.nextStates.Count <= 1){
-						currrentlySpeakingTo.currentConversationState = currrentlySpeakingTo.currentConversationState.NextState();
-						currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
-					}
+            // Inspected object is a character
+			currentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
+            if (currentlySpeakingTo != null)
+            {
+                currentlySpeakingTo.currentConversationState.Display();
+                if (currentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
+                {
+                    currentlySpeakingTo.currentConversationState = currentlySpeakingTo.currentConversationState.NextState();
+                    currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
                 }
             }
 		}
 
+		public void EnterDoor(PixelDoor door) {
+			PixelRoom room = door.destination;
+            Transform originalroom = transform.parent;
+
+			transform.parent = null; // Prevents disabling the player
+
+			originalroom.gameObject.SetActive(false);
+            room.transform.gameObject.SetActive(true);
+
+			Vector2 destinationOffset = door.dropOffWorldLocation;
+            facingDirection = destinationOffset - (Vector2)transform.position;
+            transform.position = destinationOffset;
+            transform.parent = room.transform;
+                     
+            room.OnEnable();
+
+            UpdateSortingLayer();
+
+            CancelInvoke("Movement");
+            AnimateMovement();
+            InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
+
+            return;
+		}
+
         public void Talk(int selection) {
-			if (currrentlySpeakingTo.currentConversationState.nextStates.Count == 1)
+			if (currentlySpeakingTo == null)
+				return;            
+
+			if (currentlySpeakingTo.currentConversationState.nextStates.Count == 1)
 				return;
 
-			ConversationState nextState = currrentlySpeakingTo.currentConversationState.NextState(selection);
+			ConversationState nextState = currentlySpeakingTo.currentConversationState.NextState(selection);
 			if (nextState == null) 
 				return;
 			else 
-				currrentlySpeakingTo.currentConversationState = nextState;
+				currentlySpeakingTo.currentConversationState = nextState;
 			
-			currrentlySpeakingTo.currentConversationState.DisplayCurrent();     
-			currrentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+			currentlySpeakingTo.currentConversationState.DisplayCurrent();     
+			currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
         }
-              
-		public bool Navigate(Vector2 destination)
+        
+        // Navigates in the current room only
+		public bool WalkTo(Vector2 destination)
 		{
             // Find and draw the navigational path
 			if(wayPoints == null) {
-				wayPoints = FindPathToDestination(destination);
+				wayPoints = FindPathToLocation(destination);
 				if (wayPoints.Count != 0)
                 {               
                     WayPoint point = wayPoints.First();
@@ -274,7 +301,9 @@ namespace Objects.Movable.Characters
                         Debug.DrawLine(point.position, w.position, Color.red, 10.0f);
                         point = w;
                     }
+					transform.position = wayPoints.First().position;
                 }            
+				return false;
 			}
 
 			if (wayPoints.Count == 0) {
@@ -282,8 +311,15 @@ namespace Objects.Movable.Characters
 				return true;
 			}
 
-			Vector2 direction = wayPoints[0].position - (Vector2)transform.position;
-			if (direction.sqrMagnitude < (new Vector2(2, 1)).sqrMagnitude) {
+            // Direction in terms of the direction walked
+			Vector2 direction = wayPoints.First().position - (Vector2)transform.position;
+
+			PixelCollider pixelCollider = transform.GetComponentInChildren<PixelCollider>();
+            Debug.Assert(pixelCollider != null);
+            PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
+			int stepSize = pixelRoom.stepSize;
+            
+			if (direction.sqrMagnitude < 2.5f) {
 				wayPointVelocity = Vector2.zero;
 				wayPoints.RemoveAt(0);
 				return false;
@@ -301,7 +337,7 @@ namespace Objects.Movable.Characters
 			return false;
 		}
 
-		List<WayPoint> FindPathToDestination(Vector2 destination)
+		List<WayPoint> FindPathToLocation(Vector2 destination)
 		{
 			PixelCollider pixelCollider = transform.GetComponentInChildren<PixelCollider>();
 			Debug.Assert(pixelCollider != null);
@@ -309,8 +345,8 @@ namespace Objects.Movable.Characters
 			Debug.Assert(pixelRoom != null);
 
 			// Dijkstra's Algorithm Parameters
-			int stepSize = 5;
-			float minDistanceToTarget = Mathf.Sqrt((stepSize * 2) * (stepSize * 2) + stepSize * stepSize);
+			int stepSize = pixelRoom.stepSize;
+			float minDistanceToTarget = stepSize * 2;
 
 			// Initialization
 			HashSet<WayPoint> Q = pixelRoom.GetNavigationalMesh(transform.position, stepSize);
@@ -320,6 +356,8 @@ namespace Objects.Movable.Characters
 				distance = float.MaxValue,
                 previous = null
             };
+			WayPoint current = Q.Aggregate((i1, i2) => (i1.position - (Vector2)transform.position).sqrMagnitude < (i2.position - (Vector2)transform.position).sqrMagnitude ? i1 : i2);
+			current.distance = 0;
             
 			// Propogation
 			while(Q.Count > 0) {
@@ -353,17 +391,141 @@ namespace Objects.Movable.Characters
 			return new List<WayPoint>();
 		}
 
+		public bool Navigate(PixelRoom room, PixelCollider pixelCollider) {
+
+			// Find a list of doors to navigate to
+			List<PixelDoor> path = FindPathToRoom(room);
+			if(path != null) {
+				foreach(PixelDoor door in path) {
+					Debug.Log("Take " + door.name + " to " + door.destination);
+				}
+			}
+
+            // Enqueue walkto tasks
+			foreach(PixelDoor door in path) {
+				CharacterTask walkToDoorTask = new CharacterTask(GameTask.TaskType.WALKTO, door.dropInWorldLocation);
+				CharacterTask enterDoorTask = new CharacterTask(GameTask.TaskType.ENTERDOOR, door);
+				characterTasks.Enqueue(walkToDoorTask);
+				characterTasks.Enqueue(enterDoorTask);
+			}
+
+			Vector2 lastPosition;
+			if (path.Count == 0)
+				lastPosition = transform.position;
+			else
+				lastPosition = path.Last().dropOffWorldLocation;
+
+
+			WalkAndInspectObject(pixelCollider, lastPosition, pixelCollider.transform.position);
+
+			return true;
+		}
+
+        // Navigate the entire world. Uses breath first search
+		List<PixelDoor> FindPathToRoom(PixelRoom destination) {
+            // Variables
+			Queue<PixelRoom> OpenSet = new Queue<PixelRoom>();
+			HashSet<PixelRoom> ClosedSet = new HashSet<PixelRoom>();
+			Dictionary<PixelRoom, List<PixelDoor>> Meta = new Dictionary<PixelRoom, List<PixelDoor>>();
+
+			// Initalization
+			PixelCollider pixelCollider = transform.GetComponentInChildren<PixelCollider>();
+            PixelRoom start = pixelCollider.GetPixelRoom();
+			Debug.Assert(start != null);
+			OpenSet.Enqueue(start);
+
+			while(OpenSet.Count > 0) {
+				PixelRoom subtreeRoot = OpenSet.Dequeue();
+				if(subtreeRoot == destination) {
+					List<PixelDoor> actionList = new List<PixelDoor>();
+					PixelRoom state = subtreeRoot;
+
+					while (Meta.ContainsKey(state) && Meta[state].Count() >= 0)
+                    {
+						actionList.Add(Meta[state].First());
+						state = Meta[state].First().source;
+                    }
+                    actionList.Reverse();
+                    return actionList;
+				}
+
+				foreach(PixelDoor pixeldoor in subtreeRoot.pixelDoors) {
+					if (ClosedSet.Contains(pixeldoor.destination))
+						continue;
+
+					if (!OpenSet.Contains(pixeldoor.destination)) {
+						if (!Meta.ContainsKey(pixeldoor.destination))
+						    Meta.Add(pixeldoor.destination, new List<PixelDoor>());
+						Meta[pixeldoor.destination].Add(pixeldoor);
+						OpenSet.Enqueue(pixeldoor.destination);
+					}
+				}
+
+				ClosedSet.Add(subtreeRoot);
+			}
+
+			return null;
+		}
+
+		public void WalkAndInspectObject(PixelCollider pixelCollider, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
+		{
+			if (walkToPosition == default(Vector2))
+				walkToPosition = pixelCollider.transform.position;
+			PixelRoom room = pixelCollider.GetPixelRoom();
+			room.gameObject.SetActive(true);
+			HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
+			WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
+			room.gameObject.SetActive(false);
+
+			CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
+            characterTasks.Enqueue(characterTask);
+
+			PixelCollision pc = new PixelCollision();
+			pc.pixelCollider = pixelCollider;
+			pc.direction = Direction.All;
+			CharacterTask inspectTask = new CharacterTask(GameTask.TaskType.INSPECT, pc);
+			characterTasks.Enqueue(inspectTask);
+		}
+
 		IEnumerator UpdateCharacterAction()
 		{
-			if (characterTasks.Count == 0)
-				yield break;
-
-			CharacterTask t = characterTasks.Peek();
-			if(t.taskType == GameTask.TaskType.NAVIGATE) {
-				bool completed = Navigate((Vector2) t.arguments[0]);
-				if (completed) {
-					characterTasks.Dequeue();
+			while (true)
+			{
+				if (characterTasks.Count == 0) {
+					yield return new WaitForSeconds(0.1f);
+					continue;
 				}
+				            
+				GameTask t = characterTasks.Peek();
+				Debug.Assert(t != null);
+                
+				if (t.taskType == GameTask.TaskType.NAVIGATE)
+				{
+					Debug.Assert(t.arguments.Count() == 2);
+					bool completed = Navigate((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1]);
+                    if (completed)
+						characterTasks.Dequeue();
+				}
+				else if (t.taskType == GameTask.TaskType.WALKTO)
+                {
+                    Debug.Assert(t.arguments.Count() == 1);
+					bool completed = WalkTo((Vector2)t.arguments[0]);
+                    if (completed)
+						characterTasks.Dequeue();
+                }
+				else if (t.taskType == GameTask.TaskType.ENTERDOOR)
+				{
+					Debug.Assert(t.arguments.Count() == 1);
+					EnterDoor((PixelDoor)t.arguments[0]);
+                    characterTasks.Dequeue();
+				}
+				else if (t.taskType == GameTask.TaskType.INSPECT)
+                {
+                    Debug.Assert(t.arguments.Count() == 1);
+					InspectObject((PixelCollision)t.arguments[0]);
+                    characterTasks.Dequeue();
+                }
+				yield return new WaitForFixedUpdate();
 			}
 		}
 	}

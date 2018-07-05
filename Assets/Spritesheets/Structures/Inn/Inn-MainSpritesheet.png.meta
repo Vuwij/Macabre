@@ -620,9 +620,9 @@ TextureImporter:
       name: Inn-MainSpritesheet_21
       rect:
         serializedVersion: 2
-        x: 997
+        x: 996
         y: 1050
-        width: 58
+        width: 59
         height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
