@@ -72,6 +72,7 @@ public class GameTask
         {
             // Navigate first
 			GameTask gameTask = new GameTask();
+
         }
 
 		return gameTasks;

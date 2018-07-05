@@ -472,10 +472,16 @@ namespace Objects.Movable.Characters
 			if (walkToPosition == default(Vector2))
 				walkToPosition = pixelCollider.transform.position;
 			PixelRoom room = pixelCollider.GetPixelRoom();
-			room.gameObject.SetActive(true);
+			PixelCollider currentLocation = this.GetComponentInChildren<PixelCollider>();
+
+			if (room != currentLocation.GetPixelRoom())
+                room.gameObject.SetActive(true);
+
 			HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
 			WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
-			room.gameObject.SetActive(false);
+
+			if (room != currentLocation.GetPixelRoom())
+				room.gameObject.SetActive(false);
 
 			CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
             characterTasks.Enqueue(characterTask);

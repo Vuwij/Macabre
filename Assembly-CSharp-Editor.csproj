@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Assets\Editor\MacabreCollider.cs" />
     <Compile Include="Assets\Editor\MacabreFootprint.cs" />
+    <Compile Include="Assets\Editor\MacabreItem.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>/Users/vuwij/UnityProjects/Macabre/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -239,9 +240,6 @@
     </Reference>
     <Reference Include="Unity.Locator">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/Unity.Locator.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>/Users/vuwij/UnityProjects/Macabre/Library/ScriptAssemblies/Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
