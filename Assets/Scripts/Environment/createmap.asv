@@ -26,8 +26,8 @@ for count = 1:(mapsize)^2
     
     count
     
-    randlocx = abs(floor(normrnd(concentration, 12)))+1;
-    randlocy = abs(floor(normrnd(concentration, 12)))+1;
+    randlocx = abs(floor(normrnd(concentration, 12)));
+    randlocy = abs(floor(normrnd(concentration, 12)));
     
     
     while (randlocx >= mapsize-Maxblocksize)
@@ -38,11 +38,11 @@ for count = 1:(mapsize)^2
         randlocy = abs(floor((normrnd(concentration, 12))));
     end
     
-    blocksize = floor((rand*6)+12);
+    blocksize = floor((rand*2)+6);
     
     randheight = (rand*5+2);
     
-    heightsample = floor(M(randlocx,randlocy) + randheight);
+    heightsample = M(randlocx,randlocy) + randheight
     
     for blockx  = 1:blocksize
         for blocky = 1:blocksize
@@ -50,7 +50,9 @@ for count = 1:(mapsize)^2
             x = randlocx + blockx;
             y = randlocy + blocky;
             
-                M(x,y) = heightsample;
+            if randheight >= M(x,y)
+                M(x,y) = he;
+            end
             
         end
     end
