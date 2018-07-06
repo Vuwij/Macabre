@@ -20,6 +20,12 @@ namespace Objects
 					occupiedLocations.Add(i);
 
 					obj.transform.position = (Vector2)this.transform.position + displayLocations[i];
+					obj.SetActive(true);
+					SpriteRenderer spriteRenderer = obj.GetComponent<SpriteRenderer>();
+					SpriteRenderer parent = gameObject.GetComponent<SpriteRenderer>();
+
+					Debug.Assert(spriteRenderer != null && parent != null);
+					spriteRenderer.sortingOrder = parent.sortingOrder + 1;
 					return;
 				}
 			}

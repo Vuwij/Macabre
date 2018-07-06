@@ -140,26 +140,35 @@ public class GameManager : MonoBehaviour {
 
         // Character information
         using (var reader = new StreamReader(@"Assets/Configuration/Characters.csv")) {
-            var line = reader.ReadLine();
-            string[] values = CsvSplit(line);
 
-            string characterName = values[0];
-            string description = values[1];
-            string attackdamage = values[2];
-            string health = values[3];
-			string shortnames = values[4];
+			using (var csvreader = new CsvReader(reader))
+			{
+				while (csvreader.Read())
+				{
+					string characterName = csvreader.GetField(0);
+					string description = csvreader.GetField(1);
+					string attackdamage = csvreader.GetField(2);
+					string health = csvreader.GetField(3);
+					string shortnames = csvreader.GetField(4);
 
-            Character character = characterList.Find((obj) => obj.name == characterName);
-            if (character != null) {
-                character.description = description;
-            }
+					if (characterName == "Name")
+						continue;
 
-			string[] snames = shortnames.Replace(" ", "").Split();
-			foreach(string s in snames) {
-				if (s == "") continue;
-				characterNameTranslations.Add(s, characterName);
+					Character character = characterList.Find((obj) => obj.name == characterName);
+					if (character != null)
+					{
+						character.description = description;
+					}
+
+					string[] snames = shortnames.Replace(" ", "").Split();
+					foreach (string s in snames)
+					{
+						if (s == "") continue;
+						characterNameTranslations.Add(s, characterName);
+					}
+					characterNameTranslations.Add(characterName, characterName);
+				}
 			}
-			characterNameTranslations.Add(characterName, characterName);
         }
 
         // Conversations

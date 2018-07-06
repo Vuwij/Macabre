@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Tests\ConversationTests.cs" />
+    <Compile Include="Assets\Tests\ItemTests.cs" />
     <Compile Include="Assets\Tests\NavigationTests.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

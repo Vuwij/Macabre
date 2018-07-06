@@ -320,5 +320,56 @@ namespace Objects
                 character.UpdateSortingLayer();
             }
         }
+
+		public bool HasItem(string name, int count = 1) {
+			int totalCount = count;
+			foreach(BigItemSlot item in bigItems) {
+				if (item.item == null) continue;
+				if (item.item.name == name)
+					totalCount--;
+			}
+			foreach (SmallItemSlot item in smallItems)
+            {
+				if (item.items == null) continue;
+				for (int i = 0; i < 4; ++i) {
+					if (item.items[i] == null) continue;
+					if (item.items[i].name == name)
+                        totalCount--;
+				}
+            }
+			if (totalCount <= 0)
+				return true;
+			return false;
+		}
+
+		public GameObject GetItem(string name) {
+			GameObject obj = null;
+
+			foreach (BigItemSlot item in bigItems)
+            {
+                if (item.item == null) continue;
+				if (item.item.name == name)
+				{
+					obj = item.item.gameObject;
+					item.item = null;
+					return obj;
+				}
+            }
+            foreach (SmallItemSlot item in smallItems)
+            {
+                if (item.items == null) continue;
+                for (int i = 0; i < 4; ++i)
+                {
+                    if (item.items[i] == null) continue;
+					if (item.items[i].name == name) {
+						obj = item.items[i].gameObject;
+						item.items[i] = null;
+						return obj;
+					}
+                }
+            }
+
+			return obj;
+		}
     }
 }

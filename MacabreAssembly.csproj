@@ -77,7 +77,6 @@
     <Compile Include="Assets\Scripts\Objects\IInspectable.cs" />
     <Compile Include="Assets\Scripts\Objects\Immovable\ImmovableObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Immovable\Overworld\Map.cs" />
-    <Compile Include="Assets\Scripts\Objects\Movable\Characters\AICharacter.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\Character.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\CharacterTask.cs" />
     <Compile Include="Assets\Scripts\Objects\Movable\Characters\ConversationState.cs" />

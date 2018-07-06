@@ -100,9 +100,7 @@ namespace Objects.Movable.Characters
    
             base.Start();         
         }
-
-
-
+        
 		private void OnEnable()
 		{
 			StartCoroutine("UpdateCharacterAction");
@@ -416,7 +414,8 @@ namespace Objects.Movable.Characters
 				lastPosition = path.Last().dropOffWorldLocation;
 
 
-			WalkAndInspectObject(pixelCollider, lastPosition, pixelCollider.transform.position);
+			if (pixelCollider != null)
+			    WalkAndInspectObject(pixelCollider, lastPosition, pixelCollider.transform.position);
 
 			return true;
 		}
@@ -493,6 +492,51 @@ namespace Objects.Movable.Characters
 			characterTasks.Enqueue(inspectTask);
 		}
 
+		public void CreateItem(GameObject item, int quantity = 1)
+		{
+			Debug.Assert(quantity >= 1 && quantity <= 4);
+
+			for (int i = 0; i < quantity; ++i)
+			{
+				GameObject newObj = Instantiate(item);
+
+				PixelInventory inv = GetComponentInChildren<PixelInventory>();
+				Debug.Assert(inv != null);
+
+				PixelItem pixelItem = newObj.GetComponent<PixelItem>();
+
+				bool succeed = inv.AddItem(pixelItem);
+				if (succeed)
+				{
+					newObj.gameObject.name = item.name;
+					newObj.gameObject.SetActive(false);
+					newObj.transform.parent = inv.transform;
+				}
+				else
+				{
+					Destroy(newObj);
+					Debug.LogWarning("Inventory Full");
+				}
+			}
+		}
+
+		public void Puts(int number, string item, PixelStorage pixelStorage) {
+			PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            Debug.Assert(inv != null);
+
+			bool hasItem = inv.HasItem(item, number);
+			if(!hasItem) {
+				Debug.LogWarning(this.gameObject.name + " does not have " + number + " " + item);
+				return;
+			}
+
+			Debug.Assert(number >= 1 && number <= 24);
+			for (int i = 0; i < number; ++i) {
+				GameObject obj = inv.GetItem(item);
+				pixelStorage.AddObject(obj);
+			}
+		}
+
 		IEnumerator UpdateCharacterAction()
 		{
 			while (true)
@@ -531,6 +575,18 @@ namespace Objects.Movable.Characters
 					InspectObject((PixelCollision)t.arguments[0]);
                     characterTasks.Dequeue();
                 }
+				else if (t.taskType == GameTask.TaskType.CREATE)
+				{
+					Debug.Assert(t.arguments.Count() == 2);
+					CreateItem((GameObject)t.arguments[1], (int)t.arguments[0]);
+					characterTasks.Dequeue();
+				}
+				else if (t.taskType == GameTask.TaskType.PUTS)
+                {
+                    Debug.Assert(t.arguments.Count() == 3);
+					Puts((int)t.arguments[0], (string)t.arguments[1], (PixelStorage) t.arguments[2]);
+                    characterTasks.Dequeue();
+                }      
 				yield return new WaitForFixedUpdate();
 			}
 		}

@@ -33,7 +33,7 @@ namespace Objects
 
 		public void Start()
 		{
-            UpdateFromPrefab();
+            //UpdateFromPrefab();
 		}
 
         void UpdateFromPrefab()

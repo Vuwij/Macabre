@@ -84,14 +84,4 @@ public class NavigationTest {
 			Assert.AreEqual(parent, name);
 		}
     }
-
-	[UnityTest]
-    public IEnumerator PutTest1()
-    {
-        SceneManager.LoadScene("Game");
-        yield return null;
-		GameObject.Find("Game Manager").SendMessage("AddGameTask", "player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'");
-        yield return new WaitForSeconds(20.0f);
-		GameObject barFront = GameObject.Find("Bar Front");
-    }   
 }
