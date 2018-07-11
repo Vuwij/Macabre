@@ -163,7 +163,15 @@ namespace Objects.Movable.Characters.Individuals
 						if (withinCollider)
 						{
 							Debug.Log(pixelCollider.transform.parent.name);
-							WalkAndInspectObject(pixelCollider, transform.position, mousePosition);
+							WalkToObject(pixelCollider, transform.position, mousePosition);
+
+                            // Inspect Object
+							PixelCollision pc = new PixelCollision();
+                            pc.pixelCollider = pixelCollider;
+                            pc.direction = Direction.All;
+                            CharacterTask inspectTask = new CharacterTask(GameTask.TaskType.INSPECT, pc);
+                            characterTasks.Enqueue(inspectTask);
+
 							return;
 						}
 					}

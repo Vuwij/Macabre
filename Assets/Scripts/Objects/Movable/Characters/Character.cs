@@ -195,7 +195,7 @@ namespace Objects.Movable.Characters
 
 		public void InspectObject(PixelCollision pc)
 		{
-			// Inspected object is a door
+            // Inspected object is a door
             PixelDoor door = pc.pixelCollider.transform.parent.GetComponent<PixelDoor>();
             if (door != null)
             {
@@ -207,6 +207,7 @@ namespace Objects.Movable.Characters
                     if (facingDirection.x < 0 && facingDirection.y > 0 && door.interactionDirection != Direction.NW) return;
                     if (facingDirection.x < 0 && facingDirection.y < 0 && door.interactionDirection != Direction.SW) return;
                 }
+				animator.SetTrigger(Animator.StringToHash("IsInteract"));
                 EnterDoor(door);
                 return;
             }
@@ -415,7 +416,7 @@ namespace Objects.Movable.Characters
 
 
 			if (pixelCollider != null)
-			    WalkAndInspectObject(pixelCollider, lastPosition, pixelCollider.transform.position);
+				WalkToObject(pixelCollider, lastPosition, pixelCollider.transform.position);
 
 			return true;
 		}
@@ -466,30 +467,24 @@ namespace Objects.Movable.Characters
 			return null;
 		}
 
-		public void WalkAndInspectObject(PixelCollider pixelCollider, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
+		public void WalkToObject(PixelCollider pixelCollider, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
 		{
 			if (walkToPosition == default(Vector2))
-				walkToPosition = pixelCollider.transform.position;
-			PixelRoom room = pixelCollider.GetPixelRoom();
-			PixelCollider currentLocation = this.GetComponentInChildren<PixelCollider>();
+                walkToPosition = pixelCollider.transform.position;
+            PixelRoom room = pixelCollider.GetPixelRoom();
+            PixelCollider currentLocation = this.GetComponentInChildren<PixelCollider>();
 
-			if (room != currentLocation.GetPixelRoom())
+            if (room != currentLocation.GetPixelRoom())
                 room.gameObject.SetActive(true);
 
-			HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
-			WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
+            HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
+            WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
 
-			if (room != currentLocation.GetPixelRoom())
-				room.gameObject.SetActive(false);
+            if (room != currentLocation.GetPixelRoom())
+                room.gameObject.SetActive(false);
 
-			CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
+            CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
             characterTasks.Enqueue(characterTask);
-
-			PixelCollision pc = new PixelCollision();
-			pc.pixelCollider = pixelCollider;
-			pc.direction = Direction.All;
-			CharacterTask inspectTask = new CharacterTask(GameTask.TaskType.INSPECT, pc);
-			characterTasks.Enqueue(inspectTask);
 		}
 
 		public void CreateItem(GameObject item, int quantity = 1)
@@ -535,7 +530,99 @@ namespace Objects.Movable.Characters
 				GameObject obj = inv.GetItem(item);
 				pixelStorage.AddObject(obj);
 			}
+
+			animator.SetTrigger(Animator.StringToHash("IsInteract"));
 		}
+
+		public void Takes(int number, string item, PixelStorage pixelStorage)
+        {
+            PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            Debug.Assert(inv != null);
+
+			bool hasItem = pixelStorage.HasObject(item, number);
+            if (!hasItem)
+            {
+				Debug.LogWarning(pixelStorage.name + " does not have " + number + " " + item);
+                return;
+            }
+
+            Debug.Assert(number >= 1 && number <= 24);
+            for (int i = 0; i < number; ++i)
+            {
+				GameObject obj = pixelStorage.TakeObject(item);
+				if (obj == null)
+					break;
+				PixelItem pixelItem = obj.GetComponent<PixelItem>();
+				Debug.Assert(pixelItem != null);
+
+				bool succeed = inv.AddItem(pixelItem);
+
+                if (succeed)
+                {
+                    //animator.SetTrigger(Animator.StringToHash("IsPickup"));
+					pixelItem.gameObject.SetActive(false);
+					pixelItem.transform.parent = inv.transform;
+                }            
+            }
+
+			animator.SetTrigger(Animator.StringToHash("IsInteract"));
+        }
+
+		public void Gives(int number, string item, Character character)
+		{
+			PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            Debug.Assert(inv != null);
+
+            bool hasItem = inv.HasItem(item, number);
+            if (!hasItem)
+            {
+                Debug.LogWarning(this.gameObject.name + " does not have " + number + " " + item);
+                return;
+            }
+
+            Debug.Assert(number >= 1 && number <= 24);
+
+			PixelInventory toInv = character.GetComponentInChildren<PixelInventory>();
+			Debug.Assert(toInv != null);
+
+			animator.SetTrigger(Animator.StringToHash("IsInteract"));
+
+            for (int i = 0; i < number; ++i)
+            {
+                GameObject obj = inv.GetItem(item);
+				PixelItem pixelItem = obj.GetComponent<PixelItem>();
+				toInv.AddItem(pixelItem);
+				obj.transform.parent = toInv.transform;
+            }
+		}
+
+		public void Steals(int number, string item, Character character)
+        {
+            PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            Debug.Assert(inv != null);
+
+            bool hasItem = inv.HasItem(item, number);
+            if (!hasItem)
+            {
+                Debug.LogWarning(this.gameObject.name + " does not have " + number + " " + item);
+                return;
+            }
+
+            Debug.Assert(number >= 1 && number <= 24);
+
+            PixelInventory toInv = character.GetComponent<PixelInventory>();
+            Debug.Assert(toInv != null);
+
+			animator.SetTrigger(Animator.StringToHash("IsInteract"));
+
+            for (int i = 0; i < number; ++i)
+            {
+				GameObject obj = toInv.GetItem(item);
+                PixelItem pixelItem = obj.GetComponent<PixelItem>();
+                inv.AddItem(pixelItem);
+				obj.transform.parent = inv.transform;
+            }
+        }
 
 		IEnumerator UpdateCharacterAction()
 		{
@@ -586,7 +673,25 @@ namespace Objects.Movable.Characters
                     Debug.Assert(t.arguments.Count() == 3);
 					Puts((int)t.arguments[0], (string)t.arguments[1], (PixelStorage) t.arguments[2]);
                     characterTasks.Dequeue();
-                }      
+                }
+				else if (t.taskType == GameTask.TaskType.TAKES)
+                {
+                    Debug.Assert(t.arguments.Count() == 3);
+                    Takes((int)t.arguments[0], (string)t.arguments[1], (PixelStorage)t.arguments[2]);
+                    characterTasks.Dequeue();
+                }
+				else if (t.taskType == GameTask.TaskType.GIVES)
+                {
+                    Debug.Assert(t.arguments.Count() == 3);
+					Gives((int)t.arguments[0], (string)t.arguments[1], (Character) t.arguments[2]);
+                    characterTasks.Dequeue();
+                }
+				else if (t.taskType == GameTask.TaskType.STEALS)
+                {
+                    Debug.Assert(t.arguments.Count() == 3);
+					Steals((int)t.arguments[0], (string)t.arguments[1], (Character) t.arguments[2]);
+                    characterTasks.Dequeue();
+                }
 				yield return new WaitForFixedUpdate();
 			}
 		}

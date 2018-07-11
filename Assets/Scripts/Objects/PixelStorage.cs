@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Objects
 {
 	public class PixelStorage : MonoBehaviour
 	{
 		public List<Vector2Int> displayLocations = new List<Vector2Int>();
-		List<int> occupiedLocations = new List<int>();
+		Dictionary<int, GameObject> occupiedLocations = new Dictionary<int, GameObject>();
 
 		public void AddObject(GameObject obj)
 		{
@@ -15,9 +16,9 @@ namespace Objects
 
 			for (int i = 0; i < displayLocations.Count; ++i)
 			{
-				if (!occupiedLocations.Contains(i))
+				if (!occupiedLocations.ContainsKey(i))
 				{
-					occupiedLocations.Add(i);
+					occupiedLocations.Add(i, obj);
 
 					obj.transform.position = (Vector2)this.transform.position + displayLocations[i];
 					obj.SetActive(true);
@@ -33,11 +34,31 @@ namespace Objects
 			// Filled up, no more space
 			obj.SetActive(false);
 		}
-
-		public void TakeObject(GameObject obj)
+        
+		public GameObject TakeObject(string name)
 		{
-
+			for (int i = 0; i < transform.childCount; ++i) {
+				Transform t = transform.GetChild(i);
+				if(t.name == name) {
+					KeyValuePair<int, GameObject>? keyValueExist = occupiedLocations.Where(x => x.Value == t.gameObject).FirstOrDefault();
+					if(keyValueExist != null) {
+						occupiedLocations.Remove(keyValueExist.Value.Key);
+						return t.gameObject;
+					}
+				}
+			}
+			return null;
 		}
+
+		public bool HasObject(string obj, int number = 1)
+        {
+            for (int i = 0; i < transform.childCount; ++i)
+            {
+                if (transform.GetChild(i).name == obj)
+                    number--;
+            }
+            return number <= 0;
+        }
 
 		public void OnDrawGizmos()
 		{

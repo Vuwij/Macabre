@@ -1,0 +1,990 @@
+fileFormatVersion: 2
+guid: c808f6c0665c84579a09c2f6ed62cf4a
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Inn-MainSpritesheet_0
+    21300002: Inn-MainSpritesheet_1
+    21300004: Inn-MainSpritesheet_2
+    21300006: Inn-MainSpritesheet_3
+    21300008: Inn-MainSpritesheet_4
+    21300010: Inn-MainSpritesheet_5
+    21300012: Inn-MainSpritesheet_6
+    21300014: Inn-MainSpritesheet_7
+    21300016: Inn-MainSpritesheet_8
+    21300018: Inn-MainSpritesheet_9
+    21300020: Inn-MainSpritesheet_10
+    21300022: Inn-MainSpritesheet_11
+    21300024: Inn-MainSpritesheet_12
+    21300026: Inn-MainSpritesheet_13
+    21300028: Inn-MainSpritesheet_14
+    21300030: Inn-MainSpritesheet_15
+    21300032: Inn-MainSpritesheet_16
+    21300034: Inn-MainSpritesheet_17
+    21300036: Inn-MainSpritesheet_18
+    21300038: Inn-MainSpritesheet_19
+    21300040: Inn-MainSpritesheet_20
+    21300042: Inn-MainSpritesheet_21
+    21300044: Inn-MainSpritesheet_22
+    21300046: Inn-MainSpritesheet_23
+    21300048: Inn-MainSpritesheet_24
+    21300050: Inn-MainSpritesheet_25
+    21300052: Inn-MainSpritesheet_26
+    21300054: Inn-MainSpritesheet_27
+    21300056: Inn-MainSpritesheet_28
+    21300058: Inn-MainSpritesheet_29
+    21300060: Inn-MainSpritesheet_30
+    21300062: Inn-MainSpritesheet_31
+    21300064: Inn-MainSpritesheet_32
+    21300066: Inn-MainSpritesheet_33
+    21300068: Inn-MainSpritesheet_34
+    21300070: Inn-MainSpritesheet_35
+    21300072: Inn-MainSpritesheet_36
+    21300074: Inn-MainSpritesheet_37
+    21300076: Inn-MainSpritesheet_38
+    21300078: Inn-MainSpritesheet_39
+    21300080: Inn-MainSpritesheet_40
+    21300082: Inn-MainSpritesheet_41
+    21300084: Inn-MainSpritesheet_42
+    21300086: Inn-MainSpritesheet_43
+    21300088: Inn-MainSpritesheet_44
+    21300090: Inn-MainSpritesheet_45
+    21300092: Inn-MainSpritesheet_46
+    21300094: Inn-MainSpritesheet_47
+    21300096: Inn-MainSpritesheet_48
+    21300098: Inn-MainSpritesheet_49
+    21300100: Inn-MainSpritesheet_50
+    21300102: Inn-MainSpritesheet_51
+    21300104: Inn-MainSpritesheet_52
+    21300106: Inn-MainSpritesheet_53
+    21300108: Inn-MainSpritesheet_54
+    21300110: Inn-MainSpritesheet_55
+    21300112: Inn-MainSpritesheet_56
+    21300114: Inn-MainSpritesheet_57
+    21300116: Inn-MainSpritesheet_58
+    21300118: Inn-MainSpritesheet_59
+    21300120: Inn-MainSpritesheet_60
+    21300122: Inn-MainSpritesheet_61
+    21300124: Inn-MainSpritesheet_62
+    21300126: Inn-MainSpritesheet_63
+    21300128: Inn-MainSpritesheet_64
+    21300130: Inn-MainSpritesheet_65
+    21300132: Inn-MainSpritesheet_66
+    21300134: Inn-MainSpritesheet_67
+    21300136: Inn-MainSpritesheet_68
+    21300138: Inn-MainSpritesheet_69
+    21300140: Inn-MainSpritesheet_70
+    21300142: Inn-MainSpritesheet_71
+    21300144: Inn-MainSpritesheet_72
+    21300146: Inn-MainSpritesheet_73
+    21300148: Inn-MainSpritesheet_74
+    21300150: Inn-MainSpritesheet_75
+    21300152: Inn-MainSpritesheet_76
+    21300154: Inn-MainSpritesheet_77
+    21300156: Inn-MainSpritesheet_78
+    21300158: Inn-MainSpritesheet_79
+    21300160: Inn-MainSpritesheet_80
+    21300162: Inn-MainSpritesheet_81
+  externalObjects: {}
+  serializedVersion: 5
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 0
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 1
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 1
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1614
+        width: 300
+        height: 286
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 179d037c147634a26875c152afa9fc48
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1696
+        width: 89
+        height: 133
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a5a4941e6c3450eae949b7c63a3418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 1722
+        width: 25
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12a628309bad348578eb13959ac8f15c
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 1724
+        width: 51
+        height: 54
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0afb07e7ad0984820bdd9ce664b89dfc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 1704
+        width: 121
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 563d549725b684b878f4dd1fa95a507b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1472
+        width: 17
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2cc73122f32a4652899dd482792b551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 1396
+        width: 169
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99fc53e9d7c7a43b889168e6c5314ad6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 1428
+        width: 97
+        height: 107
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f76ba821fd5c047b29d465f609872b7e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 1140
+        y: 1501
+        width: 27
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6ee8ffef311441658e258e20383b9f7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 1432
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ce3181678bc5457aaf62cb4dc3b71a4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 1428
+        width: 25
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aad780fac34cd4c0ea3200886a9c4d82
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 1446
+        width: 63
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44aace15712724e5289a50d89ea4e2bc
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 1235
+        y: 1455
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f7fc55a5a6ec4ee4831ed4b8569f5f2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 1464
+        width: 61
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b34af2d5e40164f3db5ee3a417a9b3f4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 1126
+        width: 133
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dddbb7138996a4858a9b83533aaa0b9e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 1162
+        width: 15
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5d9806ef858d4b449ff6a834bc54173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1172
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffb3d375cee79466f9da6836ced6fdb4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 1177
+        width: 39
+        height: 70
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b365b84944484792933ce75673d6371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1129
+        width: 31
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a62e58b0cc8449df9369ba635f02953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1119
+        width: 63
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 794251028a09848188bb1107baa63c45
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 1030
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eddefef88f1bd452a806b33d3cbcc307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 996
+        y: 1050
+        width: 59
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bde95d82613f4561a5de8ce31b144d2
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 1019
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17cac729691c84fd7b2a0c7f432f9337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 1026
+        width: 41
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bd9e1787ffd94c47959ea22e62aad4f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 1201
+        y: 1010
+        width: 41
+        height: 85
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72c55e36008914b88b8371c495c60735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 1012
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c06195f9ba7eb42388817792841cdd89
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 650
+        width: 249
+        height: 181
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920e5479c69f34ac39ada6ca38465ac8
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 752
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8437b8da8f7447b7befa8617fc73d35
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 784
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51487e9fcaad14d77a1d602dc4a88fca
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 726
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac6b1795876ed4c6dbe27382950b33e5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_51
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 444
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6333424dd8cd45fc9661f5c75293f4a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_52
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 459
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc15ad093d4d44115bd75c25599c4140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_54
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 388
+        width: 221
+        height: 167
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7024e86d872434d5bbd5391122cd34ce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_55
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 401
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 217f5fb8c68da47778c1edb7ee29f8bf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_56
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 412
+        width: 49
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dad9021f56ac6460cac612b9f133f673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_71
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 121
+        width: 93
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea0c8475b911448f28ab5c8d1510a9f9
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 1133
+        y: 960
+        width: 63
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d62f965a8b454ddfac2bd87a3d0393a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 636
+        width: 296
+        height: 211
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24956ae0ded66435cbeae74fcc95367f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inn-MainSpritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 683
+        y: 387
+        width: 280
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acebf56087c004792beb6bec3fec2e5a
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 61005a8b6496549c7995e657d49f64b7
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

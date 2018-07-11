@@ -15,7 +15,7 @@ public class MacabreFootprint : EditorWindow {
 	static int downExtension = 2;
 
 
-	[MenuItem ("Macabre/Object/Find Object Footprints")]
+	[MenuItem ("Macabre/Footprint/Find Object Footprints")]
 	static void FindObjectFootprint() {
 		if (Selection.gameObjects.Count() != 1) return;
 
@@ -90,7 +90,7 @@ public class MacabreFootprint : EditorWindow {
         CalculateFootprintPolygonCollider(originalSpriteRenderer, footprintSpriteRenderer, collider);
 	}
 
-	[MenuItem ("Macabre/Object/Find Room Footprints")]
+	[MenuItem ("Macabre/Footprint/Find Room Footprints")]
     static void FindRoomFootprints () {
 
         foreach (GameObject objs in Selection.gameObjects) {
@@ -170,6 +170,74 @@ public class MacabreFootprint : EditorWindow {
 				PolygonCollider2D collider = footprint.AddComponent<PolygonCollider2D>();
 				CalculateFootprintPolygonCollider(originalSpriteRenderer, footprintSpriteRenderer, collider);            
 			}
+        }
+    }
+       
+	[MenuItem("Macabre/Footprint/Find Room Shader")]
+    static void FindRoomShader()
+    {
+        foreach (GameObject objs in Selection.gameObjects)
+        {
+            if (objs.GetComponent<PixelRoom>() == null) continue;
+            SpriteRenderer roomSpriteRenderer = objs.GetComponent<PixelRoom>().GetComponent<SpriteRenderer>();
+            if (roomSpriteRenderer != null) roomSpriteRenderer.sortingOrder = 0;
+
+			List<Transform> inspectedTransforms = new List<Transform>();
+			for (int i = 0; i < objs.transform.childCount; ++i)
+				inspectedTransforms.Add(objs.transform.GetChild(i));
+			inspectedTransforms.Add(objs.transform);
+
+			foreach(Transform o in inspectedTransforms)
+            {
+                if (o.name == "Room Effects") continue;
+
+                // Get original sprite, continue if fail
+                SpriteRenderer originalSpriteRenderer = o.GetComponent<SpriteRenderer>();
+                if (originalSpriteRenderer == null) continue;
+                if (originalSpriteRenderer.sprite == null) continue;
+                if (o.GetComponent<Character>() != null) continue;
+
+                // Undo if made mistake
+                Undo.RecordObject(o, "Set Object Footprint");
+                
+                // Find the normal texture
+                string textureName = AssetDatabase.GetAssetPath(originalSpriteRenderer.sprite.texture);
+				string textureNameWithNormal = textureName.Replace(".png", "");
+				string normalMapTextureName = textureNameWithNormal + "Normal.png";
+				if (!File.Exists(normalMapTextureName))
+				{
+					Debug.LogError("Footprint Texture not found: " + normalMapTextureName);
+					continue;
+				}
+
+                // Make a copy of the texture's normal map
+				AssetImporter normalMapImporter = AssetImporter.GetAtPath(normalMapTextureName);            
+				TextureImporter normalMapTextureImporter = (TextureImporter)AssetImporter.GetAtPath(normalMapTextureName);
+
+				if (normalMapTextureImporter.textureType != TextureImporterType.NormalMap)
+				{
+					normalMapTextureImporter.textureType = TextureImporterType.NormalMap;
+					EditorUtility.SetDirty(normalMapTextureImporter);
+					normalMapTextureImporter.SaveAndReimport();
+					AssetDatabase.ImportAsset(normalMapTextureName, ImportAssetOptions.ForceUpdate);
+				}
+
+				// Make a new Texture
+				string materialPath = normalMapTextureName.Replace("Spritesheets", "Materials").Replace(".png", ".mat");
+				if (!File.Exists(materialPath))
+				{
+					Material defaultMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/Structures/Default/Default.mat");
+					Texture normalMapTexture = AssetDatabase.LoadAssetAtPath<Texture>(normalMapTextureName);
+					Material material = new Material(defaultMaterial);
+					material.SetTexture("_BumpMap", normalMapTexture);
+
+					AssetDatabase.CreateAsset(material, materialPath);
+				}
+
+				// Link object spritesheet with material
+				Material newMaterial = AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+				originalSpriteRenderer.material = newMaterial;
+            }
         }
     }
     

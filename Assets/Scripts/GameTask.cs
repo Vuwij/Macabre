@@ -20,6 +20,7 @@ public class GameTask
         WALKTO,     // Walk to a point within a room
         ENTERDOOR,
 		GIVES,
+        STEALS,
 		CREATE,
 		ANIMATE,
 		TELEPORT,
@@ -32,7 +33,7 @@ public class GameTask
 	public List<object> arguments = new List<object>();
 	public Character character;
 
-	public float duration = 3.0f; // Wait for 3 seconds
+	public float duration = 1.0f; // Wait for 1 seconds
     
 	public GameTask() {}
 
@@ -67,54 +68,7 @@ public class GameTask
 
 			gameTasks.Add(gameTask);
         }
-		else if (type == TaskType.PUTS)
-        {
-            // Navigate first         
-			int number = 1;
-			bool hasNumber = int.TryParse(actionStrings[2], out number);
-            
-			if (!hasNumber) {
-				actionStrings.Insert(2, "1");
-			}
-
-			PixelInventory inv = taskCharacter.GetComponentInChildren<PixelInventory>();
-            Debug.Assert(inv != null);
-			bool hasItem = inv.HasItem(actionStrings[3]);
-			if (!hasItem) {
-				Debug.LogWarning("Insufficent number of items, Require " + number + " " + actionStrings[3]);
-				return gameTasks;
-			}
-            
-			string locationString = actionStrings[4];
-            PixelRoom room = GetObjectOfType<PixelRoom>(locationString);
-            
-            string objectString = actionStrings[5];
-            PixelCollider pixelCollider = GetObjectOfType<PixelCollider>(objectString, room.transform);
-            
-			PixelStorage storage = pixelCollider.transform.parent.GetComponent<PixelStorage>();
-			if(storage == null) {
-				Debug.LogWarning("Cannot Place Item in " + actionStrings[5]);
-                return gameTasks;
-			}
-
-            // Navigate First
-			GameTask navigateTask = new GameTask();
-            navigateTask.taskType = TaskType.NAVIGATE;
-			navigateTask.character = taskCharacter;
-			navigateTask.arguments.Add(room);
-			navigateTask.arguments.Add(pixelCollider);
-            gameTasks.Add(navigateTask);
-
-            // Then Put
-			GameTask putsItemTask = new GameTask();
-            putsItemTask.taskType = TaskType.PUTS;
-			putsItemTask.arguments.Add(number);
-            putsItemTask.arguments.Add(actionStrings[3]);
-			putsItemTask.arguments.Add(storage);
-			putsItemTask.character = taskCharacter;
-			gameTasks.Add(putsItemTask);
-        }
-		else if (type == TaskType.CREATE)
+        else if (type == TaskType.CREATE)
 		{
 			GameTask createItemTask = new GameTask();
 			createItemTask.taskType = TaskType.CREATE;
@@ -130,6 +84,7 @@ public class GameTask
             }
             else
             {
+				number = 1;
 				itemObj = Resources.Load("Items/" + actionStrings[2]) as GameObject;
             }
 
@@ -140,6 +95,94 @@ public class GameTask
 
 			gameTasks.Add(createItemTask);
 		}
+		else if (type == TaskType.PUTS || type == TaskType.TAKES)
+        {
+            // Navigate first         
+            int number = 1;
+            bool hasNumber = int.TryParse(actionStrings[2], out number);
+
+            if (!hasNumber)
+            {
+				number = 1;
+				actionStrings.Insert(2, "1");
+            }
+
+            PixelInventory inv = taskCharacter.GetComponentInChildren<PixelInventory>();
+            Debug.Assert(inv != null);
+
+            string locationString = actionStrings[4];
+            PixelRoom room = GetObjectOfType<PixelRoom>(locationString);
+
+            string objectString = actionStrings[5];
+            PixelCollider pixelCollider = GetObjectOfType<PixelCollider>(objectString, room.transform);
+
+            PixelStorage storage = pixelCollider.transform.parent.GetComponent<PixelStorage>();
+            if (storage == null)
+            {
+                Debug.LogWarning("Cannot Place Item in " + actionStrings[5]);
+                return gameTasks;
+            }
+
+            // Navigate First
+            GameTask navigateTask = new GameTask();
+            navigateTask.taskType = TaskType.NAVIGATE;
+            navigateTask.character = taskCharacter;
+            navigateTask.arguments.Add(room);
+            navigateTask.arguments.Add(pixelCollider);
+            gameTasks.Add(navigateTask);
+
+            // Then Put
+            GameTask putsItemTask = new GameTask();
+			putsItemTask.taskType = type;
+            putsItemTask.arguments.Add(number);
+            putsItemTask.arguments.Add(actionStrings[3]);
+            putsItemTask.arguments.Add(storage);
+            putsItemTask.character = taskCharacter;
+            gameTasks.Add(putsItemTask);
+        }
+		else if (type == TaskType.GIVES || type == TaskType.STEALS) // player gives hamen key
+        {
+			string characterName = actionStrings[2];
+			Character toCharacter = GetCharacter(characterName);
+			if(toCharacter == null) {
+				Debug.LogWarning("Character: " + toCharacter.name + " does not exist");
+			}
+            
+			PixelInventory fromInventory = taskCharacter.GetComponentInChildren<PixelInventory>();
+			PixelInventory toInventory = toCharacter.GetComponentInChildren<PixelInventory>();
+			Debug.Assert(fromInventory != null && toInventory != null);
+            
+			PixelCollider toCharacterCollider = toCharacter.GetComponentInChildren<PixelCollider>();
+			PixelRoom room = toCharacterCollider.GetPixelRoom();
+			Debug.Assert(toCharacterCollider != null && room != null);
+
+			int count = 1;
+			bool hasNumber = int.TryParse(actionStrings[3], out count);
+			if (!hasNumber)
+			{
+				count = 1;
+				actionStrings.Insert(3, "1");
+			}
+
+			string itemName = actionStrings[4];
+
+            // Navigate to the player
+            GameTask navigateTask = new GameTask();
+			navigateTask.taskType = TaskType.NAVIGATE;
+            navigateTask.character = taskCharacter;
+			navigateTask.arguments.Add(room);
+			navigateTask.arguments.Add(toCharacterCollider);
+            gameTasks.Add(navigateTask);
+
+            // Then Gives
+            GameTask givesItemTask = new GameTask();
+			givesItemTask.taskType = type;
+			givesItemTask.arguments.Add(count);
+			givesItemTask.arguments.Add(itemName);
+			givesItemTask.arguments.Add(toCharacter);
+			givesItemTask.character = taskCharacter;
+			gameTasks.Add(givesItemTask);
+        }
 
 		return gameTasks;
 	}
@@ -202,6 +245,10 @@ public class GameTask
 			type = TaskType.NAVIGATE;
 		else if (actionStrings[1] == "gives")
 			type = TaskType.GIVES;
+		else if (actionStrings[1] == "steals")
+			type = TaskType.STEALS;
+		else if (actionStrings[1] == "steal")
+            type = TaskType.STEALS;
 		else if (actionStrings[1] == "create")
 			type = TaskType.CREATE;
 		else if (actionStrings[1] == "animate")
@@ -267,12 +314,32 @@ public class GameTask
 		return t;      
 	}
 
+	static Character GetCharacter(string name) {
+		GameObject gameManagerObj = GameObject.Find("Game Manager");
+        GameManager gameManager = gameManagerObj.GetComponent<GameManager>();
+
+		bool hasCharacter = gameManager.characterNameTranslations.ContainsKey(name);
+
+        if (hasCharacter)
+        {
+			string characterName = gameManager.characterNameTranslations[name];
+            GameObject characterObj = GameObject.Find(characterName);
+			Character character = characterObj.GetComponent<Character>();
+			Debug.Assert(character != null);
+			return character;
+        }
+		return null;
+	}
+
 	public void Execute() {
 		Debug.Log("Executing " + taskType.ToString() + " for " + character.name);
 		switch (taskType) {
 			case TaskType.NAVIGATE:
 			case TaskType.PUTS:
+			case TaskType.TAKES:
 			case TaskType.CREATE:
+			case TaskType.GIVES:
+			case TaskType.STEALS:
 				character.characterTasks.Enqueue(this);
 				break;
 			default:

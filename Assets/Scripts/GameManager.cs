@@ -203,7 +203,7 @@ public class GameManager : MonoBehaviour {
 
 							conversationState.stateName = stateName;
 							conversationState.updateCondition = updateCondition;
-							conversationState.requireCondition = requireCondition;
+							conversationState.requireCondition = requireCondition;                     
 
 							Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
 							if (stateName != "Silent")
@@ -312,13 +312,10 @@ public class GameManager : MonoBehaviour {
 				continue;
 			}
 
-    		GameTask gameTask = gameTasks.Peek();
-            gameTask.Execute();
-            
+			GameTask gameTask = gameTasks.Dequeue();
+			gameTask.Execute();            
 			yield return new WaitForSeconds(gameTask.duration);
 			//Debug.Log("Finished Task: " + gameTask.actionString);
-			     
-			gameTasks.Dequeue();
 		}
 	}
 }
