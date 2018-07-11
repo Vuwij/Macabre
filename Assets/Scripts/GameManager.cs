@@ -203,7 +203,8 @@ public class GameManager : MonoBehaviour {
 
 							conversationState.stateName = stateName;
 							conversationState.updateCondition = updateCondition;
-							conversationState.requireCondition = requireCondition;                     
+							conversationState.requireCondition = requireCondition;
+							conversationState.actionString = action.Split('\n').ToList();
 
 							Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
 							if (stateName != "Silent")
