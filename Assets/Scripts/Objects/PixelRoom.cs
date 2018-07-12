@@ -347,5 +347,17 @@ namespace Objects
                         
 			return new HashSet<WayPoint>(navigationMesh);
 		}
+
+		void StampPixelCollider(PixelCollider pixelCollider) {
+			Debug.Assert(navigationMesh.Count != 0);
+			if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
+			{
+				for (int i = 0; i < navigationMesh.Count; ++i) {
+					bool collidedWayPoint = pixelCollider.CheckForWithinCollider(navigationMesh[i].position, 0.8f);
+                    if (collidedWayPoint)
+						navigationMesh.Remove(navigationMesh[i);
+				}
+			}
+		}
 	}
 }

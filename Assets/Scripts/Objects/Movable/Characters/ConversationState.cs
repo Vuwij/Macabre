@@ -21,7 +21,7 @@ namespace Objects.Movable.Characters
         public string requireCondition;
         public Character speaker;
         public string dialogue;
-		public List<string> actionString;
+		public List<string> conversationActions = new List<string>();
 
         ConversationDialogue conversationDialogue
         {
@@ -127,16 +127,20 @@ namespace Objects.Movable.Characters
             conversationDialogue.titleText = speaker.name;
             conversationDialogue.mainText = dialogue;
 		}
-
+        
         public void Display()
         {
 			conversationDialogue.Reset();
 
-			if (nextStates.Count == 1) {
+			if(stateName == "" || stateName == "Silent")
+				LockCharacterPositions();
+
+			if (enabledNextStates.Count == 1) {
 				ConversationState nextState = enabledNextStates[0];
                 if (nextState.stateName == "" || nextState.stateName == "Silent") {
                     conversationDialogue.gameObject.SetActive(false);
 					character.characterEvents.Clear();
+					UnlockCharacterPositions();
                 }
                 else
                 {
@@ -163,6 +167,25 @@ namespace Objects.Movable.Characters
                 conversationDialogue.responseTexts = responsetexts.ToArray();            
             }
         }
+
+		public void AnimateConversationActions()
+        {         
+            foreach (string conversationAction in conversationActions)
+            {
+                Debug.Assert(conversationAction != "");
+                GameManager.main.AddGameTask(conversationAction);
+            }
+        }
+
+		public void LockCharacterPositions()
+		{
+			
+		}
+
+		public void UnlockCharacterPositions()
+		{
+			
+		}
 
 		public ConversationState NextState(int option = 1) {
 			if (enabledNextStates.Count == 1)

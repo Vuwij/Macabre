@@ -150,6 +150,7 @@ public class GameManager : MonoBehaviour {
 					string attackdamage = csvreader.GetField(2);
 					string health = csvreader.GetField(3);
 					string shortnames = csvreader.GetField(4);
+					string startingInventory = csvreader.GetField(5);
 
 					if (characterName == "Name")
 						continue;
@@ -167,6 +168,16 @@ public class GameManager : MonoBehaviour {
 						characterNameTranslations.Add(s, characterName);
 					}
 					characterNameTranslations.Add(characterName, characterName);
+
+					if (startingInventory != "") {
+						string[] invItems = startingInventory.Split('\n');
+						foreach (string actItem in invItems)
+						{
+							if (actItem == "") continue;
+							string action = "'" + characterName + "' create " + actItem;
+							AddGameTask(action);
+						}
+					}
 				}
 			}
         }
@@ -204,7 +215,11 @@ public class GameManager : MonoBehaviour {
 							conversationState.stateName = stateName;
 							conversationState.updateCondition = updateCondition;
 							conversationState.requireCondition = requireCondition;
-							conversationState.actionString = action.Split('\n').ToList();
+							string[] conversationActions = action.Split('\n');
+							foreach (string c in conversationActions) {
+								if (c == "") continue;
+								conversationState.conversationActions.Add(c);
+							}
 
 							Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
 							if (stateName != "Silent")

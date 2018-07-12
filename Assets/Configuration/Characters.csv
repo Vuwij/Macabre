@@ -1,6 +1,12 @@
-﻿Name,Description,AttackDamage,Health,Short Names
-Player,The main character of the game,1,,player
-Hamen The Innkeeper,,1,,hamen
-Rafael The Merchant,,1,,rafael
-Ernest The Farmer,,1,,ernest
-Gerdnes The Baker,,1,,gerdnes
+﻿Name,Description,AttackDamage,Health,Short Names,Starting Inventory
+Player,The main character of the game,1,,player,"3 Gold
+3 Silver
+3 Copper
+1 'Empty Bag'
+
+"
+Hamen The Innkeeper,,1,,hamen,"Knife
+'Gold Key'"
+Rafael The Merchant,,1,,rafael,
+Ernest The Farmer,,1,,ernest,
+Gerdnes The Baker,,1,,gerdnes,

@@ -235,11 +235,16 @@ namespace Objects.Movable.Characters
 			currentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
             if (currentlySpeakingTo != null)
             {
-                currentlySpeakingTo.currentConversationState.Display();
+				// Update character positions
+				currentlySpeakingTo.currentConversationState.LockCharacterPositions();
+
+				// Do the talk
+				currentlySpeakingTo.currentConversationState.Display();
                 if (currentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
                 {
                     currentlySpeakingTo.currentConversationState = currentlySpeakingTo.currentConversationState.NextState();
                     currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+					currentlySpeakingTo.currentConversationState.AnimateConversationActions();
                 }
             }
 		}
@@ -277,13 +282,15 @@ namespace Objects.Movable.Characters
 				return;
 
 			ConversationState nextState = currentlySpeakingTo.currentConversationState.NextState(selection);
-			if (nextState == null) 
+
+			if (nextState == null)
 				return;
 			else 
 				currentlySpeakingTo.currentConversationState = nextState;
 			
 			currentlySpeakingTo.currentConversationState.DisplayCurrent();     
 			currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+			currentlySpeakingTo.currentConversationState.AnimateConversationActions();
         }
         
         // Navigates in the current room only
@@ -421,6 +428,19 @@ namespace Objects.Movable.Characters
 			return true;
 		}
 
+		public bool FaceDirection(Direction direction) {
+			if (direction == Direction.All) return true;
+			if (direction == Direction.NE)
+				facingDirection = new Vector2(1, 2);
+			else if (direction == Direction.NW)
+                facingDirection = new Vector2(1, -2);
+			else if (direction == Direction.SE)
+                facingDirection = new Vector2(-1, 2);
+			else if (direction == Direction.SW)
+                facingDirection = new Vector2(-1, -2);
+			return true;
+		}
+
         // Navigate the entire world. Uses breath first search
 		List<PixelDoor> FindPathToRoom(PixelRoom destination) {
             // Variables
@@ -494,6 +514,7 @@ namespace Objects.Movable.Characters
 			for (int i = 0; i < quantity; ++i)
 			{
 				GameObject newObj = Instantiate(item);
+				newObj.gameObject.name = item.name;
 
 				PixelInventory inv = GetComponentInChildren<PixelInventory>();
 				Debug.Assert(inv != null);
@@ -503,7 +524,6 @@ namespace Objects.Movable.Characters
 				bool succeed = inv.AddItem(pixelItem);
 				if (succeed)
 				{
-					newObj.gameObject.name = item.name;
 					newObj.gameObject.SetActive(false);
 					newObj.transform.parent = inv.transform;
 				}
@@ -691,6 +711,11 @@ namespace Objects.Movable.Characters
                     Debug.Assert(t.arguments.Count() == 3);
 					Steals((int)t.arguments[0], (string)t.arguments[1], (Character) t.arguments[2]);
                     characterTasks.Dequeue();
+                }
+				else if (t.taskType == GameTask.TaskType.FACEDIRECTION)
+                {
+                    Debug.Assert(t.arguments.Count() == 1);
+					FaceDirection((Direction)t.arguments[0]);
                 }
 				yield return new WaitForFixedUpdate();
 			}

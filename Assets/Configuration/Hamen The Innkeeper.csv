@@ -1,18 +1,18 @@
 ﻿State Name,Next State,Requirement,Condition,Speaker,Dialogue,Action
 Silent,S1HInnK,,,,,
 S1HInnK,"C1A, C1B, C1C",,,Hamen The Innkeeper,Hello stranger. What can I do for you?,
-C1A,R1A,,ObtainedRoom = 0,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
-C1B,R1B,,ObtainedRoom = 1,Player,"I'd like some ale, a hot meal and a room for the night.",player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
-C1C,R1C,,ObtainedRoom = 1,Player,I'm investigating the town for suspicious activity. Do you know anything? ,player puts 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
-R1A,,ObtainedRoom = 1,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","hamen takes 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
-hamen gives player 'key'"
-R1B,,,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","hamen takes 10 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+C1A,R1A,,Game.ObtainedRoom = 0,Player,I'd like a room. I'll be in town for some time. Gold won't be an issue.,player puts 2 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+C1B,R1B,,Game.ObtainedRoom = 1,Player,"I'd like some ale, a hot meal and a room for the night.",player puts 2 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+C1C,R1C,,Game.ObtainedRoom = 1,Player,I'm investigating the town for suspicious activity. Do you know anything? ,player puts 2 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+R1A,,Game.ObtainedRoom = 1,,Hamen The Innkeeper,"Sure, I've got a room on the second floor. Up the stairs, and at the end of the hallway on your right. ","hamen takes 2 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
+hamen gives player 'Gold Key'"
+R1B,,,,Hamen The Innkeeper,"Ah, a traveller eh? Well, my ale is strong, the meals are hearty and the beds are soft. ","hamen takes 2 'Gold' 'Inn Floor 1 Room 1' 'Bar Front'
 player goto 'Table'
-hamen gives Player 'Key'
+hamen gives Player 'Gold Key'
 hamen create 'Bowl of Stew'
 hamen goto 'Bar Side'
 hamen create 'Mug of Ale'
-hamen goto player
+hamen goto Player
 hamen puts 'Mug of Ale' 'Table'
 hamen goto 'Bar Side'"
 R1C,"C2A, C2B, C2C",,,Hamen The Innkeeper,Can't say I do there mister. ,

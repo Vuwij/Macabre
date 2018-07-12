@@ -18,6 +18,7 @@ public class GameTask
 		TAKES,
 		NAVIGATE,   // Find other rooms
         WALKTO,     // Walk to a point within a room
+        FACEDIRECTION,
         ENTERDOOR,
 		GIVES,
         STEALS,
@@ -57,6 +58,12 @@ public class GameTask
 
 			Debug.Assert(taskCharacter != null);
 
+			if(actionString.Length == 3) {
+				PixelCollider pc = taskCharacter.GetComponentInChildren<PixelCollider>();
+				string roomName = pc.GetPixelRoom().name;
+				actionStrings.Insert(2, roomName);
+			}
+
 			string locationString = actionStrings[2];
             PixelRoom room = GetObjectOfType<PixelRoom>(locationString);
             gameTask.arguments.Add(room);
@@ -66,12 +73,34 @@ public class GameTask
             gameTask.arguments.Add(pixelCollider);
             gameTask.character = taskCharacter;
 
+			Direction direction = Direction.All;
+			if (actionStrings.Count > 4)
+			{
+				string directionString = actionStrings[4];
+				if (directionString == "NE")
+					direction = Direction.NE;
+				if (directionString == "SE")
+                    direction = Direction.SE;
+				if (directionString == "SW")
+                    direction = Direction.SW;
+				if (directionString == "NW")
+                    direction = Direction.NW;
+			}
+
+			GameTask faceTask = new GameTask();
+			faceTask.taskType = TaskType.FACEDIRECTION;
+			faceTask.duration = 0.1f;
+			faceTask.arguments.Add(direction);
+			faceTask.character = taskCharacter;
+
 			gameTasks.Add(gameTask);
+			gameTasks.Add(faceTask);
         }
         else if (type == TaskType.CREATE)
 		{
 			GameTask createItemTask = new GameTask();
 			createItemTask.taskType = TaskType.CREATE;
+			createItemTask.duration = 0.0f;
             
 			GameObject itemObj = null;
 
@@ -81,12 +110,17 @@ public class GameTask
             {
                 Debug.Assert(number >= 1 && number <= 4);
 				itemObj = Resources.Load("Items/" + actionStrings[3]) as GameObject;
+				if (itemObj == null)
+                    Debug.Log(actionString[3] + " is not an item");
             }
             else
             {
 				number = 1;
 				itemObj = Resources.Load("Items/" + actionStrings[2]) as GameObject;
+				if (itemObj == null)
+                    Debug.Log(actionString[2] + " is not an item");
             }
+
 
 			Debug.Assert(itemObj != null);
 			createItemTask.arguments.Add(number);
@@ -187,7 +221,7 @@ public class GameTask
 		return gameTasks;
 	}
 
-	static List<string> BreakUpString(string actionString) {
+	public static List<string> BreakUpString(string actionString) {
 		// Remove the ' ' delimiters
 		string s = actionString;
 		s.Replace("''", "' '"); // adds spaces in case they are not together
@@ -262,6 +296,9 @@ public class GameTask
             
 		Debug.Assert(character != null);
         Debug.Assert(type != TaskType.NONE);
+		if(type == TaskType.NONE) {
+			Debug.Log("hi");
+		}
 		return type;
 	}
 
@@ -340,6 +377,7 @@ public class GameTask
 			case TaskType.CREATE:
 			case TaskType.GIVES:
 			case TaskType.STEALS:
+			case TaskType.FACEDIRECTION:
 				character.characterTasks.Enqueue(this);
 				break;
 			default:

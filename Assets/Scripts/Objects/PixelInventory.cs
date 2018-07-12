@@ -101,8 +101,33 @@ namespace Objects
                 return false;
             }
             else {
-                SmallItemSlot smallItemSlot = null;
+                
+                // Fill up existing slots first
+				foreach (SmallItemSlot si in smallItems)
+				{
+					int sameItemCount = 0;
+					for (int i = 0; i < 4; ++i) {
+						if (si.items[i] == null) continue;
+						if (si.items[i].gameObject.name == pixelItem.gameObject.name)
+							sameItemCount++;
+						else
+						{
+							sameItemCount = -100;
+							break;
+						}
+					}
+					if(sameItemCount < 4 && sameItemCount >= 1) {
+						for (int i = 0; i < 4; ++i) {
+							if (si.items[i] == null) {
+								si.items[i] = pixelItem;
+								return true;
+							}
+						}
+					}
+				}
 
+                // Fill up empty slots
+				SmallItemSlot smallItemSlot = null;
                 foreach (SmallItemSlot si in smallItems)
                 {
                     if (!si.empty) continue;
