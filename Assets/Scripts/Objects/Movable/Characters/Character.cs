@@ -394,40 +394,73 @@ namespace Objects.Movable.Characters
 			return new List<WayPoint>();
 		}
 
-		public bool Navigate(PixelRoom room, PixelCollider pixelCollider, Direction direction = Direction.All) {
+		public bool NavigateObject(PixelRoom room, PixelCollider pixelCollider, Direction direction = Direction.All) {
+			
+			if (pixelCollider != null)
+            {
+                Vector2 position = default(Vector2);
 
-			// Find a list of doors to navigate to
-			List<PixelDoor> path = FindPathToRoom(room);
-			if(path != null) {
-				foreach(PixelDoor door in path) {
-					Debug.Log("Take " + door.name + " to " + door.destination);
+                if (direction != Direction.All)
+                {
+                    WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
+                    position = wayPoint.position;
+                }
+				else {
+					// Closest direction from player
+					List<PixelDoor> path = FindPathToRoom(room);
+
+					Vector2 startPosition;
+					if (path.Count != 0)
+					{
+						room.gameObject.SetActive(true);
+						room.gameObject.SetActive(false);
+						room.GetNavigationalMesh(path.Last().dropOffWorldLocation);
+						startPosition = path.Last().dropOffWorldLocation;
+					} else {
+						startPosition = transform.position;
+					}
+
+					PixelCollider characterCollider = GetComponentInChildren<PixelCollider>();
+					PixelPose pose = pixelCollider.FindBestWayPointPosition(startPosition);
+					position = pose.position;
+					direction = pose.direction;
 				}
-			}
+
+				PixelPose pixelPose = new PixelPose(room, direction, position);
+				Navigate(pixelPose);
+            }
+            return true;         
+		}
+
+		public bool Navigate(PixelPose pose) {
+			// Find a list of doors to navigate to
+			List<PixelDoor> path = FindPathToRoom(pose.pixelRoom);
+            if (path != null)
+            {
+                foreach (PixelDoor door in path)
+                {
+                    Debug.Log("Take " + door.name + " to " + door.destination);
+                }
+            }
 
             // Enqueue walkto tasks
-			foreach(PixelDoor door in path) {
-				CharacterTask walkToDoorTask = new CharacterTask(GameTask.TaskType.WALKTO, door.dropInWorldLocation);
-				CharacterTask enterDoorTask = new CharacterTask(GameTask.TaskType.ENTERDOOR, door);
-				characterTasks.Enqueue(walkToDoorTask);
-				characterTasks.Enqueue(enterDoorTask);
-			}
+            foreach (PixelDoor door in path)
+            {
+                CharacterTask walkToDoorTask = new CharacterTask(GameTask.TaskType.WALKTO, door.dropInWorldLocation);
+                CharacterTask enterDoorTask = new CharacterTask(GameTask.TaskType.ENTERDOOR, door);
+                characterTasks.Enqueue(walkToDoorTask);
+                characterTasks.Enqueue(enterDoorTask);
+            }
 
-			Vector2 lastPosition;
-			if (path.Count == 0)
-				lastPosition = transform.position;
-			else
-				lastPosition = path.Last().dropOffWorldLocation;
+            Vector2 lastPosition;
+            if (path.Count == 0)
+                lastPosition = transform.position;
+            else
+                lastPosition = path.Last().dropOffWorldLocation;
 
+			WalkInRoom(pose.pixelRoom, lastPosition, pose.position);
+			CharacterTask faceTask = new CharacterTask(GameTask.TaskType.FACEDIRECTION, pose.direction);
 
-			if (pixelCollider != null)
-			{
-				Vector2 position = default(Vector2);
-				if(direction != Direction.All) {
-					WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
-					position = wayPoint.position;
-				}
-				WalkToObject(pixelCollider, lastPosition, position);
-			}
 			return true;
 		}
 
@@ -490,20 +523,20 @@ namespace Objects.Movable.Characters
 			return null;
 		}
 
-		public void WalkToObject(PixelCollider pixelCollider, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
+		public void WalkInRoom(PixelRoom room, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
 		{
 			if (walkToPosition == default(Vector2))
-                walkToPosition = pixelCollider.transform.position;
-            PixelRoom room = pixelCollider.GetPixelRoom();
-            PixelCollider currentLocation = this.GetComponentInChildren<PixelCollider>();
+				walkToPosition = room.center;
 
-            if (room != currentLocation.GetPixelRoom())
+			PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+
+			if (room != pixelCollider.GetPixelRoom())
                 room.gameObject.SetActive(true);
 
             HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
             WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
 
-            if (room != currentLocation.GetPixelRoom())
+			if (room != pixelCollider.GetPixelRoom())
                 room.gameObject.SetActive(false);
 
             CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
@@ -663,16 +696,21 @@ namespace Objects.Movable.Characters
 				{
 					Debug.Assert(t.arguments.Count() > 1 || t.arguments.Count() < 3);
 
-					if(t.arguments.Count() == 1) {
-						PixelPose pixelPose = 
+					bool completed;
+					if (t.arguments.Count() == 1)
+					{
+						PixelPose pixelPose = (PixelPose)t.arguments[1];
+						completed = Navigate(pixelPose);
 					}
-
-					Direction direction = Direction.All;
-					if (t.arguments.Count() == 3)
-						direction = (Direction)t.arguments[2];
-					bool completed = Navigate((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1], direction);
-                    if (completed)
-						characterTasks.Dequeue();
+					else
+					{
+						Direction direction = Direction.All;
+						if (t.arguments.Count() == 3)
+							direction = (Direction)t.arguments[2];
+						completed = NavigateObject((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1], direction);
+					}
+					if (completed)
+                        characterTasks.Dequeue();
 				}
 				else if (t.taskType == GameTask.TaskType.WALKTO)
                 {

@@ -9,16 +9,17 @@ namespace Objects
         NE, SE, NW, SW, All
     }
 
-	public class PixelPose : MonoBehaviour
+	public class PixelPose
 	{
 		public PixelRoom pixelRoom;
         public Direction direction;
-        public WayPoint wayPoint;
+		public Vector2 position;
         public PixelPose() { }
-        public PixelPose(Direction direction, WayPoint wayPoint)
+		public PixelPose(PixelRoom pixelRoom, Direction direction, Vector2 position)
         {
-            this.direction = direction;
-            this.wayPoint = wayPoint;
+			this.pixelRoom = pixelRoom;
+			this.direction = direction;
+            this.position = position;
         }
 	}
 }

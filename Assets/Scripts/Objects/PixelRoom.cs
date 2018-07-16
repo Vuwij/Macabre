@@ -49,6 +49,12 @@ namespace Objects
 		[HideInInspector]
 		public Vector2[] colliderPoints;
 
+		public Vector2 topLeft => (top + left) / 2;
+        public Vector2 topRight => (top + right) / 2;
+        public Vector2 bottomLeft => (bottom + left) / 2;
+        public Vector2 bottomRight => (bottom + right) / 2;
+        public Vector2 center => (top + left + right + bottom) / 4;
+
 		public OtherVisibleRoom[] otherVisibleRooms;
 		public int RoomWalkingSpeed = 10;
 		public int stepSize = 3; // How much steps for the navigation mesh
@@ -233,7 +239,11 @@ namespace Objects
 				}
 				return new HashSet<WayPoint>(navigationMesh);
 			}
-			         
+
+			Debug.Assert(top != Vector2.zero);
+			Debug.Assert(bottom != Vector2.zero);
+			Debug.Assert(left != Vector2.zero);
+			Debug.Assert(right != Vector2.zero);
 			Vector2 topWorld = top + (Vector2) transform.position;
 			Vector2 bottomWorld = bottom + (Vector2)transform.position;
 			Vector2 leftWorld = left + (Vector2)transform.position;
