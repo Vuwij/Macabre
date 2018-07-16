@@ -53,7 +53,7 @@ namespace Objects
 		public int RoomWalkingSpeed = 10;
 		public int stepSize = 3; // How much steps for the navigation mesh
 
-		HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
+		public HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
 
 		public List<PixelDoor> pixelDoors {
 			get {
@@ -348,14 +348,15 @@ namespace Objects
 			return new HashSet<WayPoint>(navigationMesh);
 		}
 
-		void StampPixelCollider(PixelCollider pixelCollider) {
+		public void StampPixelCollider(PixelCollider pixelCollider) {
 			Debug.Assert(navigationMesh.Count != 0);
 			if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
 			{
-				for (int i = 0; i < navigationMesh.Count; ++i) {
-					bool collidedWayPoint = pixelCollider.CheckForWithinCollider(navigationMesh[i].position, 0.8f);
-                    if (collidedWayPoint)
-						navigationMesh.Remove(navigationMesh[i);
+				foreach (WayPoint w in navigationMesh)
+				{
+					bool collidedWayPoint = pixelCollider.CheckForWithinCollider(w.position, 0.8f);
+					if (collidedWayPoint)
+						navigationMesh.Remove(w);
 				}
 			}
 		}

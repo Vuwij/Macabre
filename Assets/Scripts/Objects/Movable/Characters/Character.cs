@@ -235,9 +235,6 @@ namespace Objects.Movable.Characters
 			currentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
             if (currentlySpeakingTo != null)
             {
-				// Update character positions
-				currentlySpeakingTo.currentConversationState.LockCharacterPositions();
-
 				// Do the talk
 				currentlySpeakingTo.currentConversationState.Display();
                 if (currentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
@@ -397,7 +394,7 @@ namespace Objects.Movable.Characters
 			return new List<WayPoint>();
 		}
 
-		public bool Navigate(PixelRoom room, PixelCollider pixelCollider) {
+		public bool Navigate(PixelRoom room, PixelCollider pixelCollider, Direction direction = Direction.All) {
 
 			// Find a list of doors to navigate to
 			List<PixelDoor> path = FindPathToRoom(room);
@@ -423,8 +420,14 @@ namespace Objects.Movable.Characters
 
 
 			if (pixelCollider != null)
-				WalkToObject(pixelCollider, lastPosition, pixelCollider.transform.position);
-
+			{
+				Vector2 position = default(Vector2);
+				if(direction != Direction.All) {
+					WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
+					position = wayPoint.position;
+				}
+				WalkToObject(pixelCollider, lastPosition, position);
+			}
 			return true;
 		}
 
@@ -658,8 +661,16 @@ namespace Objects.Movable.Characters
                 
 				if (t.taskType == GameTask.TaskType.NAVIGATE)
 				{
-					Debug.Assert(t.arguments.Count() == 2);
-					bool completed = Navigate((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1]);
+					Debug.Assert(t.arguments.Count() > 1 || t.arguments.Count() < 3);
+
+					if(t.arguments.Count() == 1) {
+						PixelPose pixelPose = 
+					}
+
+					Direction direction = Direction.All;
+					if (t.arguments.Count() == 3)
+						direction = (Direction)t.arguments[2];
+					bool completed = Navigate((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1], direction);
                     if (completed)
 						characterTasks.Dequeue();
 				}

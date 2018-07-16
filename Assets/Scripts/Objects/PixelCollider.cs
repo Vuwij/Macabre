@@ -21,8 +21,13 @@ namespace Objects
             public bool restrictSW = false;
             public bool restrictSE = false;
         }
+        
+		Vector2 topLeft => (top + left) / 2;
+		Vector2 topRight => (top + right) / 2;
+		Vector2 bottomLeft => (bottom + left) / 2;
+		Vector2 bottomRight => (bottom + right) / 2;
 
-        protected new PolygonCollider2D collider2D;
+		protected new PolygonCollider2D collider2D;
         
         Vector2 top, bottom, left, right;
         Vector2[] colliderPoints;
@@ -801,12 +806,75 @@ namespace Objects
 				objRenderer.color = originalObjColor;
             }
         }
+
+		public WayPoint FindWayPointInDirection(Direction direction) {
+			PixelRoom pixelRoom = GetPixelRoom();
+			HashSet<WayPoint> navigationMesh = pixelRoom.navigationMesh;
+			Debug.Assert(navigationMesh.Count != 0);
+			if(direction == Direction.NE) {
+				WayPoint closestNE = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, topLeft) < Vector2.Distance(arg2.position, topLeft) ? arg1 : arg2);
+				return closestNE;
+			}
+			else if (direction == Direction.NW) {
+				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, topRight) < Vector2.Distance(arg2.position, topRight) ? arg1 : arg2);
+                return closestNW;
+			}
+			else if (direction == Direction.SE)
+            {
+				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, bottomLeft) < Vector2.Distance(arg2.position, bottomLeft) ? arg1 : arg2);
+                return closestNW;
+            }
+			else if (direction == Direction.SW)
+            {
+				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, bottomRight) < Vector2.Distance(arg2.position, bottomRight) ? arg1 : arg2);
+                return closestNW;
+            }
+			else {
+				return null;
+			}
+		}
+
+		public KeyValuePair<Pose, float> FindBestWayPoint() {
+			WayPoint NE = FindWayPointInDirection(Direction.NE);
+			WayPoint NW = FindWayPointInDirection(Direction.NW);
+			WayPoint SE = FindWayPointInDirection(Direction.SE);
+			WayPoint SW = FindWayPointInDirection(Direction.SW);
+            
+			float deltaNE = Vector2.Distance(NE.position, topLeft);
+			float deltaNW = Vector2.Distance(NE.position, topRight);
+			float deltaSE = Vector2.Distance(NE.position, bottomLeft);
+			float deltaSW = Vector2.Distance(NE.position, bottomRight);
+            
+			Dictionary<Pose, float> dirDic = new Dictionary<Pose, float>();
+			Pose NEpose = new Pose(Direction.NE, NE);
+			Pose NWpose = new Pose(Direction.NW, NW);
+			Pose SEpose = new Pose(Direction.SE, SE);
+			Pose SWpose = new Pose(Direction.SW, SW);
+
+			dirDic.Add(NEpose, deltaNE);
+			dirDic.Add(NWpose, deltaNW);
+			dirDic.Add(SEpose, deltaSE);
+			dirDic.Add(SWpose, deltaSW);
+   
+			return dirDic.Aggregate((arg1, arg2) => arg1.Value < arg2.Value ? arg1 : arg2);
+		}
     }
    
 	public enum Direction {
         NE, SE, NW, SW, All
     }
 
+	public class Pose {
+		public PixelRoom pixelRoom;
+		public Direction direction;
+		public WayPoint wayPoint;
+		public Pose() { }
+		public Pose(Direction direction, WayPoint wayPoint) {
+			this.direction = direction;
+			this.wayPoint = wayPoint;
+		}
+	}
+    
 	public struct PixelCollision {
 		public Direction direction;
 		public PixelCollider pixelCollider;

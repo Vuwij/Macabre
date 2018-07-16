@@ -242,9 +242,6 @@ public class GameTask
 		}
 
 		return sss;
-		//foreach(string z in argumentsString) {
-		//	Debug.Log(z);
-		//}
 	}
 
     // Finds the character and the task type

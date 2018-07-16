@@ -179,7 +179,37 @@ namespace Objects.Movable.Characters
 
 		public void LockCharacterPositions()
 		{
-			
+			// Try finding a suitable position for the character to walk
+			Debug.Log("Relocating characters");
+			Debug.Assert(character != null);
+			PixelCollider characterPixelCollider = character.gameObject.GetComponentInChildren<PixelCollider>();
+			PixelRoom pixelRoom = characterPixelCollider.GetPixelRoom();
+			pixelRoom.StampPixelCollider(characterPixelCollider);
+
+			GameObject player = GameObject.Find("Player");
+			Debug.Assert(player != null);
+
+			PixelCollider playerCollider = player.GetComponentInChildren<PixelCollider>();
+			Character playerCharacter = player.GetComponent<Character>();
+
+			KeyValuePair<Pose, float> bestPlayerMovementWayPoint = playerCollider.FindBestWayPoint();
+			KeyValuePair<Pose, float> bestCharacterMovementWayPoint = characterPixelCollider.FindBestWayPoint();
+
+			float playerMoveTooMuchWhileTalkingThreshold = 5.0f;
+			if(bestPlayerMovementWayPoint.Value < playerMoveTooMuchWhileTalkingThreshold) {
+				GameTask gameTask = new GameTask(GameTask.TaskType.WALKTO);
+				gameTask.character = playerCharacter;
+				gameTask.arguments.Add(pixelRoom.name);
+				gameTask.arguments.Add(bestPlayerMovementWayPoint.Key);
+				GameManager.main.gameTasks.Enqueue(gameTask);
+			}
+			else {
+				GameTask gameTask = new GameTask(GameTask.TaskType.WALKTO);
+				gameTask.character = character;
+                gameTask.arguments.Add(pixelRoom.name);
+				gameTask.arguments.Add(bestCharacterMovementWayPoint.Key);
+				GameManager.main.gameTasks.Enqueue(gameTask);
+			}
 		}
 
 		public void UnlockCharacterPositions()
