@@ -133,15 +133,42 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    // Similar to the GameObject Find, but includes everything
+	static Transform Find<T>(Transform parent, string name) {
+		if (parent == null)
+			return null;
+
+		if (parent.name == name && parent.GetComponent<T>() != null)
+			return parent;
+
+        // Recursively find
+		for (int i = 0; i < parent.childCount; ++i) {
+			Transform t = Find<T>(parent.GetChild(i), name);
+			if (t != null) return t;
+		}
+		return null;
+	}
+    
+    // Find all
+	static T FindAll<T>(string name) {
+		GameObject[] objects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+		foreach(GameObject go in objects) {
+			Transform transform = Find<T>(go.transform, name);
+			if (transform != null)
+				return transform.GetComponent<T>();
+		}
+		return default(T);
+	}
+
     void LoadConversationInformation() {
         Character[] characters = Resources.LoadAll<Character>("Characters");
-        List<Character> characterList = characters.ToList();
-        Debug.Assert(characters.Length != 0);
-
+		List<Character> characterList = characters.ToList();
+		Debug.Assert(characterList.Count != 0);
+        
         // Character information
-        using (var reader = new StreamReader(@"Assets/Configuration/Characters.csv")) {
-
-			using (var csvreader = new CsvReader(reader))
+        using (var reader = new StreamReader(@"Assets/Configuration/Characters.csv"))
+		{
+        	using (var csvreader = new CsvReader(reader))
 			{
 				while (csvreader.Read())
 				{

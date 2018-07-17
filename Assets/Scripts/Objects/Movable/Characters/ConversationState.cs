@@ -182,7 +182,7 @@ namespace Objects.Movable.Characters
             // Try finding a suitable position for the character to walk
             Debug.Log("Relocating characters");
             Debug.Assert(character != null);
-            PixelCollider characterPixelCollider = character.gameObject.GetComponentInChildren<PixelCollider>();
+            PixelCollider characterPixelCollider = character.GetComponentInChildren<PixelCollider>();
             PixelRoom pixelRoom = characterPixelCollider.GetPixelRoom();
             pixelRoom.StampPixelCollider(characterPixelCollider);
 
