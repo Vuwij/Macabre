@@ -119,8 +119,6 @@ namespace Objects.Movable.Characters
 				Debug.LogError(name + " not found in prefab");
 				Debug.Assert(prefab != null);
 			}
-            conversationStates = prefab.conversationStates;
-            currentConversationState = prefab.currentConversationState;
         }
 
         void Movement()
@@ -399,6 +397,10 @@ namespace Objects.Movable.Characters
 			if (pixelCollider != null)
             {
                 Vector2 position = default(Vector2);
+
+				PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
+                pixelRoom.GetNavigationalMesh(transform.position);
+                pixelRoom.StampPixelCollider(pixelCollider);
 
                 if (direction != Direction.All)
                 {

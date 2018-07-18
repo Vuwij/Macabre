@@ -163,7 +163,8 @@ namespace Objects.Movable.Characters.Individuals
 						if (withinCollider)
 						{
 							Debug.Log(pixelCollider.transform.parent.name);
-							WalkInRoom(pixelCollider.GetPixelRoom(), transform.position, mousePosition);
+                            
+							NavigateObject(pixelCollider.GetPixelRoom(), pixelCollider);
 
                             // Inspect Object
 							PixelCollision pc = new PixelCollision();

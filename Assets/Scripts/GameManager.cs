@@ -162,7 +162,19 @@ public class GameManager : MonoBehaviour {
 
     void LoadConversationInformation() {
         Character[] characters = Resources.LoadAll<Character>("Characters");
-		List<Character> characterList = characters.ToList();
+		List<Character> characterList = new List<Character>();
+
+		// Load characters in the scene if they exist, otherwise use the prefabs
+		foreach(Character c in characters) {
+			Character cc = FindAll<Character>(c.name);
+			if(cc != default(Character)) {
+				characterList.Add(cc);
+			}
+			else {
+				characterList.Add(c);
+			}
+		}
+
 		Debug.Assert(characterList.Count != 0);
         
         // Character information

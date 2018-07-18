@@ -358,17 +358,37 @@ namespace Objects
 			return new HashSet<WayPoint>(navigationMesh);
 		}
 
-		public void StampPixelCollider(PixelCollider pixelCollider) {
+		public void StampPixelCollider(PixelCollider pixelCollider, float dist = 4.0f) {
 			Debug.Assert(navigationMesh.Count != 0);
+
+			Debug.DrawLine(pixelCollider.topWorld, pixelCollider.leftWorld, Color.magenta, 3.0f);
+			Debug.DrawLine(pixelCollider.leftWorld, pixelCollider.bottomWorld, Color.magenta, 3.0f);
+			Debug.DrawLine(pixelCollider.bottomWorld, pixelCollider.rightWorld, Color.magenta, 3.0f);
+			Debug.DrawLine(pixelCollider.rightWorld, pixelCollider.topWorld, Color.magenta, 3.0f);
+            
+			Vector2 topWorldExtra = pixelCollider.topWorld + new Vector2(0.0f, 0.5f * 0.5773502692f * dist);
+			Vector2 bottomWorldExtra = pixelCollider.bottomWorld + new Vector2(0.0f, -0.5f * 0.5773502692f * dist);
+			Vector2 leftWorldExtra = pixelCollider.leftWorld + new Vector2(-0.5773502692f * dist, 0.0f);
+			Vector2 rightWorldExtra = pixelCollider.rightWorld + new Vector2(0.5773502692f * dist, 0.0f);
+
+			Debug.DrawLine(topWorldExtra, leftWorldExtra, Color.yellow, 3.0f);
+			Debug.DrawLine(leftWorldExtra, bottomWorldExtra, Color.yellow, 3.0f);
+			Debug.DrawLine(bottomWorldExtra, rightWorldExtra, Color.yellow, 3.0f);
+			Debug.DrawLine(rightWorldExtra, topWorldExtra, Color.yellow, 3.0f);
+
 			if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
 			{
+				List<WayPoint> toRemove = new List<WayPoint>();
 				foreach (WayPoint w in navigationMesh)
 				{
-					bool collidedWayPoint = pixelCollider.CheckForWithinCollider(w.position, 0.8f);
+					bool collidedWayPoint = pixelCollider.CheckForWithinCollider(w.position, dist);
 					if (collidedWayPoint)
-						navigationMesh.Remove(w);
+						toRemove.Add(w);
 				}
+				foreach(WayPoint w in toRemove)
+					navigationMesh.Remove(w);
 			}
+			Debug.Assert(navigationMesh.Count != 0);
 		}
 	}
 }
