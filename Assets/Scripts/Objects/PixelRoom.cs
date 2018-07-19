@@ -227,7 +227,7 @@ namespace Objects
 			}
 		}
 
-		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize = 0) {
+		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize = 0, float margin = 0.0f) {
 
 			if (stepSize == 0)
 				stepSize = this.stepSize;
@@ -240,6 +240,11 @@ namespace Objects
 				return new HashSet<WayPoint>(navigationMesh);
 			}
 
+			if (System.Math.Abs(margin) < 0.01f) {
+				Character player = GameObject.Find("Player").GetComponent<Character>();
+				margin = player.GetComponentInChildren<PixelCollider>().navigationMargin;
+			}
+
 			Debug.Assert(top != Vector2.zero);
 			Debug.Assert(bottom != Vector2.zero);
 			Debug.Assert(left != Vector2.zero);
@@ -250,32 +255,37 @@ namespace Objects
 			Vector2 rightWorld = right + (Vector2) transform.position;
 
             // Should all be positive
-			float topLeft = -PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, topWorld, startPosition, startPosition);
-			float topRight = -PixelCollider.DistanceBetween4pointsOrthographic(topWorld, rightWorld, startPosition, startPosition);
-			float bottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, startPosition, startPosition);
-			float bottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, startPosition, startPosition);
+			float topLeftDist = -PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, topWorld, startPosition, startPosition);
+			float topRightDist = -PixelCollider.DistanceBetween4pointsOrthographic(topWorld, rightWorld, startPosition, startPosition);
+			float bottomLeftDist = PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, startPosition, startPosition);
+			float bottomRightDist = PixelCollider.DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, startPosition, startPosition);
             
 			Debug.DrawLine(topWorld, leftWorld, Color.blue, 10.0f);
 			Debug.DrawLine(leftWorld, bottomWorld, Color.blue, 10.0f);
 			Debug.DrawLine(bottomWorld, rightWorld, Color.blue, 10.0f);
 			Debug.DrawLine(rightWorld, topWorld, Color.blue, 10.0f);
 
-			Vector2 topLeftPoint = startPosition + new Vector2(-topLeft / 2.23606f * 2, topLeft / 2.23606f);
-			Vector2 topRightPoint = startPosition + new Vector2(topRight / 2.23606f * 2, topRight / 2.23606f);
-			Vector2 bottomLeftPoint = startPosition + new Vector2(-bottomLeft / 2.23606f * 2, -bottomLeft / 2.23606f);
-			Vector2 bottomRightPoint = startPosition + new Vector2(bottomRight / 2.23606f * 2, -bottomRight / 2.23606f);
+			Vector2 topLeftPoint = startPosition + new Vector2(-topLeftDist / 2.23606f * 2, topLeftDist / 2.23606f);
+			Vector2 topRightPoint = startPosition + new Vector2(topRightDist / 2.23606f * 2, topRightDist / 2.23606f);
+			Vector2 bottomLeftPoint = startPosition + new Vector2(-bottomLeftDist / 2.23606f * 2, -bottomLeftDist / 2.23606f);
+			Vector2 bottomRightPoint = startPosition + new Vector2(bottomRightDist / 2.23606f * 2, -bottomRightDist / 2.23606f);
             
-			Debug.Assert(topLeft >= 0);
-			Debug.Assert(topRight >= 0);
-			Debug.Assert(bottomLeft >= 0);
-			Debug.Assert(bottomRight >= 0);
+			Debug.Assert(topLeftDist >= 0);
+			Debug.Assert(topRightDist >= 0);
+			Debug.Assert(bottomLeftDist >= 0);
+			Debug.Assert(bottomRightDist >= 0);
 
 			float stepSizeLength = (new Vector2(stepSize * 2, stepSize)).magnitude;
 
-			int topLeftSteps = Mathf.FloorToInt (topLeft / stepSizeLength);
-			int topRightSteps = Mathf.FloorToInt (topRight / stepSizeLength);
-			int bottomLeftSteps = Mathf.FloorToInt (bottomLeft / stepSizeLength);
-			int bottomRightSteps = Mathf.FloorToInt (bottomRight / stepSizeLength);
+			int topLeftSteps = Mathf.FloorToInt ((topLeftDist - margin) / stepSizeLength);
+			int topRightSteps = Mathf.FloorToInt ((topRightDist - margin) / stepSizeLength);
+			int bottomLeftSteps = Mathf.FloorToInt ((bottomLeftDist - margin) / stepSizeLength);
+			int bottomRightSteps = Mathf.FloorToInt ((bottomRightDist - margin) / stepSizeLength);
+
+			topLeftSteps = topLeftSteps >= 0 ? topLeftSteps : 0;
+			topRightSteps = topRightSteps >= 0 ? topRightSteps : 0;
+			bottomLeftSteps = bottomLeftSteps >= 0 ? bottomLeftSteps : 0;
+			bottomRightSteps = bottomRightSteps >= 0 ? bottomRightSteps : 0;
 
 			WayPoint[,] wayPointArray = new WayPoint[bottomLeftSteps + topRightSteps + 1, bottomRightSteps + topLeftSteps + 1];
 
@@ -322,8 +332,8 @@ namespace Objects
 							for (int j = -bottomRightSteps; j <= topLeftSteps; ++j)
 							{
 								if (wayPointArray[i + bottomLeftSteps, j + bottomRightSteps] == null) continue;
-
-								if (pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps].position, 0.8f))
+                                
+								if (pixelCollider.CheckForWithinCollider(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps].position, margin))
 								{
 									foreach (WayPoint n in wayPointArray[i + bottomLeftSteps, j + bottomRightSteps].neighbours)
 									{
@@ -358,7 +368,7 @@ namespace Objects
 			return new HashSet<WayPoint>(navigationMesh);
 		}
 
-		public void StampPixelCollider(PixelCollider pixelCollider, float dist = 4.0f) {
+		public void StampPixelCollider(PixelCollider pixelCollider, float dist = 8.0f) {
 			Debug.Assert(navigationMesh.Count != 0);
 
 			Debug.DrawLine(pixelCollider.topWorld, pixelCollider.leftWorld, Color.magenta, 3.0f);

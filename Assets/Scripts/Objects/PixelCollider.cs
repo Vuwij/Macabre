@@ -44,6 +44,17 @@ namespace Objects
 		public Vector2 leftPWorld => leftP + (Vector2)transform.position;
 		public Vector2 rightPWorld => rightP + (Vector2)transform.position;
 
+		public float navigationMargin {
+			get {
+				float topLeftSpace = Vector2.Distance(topLeft, center);
+				float topRightSpace = Vector2.Distance(topRight, center);
+				float bottomLeftSpace = Vector2.Distance(bottomLeft, center);
+				float bottomRightSpace = Vector2.Distance(bottomRight, center);
+				List<float> spaces = new List<float> { topLeftSpace, topRightSpace, bottomLeftSpace, bottomRightSpace };
+				return spaces.Max() / 2;
+			}
+		}
+
 		protected new PolygonCollider2D collider2D;
 
 		Vector2 top, bottom, left, right;
@@ -839,22 +850,22 @@ namespace Objects
 			Debug.Assert(navigationMesh.Count != 0);
 			if (direction == Direction.NE)
 			{
-				WayPoint closestNE = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, topLeftWorld) < Vector2.Distance(arg2.position, topLeftWorld) ? arg1 : arg2);
+				WayPoint closestNE = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, topRightWorld) < Vector2.Distance(arg2.position, topRightWorld) ? arg1 : arg2);
 				return closestNE;
 			}
 			else if (direction == Direction.NW)
 			{
-				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, topRightWorld) < Vector2.Distance(arg2.position, topRightWorld) ? arg1 : arg2);
+				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, topLeftWorld) < Vector2.Distance(arg2.position, topLeftWorld) ? arg1 : arg2);
 				return closestNW;
 			}
 			else if (direction == Direction.SE)
 			{
-				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, bottomLeftWorld) < Vector2.Distance(arg2.position, bottomLeftWorld) ? arg1 : arg2);
+				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, bottomRightWorld) < Vector2.Distance(arg2.position, bottomRightWorld) ? arg1 : arg2);
 				return closestNW;
 			}
 			else if (direction == Direction.SW)
 			{
-				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, bottomRightWorld) < Vector2.Distance(arg2.position, bottomRightWorld) ? arg1 : arg2);
+				WayPoint closestNW = navigationMesh.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, bottomLeftWorld) < Vector2.Distance(arg2.position, bottomLeftWorld) ? arg1 : arg2);
 				return closestNW;
 			}
 			else
@@ -871,14 +882,14 @@ namespace Objects
 			WayPoint SW = FindWayPointInDirection(Direction.SW);
 
 			Debug.DrawLine(topRightWorld, NE.position, Color.white, 3.0f);
-			Debug.DrawLine(topLeftWorld, NW.position, Color.white, 3.0f);
-			Debug.DrawLine(bottomRightWorld, SE.position, Color.white, 3.0f);
-			Debug.DrawLine(bottomLeftWorld, SW.position, Color.white, 3.0f);
+			Debug.DrawLine(topLeftWorld, NW.position, Color.black, 3.0f);
+			Debug.DrawLine(bottomRightWorld, SE.position, Color.blue, 3.0f);
+			Debug.DrawLine(bottomLeftWorld, SW.position, Color.cyan, 3.0f);
 
-			float deltaNE = Vector2.Distance(NE.position, topLeft);
-			float deltaNW = Vector2.Distance(NW.position, topRight);
-			float deltaSE = Vector2.Distance(SE.position, bottomLeft);
-			float deltaSW = Vector2.Distance(SW.position, bottomRight);
+			float deltaNE = Vector2.Distance(NE.position, topRightWorld);
+			float deltaNW = Vector2.Distance(NW.position, topLeftWorld);
+			float deltaSE = Vector2.Distance(SE.position, bottomRightWorld);
+			float deltaSW = Vector2.Distance(SW.position, bottomLeftWorld);
 
 			Dictionary<PixelPose, float> dirDic = new Dictionary<PixelPose, float>();
 			PixelPose NEpose = new PixelPose(GetPixelRoom(), Direction.SW, NE.position);

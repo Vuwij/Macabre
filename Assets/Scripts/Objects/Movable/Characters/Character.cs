@@ -396,39 +396,73 @@ namespace Objects.Movable.Characters
 			
 			if (pixelCollider != null)
             {
-                Vector2 position = default(Vector2);
-
 				PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
                 pixelRoom.GetNavigationalMesh(transform.position);
-                pixelRoom.StampPixelCollider(pixelCollider);
+                pixelRoom.StampPixelCollider(pixelCollider, 4.0f);
 
-                if (direction != Direction.All)
+				PixelPose pixelPose;
+                
+				// Object is movable
+                if (pixelCollider.transform.parent.GetComponent<MovableObject>())
                 {
-                    WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
-                    position = wayPoint.position;
-                }
-				else {
-					// Closest direction from player
-					List<PixelDoor> path = FindPathToRoom(room);
+                    PixelCollider playerCollider = GetComponentInChildren<PixelCollider>();
 
-					Vector2 startPosition;
-					if (path.Count != 0)
+					if (direction != Direction.All)
 					{
-						room.gameObject.SetActive(true);
-						room.gameObject.SetActive(false);
-						room.GetNavigationalMesh(path.Last().dropOffWorldLocation);
-						startPosition = path.Last().dropOffWorldLocation;
-					} else {
-						startPosition = transform.position;
+						WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
+						pixelPose = new PixelPose(pixelRoom, direction, wayPoint.position);
 					}
+					else
+					{
+                        // Player moves to the characters position first                  
+						KeyValuePair<PixelPose, float> bestPlayerMovementWayPoint = pixelCollider.FindBestWayPoint();
+						pixelPose = bestPlayerMovementWayPoint.Key;
 
-					PixelCollider characterCollider = GetComponentInChildren<PixelCollider>();
-					PixelPose pose = pixelCollider.FindBestWayPointPosition(startPosition);
-					position = pose.position;
-					direction = pose.direction;
-				}
+						// Character enqueues a movement to the best place for that position
+						Character character = pixelCollider.GetComponentInParent<Character>();
+						if(character != null) {
+							PixelPose translatedPose = pixelPose.TranslatePose(pixelCollider.navigationMargin + playerCollider.navigationMargin);
+							PixelPose flippedPose = translatedPose.Flip();
 
-				PixelPose pixelPose = new PixelPose(room, direction, position);
+							//GameTask characterNavTask = new GameTask(GameTask.TaskType.NAVIGATE);
+       //                     characterNavTask.character = character;
+							//characterNavTask.arguments.Add(flippedPose);
+							//character.characterTasks.Enqueue(characterNavTask);
+
+							character.Navigate(pixelPose);                     
+						}
+					}
+                }
+                else
+                {
+					if (direction != Direction.All)
+                    {
+                        WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
+						pixelPose = new PixelPose(pixelRoom, direction, wayPoint.position);
+                    }
+                    else
+                    {
+                        // Closest from the door or the players position
+						List<PixelDoor> path = FindPathToRoom(room);
+
+                        Vector2 startPosition;
+                        if (path.Count != 0)
+                        {
+                            room.gameObject.SetActive(true);
+                            room.gameObject.SetActive(false);
+                            room.GetNavigationalMesh(path.Last().dropOffWorldLocation);
+                            startPosition = path.Last().dropOffWorldLocation;
+                        }
+                        else
+                        {
+                            startPosition = transform.position;
+                        }
+
+                        PixelCollider characterCollider = GetComponentInChildren<PixelCollider>();
+						pixelPose = pixelCollider.FindBestWayPointPosition(startPosition);
+                    }               
+                }
+                
 				Navigate(pixelPose);
             }
             return true;         
@@ -461,7 +495,10 @@ namespace Objects.Movable.Characters
                 lastPosition = path.Last().dropOffWorldLocation;
 
 			WalkInRoom(pose.pixelRoom, lastPosition, pose.position);
+
 			CharacterTask faceTask = new CharacterTask(GameTask.TaskType.FACEDIRECTION, pose.direction);
+			faceTask.character = this;
+			characterTasks.Enqueue(faceTask);
 
 			return true;
 		}
@@ -696,12 +733,12 @@ namespace Objects.Movable.Characters
                 
 				if (t.taskType == GameTask.TaskType.NAVIGATE)
 				{
-					Debug.Assert(t.arguments.Count() > 1 || t.arguments.Count() < 3);
+					Debug.Assert(t.arguments.Count() >= 1 && t.arguments.Count() <= 3);
 
 					bool completed;
 					if (t.arguments.Count() == 1)
 					{
-						PixelPose pixelPose = (PixelPose)t.arguments[1];
+						PixelPose pixelPose = (PixelPose)t.arguments[0];
 						completed = Navigate(pixelPose);
 					}
 					else
