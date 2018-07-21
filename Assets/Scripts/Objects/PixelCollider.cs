@@ -51,7 +51,7 @@ namespace Objects
 				float bottomLeftSpace = Vector2.Distance(bottomLeft, center);
 				float bottomRightSpace = Vector2.Distance(bottomRight, center);
 				List<float> spaces = new List<float> { topLeftSpace, topRightSpace, bottomLeftSpace, bottomRightSpace };
-				return spaces.Max() / 2;
+				return spaces.Max();
 			}
 		}
 
@@ -511,7 +511,7 @@ namespace Objects
 			return movementRestriction;
 		}
 
-		public bool CheckForWithinCollider(Vector2 position, float distance = 0.4f)
+		public bool CheckForWithinCollider(Vector2 position, float margin = 0.0f)
 		{
 			if (this is MultiBodyPixelCollider && (this as MultiBodyPixelCollider).collisionBodies.Count() != 0)
 			{
@@ -520,16 +520,16 @@ namespace Objects
 				bool inside = false;
 				foreach (CollisionBody body in multibody.collisionBodies)
 				{
-					if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
+					if (DistanceBetween4pointsOrthographic(leftWorld, topWorld, position, position) >= margin)
 						continue;
 
-					if (DistanceBetween4points(topWorld, rightWorld, position, position) > distance)
+					if (DistanceBetween4pointsOrthographic(topWorld, rightWorld, position, position) >= margin)
 						continue;
 
-					if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -distance)
+					if (DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, position, position) <= -margin)
 						continue;
 
-					if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
+					if (DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, position, position) <= -margin)
 						continue;
 
 					// We are inside one of the blocks
@@ -549,16 +549,16 @@ namespace Objects
 				}
 				Debug.Assert(this.colliderPoints.Length == 4);
 
-				if (DistanceBetween4points(leftWorld, topWorld, position, position) > distance)
+				if (DistanceBetween4pointsOrthographic(leftWorld, topWorld, position, position) >= margin)
 					return false;
 
-				if (DistanceBetween4points(topWorld, rightWorld, position, position) > distance)
+				if (DistanceBetween4pointsOrthographic(topWorld, rightWorld, position, position) >= margin)
 					return false;
 
-				if (DistanceBetween4points(leftWorld, bottomWorld, position, position) < -distance)
+				if (DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, position, position) <= -margin)
 					return false;
 
-				if (DistanceBetween4points(bottomWorld, rightWorld, position, position) < -distance)
+				if (DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, position, position) <= -margin)
 					return false;
 			}
 
@@ -845,8 +845,9 @@ namespace Objects
 
 		public WayPoint FindWayPointInDirection(Direction direction)
 		{
-			PixelRoom pixelRoom = GetPixelRoom();
-			HashSet<WayPoint> navigationMesh = pixelRoom.navigationMesh;
+			PixelRoom pixelRoom = GetPixelRoom();         
+			HashSet<WayPoint> navigationMesh = pixelRoom.GetNavigationalMesh();
+
 			Debug.Assert(navigationMesh.Count != 0);
 			if (direction == Direction.NE)
 			{

@@ -179,14 +179,19 @@ namespace Objects.Movable.Characters
 
         public void LockCharacterPositions()
         {
-            // Try finding a suitable position for the character to walk
             Debug.Log("Locking Character Positions");
-            Debug.Assert(character != null);
+			Character mainCharacter = GameObject.Find("Player").GetComponent<Character>();
+			Debug.Assert(mainCharacter != null);
+			mainCharacter.currentlySpeakingTo = character;
         }
+
 
         public void UnlockCharacterPositions()
         {
-            
+			Debug.Log("Locking Character Positions");
+            Character mainCharacter = GameObject.Find("Player").GetComponent<Character>();
+            Debug.Assert(mainCharacter != null);
+			mainCharacter.currentlySpeakingTo = null;
         }
 
         public ConversationState NextState(int option = 1) {

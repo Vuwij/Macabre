@@ -31,11 +31,11 @@ namespace Objects
 			PixelPose p = new PixelPose(this);
 			if (p.direction == Direction.NE)
 				p.direction = Direction.SW;
-			if (p.direction == Direction.SW)
+			else if (p.direction == Direction.SW)
                 p.direction = Direction.NE;
-			if (p.direction == Direction.NW)
+			else if (p.direction == Direction.NW)
                 p.direction = Direction.SE;
-			if (p.direction == Direction.SE)
+			else if (p.direction == Direction.SE)
 				p.direction = Direction.NW;
 			return p;
 		}

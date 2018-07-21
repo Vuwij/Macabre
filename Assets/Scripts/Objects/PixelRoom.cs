@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Objects.Movable;
 using Objects.Movable.Characters;
 using Objects.Movable.Characters.Individuals;
 
@@ -57,9 +58,10 @@ namespace Objects
 
 		public OtherVisibleRoom[] otherVisibleRooms;
 		public int RoomWalkingSpeed = 10;
-		public int stepSize = 3; // How much steps for the navigation mesh
+		public int stepSize = 2; // How much steps for the navigation mesh
 
 		public HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
+		public PixelCollider navigationMeshObject = null;
 
 		public List<PixelDoor> pixelDoors {
 			get {
@@ -226,6 +228,52 @@ namespace Objects
 					sr.sortingLayerName = "Front - Background";
 			}
 		}
+      
+        
+		public HashSet<WayPoint> GetNavigationalMesh(PixelCollider pixelCollider = default(PixelCollider), Vector2 startPosition = default(Vector2)) {
+   			float navigationMargin = 0.0f;
+			if (pixelCollider == default(PixelCollider)) {
+                Character player = GameObject.Find("Player").GetComponent<Character>();
+				pixelCollider = player.GetComponentInChildren<PixelCollider>();
+			}
+
+			navigationMargin = pixelCollider.navigationMargin;
+
+			if (startPosition == default(Vector2))
+                startPosition = pixelCollider.transform.position;
+
+			Debug.Assert(startPosition != default(Vector2));
+			GetNavigationalMesh(startPosition, 0, navigationMargin);
+            Debug.Assert(navigationMesh.Count != 0);
+
+			// Stamp all moving objects except this one
+            HashSet<WayPoint> navMeshCopy = new HashSet<WayPoint>(navigationMesh);
+            
+			for (int c = 0; c < transform.childCount; ++c)
+            {
+                Transform t = transform.GetChild(c);
+
+				// Remove all movable objects
+				if (!t.GetComponent<MovableObject>()) continue;
+                
+				PixelCollider movingCollider = t.GetComponentInChildren<PixelCollider>();
+				if (movingCollider == pixelCollider) continue;
+
+				if(movingCollider != null) {
+					StampPixelCollider(navMeshCopy, movingCollider, pixelCollider.navigationMargin);
+				}
+            }
+
+			foreach (WayPoint w in navMeshCopy)
+            {
+                foreach (WayPoint n in w.neighbours)
+                {
+                    Debug.DrawLine(w.position, n.position, Color.green, 10.0f);
+                }
+            }
+
+			return navMeshCopy;
+		}
 
 		public HashSet<WayPoint> GetNavigationalMesh(Vector2 startPosition, int stepSize = 0, float margin = 0.0f) {
 
@@ -317,11 +365,13 @@ namespace Objects
 			// Remove all waypoints with pixel colliders
 			for (int c = 0; c < transform.childCount; ++c) {
 				Transform t = transform.GetChild(c);
-				if (t.GetComponent<Player>() != null) continue;
 
-				// Get the child pixel collider
+				// Remove all movable objects
+				if (t.GetComponent<MovableObject>())
+					continue;
+
 				PixelCollider[] pixelColliders = t.GetComponentsInChildren<PixelCollider>();
-                
+    
 				foreach (PixelCollider pixelCollider in pixelColliders)
 				{
 					if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
@@ -353,23 +403,12 @@ namespace Objects
 						navigationMesh.Add(wayPointArray[i + bottomLeftSteps, j + bottomRightSteps]);
                 }
             }
-            
-			foreach(WayPoint w in navigationMesh){
-				foreach(WayPoint n in w.neighbours) {
-					Debug.DrawLine(w.position, n.position, Color.green, 10.0f);
-				}
-			}
-
-			//Debug.DrawLine(startPosition, topLeftPoint, Color.cyan, 10.0f);
-			//Debug.DrawLine(startPosition, topRightPoint, Color.cyan, 10.0f);
-			//Debug.DrawLine(startPosition, bottomLeftPoint, Color.cyan, 10.0f);
-			//Debug.DrawLine(startPosition, bottomRightPoint, Color.cyan, 10.0f);
                         
 			return new HashSet<WayPoint>(navigationMesh);
 		}
 
-		public void StampPixelCollider(PixelCollider pixelCollider, float dist = 8.0f) {
-			Debug.Assert(navigationMesh.Count != 0);
+		public void StampPixelCollider(HashSet<WayPoint> navMesh, PixelCollider pixelCollider, float dist = 8.0f) {
+			Debug.Assert(navMesh.Count != 0);
 
 			Debug.DrawLine(pixelCollider.topWorld, pixelCollider.leftWorld, Color.magenta, 3.0f);
 			Debug.DrawLine(pixelCollider.leftWorld, pixelCollider.bottomWorld, Color.magenta, 3.0f);
@@ -389,16 +428,16 @@ namespace Objects
 			if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
 			{
 				List<WayPoint> toRemove = new List<WayPoint>();
-				foreach (WayPoint w in navigationMesh)
+				foreach (WayPoint w in navMesh)
 				{
 					bool collidedWayPoint = pixelCollider.CheckForWithinCollider(w.position, dist);
 					if (collidedWayPoint)
 						toRemove.Add(w);
 				}
 				foreach(WayPoint w in toRemove)
-					navigationMesh.Remove(w);
+					navMesh.Remove(w);
 			}
-			Debug.Assert(navigationMesh.Count != 0);
+			Debug.Assert(navMesh.Count != 0);
 		}
 	}
 }

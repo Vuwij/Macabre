@@ -25,9 +25,13 @@ namespace Objects.Movable.Characters.Individuals
 			}
 		}
 
+		bool controllable => !positionLocked && currentlySpeakingTo == null;
+
 		protected override Vector2 inputVelocity
 		{
 			get {
+				if (!controllable) return Vector2.zero;
+
                 PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
                 PixelCollider.MovementRestriction mr = new PixelCollider.MovementRestriction();
                 mr.restrictNE = false;
@@ -90,9 +94,11 @@ namespace Objects.Movable.Characters.Individuals
         
 		void Update()
 		{
-			MouseClicked();
-            KeyPressed();
-			HoverOverObject();
+			if (controllable)
+				MouseClicked();
+			
+			KeyPressed();
+            HoverOverObject();
 		}
 
 		void KeyPressed() {
@@ -101,37 +107,47 @@ namespace Objects.Movable.Characters.Individuals
 				// Console
 				if (DebugWindowOpen)
 					return;
-                
-                // Inventory
-                if (Input.GetButtonDown("Inventory"))
-                {
-                    UIScreenManager screenManager = FindObjectOfType<UIScreenManager>();
-                    InventoryPanel panel = screenManager.GetComponentInChildren<InventoryPanel>(true);
-                    Debug.Assert(panel != null);
-                    if (!panel.gameObject.activeInHierarchy)
-                        panel.gameObject.SetActive(true);
-                    else
-                        panel.gameObject.SetActive(false);
-                }
 
-                // Inspection
-                else if (Input.GetButtonDown("Inspect"))
-                {
-                    Inspect();
-                }
+				if (controllable)
+				{
+					// Inventory
+					if (Input.GetButtonDown("Inventory"))
+					{
+						UIScreenManager screenManager = FindObjectOfType<UIScreenManager>();
+						InventoryPanel panel = screenManager.GetComponentInChildren<InventoryPanel>(true);
+						Debug.Assert(panel != null);
+						if (!panel.gameObject.activeInHierarchy)
+							panel.gameObject.SetActive(true);
+						else
+							panel.gameObject.SetActive(false);
+					}
 
-                // Conversation
-                int selection = 0;
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    selection = 1;
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
-                    selection = 2;
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
-                    selection = 3;
-                else if (Input.GetKeyDown(KeyCode.Alpha4))
-                    selection = 4;
-                if(selection != 0)
-                    Talk(selection);
+					// Inspection
+					else if (Input.GetButtonDown("Inspect"))
+					{
+						Inspect();
+					}
+				}
+				else
+				{
+					// Conversation
+					if (Input.GetButtonDown("Inspect"))
+						Talk();
+					else {
+						int selection = 0;
+						if (Input.GetKeyDown(KeyCode.Alpha1))
+							selection = 1;
+						else if (Input.GetKeyDown(KeyCode.Alpha2))
+							selection = 2;
+						else if (Input.GetKeyDown(KeyCode.Alpha3))
+							selection = 3;
+						else if (Input.GetKeyDown(KeyCode.Alpha4))
+							selection = 4;
+
+						if (selection != 0)
+							Talk(selection);
+					}
+				}
 			}
             
 		}
