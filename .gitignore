@@ -315,3 +315,8 @@ Assets/GameData/Saves.xml
 *.svd
 *.pdb
 *.opendb
+
+# Other files in the origin
+app.config
+packages.config
+
