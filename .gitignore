@@ -319,4 +319,4 @@ Assets/GameData/Saves.xml
 # Other files in the origin
 app.config
 packages.config
-
+.vscode
