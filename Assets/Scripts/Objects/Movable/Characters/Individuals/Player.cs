@@ -174,6 +174,8 @@ namespace Objects.Movable.Characters.Individuals
 						if (pixelCollider.inspectChildObjects) continue;
 						PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
 						if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
+						if (pixelCollider.transform.parent.name == "VirtualObject") continue;
+						if (pixelCollider.transform.parent.name == "Player") continue;
 
 						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);                  
 						if (withinCollider)
@@ -234,6 +236,7 @@ namespace Objects.Movable.Characters.Individuals
                 if (pixelCollider != null)
                 {
 					if (pixelCollider.inspectChildObjects) continue;
+					if (pixelCollider.transform.parent.name == "Player") continue;
 					PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
                     if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
 

@@ -520,16 +520,21 @@ namespace Objects
 				bool inside = false;
 				foreach (CollisionBody body in multibody.collisionBodies)
 				{
-					if (DistanceBetween4pointsOrthographic(leftWorld, topWorld, position, position) >= margin)
+					Vector2 lWorld = body.left + (Vector2) transform.position;
+					Vector2 tWorld = body.top + (Vector2) transform.position;
+					Vector2 bWorld = body.bottom + (Vector2) transform.position;
+					Vector2 rWorld = body.right + (Vector2) transform.position;
+
+					if (DistanceBetween4pointsOrthographic(lWorld, tWorld, position, position) >= margin)
 						continue;
 
-					if (DistanceBetween4pointsOrthographic(topWorld, rightWorld, position, position) >= margin)
+					if (DistanceBetween4pointsOrthographic(tWorld, rWorld, position, position) >= margin)
 						continue;
-
-					if (DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, position, position) <= -margin)
+                    
+					if (DistanceBetween4pointsOrthographic(lWorld, bWorld, position, position) <= -margin)
 						continue;
-
-					if (DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, position, position) <= -margin)
+                    
+					if (DistanceBetween4pointsOrthographic(bWorld, rWorld, position, position) <= -margin)
 						continue;
 
 					// We are inside one of the blocks

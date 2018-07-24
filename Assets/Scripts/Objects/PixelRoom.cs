@@ -58,7 +58,7 @@ namespace Objects
 
 		public OtherVisibleRoom[] otherVisibleRooms;
 		public int RoomWalkingSpeed = 10;
-		public int stepSize = 2; // How much steps for the navigation mesh
+		public int stepSize = 1; // How much steps for the navigation mesh
 
 		public HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
 		public PixelCollider navigationMeshObject = null;
@@ -291,6 +291,11 @@ namespace Objects
 			if (System.Math.Abs(margin) < 0.01f) {
 				Character player = GameObject.Find("Player").GetComponent<Character>();
 				margin = player.GetComponentInChildren<PixelCollider>().navigationMargin;
+			}
+
+			if (top == Vector2.zero) {
+				this.enabled = true;
+				this.enabled = false;
 			}
 
 			Debug.Assert(top != Vector2.zero);
