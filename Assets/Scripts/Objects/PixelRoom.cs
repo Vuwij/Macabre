@@ -294,8 +294,8 @@ namespace Objects
 			}
 
 			if (top == Vector2.zero) {
-				this.enabled = true;
-				this.enabled = false;
+				this.gameObject.SetActive(true);
+				this.gameObject.SetActive(false);
 			}
 
 			Debug.Assert(top != Vector2.zero);

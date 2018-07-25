@@ -55,7 +55,6 @@ public class GameTask
         {
 			GameTask gameTask = new GameTask();
 			gameTask.taskType = TaskType.NAVIGATE;
-
 			Debug.Assert(taskCharacter != null);
 
 			if(actionString.Length == 3) {

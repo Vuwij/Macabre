@@ -304,6 +304,7 @@ namespace Objects
 				if (otherPixelCollider.ParentIsContainer()) continue;
 				if (!OtherPixelColliderSameParent(otherPixelCollider)) continue;
 				if (otherPixelCollider is MultiBodyPixelCollider) continue;
+				if (otherPixelCollider.transform.parent.name == "VirtualObject") continue;
 
 				Transform otherTransform = otherPixelCollider.gameObject.transform;
 
@@ -322,8 +323,8 @@ namespace Objects
 				Direction direction = Direction.All;
 				List<PixelCollider> pixelColliders = new List<PixelCollider>();
 
-				if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 2 &&
-					DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -10.0 &&
+				if (DistanceBetween4pointsOrthographic(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 5 &&
+				    DistanceBetween4pointsOrthographic(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -10.0 &&
 					leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
 					leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
 				{
@@ -331,8 +332,8 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
 					pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
 				}
-				else if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 2 &&
-						 DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -10.0 &&
+				else if (DistanceBetween4pointsOrthographic(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 5 &&
+				         DistanceBetween4pointsOrthographic(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -10.0 &&
 						 topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
 						 topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
 				{
@@ -340,8 +341,8 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
 					pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
 				}
-				else if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -2 &&
-						 DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 10.0 &&
+				else if (DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -5 &&
+				         DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 10.0 &&
 						 leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
 						 leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
 				{
@@ -349,8 +350,8 @@ namespace Objects
 					pixelColliders.Add(otherPixelCollider);
 					pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
 				}
-				else if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -2 &&
-						 DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 10.0 &&
+				else if (DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -5 &&
+				         DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 10.0 &&
 						 bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
 						 bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
 				{
@@ -364,8 +365,7 @@ namespace Objects
 					PixelCollision pixelCollision;
 					pixelCollision.direction = direction;
 					pixelCollision.pixelCollider = pc;
-					pixelCollisions.Add(pixelCollision);
-
+					pixelCollisions.Add(pixelCollision);               
 				}
 			}
 

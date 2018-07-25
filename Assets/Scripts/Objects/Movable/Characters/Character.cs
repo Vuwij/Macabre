@@ -421,15 +421,33 @@ namespace Objects.Movable.Characters
 		}
 
 		public bool NavigateObject(PixelRoom room, PixelCollider pixelCollider, Direction direction = Direction.All) {
-			
+            
+			PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
+            PixelCollider playerCollider = GetComponentInChildren<PixelCollider>();
+
+			// Find last location
+			// Closest from the door or the players position
+            List<PixelDoor> path = FindPathToRoom(room);
+
+            Vector2 startPosition;
+            if (path.Count != 0)
+            {
+                room.gameObject.SetActive(true);
+                room.gameObject.SetActive(false);
+                room.GetNavigationalMesh(playerCollider, path.Last().dropOffWorldLocation);
+                startPosition = path.Last().dropOffWorldLocation;
+            }
+            else
+            {
+                startPosition = transform.position;
+            }
+
+            // Navigate from the last location to find the pixel pose
+			PixelPose pixelPose;
 			if (pixelCollider != null)
             {
-				PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
-                PixelCollider playerCollider = GetComponentInChildren<PixelCollider>();
-				pixelRoom.GetNavigationalMesh(playerCollider);
-
-                PixelPose pixelPose;
-                
+				pixelRoom.GetNavigationalMesh(playerCollider, startPosition);
+    
 				// Object is movable
                 if (pixelCollider.transform.parent.GetComponent<MovableObject>())
                 {
@@ -468,28 +486,11 @@ namespace Objects.Movable.Characters
                     }
                     else
                     {
-                        // Closest from the door or the players position
-						List<PixelDoor> path = FindPathToRoom(room);
-
-                        Vector2 startPosition;
-                        if (path.Count != 0)
-                        {
-                            room.gameObject.SetActive(true);
-                            room.gameObject.SetActive(false);
-							room.GetNavigationalMesh(playerCollider, path.Last().dropOffWorldLocation);
-                            startPosition = path.Last().dropOffWorldLocation;
-                        }
-                        else
-                        {
-                            startPosition = transform.position;
-                        }
-
                         PixelCollider characterCollider = GetComponentInChildren<PixelCollider>();
 						pixelPose = pixelCollider.FindBestWayPointPosition(startPosition);
-                    }               
+                    }
                 }
-                
-				Navigate(pixelPose);
+				Navigate(pixelPose);            
             }
             return true;         
 		}
