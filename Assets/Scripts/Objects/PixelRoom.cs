@@ -298,7 +298,7 @@ namespace Objects
 				this.gameObject.SetActive(false);
 			}
 
-			Debug.Assert(top != Vector2.zero);
+ 			Debug.Assert(top != Vector2.zero);
 			Debug.Assert(bottom != Vector2.zero);
 			Debug.Assert(left != Vector2.zero);
 			Debug.Assert(right != Vector2.zero);

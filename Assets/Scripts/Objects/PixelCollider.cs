@@ -319,7 +319,7 @@ namespace Objects
 				Debug.DrawLine(otherleftWorld, otherbottomWorld, Color.yellow, 1.0f);
 				Debug.DrawLine(otherbottomWorld, otherrightWorld, Color.yellow, 1.0f);
 				Debug.DrawLine(otherrightWorld, othertopWorld, Color.yellow, 1.0f);
-
+                
 				Direction direction = Direction.All;
 				List<PixelCollider> pixelColliders = new List<PixelCollider>();
 

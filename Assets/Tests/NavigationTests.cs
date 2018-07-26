@@ -24,10 +24,10 @@ public class NavigationTest {
     public IEnumerator PlayerMovement2() {
         SceneManager.LoadScene("Game");
         yield return null;
-        GameObject.Find("Game Manager").SendMessage("AddGameTask", "goto 'Inn Floor 2 Balcony' 'Railings Left'");
+        GameObject.Find("Game Manager").SendMessage("AddGameTask", "goto 'Inn Floor 2 Room 4' 'Writing Desk'");
         yield return new WaitForSeconds(15.0f);
         string parent = GameObject.Find("Player").transform.parent.name;
-		Assert.AreEqual(parent, "Inn Floor 2 Balcony");
+		Assert.AreEqual(parent, "Inn Floor 2 Room 4");
     }
 
 	[UnityTest]

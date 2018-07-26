@@ -191,7 +191,6 @@ namespace Objects.Movable.Characters
 			Debug.Log("Locking Character Positions");
             Character mainCharacter = GameObject.Find("Player").GetComponent<Character>();
             Debug.Assert(mainCharacter != null);
-			mainCharacter.currentlySpeakingTo = null;
         }
 
         public ConversationState NextState(int option = 1) {

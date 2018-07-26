@@ -186,7 +186,7 @@ namespace Objects.Movable.Characters
             var objects = pixelCollider.CheckForInspection();
 			foreach(PixelCollision pc in objects) {
 				Debug.Log(pc.pixelCollider.transform.parent.name);
-				InspectObject(pc);
+ 				InspectObject(pc);
             }
 		}
 
@@ -270,6 +270,8 @@ namespace Objects.Movable.Characters
 					currentlySpeakingTo.currentConversationState = currentlySpeakingTo.currentConversationState.NextState();
 					currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
 					currentlySpeakingTo.currentConversationState.AnimateConversationActions();
+					if (currentlySpeakingTo.currentConversationState.stateName == "Silent")
+						currentlySpeakingTo = null;
 				}
 			}
 			else
@@ -432,9 +434,9 @@ namespace Objects.Movable.Characters
             Vector2 startPosition;
             if (path.Count != 0)
             {
-                room.gameObject.SetActive(true);
-                room.gameObject.SetActive(false);
+                room.gameObject.SetActive(true);                
                 room.GetNavigationalMesh(playerCollider, path.Last().dropOffWorldLocation);
+				room.gameObject.SetActive(false);
                 startPosition = path.Last().dropOffWorldLocation;
             }
             else
