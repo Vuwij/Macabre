@@ -715,7 +715,7 @@ namespace Objects.Movable.Characters
 
             Debug.Assert(number >= 1 && number <= 24);
 
-            PixelInventory toInv = character.GetComponent<PixelInventory>();
+			PixelInventory toInv = character.GetComponentInChildren<PixelInventory>();
             Debug.Assert(toInv != null);
 
 			animator.SetTrigger(Animator.StringToHash("IsInteract"));
@@ -723,9 +723,10 @@ namespace Objects.Movable.Characters
             for (int i = 0; i < number; ++i)
             {
 				GameObject obj = toInv.GetItem(item);
+				Debug.Assert(obj != null);
                 PixelItem pixelItem = obj.GetComponent<PixelItem>();
-                inv.AddItem(pixelItem);
-				obj.transform.parent = inv.transform;
+				toInv.AddItem(pixelItem);
+				obj.transform.parent = toInv.transform;
             }
         }
 

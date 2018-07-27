@@ -56,8 +56,8 @@ public class GameTask
 			GameTask gameTask = new GameTask();
 			gameTask.taskType = TaskType.NAVIGATE;
 			Debug.Assert(taskCharacter != null);
-
-			if(actionString.Length == 3) {
+            
+			if(actionString.Length == 2) {
 				PixelCollider pc = taskCharacter.GetComponentInChildren<PixelCollider>();
 				string roomName = pc.GetPixelRoom().name;
 				actionStrings.Insert(2, roomName);
