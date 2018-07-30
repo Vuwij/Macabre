@@ -76,6 +76,7 @@ public class NavigationTest {
         GameObject.Find("Game Manager").SendMessage("AddGameTask", "mount 'Inn Floor 1 Room 1' 'Chair Front' NE");
         yield return new WaitForSeconds(5.0f);      
         Character character = GameObject.Find("Player").GetComponentInChildren<Character>();
+        // TODO 6. Assert that the character has mounted on the chair correctly
     }
 
 	[UnityTest]
