@@ -320,3 +320,6 @@ Assets/GameData/Saves.xml
 app.config
 packages.config
 .vscode
+
+# Test files
+Assets/*.unity
