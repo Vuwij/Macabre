@@ -260,7 +260,7 @@ namespace Objects.Movable.Characters
             return;
 		}
 
-        public void Talk(int selection = 0) {
+         public void Talk(int selection = 0) {
 			if (selection == 0)
 			{
 				// Do the talk
@@ -730,6 +730,17 @@ namespace Objects.Movable.Characters
             }
         }
 
+        // TODO 3. There is no mount function yet. Create the mount function to mount onto chairs and beds. Determine if something is mountable or not
+		public bool Mount()
+		{
+			// The mount function must have arguments that include the object to be mounted, and the destination object to be mounted. 
+			// It should call PixelMount.Mount() and PixelMount.Dismount() and it should change the characters sprite to a sitting position via an animation
+			// The foot of the character is a seperate sprite and should be created and located to the precise location of the character's position when mounting and dismounting
+			// The seperate sprite gameobject should be deleted when it is finished dismounting from the object to mount
+			// The function should return true if the object to mount is unsuccesful
+			return true;
+		}
+
 		IEnumerator UpdateCharacterAction()
 		{
 			while (true)
@@ -825,6 +836,10 @@ namespace Objects.Movable.Characters
 					FaceDirection((Direction)t.arguments[0]);
 					characterTasks.Dequeue();
                 }
+				else if (t.taskType == GameTask.TaskType.MOUNT)
+				{
+					// TODO 2. Create a function here that calls the mount function
+				}
 				yield return new WaitForFixedUpdate();
 			}
 		}

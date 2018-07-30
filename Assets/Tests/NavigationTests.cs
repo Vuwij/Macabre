@@ -68,6 +68,17 @@ public class NavigationTest {
     }
 
 	[UnityTest]
+    [Timeout(100000)]
+    public IEnumerator PlayerMount()
+    {
+        SceneManager.LoadScene("Game");
+        yield return null;
+        GameObject.Find("Game Manager").SendMessage("AddGameTask", "mount 'Inn Floor 1 Room 1' 'Chair Front' NE");
+        yield return new WaitForSeconds(5.0f);      
+        Character character = GameObject.Find("Player").GetComponentInChildren<Character>();
+    }
+
+	[UnityTest]
     [Timeout(10000000)]
     public IEnumerator PlayerMovementAll()
     {

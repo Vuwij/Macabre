@@ -8,7 +8,7 @@ namespace Objects
 	public class PixelStorage : MonoBehaviour
 	{
 		public List<Vector2Int> displayLocations = new List<Vector2Int>();
-		Dictionary<int, GameObject> occupiedLocations = new Dictionary<int, GameObject>();
+		protected Dictionary<int, GameObject> occupiedLocations = new Dictionary<int, GameObject>();
 
 		public void AddObject(GameObject obj)
 		{
@@ -49,7 +49,7 @@ namespace Objects
 			}
 			return null;
 		}
-
+        
 		public bool HasObject(string obj, int number = 1)
         {
             for (int i = 0; i < transform.childCount; ++i)
