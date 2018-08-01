@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Objects
 {
+	[ExecuteInEditMode]
 	public class PixelCollider : MonoBehaviour, IComparable<PixelCollider>
 	{
 		public struct CollisionBody
@@ -13,8 +14,31 @@ namespace Objects
 			public Vector2 top;
 			public Vector2 left;
 			public Vector2 right;
-			public Vector2 bottom;
+			public Vector2 bottom;         
 		}
+
+		public class CollisionBodyComparision {
+			public bool NEoverlap;
+			public bool NWoverlap;
+			public bool SEoverlap;
+			public bool SWoverlap;
+
+			public bool Noverlap;
+			public bool Soverlap;
+			public bool Eoverlap;
+			public bool Woverlap;
+
+			public int inFront {
+				get {
+					if (NEoverlap || NWoverlap)
+						return 1;
+					else if (SEoverlap || SWoverlap)
+						return -1;
+					else return 0;
+				}
+			}     
+		}
+
 
 		public class MovementRestriction
 		{
@@ -241,11 +265,11 @@ namespace Objects
 				{
 					if (i >= j) continue;
 					int comparison = pixelColliders[i].CompareTo(pixelColliders[j]);
-					if (comparison == 1)
+					if (comparison > 0)
 					{
 						adjacencyList.Add(new KeyValuePair<PixelCollider, PixelCollider>(pixelColliders[i], pixelColliders[j]));
 					}
-					else if (comparison == -1)
+					else if (comparison < 0)
 					{
 						adjacencyList.Add(new KeyValuePair<PixelCollider, PixelCollider>(pixelColliders[j], pixelColliders[i]));
 					}
@@ -640,7 +664,7 @@ namespace Objects
 				{
 					for (int j = 0; j < b.collisionBodies.Count(); ++j)
 					{
-						int comp = CompareTwoCollisionBoxes(a.collisionBodies[i], (Vector2)a.transform.position, b.collisionBodies[j], (Vector2)b.transform.position);
+						int comp = CompareTwoCollisionBoxes(a.collisionBodies[i], (Vector2)a.transform.position, b.collisionBodies[j], (Vector2)b.transform.position).inFront;
 						if (comp == 1)
 							comparison = 1;
 						if (comp == -1)
@@ -673,7 +697,7 @@ namespace Objects
 				int multiInFront = 0;
 				for (int i = 0; i < multi.collisionBodies.Count(); ++i)
 				{
-					int comp = CompareTwoCollisionBoxes(multi.collisionBodies[i], (Vector2)multi.transform.position, singleBody, single.transform.position);
+					int comp = CompareTwoCollisionBoxes(multi.collisionBodies[i], (Vector2)multi.transform.position, singleBody, single.transform.position).inFront;
 					if (comp == 1) multiInFront = 1;
 					if (comp == -1) multiInFront = -1;
 				}
@@ -707,16 +731,14 @@ namespace Objects
 				b.left = other.left;
 				b.right = other.right;
 
-				return CompareTwoCollisionBoxes(a, (Vector2)this.transform.position, b, (Vector2)other.transform.position);
+				return CompareTwoCollisionBoxes(a, (Vector2)this.transform.position, b, (Vector2)other.transform.position).inFront;
 				//Debug.Log("Comparison: " + transform.parent.name + " - " + other.transform.parent.name + ": " + comparison);
 			}
 			return comparison;
 		}
 
-		int CompareTwoCollisionBoxes(CollisionBody a, Vector2 aPosition, CollisionBody b, Vector2 bPosition)
+		CollisionBodyComparision CompareTwoCollisionBoxes(CollisionBody a, Vector2 aPosition, CollisionBody b, Vector2 bPosition)
 		{
-			int comparison = 0;
-
 			Vector2 atopWorld = a.top + aPosition;
 			Vector2 abottomWorld = a.bottom + aPosition;
 			Vector2 aleftWorld = a.left + aPosition;
@@ -727,23 +749,42 @@ namespace Objects
 			Vector2 bleftWorld = b.left + bPosition;
 			Vector2 brightWorld = b.right + bPosition;
 
+			CollisionBodyComparision collisionBodyComparision = new CollisionBodyComparision();
+
 			if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
 				if (aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y)
-					comparison = 1;
-
+					collisionBodyComparision.NWoverlap = true;
+            
 			if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
 				if (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y)
-					comparison = 1;
+				    collisionBodyComparision.NEoverlap = true;
 
 			if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
 				if (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y)
-					comparison = -1;
+				    collisionBodyComparision.SEoverlap = true;
 
 			if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
 				if (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y)
-					comparison = -1;
+				    collisionBodyComparision.SWoverlap = true;
+             
+			if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
+			    if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
+				    collisionBodyComparision.Noverlap = true;
 
-			return comparison;
+			if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
+			    if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
+				    collisionBodyComparision.Soverlap = true;
+
+			if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
+			    if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
+				    collisionBodyComparision.Woverlap = true;
+            
+			if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
+			    if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
+                    collisionBodyComparision.Eoverlap = true;
+			
+
+			return collisionBodyComparision;
 		}
 
 		public bool ParentIsContainer()
@@ -930,7 +971,7 @@ namespace Objects
 			return dirList.Aggregate((arg1, arg2) => Vector2.Distance(arg1.position, starting) < Vector2.Distance(arg2.position, starting) ? arg1 : arg2);
 		}
 
-		public void OnDrawGizmos()
+		public virtual void OnDrawGizmos()
         {
             Gizmos.DrawSphere(topRightWorld, 0.3f);
             Gizmos.DrawSphere(topLeftWorld, 0.3f);

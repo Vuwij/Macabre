@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour {
 	}
     
     // Find all
-	static T FindAll<T>(string name) {
+	public static T FindAll<T>(string name) {
 		GameObject[] objects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
 		foreach(GameObject go in objects) {
 			Transform transform = Find<T>(go.transform, name);

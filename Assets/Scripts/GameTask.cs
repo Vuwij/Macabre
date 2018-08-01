@@ -264,8 +264,7 @@ public class GameTask
 
 		if (hasCharacter) {
 			string characterName = gameManager.characterNameTranslations[actionStrings[0]];
-            GameObject characterObj = GameObject.Find(characterName);
-            character = characterObj.GetComponent<Character>();
+			character = GameManager.FindAll<Character>(characterName);
 		}
 		else {
 			GameObject player = GameObject.Find("Player");
