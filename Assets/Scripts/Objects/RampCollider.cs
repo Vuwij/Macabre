@@ -12,11 +12,21 @@ namespace Objects
         // The direction that is going up
 		public Direction rampDirection;
 		public int height = 0;
-        
-		public Vector2 topWorldElevated => (rampDirection == Direction.NE || rampDirection == Direction.NW) ? topWorld + new Vector2(0.0f, height) : topWorld;
-		public Vector2 bottomWorldElevated => (rampDirection == Direction.SE || rampDirection == Direction.SW) ? bottomWorld + new Vector2(0.0f, height) : bottomWorld;
-		public Vector2 leftWorldElevated => (rampDirection == Direction.NE || rampDirection == Direction.SE) ? leftWorld + new Vector2(0.0f, height) : leftWorld;
-		public Vector2 rightWorldElevated => (rampDirection == Direction.NW || rampDirection == Direction.NW) ? rightWorld + new Vector2(0.0f, height) : rightWorld;
+
+		public float lengthE => Vector2.Distance(bottomWorld, rightWorld);
+		public float lengthW => Vector2.Distance(bottomWorld, leftWorld);
+
+		public float slope {
+			get {
+				float dist = (rampDirection == Direction.NE || rampDirection == Direction.SW) ? lengthE : lengthW;
+				return height / dist;	
+			}
+		}
+
+		public Vector2 topWorldElevated => (rampDirection == Direction.NW || rampDirection == Direction.NE) ? topWorld + new Vector2(0.0f, height) : topWorld;
+		public Vector2 bottomWorldElevated => (rampDirection == Direction.SW || rampDirection == Direction.SE) ? bottomWorld + new Vector2(0.0f, height) : bottomWorld;
+		public Vector2 leftWorldElevated => (rampDirection == Direction.NW || rampDirection == Direction.SW) ? leftWorld + new Vector2(0.0f, height) : leftWorld;
+		public Vector2 rightWorldElevated => (rampDirection == Direction.NE || rampDirection == Direction.SE) ? rightWorld + new Vector2(0.0f, height) : rightWorld;
         
 		public override void OnDrawGizmos()
 		{

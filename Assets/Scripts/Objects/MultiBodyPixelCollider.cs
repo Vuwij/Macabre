@@ -6,8 +6,21 @@ namespace Objects
 {
 	public class MultiBodyPixelCollider : PixelCollider
 	{   
-		internal CollisionBody[] collisionBodies;
-		internal CollisionBody[] collisionBodiesP;
+		public CollisionBody[] collisionBodies;
+		public CollisionBody[] collisionBodiesP;
+
+		public CollisionBody[] collisionBodiesWorld {
+			get {
+				CollisionBody[] bodies = collisionBodies;
+				for (int i = 0; i < bodies.Length; ++i) {
+					bodies[i].top += (Vector2) transform.position;
+					bodies[i].bottom += (Vector2) transform.position;
+					bodies[i].left += (Vector2) transform.position;
+					bodies[i].right += (Vector2) transform.position;
+				}
+				return bodies;
+			}
+		}
 
 		protected override void Awake()
 		{

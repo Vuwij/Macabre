@@ -30,15 +30,9 @@ namespace Objects.Movable.Characters.Individuals
 		protected override Vector2 inputVelocity
 		{
 			get {
+				// Check if movable
 				if (!controllable) return Vector2.zero;
-
-                PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
-                PixelCollider.MovementRestriction mr = new PixelCollider.MovementRestriction();
-                mr.restrictNE = false;
-                mr.restrictNW = false;
-                mr.restrictSE = false;
-                mr.restrictSW = false;
-
+                
                 AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
                 if (!state.IsName("Idle") && !state.IsName("Move") && !state.IsName("Look"))
                     return Vector2.zero;
@@ -49,31 +43,46 @@ namespace Objects.Movable.Characters.Individuals
 				if (DebugWindowOpen)
 					return Vector2.zero;
 
+                // Check Collisions
+				PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+                PixelCollider.MovementRestriction mr = new PixelCollider.MovementRestriction();
+
                 if (pixelCollider != null)
                     mr = pixelCollider.CheckForCollision();
 
+				float lr = 2;
+				float ud = 1;
+
+				if (mr.slopeDirection != Direction.All) {
+					Debug.Log("hi");
+					if (mr.slopeDirection == Direction.NE || mr.slopeDirection == Direction.SW)
+					{
+						ud = ud * (1 + mr.slope);
+						lr = lr / (1 + mr.slope);
+					}
+				}
+
 				if (Input.GetAxisRaw("Horizontal") > 0 && mr.restrictNE)
-					facingDirection = new Vector2(2, 1);
+					facingDirection = new Vector2(lr, ud);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && mr.restrictSW)
-					facingDirection = new Vector2(-2, -1);
+					facingDirection = new Vector2(-lr, -ud);
                 else if (Input.GetAxisRaw("Vertical") > 0 && mr.restrictNW)
-					facingDirection = new Vector2(-2, 1);
+					facingDirection = new Vector2(-lr, ud);
                 else if (Input.GetAxisRaw("Vertical") < -0 && mr.restrictSE)
-					facingDirection = new Vector2(2, -1);
-
-
+					facingDirection = new Vector2(lr, -ud);
+                
                 if (Input.GetAxisRaw("Horizontal") > 0 && !mr.restrictNE)
-                    return new Vector2(2, 1);
+                    return new Vector2(lr, ud);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && !mr.restrictSW)
-                    return new Vector2(-2, -1);
+                    return new Vector2(-lr, -ud);
                 else if (Input.GetAxisRaw("Vertical") > 0 && !mr.restrictNW)
-                    return new Vector2(-2, 1);
+                    return new Vector2(-lr, ud);
                 else if (Input.GetAxisRaw("Vertical") < -0 && !mr.restrictSE)
-                    return new Vector2(2, -1);
+                    return new Vector2(lr, -ud);
                 return Vector2.zero;
 			}
 		}
-
+        
 		Vector2 mousePosition
         {
             get {

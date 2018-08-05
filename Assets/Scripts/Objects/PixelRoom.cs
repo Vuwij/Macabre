@@ -50,12 +50,19 @@ namespace Objects
 		[HideInInspector]
 		public Vector2[] colliderPoints;
 
-		public Vector2 topLeft => (top + left) / 2;
+		public Vector2 topWorld => top + (Vector2) transform.position;
+		public Vector2 bottomWorld => bottom + (Vector2)transform.position;
+		public Vector2 leftWorld => left + (Vector2)transform.position;
+		public Vector2 rightWorld => right + (Vector2)transform.position;
+		public CollisionBody body => new CollisionBody(top, left, right, bottom);
+		public CollisionBody bodyWorld => new CollisionBody(topWorld, leftWorld, rightWorld, bottomWorld);
+  		public Vector2 topLeft => (top + left) / 2;
         public Vector2 topRight => (top + right) / 2;
         public Vector2 bottomLeft => (bottom + left) / 2;
         public Vector2 bottomRight => (bottom + right) / 2;
         public Vector2 center => (top + left + right + bottom) / 4;
-
+              
+        
 		public OtherVisibleRoom[] otherVisibleRooms;
 		public int RoomWalkingSpeed = 10;
 		public int stepSize = 1; // How much steps for the navigation mesh

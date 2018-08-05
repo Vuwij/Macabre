@@ -9,43 +9,15 @@ namespace Objects
 	[ExecuteInEditMode]
 	public class PixelCollider : MonoBehaviour, IComparable<PixelCollider>
 	{
-		public struct CollisionBody
-		{
-			public Vector2 top;
-			public Vector2 left;
-			public Vector2 right;
-			public Vector2 bottom;         
-		}
-
-		public class CollisionBodyComparision {
-			public bool NEoverlap;
-			public bool NWoverlap;
-			public bool SEoverlap;
-			public bool SWoverlap;
-
-			public bool Noverlap;
-			public bool Soverlap;
-			public bool Eoverlap;
-			public bool Woverlap;
-
-			public int inFront {
-				get {
-					if (NEoverlap || NWoverlap)
-						return 1;
-					else if (SEoverlap || SWoverlap)
-						return -1;
-					else return 0;
-				}
-			}     
-		}
-
-
 		public class MovementRestriction
 		{
 			public bool restrictNW = false;
 			public bool restrictNE = false;
 			public bool restrictSW = false;
 			public bool restrictSE = false;
+
+			public Direction slopeDirection = Direction.All;
+			public float slope = 0.0f;
 		}
 
 		public Vector2 topLeft => (top + left) / 2;
@@ -68,6 +40,14 @@ namespace Objects
 		public Vector2 leftPWorld => leftP + (Vector2)transform.position;
 		public Vector2 rightPWorld => rightP + (Vector2)transform.position;
 
+		Vector2 topP => top + new Vector2(0, pixelProximity);
+        Vector2 bottomP => bottom + new Vector2(0, -pixelProximity);
+        Vector2 leftP => left + new Vector2(-2 * pixelProximity, 0);
+        Vector2 rightP => right + new Vector2(2 * pixelProximity, 0);
+
+		public CollisionBody collisionBody => new CollisionBody(top, left, right, bottom);
+		public CollisionBody collisionBodyWorld => new CollisionBody(topWorld, leftWorld, rightWorld, bottomWorld);
+		      
 		public float navigationMargin {
 			get {
 				float topLeftSpace = Vector2.Distance(topLeft, center);
@@ -83,21 +63,15 @@ namespace Objects
 
 		Vector2 top, bottom, left, right;
 		Vector2[] colliderPoints;
+		Color originalColor;
+        Color originalObjColor;
 
 		public bool noSorting;
 		public bool noCollision;
 		public float visibilityInFront = 0.25f;
-		Color originalColor;
-		Color originalObjColor;
 		public bool inspectChildObjects = false;
-
 		protected int pixelProximity = 4; // 3 pixels away from the object
-
-		Vector2 topP => top + new Vector2(0, pixelProximity);
-		Vector2 bottomP => bottom + new Vector2(0, -pixelProximity);
-		Vector2 leftP => left + new Vector2(-2 * pixelProximity, 0);
-		Vector2 rightP => right + new Vector2(2 * pixelProximity, 0);
-
+        
 		protected virtual void Awake()
 		{
 			if (noCollision) return;
@@ -405,10 +379,7 @@ namespace Objects
 
 			RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius, Vector2.zero);
 
-			bool restrictNW = false;
-			bool restrictNE = false;
-			bool restrictSW = false;
-			bool restrictSE = false;
+			MovementRestriction restriction = new MovementRestriction();
 
 			// Collided with other object
 			foreach (RaycastHit2D raycastHit in castStar)
@@ -421,84 +392,61 @@ namespace Objects
 
 				Transform otherTransform = otherPixelCollider.gameObject.transform;
 
-				if (!(otherPixelCollider is MultiBodyPixelCollider))
+				if (otherPixelCollider is MultiBodyPixelCollider)
+				{
+					MultiBodyPixelCollider multi = otherPixelCollider as MultiBodyPixelCollider;
+					foreach (CollisionBody cbody in multi.collisionBodiesWorld)
+                    {
+      					cbody.Draw(Color.white, 1.0f);
+						if (collisionBody.WithinRange(cbody, Direction.NW, 0.4f))
+							restriction.restrictNW = true;
+						if (collisionBody.WithinRange(cbody, Direction.NE, 0.4f))
+							restriction.restrictNE = true;
+						if (collisionBody.WithinRange(cbody, Direction.SW, 0.4f))
+							restriction.restrictSW = true;
+						if (collisionBody.WithinRange(cbody, Direction.SE, 0.4f))
+							restriction.restrictSE = true;
+						
+                    }               
+				}
+				else if (otherPixelCollider is RampCollider)
 				{
 					Debug.Assert(otherPixelCollider.colliderPoints.Length == 4);
+					RampCollider rampCollider = (RampCollider)otherPixelCollider;
+					otherPixelCollider.collisionBodyWorld.Draw(Color.white, 1.0f);
 
-					Vector2 othertopWorld = otherPixelCollider.topWorld;
-					Vector2 otherbottomWorld = otherPixelCollider.bottomWorld;
-					Vector2 otherleftWorld = otherPixelCollider.leftWorld;
-					Vector2 otherrightWorld = otherPixelCollider.rightWorld;
+					if (rampCollider.rampDirection != Direction.NW && 
+					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 0.4f))
+						restriction.restrictNW = true;
+					if (rampCollider.rampDirection != Direction.NE && 
+					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 0.4f))
+						restriction.restrictNE = true;
+					if (rampCollider.rampDirection != Direction.SW && 
+					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 0.4f))
+						restriction.restrictSW = true;
+					if (rampCollider.rampDirection != Direction.SE && 
+					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 0.4f))
+						restriction.restrictSE = true;
 
-					Debug.DrawLine(othertopWorld, otherleftWorld, Color.white, 1.0f);
-					Debug.DrawLine(otherleftWorld, otherbottomWorld, Color.white, 1.0f);
-					Debug.DrawLine(otherbottomWorld, otherrightWorld, Color.white, 1.0f);
-					Debug.DrawLine(otherrightWorld, othertopWorld, Color.white, 1.0f);
-
-					if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 1.4 &&
-						DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
-						leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
-						leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
-						restrictNW = true;
-
-					if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
-						DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -2.0 &&
-						topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-						topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
-						restrictNE = true;
-
-					if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
-						DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 2.0 &&
-						leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
-						leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
-						restrictSW = true;
-
-					if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
-						DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 2.0 &&
-						bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-						bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
-						restrictSE = true;
+					// Slopes
+					CollisionBodyComparision bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld);
+					if (bodyComparision.Above) {
+						restriction.slopeDirection = rampCollider.rampDirection;
+						restriction.slope = rampCollider.slope;
+					}
 				}
 				else
 				{
-					MultiBodyPixelCollider multi = otherPixelCollider as MultiBodyPixelCollider;
-					foreach (CollisionBody cbody in multi.collisionBodies)
-					{
+					otherPixelCollider.collisionBodyWorld.Draw(Color.white, 1.0f);
 
-						Vector2 othertopWorld = cbody.top + (Vector2)otherTransform.position;
-						Vector2 otherbottomWorld = cbody.bottom + (Vector2)otherTransform.position;
-						Vector2 otherleftWorld = cbody.left + (Vector2)otherTransform.position;
-						Vector2 otherrightWorld = cbody.right + (Vector2)otherTransform.position;
-
-						Debug.DrawLine(othertopWorld, otherleftWorld);
-						Debug.DrawLine(otherleftWorld, otherbottomWorld);
-						Debug.DrawLine(otherbottomWorld, otherrightWorld);
-						Debug.DrawLine(otherrightWorld, othertopWorld);
-
-						if (DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 0.4 &&
-							DistanceBetween4points(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -2.0 &&
-							leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
-							leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
-							restrictNW = true;
-
-						if (DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 0.4 &&
-							DistanceBetween4points(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -2.0 &&
-							topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-							topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
-							restrictNE = true;
-
-						if (DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -0.4 &&
-							DistanceBetween4points(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 2.0 &&
-							leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
-							leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
-							restrictSW = true;
-
-						if (DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -0.4 &&
-							DistanceBetween4points(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 2.0 &&
-							bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-							bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
-							restrictSE = true;
-					}
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 0.4f))
+						restriction.restrictNW = true;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 0.4f))
+						restriction.restrictNE = true;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 0.4f))
+						restriction.restrictSW = true;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 0.4f))
+						restriction.restrictSE = true;
 				}
 			}
 
@@ -507,32 +455,19 @@ namespace Objects
 			Debug.Assert(floor != null);
 			Debug.Assert(floor.colliderPoints.Length == 4);
 
-			Vector2 floortopWorld = floor.top + (Vector2)floor.transform.position;
-			Vector2 floorbottomWorld = floor.bottom + (Vector2)floor.transform.position;
-			Vector2 floorleftWorld = floor.left + (Vector2)floor.transform.position;
-			Vector2 floorrightWorld = floor.right + (Vector2)floor.transform.position;
+			if (DistanceBetween4points(leftWorld, topWorld, floor.leftWorld, floor.topWorld) < 0.4)
+				restriction.restrictNW = true;
 
-			if (DistanceBetween4points(leftWorld, topWorld, floorleftWorld, floortopWorld) < 0.4)
-				restrictNW = true;
+			if (DistanceBetween4points(topWorld, rightWorld, floor.topWorld, floor.rightWorld) < 0.4)
+				restriction.restrictNE = true;
 
-			if (DistanceBetween4points(topWorld, rightWorld, floortopWorld, floorrightWorld) < 0.4)
-				restrictNE = true;
+			if (DistanceBetween4points(leftWorld, bottomWorld, floor.leftWorld, floor.bottomWorld) > -0.4)
+				restriction.restrictSW = true;
 
-			if (DistanceBetween4points(leftWorld, bottomWorld, floorleftWorld, floorbottomWorld) > -0.4)
-				restrictSW = true;
-
-			if (DistanceBetween4points(bottomWorld, rightWorld, floorbottomWorld, floorrightWorld) > -0.4)
-				restrictSE = true;
-
-			// Send off movement restriction
-			MovementRestriction movementRestriction = new MovementRestriction();
-
-			movementRestriction.restrictNE = restrictNE;
-			movementRestriction.restrictNW = restrictNW;
-			movementRestriction.restrictSE = restrictSE;
-			movementRestriction.restrictSW = restrictSW;
-
-			return movementRestriction;
+			if (DistanceBetween4points(bottomWorld, rightWorld, floor.bottomWorld, floor.rightWorld) > -0.4)
+				restriction.restrictSE = true;
+         
+			return restriction;
 		}
 
 		public bool CheckForWithinCollider(Vector2 position, float margin = 0.0f)
@@ -541,34 +476,12 @@ namespace Objects
 			{
 				MultiBodyPixelCollider multibody = (this as MultiBodyPixelCollider);
 
-				bool inside = false;
-				foreach (CollisionBody body in multibody.collisionBodies)
+				foreach (CollisionBody body in multibody.collisionBodiesWorld)
 				{
-					Vector2 lWorld = body.left + (Vector2) transform.position;
-					Vector2 tWorld = body.top + (Vector2) transform.position;
-					Vector2 bWorld = body.bottom + (Vector2) transform.position;
-					Vector2 rWorld = body.right + (Vector2) transform.position;
-
-					if (DistanceBetween4pointsOrthographic(lWorld, tWorld, position, position) >= margin)
-						continue;
-
-					if (DistanceBetween4pointsOrthographic(tWorld, rWorld, position, position) >= margin)
-						continue;
-                    
-					if (DistanceBetween4pointsOrthographic(lWorld, bWorld, position, position) <= -margin)
-						continue;
-                    
-					if (DistanceBetween4pointsOrthographic(bWorld, rWorld, position, position) <= -margin)
-						continue;
-
-					// We are inside one of the blocks
-					inside = true;
-					break;
+					bool withinBody = body.WithinCollisionBody(position, margin);
+					if (withinBody) return true;
 				}
-				if (inside)
-					return true;
-				else
-					return false;
+				return false;
 			}
 			else
 			{
@@ -578,20 +491,9 @@ namespace Objects
 				}
 				Debug.Assert(this.colliderPoints.Length == 4);
 
-				if (DistanceBetween4pointsOrthographic(leftWorld, topWorld, position, position) >= margin)
-					return false;
-
-				if (DistanceBetween4pointsOrthographic(topWorld, rightWorld, position, position) >= margin)
-					return false;
-
-				if (DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, position, position) <= -margin)
-					return false;
-
-				if (DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, position, position) <= -margin)
-					return false;
+				bool withinBody = collisionBodyWorld.WithinCollisionBody(position, margin);
+				return withinBody;
 			}
-
-			return true;
 		}
 
 		public static float DistanceBetween4points(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
@@ -654,8 +556,8 @@ namespace Objects
 				MultiBodyPixelCollider a = this as MultiBodyPixelCollider;
 				MultiBodyPixelCollider b = other as MultiBodyPixelCollider;
 
-				Debug.Assert(a.collisionBodies.Count() > 0);
-				Debug.Assert(b.collisionBodies.Count() > 0);
+				Debug.Assert(a.collisionBodiesWorld.Count() > 0);
+				Debug.Assert(b.collisionBodiesWorld.Count() > 0);
 
 				// Find the front most box of all the boxes
 
@@ -664,7 +566,7 @@ namespace Objects
 				{
 					for (int j = 0; j < b.collisionBodies.Count(); ++j)
 					{
-						int comp = CompareTwoCollisionBoxes(a.collisionBodies[i], (Vector2)a.transform.position, b.collisionBodies[j], (Vector2)b.transform.position).inFront;
+						int comp = CollisionBody.CompareTwoCollisionBodies(a.collisionBodiesWorld[i], b.collisionBodiesWorld[j]).inFront;
 						if (comp == 1)
 							comparison = 1;
 						if (comp == -1)
@@ -687,17 +589,13 @@ namespace Objects
 					single = other;
 				}
 
-				CollisionBody singleBody;
-				singleBody.top = single.top;
-				singleBody.bottom = single.bottom;
-				singleBody.left = single.left;
-				singleBody.right = single.right;
+				CollisionBody singleBody = single.collisionBodyWorld;
 
 				// If any of the multi are in front of the single, multi wins
 				int multiInFront = 0;
-				for (int i = 0; i < multi.collisionBodies.Count(); ++i)
+				for (int i = 0; i < multi.collisionBodiesWorld.Count(); ++i)
 				{
-					int comp = CompareTwoCollisionBoxes(multi.collisionBodies[i], (Vector2)multi.transform.position, singleBody, single.transform.position).inFront;
+					int comp = CollisionBody.CompareTwoCollisionBodies(multi.collisionBodiesWorld[i], singleBody).inFront;
 					if (comp == 1) multiInFront = 1;
 					if (comp == -1) multiInFront = -1;
 				}
@@ -719,72 +617,13 @@ namespace Objects
 				Debug.Assert(this.colliderPoints.Length == 4);
 				Debug.Assert(other.colliderPoints.Length == 4);
 
-				CollisionBody a;
-				a.top = this.top;
-				a.bottom = this.bottom;
-				a.left = this.left;
-				a.right = this.right;
+				CollisionBody a = collisionBodyWorld;
+				CollisionBody b = other.collisionBodyWorld;
 
-				CollisionBody b;
-				b.top = other.top;
-				b.bottom = other.bottom;
-				b.left = other.left;
-				b.right = other.right;
-
-				return CompareTwoCollisionBoxes(a, (Vector2)this.transform.position, b, (Vector2)other.transform.position).inFront;
+				return CollisionBody.CompareTwoCollisionBodies(a, b).inFront;
 				//Debug.Log("Comparison: " + transform.parent.name + " - " + other.transform.parent.name + ": " + comparison);
 			}
 			return comparison;
-		}
-
-		CollisionBodyComparision CompareTwoCollisionBoxes(CollisionBody a, Vector2 aPosition, CollisionBody b, Vector2 bPosition)
-		{
-			Vector2 atopWorld = a.top + aPosition;
-			Vector2 abottomWorld = a.bottom + aPosition;
-			Vector2 aleftWorld = a.left + aPosition;
-			Vector2 arightWorld = a.right + aPosition;
-
-			Vector2 btopWorld = b.top + bPosition;
-			Vector2 bbottomWorld = b.bottom + bPosition;
-			Vector2 bleftWorld = b.left + bPosition;
-			Vector2 brightWorld = b.right + bPosition;
-
-			CollisionBodyComparision collisionBodyComparision = new CollisionBodyComparision();
-
-			if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
-				if (aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y)
-					collisionBodyComparision.NWoverlap = true;
-            
-			if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
-				if (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y)
-				    collisionBodyComparision.NEoverlap = true;
-
-			if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
-				if (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y)
-				    collisionBodyComparision.SEoverlap = true;
-
-			if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
-				if (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y)
-				    collisionBodyComparision.SWoverlap = true;
-             
-			if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
-			    if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
-				    collisionBodyComparision.Noverlap = true;
-
-			if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
-			    if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
-				    collisionBodyComparision.Soverlap = true;
-
-			if (DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -2.5)
-			    if (DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -2.5)
-				    collisionBodyComparision.Woverlap = true;
-            
-			if (DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -2.5)
-			    if (DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -2.5)
-                    collisionBodyComparision.Eoverlap = true;
-			
-
-			return collisionBodyComparision;
 		}
 
 		public bool ParentIsContainer()
@@ -984,9 +823,4 @@ namespace Objects
 			Gizmos.DrawSphere(rightWorld, 0.3f);
         }
 	}
- 
-    public struct PixelCollision {
-        public Direction direction;
-        public PixelCollider pixelCollider;
-    }
 }
