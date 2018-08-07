@@ -27,6 +27,8 @@ namespace Objects.Movable.Characters.Individuals
 
 		bool controllable => !positionLocked && currentlySpeakingTo == null;
 
+		int step = 0;
+		int stepAccumulator = 0;
 		protected override Vector2 inputVelocity
 		{
 			get {
@@ -50,35 +52,48 @@ namespace Objects.Movable.Characters.Individuals
                 if (pixelCollider != null)
                     mr = pixelCollider.CheckForCollision();
 
-				float lr = 2;
-				float ud = 1;
+                // 1 applies to going NW or SE, 2 applies to going NE or SW
+				int LR1 = 2;
+				int LR2 = 2;
+				int UD1 = 1;
+				int UD2 = 1;
 
 				if (mr.slopeDirection != Direction.All) {
-					Debug.Log("hi");
+					step = step + 1;
+                    int newAccumulator = (int)(step * mr.slope * 2);
+
 					if (mr.slopeDirection == Direction.NE || mr.slopeDirection == Direction.SW)
 					{
-						ud = ud * (1 + mr.slope);
-						lr = lr / (1 + mr.slope);
+						if (newAccumulator != stepAccumulator) {
+							UD1 = UD1 + newAccumulator - stepAccumulator;
+							stepAccumulator = newAccumulator;
+						}
+					}
+					else {
+						if (newAccumulator != stepAccumulator) {
+                            UD2 = UD2 + newAccumulator - stepAccumulator;
+                            stepAccumulator = newAccumulator;
+                        }
 					}
 				}
 
 				if (Input.GetAxisRaw("Horizontal") > 0 && mr.restrictNE)
-					facingDirection = new Vector2(lr, ud);
+					facingDirection = new Vector2(LR1, UD1);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && mr.restrictSW)
-					facingDirection = new Vector2(-lr, -ud);
+					facingDirection = new Vector2(-LR1, -UD1);
                 else if (Input.GetAxisRaw("Vertical") > 0 && mr.restrictNW)
-					facingDirection = new Vector2(-lr, ud);
+					facingDirection = new Vector2(-LR2, UD2);
                 else if (Input.GetAxisRaw("Vertical") < -0 && mr.restrictSE)
-					facingDirection = new Vector2(lr, -ud);
+					facingDirection = new Vector2(LR2, -LR2);
                 
                 if (Input.GetAxisRaw("Horizontal") > 0 && !mr.restrictNE)
-                    return new Vector2(lr, ud);
+                    return new Vector2(LR1, UD1);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && !mr.restrictSW)
-                    return new Vector2(-lr, -ud);
+                    return new Vector2(-LR1, -UD1);
                 else if (Input.GetAxisRaw("Vertical") > 0 && !mr.restrictNW)
-                    return new Vector2(-lr, ud);
+					return new Vector2(-LR2, UD2);
                 else if (Input.GetAxisRaw("Vertical") < -0 && !mr.restrictSE)
-                    return new Vector2(lr, -ud);
+					return new Vector2(LR2, -UD2);
                 return Vector2.zero;
 			}
 		}

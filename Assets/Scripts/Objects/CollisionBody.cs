@@ -20,7 +20,7 @@ namespace Objects
 			this.bottom = bottom;
 		}
 
-		public static CollisionBodyComparision CompareTwoCollisionBodies(CollisionBody a, CollisionBody b) {
+		public static CollisionBodyComparison CompareTwoCollisionBodies(CollisionBody a, CollisionBody b, float margin = 0.0f) {
 			Vector2 atopWorld = a.top;
             Vector2 abottomWorld = a.bottom;
             Vector2 aleftWorld = a.left;
@@ -31,14 +31,17 @@ namespace Objects
             Vector2 bleftWorld = b.left;
             Vector2 brightWorld = b.right;
 
-            CollisionBodyComparision collisionBodyComparision = new CollisionBodyComparision();
+            CollisionBodyComparison collisionBodyComparision = new CollisionBodyComparison();
 
-            float margin = 2.5f;
+			bool aTopLeft = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -margin;
+			bool aTopRight = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -margin;
+			bool aBottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -margin;
+			bool aBottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -margin;
 
-            bool aTopLeft = PixelCollider.DistanceBetween4points(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -margin;
-			bool aTopRight = PixelCollider.DistanceBetween4points(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -margin;
-			bool aBottomRight = PixelCollider.DistanceBetween4points(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -margin;
-			bool aBottomLeft = PixelCollider.DistanceBetween4points(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -margin;
+			bool aTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
+			bool aTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
+			bool aBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, aleftWorld, atopWorld) >= -margin;
+			bool aBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, atopWorld, arightWorld) >= -margin;
 
             // Sides Inclusive
             if (aTopLeft)
@@ -73,6 +76,12 @@ namespace Objects
 				collisionBodyComparision.Below = true;
                      
             return collisionBodyComparision;
+		}
+
+		public CollisionBodyComparison CompareWith(CollisionBody other, float margin = 0.0f) {
+			CollisionBodyComparison bodyComparison = CompareTwoCollisionBodies(this, other, margin);
+                     
+			return bodyComparison;
 		}
 
         // Within Range of a collisionBody
@@ -167,7 +176,7 @@ namespace Objects
 		}
     }
 
-    public class CollisionBodyComparision
+    public class CollisionBodyComparison
     {
         // Inclusive means partial overlap is allowed, Exclusive means no partial overlap allowed
 

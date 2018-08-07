@@ -429,8 +429,9 @@ namespace Objects
 						restriction.restrictSE = true;
 
 					// Slopes
-					CollisionBodyComparision bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld);
+					CollisionBodyComparison bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld, 0.0f);
 					if (bodyComparision.Above) {
+						Debug.Log("Above");
 						restriction.slopeDirection = rampCollider.rampDirection;
 						restriction.slope = rampCollider.slope;
 					}
