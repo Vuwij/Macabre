@@ -377,7 +377,7 @@ namespace Objects
 			Vector3 castStart = transform.position;
 			castStart.z = -10.0f;
 
-			RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius, Vector2.zero);
+			RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 10.0f, Vector2.zero);
 
 			MovementRestriction restriction = new MovementRestriction();
 
@@ -429,11 +429,35 @@ namespace Objects
 						restriction.restrictSE = true;
 
 					// Slopes
-					CollisionBodyComparison bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld, 0.0f);
+					CollisionBodyComparison bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld, 0.0f, true);
 					if (bodyComparision.Above) {
-						Debug.Log("Above");
+						Debug.Log("Inside Ramp");
+
+						// Draw the ramps
+						rampCollider.collisionBodyRampedWorld.Draw(Color.magenta, 2.0f);
+						CollisionBody cramped = rampCollider.MatchCollisionBody(collisionBodyWorld);
+						cramped.Draw(Color.magenta, 2.0f);
+
+                        // Ramp Collision mechanics
+						restriction.restrictNE = false;
+						restriction.restrictNW = false;
+						restriction.restrictSE = false;
+						restriction.restrictSW = false;
+
+                        // Collision Within
+						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.NW, 0.0f))
+                            restriction.restrictNW = true;
+						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.NE, 0.0f))
+                            restriction.restrictNE = true;
+						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.SW, 0.0f))
+                            restriction.restrictSW = true;
+						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.SE, 0.0f))
+                            restriction.restrictSE = true;
+
 						restriction.slopeDirection = rampCollider.rampDirection;
 						restriction.slope = rampCollider.slope;
+
+						return restriction; // Ignore floor colliders
 					}
 				}
 				else
@@ -456,17 +480,11 @@ namespace Objects
 			Debug.Assert(floor != null);
 			Debug.Assert(floor.colliderPoints.Length == 4);
 
-			if (DistanceBetween4points(leftWorld, topWorld, floor.leftWorld, floor.topWorld) < 0.4)
-				restriction.restrictNW = true;
-
-			if (DistanceBetween4points(topWorld, rightWorld, floor.topWorld, floor.rightWorld) < 0.4)
-				restriction.restrictNE = true;
-
-			if (DistanceBetween4points(leftWorld, bottomWorld, floor.leftWorld, floor.bottomWorld) > -0.4)
-				restriction.restrictSW = true;
-
-			if (DistanceBetween4points(bottomWorld, rightWorld, floor.bottomWorld, floor.rightWorld) > -0.4)
-				restriction.restrictSE = true;
+			CollisionBodyComparison cbc = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, -0.4f);
+			if (!cbc.NWinside) restriction.restrictSE = true;
+			if (!cbc.NEinside) restriction.restrictSW = true;
+			if (!cbc.SWinside) restriction.restrictNE = true;
+			if (!cbc.SEinside) restriction.restrictNW = true;
          
 			return restriction;
 		}

@@ -20,7 +20,7 @@ namespace Objects
 			this.bottom = bottom;
 		}
 
-		public static CollisionBodyComparison CompareTwoCollisionBodies(CollisionBody a, CollisionBody b, float margin = 0.0f) {
+		public static CollisionBodyComparison CompareTwoCollisionBodies(CollisionBody a, CollisionBody b, float margin = 0.0f, bool debug = false) {
 			Vector2 atopWorld = a.top;
             Vector2 abottomWorld = a.bottom;
             Vector2 aleftWorld = a.left;
@@ -37,11 +37,29 @@ namespace Objects
 			bool aTopRight = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -margin;
 			bool aBottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -margin;
 			bool aBottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -margin;
+            
+			bool bTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(bbottomWorld, brightWorld, abottomWorld, arightWorld) >= -margin;
+			bool bTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, bbottomWorld, aleftWorld, abottomWorld) >= -margin;
+			bool bBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
+			bool bBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
 
-			bool aTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
-			bool aTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
-			bool aBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, aleftWorld, atopWorld) >= -margin;
-			bool aBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, atopWorld, arightWorld) >= -margin;
+			collisionBodyComparision.NEinside = bTopLeftWithin;
+			collisionBodyComparision.NWinside = bTopRightWithin;
+			collisionBodyComparision.SEinside = bBottomLeftWithin;
+			collisionBodyComparision.SWinside = bBottomRightWithin;
+
+			// Debugging Tools
+			if (debug) {
+				if (bTopLeftWithin) Debug.DrawLine(bbottomWorld, brightWorld, Color.blue, 1.0f);
+				if (bTopRightWithin) Debug.DrawLine(bleftWorld, bbottomWorld, Color.blue, 1.0f);
+				if (bBottomRightWithin) Debug.DrawLine(bleftWorld, btopWorld, Color.blue, 1.0f);
+				if (bBottomLeftWithin) Debug.DrawLine(btopWorld, brightWorld, Color.blue, 1.0f);
+                
+				//if (aTopLeft) Debug.DrawLine(bbottomWorld, brightWorld, Color.red, 0.3f);
+				//if (aTopRight) Debug.DrawLine(bleftWorld, bbottomWorld, Color.red, 0.3f);
+				//if (aBottomRight) Debug.DrawLine(bleftWorld, btopWorld, Color.red, 0.3f);
+				//if (aBottomLeft) Debug.DrawLine(btopWorld, brightWorld, Color.red, 0.3f);            
+			}
 
             // Sides Inclusive
             if (aTopLeft)
@@ -69,12 +87,14 @@ namespace Objects
             if (aBottomRight && !aBottomLeft && !aTopRight) collisionBodyComparision.SWexclusive = true;
 
 			// Above and Below
-			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (!aBottomLeft || !aBottomRight))
+			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bTopLeftWithin && bTopRightWithin))
 				collisionBodyComparision.Above = true;
 
-			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (!aTopLeft || !aTopRight))
+			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bBottomLeftWithin && bBottomRightWithin))
 				collisionBodyComparision.Below = true;
-                     
+            
+            // Within
+
             return collisionBodyComparision;
 		}
 
@@ -200,8 +220,15 @@ namespace Objects
         public bool Einclusive => Eexclusive || (NEinclusive && !NEexclusive) || (SEinclusive && !SEexclusive);
         public bool Winclusive => Wexclusive || (NWinclusive && !NWexclusive) || (SWinclusive && !SWexclusive);
 
+		public bool NEinside;
+		public bool NWinside;
+		public bool SEinside;
+		public bool SWinside;
+
 		public bool Above;
 		public bool Below;
+
+		public bool Within => Above && Below;
 
         public int inFront
         {

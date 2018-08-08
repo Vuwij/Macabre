@@ -22,11 +22,13 @@ namespace Objects
 				return height / dist;	
 			}
 		}
-
+        
 		public Vector2 topWorldElevated => (rampDirection == Direction.NW || rampDirection == Direction.NE) ? topWorld + new Vector2(0.0f, height) : topWorld;
 		public Vector2 bottomWorldElevated => (rampDirection == Direction.SW || rampDirection == Direction.SE) ? bottomWorld + new Vector2(0.0f, height) : bottomWorld;
 		public Vector2 leftWorldElevated => (rampDirection == Direction.NW || rampDirection == Direction.SW) ? leftWorld + new Vector2(0.0f, height) : leftWorld;
 		public Vector2 rightWorldElevated => (rampDirection == Direction.NE || rampDirection == Direction.SE) ? rightWorld + new Vector2(0.0f, height) : rightWorld;
+        
+		public CollisionBody collisionBodyRampedWorld => new CollisionBody(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
         
 		public override void OnDrawGizmos()
 		{
@@ -37,6 +39,22 @@ namespace Objects
 			Gizmos.DrawLine(rightWorldElevated, topWorldElevated);
 
 			base.OnDrawGizmos();
+		}
+
+		public CollisionBody MatchCollisionBody(CollisionBody input) {
+			float h = 0.0f;
+			if (rampDirection == Direction.NE || rampDirection == Direction.SW)
+				h = slope * Vector2.Distance(input.bottom, input.right);
+            if (rampDirection == Direction.SE || rampDirection == Direction.NW)
+				h = slope * Vector2.Distance(input.bottom, input.left);
+            
+			Vector2 inputTopWorldElevated = (rampDirection == Direction.NW || rampDirection == Direction.NE) ? input.top + new Vector2(0.0f, h) : input.top;
+			Vector2 inputbottomWorldElevated = (rampDirection == Direction.SW || rampDirection == Direction.SE) ? input.bottom + new Vector2(0.0f, h) : input.bottom;
+			Vector2 inputleftWorldElevated = (rampDirection == Direction.NW || rampDirection == Direction.SW) ? input.left + new Vector2(0.0f, h) : input.left;
+			Vector2 inputrightWorldElevated = (rampDirection == Direction.NE || rampDirection == Direction.SE) ? input.right + new Vector2(0.0f, h) : input.right;
+
+			CollisionBody cbody = new CollisionBody(inputTopWorldElevated, inputleftWorldElevated, inputrightWorldElevated, inputbottomWorldElevated);
+			return cbody;
 		}
 	}
 }
