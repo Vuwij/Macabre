@@ -12,6 +12,13 @@ namespace Objects
         public Vector2 left;
         public Vector2 right;
         public Vector2 bottom;
+		public Vector2 center => (top + left + right + bottom) / 4;
+		public Vector2 topLeft => (top + left) / 2;
+		public Vector2 topRight => (top + right) / 2;
+		public Vector2 bottomLeft => (bottom + left) / 2;
+		public Vector2 bottomRight => (bottom + right) / 2;
+		public float distLeft => Vector2.Distance(topLeft, bottomRight);
+		public float distRight => Vector2.Distance(topRight, bottomLeft);
 
 		public CollisionBody(Vector2 top, Vector2 left, Vector2 right, Vector2 bottom) {
 			this.top = top;
@@ -38,8 +45,8 @@ namespace Objects
 			bool aBottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -margin;
 			bool aBottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -margin;
             
-			bool bTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(bbottomWorld, brightWorld, abottomWorld, arightWorld) >= -margin;
-			bool bTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, bbottomWorld, aleftWorld, abottomWorld) >= -margin;
+			bool bTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, bbottomWorld, aleftWorld, abottomWorld) >= -margin;
+			bool bTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bbottomWorld, brightWorld, abottomWorld, arightWorld) >= -margin;
 			bool bBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
 			bool bBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
 
@@ -61,24 +68,34 @@ namespace Objects
 				//if (aBottomLeft) Debug.DrawLine(btopWorld, brightWorld, Color.red, 0.3f);            
 			}
 
-            // Sides Inclusive
+			// Sides Vertical
             if (aTopLeft)
-                collisionBodyComparision.NWinclusive |= (aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y);
+                collisionBodyComparision.NWvertical |= (aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y);
 
             if (aTopRight)
-                collisionBodyComparision.NEinclusive |= (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y);
+                collisionBodyComparision.NEvertical |= (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y);
 
             if (aBottomRight)
-                collisionBodyComparision.SEinclusive |= (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y);
+                collisionBodyComparision.SEvertical |= (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y);
 
             if (aBottomLeft)
-                collisionBodyComparision.SWinclusive |= (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y);
-
+                collisionBodyComparision.SWvertical |= (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y);
+                
             // Corners Exclusive
             if (aTopLeft && aTopRight) collisionBodyComparision.Nexclusive = true;
             if (aTopLeft && aBottomLeft) collisionBodyComparision.Wexclusive = true;
             if (aBottomLeft && aBottomRight) collisionBodyComparision.Sexclusive = true;
             if (aBottomRight && aTopRight) collisionBodyComparision.Eexclusive = true;
+
+            // Diagonal Inclusive
+			if (bBottomLeftWithin && bTopRightWithin) collisionBodyComparision.NEandSWexclusive = true;
+			if (bTopLeftWithin && bBottomRightWithin) collisionBodyComparision.NWandSEexclusive = true;
+
+			// Sides Inclusive
+			if (aTopLeft && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.NWinclusive = true;
+			if (aBottomRight && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.SEinclusive = true;
+			if (aTopRight && (bTopLeftWithin || bBottomRightWithin)) collisionBodyComparision.NEinclusive = true;
+			if (aBottomLeft && (bTopLeftWithin || bBottomRightWithin)) collisionBodyComparision.SWinclusive = true;
 
             // Sides Exclusive
             if (aTopLeft && !aTopRight && !aBottomLeft) collisionBodyComparision.NWexclusive = true;
@@ -93,7 +110,6 @@ namespace Objects
 			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bBottomLeftWithin && bBottomRightWithin))
 				collisionBodyComparision.Below = true;
             
-            // Within
 
             return collisionBodyComparision;
 		}
@@ -105,11 +121,11 @@ namespace Objects
 		}
 
         // Within Range of a collisionBody
-		public bool WithinRange(CollisionBody other, Direction direction, float distance = 0.4f) {
+		public bool WithinRange(CollisionBody other, Direction direction, float distance = 0.4f, float negDistance = 2.0f) {
 			if (direction == Direction.NW)
 			{
 				if (PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -negDistance &&
 					left.x < (other.right.x) && top.x > (other.bottom.x) &&
 					left.y < (other.right.y) && top.y > (other.bottom.y))
 					return true;
@@ -118,7 +134,7 @@ namespace Objects
 			else if (direction == Direction.NE)
 			{
 				if (PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) > -2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) > -negDistance &&
 				    top.x < (other.bottom.x) && right.x > (other.left.x) &&
 				    top.y > (other.bottom.y) && right.y < (other.left.y))
 					return true;
@@ -127,7 +143,7 @@ namespace Objects
 			else if (direction == Direction.SW)
 			{
 				if (PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) < 2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) < negDistance &&
 					left.x < (other.right.x) && bottom.x > (other.top.x) &&
 					left.y > (other.right.y) && bottom.y < (other.top.y))
 					return true;
@@ -136,7 +152,7 @@ namespace Objects
 			else if (direction == Direction.SE)
 			{
 				if (PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) < 2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) < negDistance &&
 					bottom.x < (other.top.x) && right.x > (other.left.x) &&
 					bottom.y < (other.top.y) && right.y > (other.left.y))
 					return true;
@@ -145,22 +161,22 @@ namespace Objects
 			else if (direction == Direction.All)
 			{
 				if (PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -negDistance &&
                     left.x < (other.right.x) && top.x > (other.bottom.x) &&
                     left.y < (other.right.y) && top.y > (other.bottom.y))
                     return true;
 				if (PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) > -2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) > -negDistance &&
                     top.x < (other.bottom.x) && right.x > (other.left.x) &&
                     top.y > (other.bottom.y) && right.y < (other.left.y))
                     return true;
 				if (PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) < 2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) < negDistance &&
                     left.x < (other.right.x) && bottom.x > (other.top.x) &&
                     left.y > (other.right.y) && bottom.y < (other.top.y))
                     return true;
 				if (PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) < 2.0 &&
+				    PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) < negDistance &&
                     bottom.x < (other.top.x) && right.x > (other.left.x) &&
                     bottom.y < (other.top.y) && right.y > (other.left.y))
                     return true;
@@ -200,11 +216,16 @@ namespace Objects
     {
         // Inclusive means partial overlap is allowed, Exclusive means no partial overlap allowed
 
-        public bool NEinclusive;
-        public bool NWinclusive;
-        public bool SEinclusive;
-        public bool SWinclusive;
+        public bool NEvertical;
+        public bool NWvertical;
+        public bool SEvertical;
+        public bool SWvertical;
 
+		public bool NEinclusive;
+		public bool NWinclusive;
+		public bool SEinclusive;
+		public bool SWinclusive;
+        
         public bool NEexclusive;
         public bool NWexclusive;
         public bool SEexclusive;
@@ -215,10 +236,13 @@ namespace Objects
         public bool Eexclusive;
         public bool Wexclusive;
 
-        public bool Ninclusive => Nexclusive || (NEinclusive && !NEexclusive) || (NWinclusive && !NWexclusive);
-        public bool Sinclusive => Sexclusive || (SEinclusive && !SEexclusive) || (SWinclusive && !SWexclusive);
-        public bool Einclusive => Eexclusive || (NEinclusive && !NEexclusive) || (SEinclusive && !SEexclusive);
-        public bool Winclusive => Wexclusive || (NWinclusive && !NWexclusive) || (SWinclusive && !SWexclusive);
+		public bool NEandSWexclusive;
+		public bool NWandSEexclusive;
+
+        public bool Ninclusive => Nexclusive || (NEvertical && !NEexclusive) || (NWvertical && !NWexclusive);
+        public bool Sinclusive => Sexclusive || (SEvertical && !SEexclusive) || (SWvertical && !SWexclusive);
+        public bool Einclusive => Eexclusive || (NEvertical && !NEexclusive) || (SEvertical && !SEexclusive);
+        public bool Winclusive => Wexclusive || (NWvertical && !NWexclusive) || (SWvertical && !SWexclusive);
 
 		public bool NEinside;
 		public bool NWinside;
@@ -234,9 +258,9 @@ namespace Objects
         {
             get
             {
-                if (NEinclusive || NWinclusive)
+                if (NEvertical || NWvertical)
                     return 1;
-                else if (SEinclusive || SWinclusive)
+                else if (SEvertical || SWvertical)
                     return -1;
                 else return 0;
             }

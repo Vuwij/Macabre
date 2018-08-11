@@ -58,9 +58,10 @@ namespace Objects.Movable.Characters.Individuals
 				int UD1 = 1;
 				int UD2 = 1;
 
+                // Ramps
 				if (mr.slopeDirection != Direction.All) {
 					step = step + 1;
-                    int newAccumulator = (int)(step * mr.slope * 2);
+					int newAccumulator = (int)(step * Mathf.Abs(mr.slope) * 2);
 
 					if (mr.slopeDirection == Direction.NE || mr.slopeDirection == Direction.SW)
 					{
@@ -74,6 +75,10 @@ namespace Objects.Movable.Characters.Individuals
                             UD2 = UD2 + newAccumulator - stepAccumulator;
                             stepAccumulator = newAccumulator;
                         }
+					}
+
+					if (mr.enteredDoor != null) {
+						EnterDoor(mr.enteredDoor);
 					}
 				}
 

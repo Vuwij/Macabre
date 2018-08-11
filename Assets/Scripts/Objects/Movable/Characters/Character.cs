@@ -11,17 +11,9 @@ namespace Objects.Movable.Characters
 {
 	public abstract class Character : MovableObject
     {
-		protected Animator animator
-		{
-			get
-			{
-				return GetComponentInChildren<Animator>();
-			}
-		}
+		protected Animator animator { get { return GetComponentInChildren<Animator>(); }}
 
-        protected virtual Vector2 inputVelocity {
-            get; set;
-        }
+		protected virtual Vector2 inputVelocity { get; set; }
 
 		public int orientationX
 		{
@@ -239,6 +231,7 @@ namespace Objects.Movable.Characters
 			PixelRoom room = door.destination;
             Transform originalroom = transform.parent;
 
+			Vector2 originalposition = transform.position;
 			transform.parent = null; // Prevents disabling the player
 
 			originalroom.gameObject.SetActive(false);
@@ -246,9 +239,11 @@ namespace Objects.Movable.Characters
 
 			Vector2 destinationOffset = door.dropOffWorldLocation;
             facingDirection = destinationOffset - (Vector2)transform.position;
-            transform.position = destinationOffset;
+			if (!(door is PixelStair))
+				transform.position = destinationOffset;
+
             transform.parent = room.transform;
-                     
+
             room.OnEnable();
 
             UpdateSortingLayer();
@@ -256,6 +251,9 @@ namespace Objects.Movable.Characters
             CancelInvoke("Movement");
             AnimateMovement();
             InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
+
+			if (door is PixelStair)
+                transform.position = originalposition;
 
             return;
 		}

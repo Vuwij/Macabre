@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Objects.Movable.Characters;
 
 namespace Objects
 {
@@ -18,6 +19,7 @@ namespace Objects
 
 			public Direction slopeDirection = Direction.All;
 			public float slope = 0.0f;
+			public PixelDoor enteredDoor;
 		}
 
 		public Vector2 topLeft => (top + left) / 2;
@@ -250,10 +252,6 @@ namespace Objects
 				}
 			}
 
-			//foreach(var adj in adjacencyList) {
-			//    Debug.Log(adj.Key.transform.parent.name + " -> " + adj.Value.transform.parent.name);            
-			//}
-
 			// Kahn's Algorithm
 			List<PixelCollider> sortedPixelColliders = new List<PixelCollider>();
 			List<PixelCollider> noIncomingEdgeColliders = new List<PixelCollider>();
@@ -381,6 +379,17 @@ namespace Objects
 
 			MovementRestriction restriction = new MovementRestriction();
 
+			// Collided with floor
+            PixelRoom floor = transform.parent.parent.GetComponent<PixelRoom>();
+            Debug.Assert(floor != null);
+            Debug.Assert(floor.colliderPoints.Length == 4);
+
+            CollisionBodyComparison cbc = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, -0.4f);
+            if (!cbc.NWinside) restriction.restrictSE = true;
+            if (!cbc.NEinside) restriction.restrictSW = true;
+            if (!cbc.SWinside) restriction.restrictNE = true;
+            if (!cbc.SEinside) restriction.restrictNW = true;
+
 			// Collided with other object
 			foreach (RaycastHit2D raycastHit in castStar)
 			{
@@ -415,24 +424,32 @@ namespace Objects
 					RampCollider rampCollider = (RampCollider)otherPixelCollider;
 					otherPixelCollider.collisionBodyWorld.Draw(Color.white, 1.0f);
 
-					if (rampCollider.rampDirection != Direction.NW && 
-					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 0.4f))
-						restriction.restrictNW = true;
-					if (rampCollider.rampDirection != Direction.NE && 
-					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 0.4f))
-						restriction.restrictNE = true;
-					if (rampCollider.rampDirection != Direction.SW && 
-					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 0.4f))
-						restriction.restrictSW = true;
-					if (rampCollider.rampDirection != Direction.SE && 
-					    collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 0.4f))
-						restriction.restrictSE = true;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 0.4f))
+                        restriction.restrictNW = true;
+                    if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 0.4f))
+                        restriction.restrictNE = true;
+                    if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 0.4f))
+                        restriction.restrictSW = true;
+                    if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 0.4f))
+                        restriction.restrictSE = true;
 
 					// Slopes
 					CollisionBodyComparison bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld, 0.0f, true);
-					if (bodyComparision.Above) {
-						Debug.Log("Inside Ramp");
 
+					// Close to the ramp collision (remove the wall collision)
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 0.4f, navigationMargin * 2) &&
+					    restriction.restrictSE && bodyComparision.NWandSEexclusive) restriction.restrictSE = false;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 0.4f, navigationMargin * 2) && 
+					    restriction.restrictSW && bodyComparision.NEandSWexclusive) restriction.restrictSW = false;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 0.4f, navigationMargin * 2) && 
+					    restriction.restrictNE && bodyComparision.NEandSWexclusive) restriction.restrictNE = false;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 0.4f, navigationMargin * 2) && 
+					    restriction.restrictNW && bodyComparision.NWandSEexclusive) restriction.restrictNW = false;
+                    
+                    // Within The Ramp
+					if ((rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparision.Above ||
+					    (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparision.Below) {
+                        
 						// Draw the ramps
 						rampCollider.collisionBodyRampedWorld.Draw(Color.magenta, 2.0f);
 						CollisionBody cramped = rampCollider.MatchCollisionBody(collisionBodyWorld);
@@ -443,19 +460,26 @@ namespace Objects
 						restriction.restrictNW = false;
 						restriction.restrictSE = false;
 						restriction.restrictSW = false;
-
-                        // Collision Within
-						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.NW, 0.0f))
-                            restriction.restrictNW = true;
-						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.NE, 0.0f))
-                            restriction.restrictNE = true;
-						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.SW, 0.0f))
-                            restriction.restrictSW = true;
-						if (rampCollider.collisionBodyRampedWorld.WithinRange(cramped, Direction.SE, 0.0f))
-                            restriction.restrictSE = true;
-
+                        
+                        // Collision with side of ramp
+						CollisionBodyComparison cbcRamp = CollisionBody.CompareTwoCollisionBodies(cramped, rampCollider.collisionBodyRampedWorld, -0.4f);
+						if (!cbcRamp.NWinside && rampCollider.rampDirection != Direction.SE && rampCollider.rampDirection != Direction.NW) restriction.restrictSE = true;
+						if (!cbcRamp.NEinside && rampCollider.rampDirection != Direction.SW && rampCollider.rampDirection != Direction.NE) restriction.restrictSW = true;
+						if (!cbcRamp.SWinside && rampCollider.rampDirection != Direction.NE && rampCollider.rampDirection != Direction.SW) restriction.restrictNE = true;
+						if (!cbcRamp.SEinside && rampCollider.rampDirection != Direction.NW && rampCollider.rampDirection != Direction.SE) restriction.restrictNW = true;
+                                                
 						restriction.slopeDirection = rampCollider.rampDirection;
 						restriction.slope = rampCollider.slope;
+
+                        // Check for room entry
+						PixelStair pixelStair = otherPixelCollider.transform.parent.GetComponent<PixelStair>();
+                        if (pixelStair != null)
+                        {
+                            bool above = rampCollider.OnFarSide(cramped);
+							if (above) {
+								restriction.enteredDoor = pixelStair;
+							}
+                        }   
 
 						return restriction; // Ignore floor colliders
 					}
@@ -474,17 +498,6 @@ namespace Objects
 						restriction.restrictSE = true;
 				}
 			}
-
-			// Collided with floor
-			PixelRoom floor = transform.parent.parent.GetComponent<PixelRoom>();
-			Debug.Assert(floor != null);
-			Debug.Assert(floor.colliderPoints.Length == 4);
-
-			CollisionBodyComparison cbc = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, -0.4f);
-			if (!cbc.NWinside) restriction.restrictSE = true;
-			if (!cbc.NEinside) restriction.restrictSW = true;
-			if (!cbc.SWinside) restriction.restrictNE = true;
-			if (!cbc.SEinside) restriction.restrictNW = true;
          
 			return restriction;
 		}
@@ -631,6 +644,19 @@ namespace Objects
 						comparison = 1;
 				}
 			}
+			//else if (other is RampCollider && transform.parent.GetComponent<Character>() != null)
+			//{
+			//	//RampCollider rampCollider = other as RampCollider;
+			//	//CollisionBodyComparison bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, rampCollider.collisionBodyWorld, 0.0f, true);
+			//	//if ((rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparision.Above ||
+			//	//		(rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparision.Below)
+			//	//{
+			//	//	comparison = 1;
+			//	//	Debug.Log("here");
+			//	//}
+			//	Debug.Log("hi");
+			//	comparison = 1;
+			//}
 			else
 			{
 				Debug.Assert(this.colliderPoints.Length == 4);
