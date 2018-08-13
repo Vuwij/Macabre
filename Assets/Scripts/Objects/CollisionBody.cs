@@ -45,22 +45,22 @@ namespace Objects
 			bool aBottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -margin;
 			bool aBottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -margin;
             
-			bool bTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, bbottomWorld, aleftWorld, abottomWorld) >= -margin;
-			bool bTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bbottomWorld, brightWorld, abottomWorld, arightWorld) >= -margin;
-			bool bBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
-			bool bBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
+			bool bTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, bbottomWorld, aleftWorld, abottomWorld) >= -margin;
+			bool bTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(bbottomWorld, brightWorld, abottomWorld, arightWorld) >= -margin;
+			bool bBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
+			bool bBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
 
-			collisionBodyComparision.NEinside = bTopLeftWithin;
-			collisionBodyComparision.NWinside = bTopRightWithin;
-			collisionBodyComparision.SEinside = bBottomLeftWithin;
-			collisionBodyComparision.SWinside = bBottomRightWithin;
+			collisionBodyComparision.NEinside = bTopRightWithin;
+			collisionBodyComparision.NWinside = bTopLeftWithin;
+			collisionBodyComparision.SEinside = bBottomRightWithin;
+			collisionBodyComparision.SWinside = bBottomLeftWithin;
 
 			// Debugging Tools
 			if (debug) {
-				if (bTopLeftWithin) Debug.DrawLine(bbottomWorld, brightWorld, Color.blue, 1.0f);
-				if (bTopRightWithin) Debug.DrawLine(bleftWorld, bbottomWorld, Color.blue, 1.0f);
-				if (bBottomRightWithin) Debug.DrawLine(bleftWorld, btopWorld, Color.blue, 1.0f);
-				if (bBottomLeftWithin) Debug.DrawLine(btopWorld, brightWorld, Color.blue, 1.0f);
+				if (bTopRightWithin) Debug.DrawLine(bbottomWorld, brightWorld, Color.blue, 1.0f);
+				if (bTopLeftWithin) Debug.DrawLine(bleftWorld, bbottomWorld, Color.blue, 1.0f);
+				if (bBottomLeftWithin) Debug.DrawLine(bleftWorld, btopWorld, Color.blue, 1.0f);
+				if (bBottomRightWithin) Debug.DrawLine(btopWorld, brightWorld, Color.blue, 1.0f);
                 
 				//if (aTopLeft) Debug.DrawLine(bbottomWorld, brightWorld, Color.red, 0.3f);
 				//if (aTopRight) Debug.DrawLine(bleftWorld, bbottomWorld, Color.red, 0.3f);
@@ -88,14 +88,14 @@ namespace Objects
             if (aBottomRight && aTopRight) collisionBodyComparision.Eexclusive = true;
 
             // Diagonal Inclusive
-			if (bBottomLeftWithin && bTopRightWithin) collisionBodyComparision.NEandSWexclusive = true;
-			if (bTopLeftWithin && bBottomRightWithin) collisionBodyComparision.NWandSEexclusive = true;
+			if (bBottomRightWithin && bTopLeftWithin) collisionBodyComparision.NEandSWexclusive = true;
+			if (bTopRightWithin && bBottomLeftWithin) collisionBodyComparision.NWandSEexclusive = true;
 
 			// Sides Inclusive
 			if (aTopLeft && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.NWinclusive = true;
 			if (aBottomRight && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.SEinclusive = true;
 			if (aTopRight && (bTopLeftWithin || bBottomRightWithin)) collisionBodyComparision.NEinclusive = true;
-			if (aBottomLeft && (bTopLeftWithin || bBottomRightWithin)) collisionBodyComparision.SWinclusive = true;
+			if (aBottomLeft && (bBottomRightWithin || bTopLeftWithin)) collisionBodyComparision.SWinclusive = true;
 
             // Sides Exclusive
             if (aTopLeft && !aTopRight && !aBottomLeft) collisionBodyComparision.NWexclusive = true;
@@ -105,10 +105,10 @@ namespace Objects
 
 			// Above and Below
 			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bTopLeftWithin && bTopRightWithin))
-				collisionBodyComparision.Above = true;
+				collisionBodyComparision.aAbove = true;
 
 			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bBottomLeftWithin && bBottomRightWithin))
-				collisionBodyComparision.Below = true;
+				collisionBodyComparision.aBelow = true;
             
 
             return collisionBodyComparision;
@@ -249,10 +249,10 @@ namespace Objects
 		public bool SEinside;
 		public bool SWinside;
 
-		public bool Above;
-		public bool Below;
+		public bool aAbove;
+		public bool aBelow;
 
-		public bool Within => Above && Below;
+		public bool Within => aAbove && aBelow;
 
         public int inFront
         {
