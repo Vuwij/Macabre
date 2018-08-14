@@ -87,10 +87,6 @@ namespace Objects
             if (aBottomLeft && aBottomRight) collisionBodyComparision.Sexclusive = true;
             if (aBottomRight && aTopRight) collisionBodyComparision.Eexclusive = true;
 
-            // Diagonal Inclusive
-			if (bBottomRightWithin && bTopLeftWithin) collisionBodyComparision.NEandSWexclusive = true;
-			if (bTopRightWithin && bBottomLeftWithin) collisionBodyComparision.NWandSEexclusive = true;
-
 			// Sides Inclusive
 			if (aTopLeft && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.NWinclusive = true;
 			if (aBottomRight && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.SEinclusive = true;
@@ -122,11 +118,13 @@ namespace Objects
 
         // Within Range of a collisionBody
 		public bool WithinRange(CollisionBody other, Direction direction, float distance = 0.4f, float negDistance = 2.0f) {
+			CollisionBodyComparison comparison = this.CompareWith(other);
+            
 			if (direction == Direction.NW)
 			{
 				if (PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) < distance &&
 				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -negDistance &&
-					left.x < (other.right.x) && top.x > (other.bottom.x) &&
+                    left.x < (other.right.x) && top.x > (other.bottom.x) &&
 					left.y < (other.right.y) && top.y > (other.bottom.y))
 					return true;
 				return false;
@@ -214,13 +212,13 @@ namespace Objects
 
     public class CollisionBodyComparison
     {
-        // Inclusive means partial overlap is allowed, Exclusive means no partial overlap allowed
-
+        // Vertical For Sorting
         public bool NEvertical;
         public bool NWvertical;
         public bool SEvertical;
         public bool SWvertical;
 
+		// Inclusive means partial overlap is allowed, Exclusive means no partial overlap allowed
 		public bool NEinclusive;
 		public bool NWinclusive;
 		public bool SEinclusive;
@@ -236,19 +234,29 @@ namespace Objects
         public bool Eexclusive;
         public bool Wexclusive;
 
-		public bool NEandSWexclusive;
-		public bool NWandSEexclusive;
-
-        public bool Ninclusive => Nexclusive || (NEvertical && !NEexclusive) || (NWvertical && !NWexclusive);
+		public bool Ninclusive => Nexclusive || (NEvertical && !NEexclusive) || (NWvertical && !NWexclusive);
         public bool Sinclusive => Sexclusive || (SEvertical && !SEexclusive) || (SWvertical && !SWexclusive);
         public bool Einclusive => Eexclusive || (NEvertical && !NEexclusive) || (SEvertical && !SEexclusive);
         public bool Winclusive => Wexclusive || (NWvertical && !NWexclusive) || (SWvertical && !SWexclusive);
 
+        // Inside means on the inside border
 		public bool NEinside;
 		public bool NWinside;
 		public bool SEinside;
 		public bool SWinside;
 
+		public bool NEoutside => !NEinside;
+		public bool NWoutside => !NWinside;
+		public bool SEoutside => !SEinside;
+		public bool SWoutside => !SWinside;
+
+		public bool NEandSWinside => NEinside && SWinside;
+        public bool NWandSEinside => NWinside && SEinside;
+
+		public bool NEandSWoutside => NEoutside && SWoutside;
+		public bool NWandSEoutside => NWoutside && SEoutside;
+
+        // Above and below, for ramps
 		public bool aAbove;
 		public bool aBelow;
 

@@ -86,11 +86,17 @@ namespace Objects.Movable.Characters
         protected Vector2 characterVelocity;
 		protected Vector2 facingDirection;
 
+		public Character currentlySpeakingTo;
+        public ConversationState currentConversationState;
+        public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
+        public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
+
+		public CharacterStatistics statistics = new CharacterStatistics();
+
         protected override void Start()
         {
             UpdateFromPrefab();
 			UpdateSortingLayer();
-   
             base.Start();         
         }
         
@@ -166,12 +172,7 @@ namespace Objects.Movable.Characters
 			animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), facingDirection.x);
 			animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), facingDirection.y);
 		}
-
-		public Character currentlySpeakingTo;
-		public ConversationState currentConversationState;
-        public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
-		public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
-
+        
 		public void Inspect()
 		{
             PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
@@ -205,7 +206,7 @@ namespace Objects.Movable.Characters
             PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
             if (item != null)
             {
-                PixelInventory inv = GetComponentInChildren<PixelInventory>();
+                CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
                 Debug.Assert(inv != null);
 
                 bool succeed = inv.AddItem(item);
@@ -599,7 +600,7 @@ namespace Objects.Movable.Characters
 				GameObject newObj = Instantiate(item);
 				newObj.gameObject.name = item.name;
 
-				PixelInventory inv = GetComponentInChildren<PixelInventory>();
+				CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
 				Debug.Assert(inv != null);
 
 				PixelItem pixelItem = newObj.GetComponent<PixelItem>();
@@ -619,7 +620,7 @@ namespace Objects.Movable.Characters
 		}
 
 		public void Puts(int number, string item, PixelStorage pixelStorage) {
-			PixelInventory inv = GetComponentInChildren<PixelInventory>();
+			CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
 			bool hasItem = inv.HasItem(item, number);
@@ -639,7 +640,7 @@ namespace Objects.Movable.Characters
 
 		public void Takes(int number, string item, PixelStorage pixelStorage)
         {
-            PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
 			bool hasItem = pixelStorage.HasObject(item, number);
@@ -673,7 +674,7 @@ namespace Objects.Movable.Characters
 
 		public void Gives(int number, string item, Character character)
 		{
-			PixelInventory inv = GetComponentInChildren<PixelInventory>();
+			CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
             bool hasItem = inv.HasItem(item, number);
@@ -685,7 +686,7 @@ namespace Objects.Movable.Characters
 
             Debug.Assert(number >= 1 && number <= 24);
 
-			PixelInventory toInv = character.GetComponentInChildren<PixelInventory>();
+			CharacterInventory toInv = character.GetComponentInChildren<CharacterInventory>();
 			Debug.Assert(toInv != null);
 
 			animator.SetTrigger(Animator.StringToHash("IsInteract"));
@@ -701,7 +702,7 @@ namespace Objects.Movable.Characters
 
 		public void Steals(int number, string item, Character character)
         {
-            PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
             bool hasItem = inv.HasItem(item, number);
@@ -713,7 +714,7 @@ namespace Objects.Movable.Characters
 
             Debug.Assert(number >= 1 && number <= 24);
 
-			PixelInventory toInv = character.GetComponentInChildren<PixelInventory>();
+			CharacterInventory toInv = character.GetComponentInChildren<CharacterInventory>();
             Debug.Assert(toInv != null);
 
 			animator.SetTrigger(Animator.StringToHash("IsInteract"));

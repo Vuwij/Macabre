@@ -436,16 +436,28 @@ namespace Objects
 					// Slopes
 					CollisionBodyComparison bodyComparision = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, otherPixelCollider.collisionBodyWorld, 0.0f, true);
 
-					// Close to the ramp collision (remove the wall collision)
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 0.4f, navigationMargin * 2) &&
-					    restriction.restrictSE && bodyComparision.NWandSEexclusive && rampCollider.rampDirection == Direction.SE) restriction.restrictSE = false;
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 0.4f, navigationMargin * 2) && 
-					    restriction.restrictSW && bodyComparision.NEandSWexclusive && rampCollider.rampDirection == Direction.SW) restriction.restrictSW = false;
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 0.4f, navigationMargin * 2) && 
-					    restriction.restrictNE && bodyComparision.NEandSWexclusive && rampCollider.rampDirection == Direction.NE) restriction.restrictNE = false;
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 0.4f, navigationMargin * 2) && 
-					    restriction.restrictNW && bodyComparision.NWandSEexclusive && rampCollider.rampDirection == Direction.NW) restriction.restrictNW = false;
+					// Close to the ramp collision (remove the wall collision) and prevent glitches
+					Direction proximityDirection = Direction.All;
                     
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, navigationMargin, navigationMargin * 2) &&
+					    rampCollider.rampDirection == Direction.SE) proximityDirection = Direction.SE;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, navigationMargin, navigationMargin * 2) &&
+					    rampCollider.rampDirection == Direction.SW) proximityDirection = Direction.SW;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, navigationMargin, navigationMargin * 2) &&
+					    rampCollider.rampDirection == Direction.NE) proximityDirection = Direction.NE;
+					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, navigationMargin, navigationMargin * 2) && 
+					    rampCollider.rampDirection == Direction.NW) proximityDirection = Direction.NW;
+
+                    // Free the character to go in that direction
+					if (proximityDirection == Direction.SE && bodyComparision.NEandSWinside)
+						restriction.restrictSE = false;
+					else if (proximityDirection == Direction.SW && bodyComparision.NWandSEinside)
+						restriction.restrictSW = false;
+					else if (proximityDirection == Direction.NE && bodyComparision.NWandSEinside)
+                        restriction.restrictNE = false;
+					else if (proximityDirection == Direction.NW && bodyComparision.NEandSWinside)
+                        restriction.restrictNW = false;
+
                     // Within The Ramp
 					if ((rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparision.aAbove ||
 					    (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparision.aBelow) {
@@ -480,9 +492,24 @@ namespace Objects
 								restriction.enteredDoor = pixelStair;
 							}
                         }   
-
-						return restriction; // Ignore floor colliders
-					}
+					} else {
+						// Remove glitch caused by going to the side of the walls
+                        if (proximityDirection == Direction.NE || proximityDirection == Direction.SW)
+                        {
+							Debug.Log(bodyComparision.NWinside);
+							if (!bodyComparision.NWinside)
+                                restriction.restrictSE = true;
+							if (!bodyComparision.SEinside)
+                                restriction.restrictNW = true;
+                        }
+                        else if (proximityDirection == Direction.NW || proximityDirection == Direction.SE)
+                        {
+							if (!bodyComparision.NEinside)
+                                restriction.restrictSW = true;
+							if (!bodyComparision.SWinside)
+                                restriction.restrictNE = true;
+                        }
+					}               
 				}
 				else
 				{
@@ -661,7 +688,7 @@ namespace Objects
 				else {
 					Debug.Assert(this.colliderPoints.Length == 4);
                     Debug.Assert(other.colliderPoints.Length == 4);
-
+                    
                     CollisionBody a = collisionBodyWorld;
                     CollisionBody b = other.collisionBodyWorld;
 
