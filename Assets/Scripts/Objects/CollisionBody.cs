@@ -20,6 +20,7 @@ namespace Objects
 		public float distLeft => Vector2.Distance(topLeft, bottomRight);
 		public float distRight => Vector2.Distance(topRight, bottomLeft);
 
+		public CollisionBody() {}
 		public CollisionBody(Vector2 top, Vector2 left, Vector2 right, Vector2 bottom) {
 			this.top = top;
 			this.left = left;
