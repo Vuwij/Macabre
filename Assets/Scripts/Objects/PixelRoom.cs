@@ -68,6 +68,7 @@ namespace Objects
 		public int stepSize = 1; // How much steps for the navigation mesh
 
 		public HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
+		[HideInInspector]
 		public PixelCollider navigationMeshObject = null;
 
 		public List<PixelDoor> pixelDoors {

@@ -11,12 +11,13 @@ namespace Objects
 
 		public CollisionBody[] collisionBodiesWorld {
 			get {
-				CollisionBody[] bodies = collisionBodies;
-				for (int i = 0; i < bodies.Length; ++i) {
-					bodies[i].top += (Vector2) transform.position;
-					bodies[i].bottom += (Vector2) transform.position;
-					bodies[i].left += (Vector2) transform.position;
-					bodies[i].right += (Vector2) transform.position;
+				CollisionBody[] bodies = new CollisionBody[collisionBodies.Length];
+                for (int i = 0; i < bodies.Length; ++i) {
+					bodies[i] = new CollisionBody();
+					bodies[i].top = collisionBodies[i].top + (Vector2) transform.position;
+					bodies[i].bottom = collisionBodies[i].bottom + (Vector2) transform.position;
+					bodies[i].left = collisionBodies[i].left + (Vector2) transform.position;
+					bodies[i].right = collisionBodies[i].right + (Vector2) transform.position;
 				}
 				return bodies;
 			}

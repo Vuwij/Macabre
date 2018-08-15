@@ -384,7 +384,7 @@ namespace Objects
             Debug.Assert(floor != null);
             Debug.Assert(floor.colliderPoints.Length == 4);
 
-            CollisionBodyComparison cbc = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, -0.4f);
+            CollisionBodyComparison cbc = CollisionBody.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, 0.4f);
             if (!cbc.NWinside) restriction.restrictSE = true;
             if (!cbc.NEinside) restriction.restrictSW = true;
             if (!cbc.SWinside) restriction.restrictNE = true;
@@ -407,13 +407,13 @@ namespace Objects
 					foreach (CollisionBody cbody in multi.collisionBodiesWorld)
                     {
       					cbody.Draw(Color.white, 1.0f);
-						if (collisionBody.WithinRange(cbody, Direction.NW, 0.4f))
+						if (collisionBodyWorld.WithinRange(cbody, Direction.NW, 0.4f))
 							restriction.restrictNW = true;
-						if (collisionBody.WithinRange(cbody, Direction.NE, 0.4f))
+						if (collisionBodyWorld.WithinRange(cbody, Direction.NE, 0.4f))
 							restriction.restrictNE = true;
-						if (collisionBody.WithinRange(cbody, Direction.SW, 0.4f))
+						if (collisionBodyWorld.WithinRange(cbody, Direction.SW, 0.4f))
 							restriction.restrictSW = true;
-						if (collisionBody.WithinRange(cbody, Direction.SE, 0.4f))
+						if (collisionBodyWorld.WithinRange(cbody, Direction.SE, 0.4f))
 							restriction.restrictSE = true;
 						
                     }               
@@ -459,8 +459,10 @@ namespace Objects
                         restriction.restrictNW = false;
 
                     // Within The Ramp
-					if ((rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparision.aAbove ||
-					    (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparision.aBelow) {
+					if ((rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparision.aAbove && rampCollider.slope > 0 ||
+					    (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparision.aBelow && rampCollider.slope > 0 ||
+						(rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparision.aBelow && rampCollider.slope < 0 ||
+                        (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparision.aAbove && rampCollider.slope < 0) {
                         
 						// Draw the ramps
 						rampCollider.collisionBodyRampedWorld.Draw(Color.magenta, 2.0f);
@@ -625,7 +627,7 @@ namespace Objects
 				{
 					for (int j = 0; j < b.collisionBodies.Count(); ++j)
 					{
-						int comp = CollisionBody.CompareTwoCollisionBodies(a.collisionBodiesWorld[i], b.collisionBodiesWorld[j]).inFront;
+						int comp = CollisionBody.CompareTwoCollisionBodies(a.collisionBodiesWorld[i], b.collisionBodiesWorld[j], 2.0f).inFront;
 						if (comp == 1)
 							comparison = 1;
 						if (comp == -1)
@@ -654,7 +656,7 @@ namespace Objects
 				int multiInFront = 0;
 				for (int i = 0; i < multi.collisionBodiesWorld.Count(); ++i)
 				{
-					int comp = CollisionBody.CompareTwoCollisionBodies(multi.collisionBodiesWorld[i], singleBody).inFront;
+					int comp = CollisionBody.CompareTwoCollisionBodies(multi.collisionBodiesWorld[i], singleBody, 2.0f).inFront;
 					if (comp == 1) multiInFront = 1;
 					if (comp == -1) multiInFront = -1;
 				}
@@ -703,7 +705,7 @@ namespace Objects
 				CollisionBody a = collisionBodyWorld;
 				CollisionBody b = other.collisionBodyWorld;
 
-				comparison = CollisionBody.CompareTwoCollisionBodies(a, b).inFront;
+				comparison = CollisionBody.CompareTwoCollisionBodies(a, b, 2.0f).inFront;
 			}
 			return comparison;
 		}

@@ -66,13 +66,20 @@ namespace Objects.Movable.Characters.Individuals
 					if (mr.slopeDirection == Direction.NE || mr.slopeDirection == Direction.SW)
 					{
 						if (newAccumulator != stepAccumulator) {
-							UD1 = UD1 + newAccumulator - stepAccumulator;
+							if (mr.slope > 0)
+								UD1 = UD1 + (newAccumulator - stepAccumulator);
+							else
+								UD1 = UD1 - (newAccumulator - stepAccumulator);
 							stepAccumulator = newAccumulator;
 						}
 					}
 					else {
 						if (newAccumulator != stepAccumulator) {
-                            UD2 = UD2 + newAccumulator - stepAccumulator;
+							if (mr.slope > 0)
+                                UD2 = UD2 + (newAccumulator - stepAccumulator);
+                            else
+                                UD2 = UD2 - (newAccumulator - stepAccumulator);
+
                             stepAccumulator = newAccumulator;
                         }
 					}
