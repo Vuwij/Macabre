@@ -38,6 +38,7 @@ namespace Objects
 			collisionBodies = new CollisionBody[collider2D.pathCount];
 			for (int i = 0; i < collider2D.pathCount; ++i)
 			{
+				collisionBodies[i] = new CollisionBody();
 				collisionBodies[i].top = collider2D.GetPath(i)[0];
 				collisionBodies[i].bottom = collider2D.GetPath(i)[0];
 				collisionBodies[i].left = collider2D.GetPath(i)[0];
@@ -68,6 +69,7 @@ namespace Objects
 
 			collisionBodiesP = new CollisionBody[collider2D.pathCount];
 			for (int i = 0; i < collider2D.pathCount; ++i) {
+				collisionBodiesP[i] = new CollisionBody();
 				collisionBodiesP[i].top = collisionBodies[i].top + new Vector2(0, pixelProximity);
 				collisionBodiesP[i].bottom = collisionBodies[i].bottom + new Vector2(0, -pixelProximity);
 				collisionBodiesP[i].left = collisionBodies[i].left + new Vector2(-2 * pixelProximity, 0);
