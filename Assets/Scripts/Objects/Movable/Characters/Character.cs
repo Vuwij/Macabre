@@ -15,6 +15,26 @@ namespace Objects.Movable.Characters
 
 		protected virtual Vector2 inputVelocity { get; set; }
 
+		public PixelPose pose {
+			get {
+				PixelPose p = new PixelPose();
+				PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+				p.pixelRoom = pixelCollider.GetPixelRoom();
+				p.position = pixelCollider.transform.position;
+
+				if (facingDirection.x > 0 && facingDirection.y > 0)
+					p.direction = Direction.NE;
+				else if (facingDirection.x > 0 && facingDirection.y < 0)
+					p.direction = Direction.SE;
+				else if (facingDirection.x < 0 && facingDirection.y > 0)
+                    p.direction = Direction.NW;
+				else if (facingDirection.x < 0 && facingDirection.y < 0)
+                    p.direction = Direction.SW;
+
+				return p;
+			}
+		}
+
 		public int orientationX
 		{
 			get {

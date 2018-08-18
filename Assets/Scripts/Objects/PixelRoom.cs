@@ -54,8 +54,8 @@ namespace Objects
 		public Vector2 bottomWorld => bottom + (Vector2)transform.position;
 		public Vector2 leftWorld => left + (Vector2)transform.position;
 		public Vector2 rightWorld => right + (Vector2)transform.position;
-		public CollisionBody collisionbody => new CollisionBody(top, left, right, bottom);
-		public CollisionBody collisionbodyWorld => new CollisionBody(topWorld, leftWorld, rightWorld, bottomWorld);
+		public PixelBox collisionbody => new PixelBox(top, left, right, bottom);
+		public PixelBox collisionbodyWorld => new PixelBox(topWorld, leftWorld, rightWorld, bottomWorld);
   		public Vector2 topLeft => (top + left) / 2;
         public Vector2 topRight => (top + right) / 2;
         public Vector2 bottomLeft => (bottom + left) / 2;

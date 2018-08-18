@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Objects
 {
-	public abstract class Object : MonoBehaviour
+	public abstract class PixelObject : MonoBehaviour
 	{
 		protected SpriteRenderer spriteRenderer
 		{
@@ -25,7 +25,7 @@ namespace Objects
 			}
 		}
 
-		Object objectInFront;
+		PixelObject objectInFront;
 		static GameObject hoverTemplate = null;
 		GameObject hoverText = null;
 		float hoverTextTimer = 0.0f;
@@ -46,7 +46,7 @@ namespace Objects
 		}
 
 		protected T FindNearestComponent<T>()
-			where T : Object
+			where T : PixelObject
 		{
 			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, GameSettings.inspectRadius, Vector2.zero);
 			foreach (RaycastHit2D raycastHit in castStar)
@@ -57,7 +57,7 @@ namespace Objects
 			return null;
 		}
 
-		protected Object FindNearestObject<T>(float radius = 10.0f)
+		protected PixelObject FindNearestObject<T>(float radius = 10.0f)
 		{
 			RaycastHit2D[] castStar = Physics2D.CircleCastAll(transform.position, radius, Vector2.zero);
 
@@ -67,7 +67,7 @@ namespace Objects
 				T hit = raycastHit.collider.GetComponentInChildren<T>();
 				if (hit != null) {
 					if(raycastHit.collider.gameObject != gameObject) {
-						return raycastHit.collider.gameObject.GetComponent<Object>();
+						return raycastHit.collider.gameObject.GetComponent<PixelObject>();
 					}
 				}
 			}

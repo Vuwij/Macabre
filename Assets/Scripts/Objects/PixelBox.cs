@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Objects
 {
-	public class CollisionBody
+	public class PixelBox
     {
         public Vector2 top;
         public Vector2 left;
@@ -20,15 +20,26 @@ namespace Objects
 		public float distLeft => Vector2.Distance(topLeft, bottomRight);
 		public float distRight => Vector2.Distance(topRight, bottomLeft);
 
-		public CollisionBody() {}
-		public CollisionBody(Vector2 top, Vector2 left, Vector2 right, Vector2 bottom) {
+		public PixelLine lineNE => new PixelLine(top, right);
+		public PixelLine lineNW => new PixelLine(left, top);
+		public PixelLine lineSE => new PixelLine(bottom, right);
+		public PixelLine lineSW => new PixelLine(left, bottom);
+
+		public PixelBox() {}
+		public PixelBox(PixelBox body) {
+			this.top = body.top;
+			this.left = body.left;
+			this.right = body.right;
+			this.bottom = body.bottom;
+		}
+		public PixelBox(Vector2 top, Vector2 left, Vector2 right, Vector2 bottom) {
 			this.top = top;
 			this.left = left;
 			this.right = right;
 			this.bottom = bottom;
 		}
 
-		public static CollisionBodyComparison CompareTwoCollisionBodies(CollisionBody a, CollisionBody b, float margin = 0.0f, bool debug = false) {
+		public static CollisionBodyComparison CompareTwoCollisionBodies(PixelBox a, PixelBox b, float margin = 0.0f, bool debug = false) {
 			Vector2 atopWorld = a.top;
             Vector2 abottomWorld = a.bottom;
             Vector2 aleftWorld = a.left;
@@ -41,16 +52,16 @@ namespace Objects
 
             CollisionBodyComparison collisionBodyComparision = new CollisionBodyComparison();
 
-			bool aTopLeft = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bbottomWorld, brightWorld) >= -margin;
-			bool aTopRight = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, bleftWorld, bbottomWorld) >= -margin;
-			bool aBottomRight = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, btopWorld, abottomWorld, arightWorld) >= -margin;
-			bool aBottomLeft = PixelCollider.DistanceBetween4pointsOrthographic(btopWorld, brightWorld, aleftWorld, abottomWorld) >= -margin;
-            
-			bool bTopRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(bleftWorld, bbottomWorld, aleftWorld, abottomWorld) >= -margin;
-			bool bTopLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(bbottomWorld, brightWorld, abottomWorld, arightWorld) >= -margin;
-			bool bBottomLeftWithin = PixelCollider.DistanceBetween4pointsOrthographic(atopWorld, arightWorld, btopWorld, brightWorld) >= -margin;
-			bool bBottomRightWithin = PixelCollider.DistanceBetween4pointsOrthographic(aleftWorld, atopWorld, bleftWorld, btopWorld) >= -margin;
+			bool aTopLeft = PixelLine.DistanceOrthographic(a.lineNW, b.lineSE) >= -margin;
+			bool aTopRight = PixelLine.DistanceOrthographic(a.lineNE, b.lineSW) >= -margin;
+			bool aBottomRight = PixelLine.DistanceOrthographic(b.lineNW, a.lineSE) >= -margin;
+			bool aBottomLeft = PixelLine.DistanceOrthographic(b.lineNE, a.lineSW) >= -margin;
 
+			bool bTopRightWithin = PixelLine.DistanceOrthographic(b.lineSW, a.lineSW) >= -margin;
+			bool bTopLeftWithin = PixelLine.DistanceOrthographic(b.lineSE, a.lineSE) >= -margin;
+			bool bBottomLeftWithin = PixelLine.DistanceOrthographic(a.lineNE, b.lineNE) >= -margin;
+			bool bBottomRightWithin = PixelLine.DistanceOrthographic(a.lineNW, b.lineNW) >= -margin;
+            
 			collisionBodyComparision.NEinside = bTopRightWithin;
 			collisionBodyComparision.NWinside = bTopLeftWithin;
 			collisionBodyComparision.SEinside = bBottomRightWithin;
@@ -58,15 +69,10 @@ namespace Objects
 
 			// Debugging Tools
 			if (debug) {
-				if (bTopRightWithin) Debug.DrawLine(bbottomWorld, brightWorld, Color.blue, 1.0f);
-				if (bTopLeftWithin) Debug.DrawLine(bleftWorld, bbottomWorld, Color.blue, 1.0f);
-				if (bBottomLeftWithin) Debug.DrawLine(bleftWorld, btopWorld, Color.blue, 1.0f);
-				if (bBottomRightWithin) Debug.DrawLine(btopWorld, brightWorld, Color.blue, 1.0f);
-                
-				//if (aTopLeft) Debug.DrawLine(bbottomWorld, brightWorld, Color.red, 0.3f);
-				//if (aTopRight) Debug.DrawLine(bleftWorld, bbottomWorld, Color.red, 0.3f);
-				//if (aBottomRight) Debug.DrawLine(bleftWorld, btopWorld, Color.red, 0.3f);
-				//if (aBottomLeft) Debug.DrawLine(btopWorld, brightWorld, Color.red, 0.3f);            
+				if (bTopRightWithin) b.lineNE.Draw(Color.blue, 1.0f);
+				if (bTopLeftWithin) b.lineSW.Draw(Color.blue, 1.0f);
+				if (bBottomLeftWithin) b.lineNW.Draw(Color.blue, 1.0f);
+				if (bBottomRightWithin) b.lineSE.Draw(Color.blue, 1.0f);
 			}
 
 			// Sides Vertical
@@ -111,20 +117,20 @@ namespace Objects
             return collisionBodyComparision;
 		}
 
-		public CollisionBodyComparison CompareWith(CollisionBody other, float margin = 0.0f) {
+		public CollisionBodyComparison CompareWith(PixelBox other, float margin = 0.0f) {
 			CollisionBodyComparison bodyComparison = CompareTwoCollisionBodies(this, other, margin);
                      
 			return bodyComparison;
 		}
 
         // Within Range of a collisionBody
-		public bool WithinRange(CollisionBody other, Direction direction, float distance = 0.4f, float negDistance = 2.0f) {
+		public bool WithinRange(PixelBox other, Direction direction, float distance = 0.4f, float negDistance = 2.0f) {
 			CollisionBodyComparison comparison = this.CompareWith(other);
             
 			if (direction == Direction.NW)
 			{
-				if (PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -negDistance &&
+				if (PixelLine.DistanceOrthographic(lineNW, other.lineSE) < distance &&
+				    PixelLine.DistanceOrthographic(lineNW, other.lineSE) > -negDistance &&
                     left.x < (other.right.x) && top.x > (other.bottom.x) &&
 					left.y < (other.right.y) && top.y > (other.bottom.y))
 					return true;
@@ -132,8 +138,8 @@ namespace Objects
 			}
 			else if (direction == Direction.NE)
 			{
-				if (PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) > -negDistance &&
+				if (PixelLine.DistanceOrthographic(lineNE, other.lineSW) < distance &&
+				    PixelLine.DistanceOrthographic(lineNE, other.lineSW) < -negDistance &&
 				    top.x < (other.bottom.x) && right.x > (other.left.x) &&
 				    top.y > (other.bottom.y) && right.y < (other.left.y))
 					return true;
@@ -141,8 +147,8 @@ namespace Objects
 			}
 			else if (direction == Direction.SW)
 			{
-				if (PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) < negDistance &&
+				if (PixelLine.DistanceOrthographic(lineSW, other.lineNE) > -distance &&
+				    PixelLine.DistanceOrthographic(lineSW, other.lineNE) < negDistance &&
 					left.x < (other.right.x) && bottom.x > (other.top.x) &&
 					left.y > (other.right.y) && bottom.y < (other.top.y))
 					return true;
@@ -150,8 +156,8 @@ namespace Objects
 			}
 			else if (direction == Direction.SE)
 			{
-				if (PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) < negDistance &&
+				if (PixelLine.DistanceOrthographic(lineSE, other.lineNW) > -distance &&
+				    PixelLine.DistanceOrthographic(lineSE, other.lineNW) < negDistance &&
 					bottom.x < (other.top.x) && right.x > (other.left.x) &&
 					bottom.y < (other.top.y) && right.y > (other.left.y))
 					return true;
@@ -159,23 +165,23 @@ namespace Objects
 			}
 			else if (direction == Direction.All)
 			{
-				if (PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, top, other.bottom, other.right) > -negDistance &&
+				if (PixelLine.DistanceOrthographic(lineNW, other.lineSE) < distance &&
+				    PixelLine.DistanceOrthographic(lineNW, other.lineSE) > -negDistance &&
                     left.x < (other.right.x) && top.x > (other.bottom.x) &&
                     left.y < (other.right.y) && top.y > (other.bottom.y))
                     return true;
-				if (PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) < distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(top, right, other.left, other.bottom) > -negDistance &&
+				if (PixelLine.DistanceOrthographic(lineNE, other.lineSW) < distance &&
+				    PixelLine.DistanceOrthographic(lineNE, other.lineSW) > -negDistance &&
                     top.x < (other.bottom.x) && right.x > (other.left.x) &&
                     top.y > (other.bottom.y) && right.y < (other.left.y))
                     return true;
-				if (PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, other.top, other.right) < negDistance &&
+				if (PixelLine.DistanceOrthographic(lineSW, other.lineNE) > -distance &&
+				    PixelLine.DistanceOrthographic(lineSW, other.lineNE) < negDistance &&
                     left.x < (other.right.x) && bottom.x > (other.top.x) &&
                     left.y > (other.right.y) && bottom.y < (other.top.y))
                     return true;
-				if (PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) > -distance &&
-				    PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, other.left, other.top) < negDistance &&
+				if (PixelLine.DistanceOrthographic(lineSE, other.lineNW) > -distance &&
+				    PixelLine.DistanceOrthographic(lineSE, other.lineNW) < negDistance &&
                     bottom.x < (other.top.x) && right.x > (other.left.x) &&
                     bottom.y < (other.top.y) && right.y > (other.left.y))
                     return true;
@@ -200,6 +206,12 @@ namespace Objects
                 return false;
 
 			return true;
+		}
+
+        // Extend and Stretch and increase size of collision Body
+		public PixelBox Extend(Direction direction, float distance) {
+			PixelBox copy = new PixelBox(this);
+			return copy;
 		}
 
         // Draw the body

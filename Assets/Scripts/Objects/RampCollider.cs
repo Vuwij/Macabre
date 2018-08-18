@@ -15,7 +15,7 @@ namespace Objects
 			this.p2 = p2;         
 		}
 
-		public bool AboveSegment(CollisionBody body) {
+		public bool AboveSegment(PixelBox body) {
 			return PixelCollider.DistanceBetween4points(p1, p2, body.center, Vector2.zero) > 0;
 		}
 	}
@@ -48,16 +48,16 @@ namespace Objects
 		public Vector2 bottomRightWorldElevated => (bottomWorldElevated + rightWorldElevated) / 2;
         public Vector2 centerElevated => (topWorldElevated + bottomWorldElevated + leftWorldElevated + rightWorldElevated) / 4;
 
-		public Segment2 centerSegment {
+		public PixelLine centerSegment {
 			get {
 				if (rampDirection == Direction.NE || rampDirection == Direction.SW)
-					return new Segment2(topLeftWorldElevated, bottomRightWorldElevated);
+					return new PixelLine(topLeftWorldElevated, bottomRightWorldElevated);
 				else
-					return new Segment2(bottomLeftWorldElevated, topRightWorldElevated);
+					return new PixelLine(bottomLeftWorldElevated, topRightWorldElevated);
 			}
 		}
 
-		public bool OnFarSide(CollisionBody body)
+		public bool OnFarSide(PixelBox body)
 		{
 			bool onTop = centerSegment.AboveSegment(body);
 			if (Math.Abs(slope) < float.Epsilon) return false;
@@ -68,7 +68,7 @@ namespace Objects
 			return false;
 		}
 
-		public CollisionBody collisionBodyRampedWorld => new CollisionBody(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
+		public PixelBox collisionBodyRampedWorld => new PixelBox(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
         
 		public override void OnDrawGizmos()
 		{
@@ -83,7 +83,7 @@ namespace Objects
 			base.OnDrawGizmos();
 		}
 
-		public CollisionBody MatchCollisionBody(CollisionBody input) {
+		public PixelBox MatchCollisionBody(PixelBox input) {
 			float h = 0.0f;
 			if (rampDirection == Direction.NE || rampDirection == Direction.SW)
 				h = slope * Vector2.Distance(input.bottom, input.right);
@@ -95,8 +95,12 @@ namespace Objects
 			Vector2 inputleftWorldElevated = (rampDirection == Direction.NW || rampDirection == Direction.SW) ? input.left + new Vector2(0.0f, h) : input.left;
 			Vector2 inputrightWorldElevated = (rampDirection == Direction.NE || rampDirection == Direction.SE) ? input.right + new Vector2(0.0f, h) : input.right;
 
-			CollisionBody cbody = new CollisionBody(inputTopWorldElevated, inputleftWorldElevated, inputrightWorldElevated, inputbottomWorldElevated);
+			PixelBox cbody = new PixelBox(inputTopWorldElevated, inputleftWorldElevated, inputrightWorldElevated, inputbottomWorldElevated);
 			return cbody;
+		}
+
+		public bool WithinRampCollider(PixelBox body) {
+			return false;
 		}
 	}
 }

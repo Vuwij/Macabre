@@ -6,14 +6,14 @@ namespace Objects
 {
 	public class MultiBodyPixelCollider : PixelCollider
 	{   
-		public CollisionBody[] collisionBodies;
-		public CollisionBody[] collisionBodiesP;
+		public PixelBox[] collisionBodies;
+		public PixelBox[] collisionBodiesP;
 
-		public CollisionBody[] collisionBodiesWorld {
+		public PixelBox[] collisionBodiesWorld {
 			get {
-				CollisionBody[] bodies = new CollisionBody[collisionBodies.Length];
+				PixelBox[] bodies = new PixelBox[collisionBodies.Length];
                 for (int i = 0; i < bodies.Length; ++i) {
-					bodies[i] = new CollisionBody();
+					bodies[i] = new PixelBox();
 					bodies[i].top = collisionBodies[i].top + (Vector2) transform.position;
 					bodies[i].bottom = collisionBodies[i].bottom + (Vector2) transform.position;
 					bodies[i].left = collisionBodies[i].left + (Vector2) transform.position;
@@ -36,10 +36,10 @@ namespace Objects
             Debug.Assert(transform.parent.GetComponent<PixelRoom>() == null);
             Debug.Assert(transform.parent.GetComponent<PolygonCollider2D>() == null);
 
-			collisionBodies = new CollisionBody[collider2D.pathCount];
+			collisionBodies = new PixelBox[collider2D.pathCount];
 			for (int i = 0; i < collider2D.pathCount; ++i)
 			{
-				collisionBodies[i] = new CollisionBody();
+				collisionBodies[i] = new PixelBox();
 				collisionBodies[i].top = collider2D.GetPath(i)[0];
 				collisionBodies[i].bottom = collider2D.GetPath(i)[0];
 				collisionBodies[i].left = collider2D.GetPath(i)[0];
@@ -68,9 +68,9 @@ namespace Objects
 				collisionBodies[i].right += collider2D.offset;
 			}
 
-			collisionBodiesP = new CollisionBody[collider2D.pathCount];
+			collisionBodiesP = new PixelBox[collider2D.pathCount];
 			for (int i = 0; i < collider2D.pathCount; ++i) {
-				collisionBodiesP[i] = new CollisionBody();
+				collisionBodiesP[i] = new PixelBox();
 				collisionBodiesP[i].top = collisionBodies[i].top + new Vector2(0, pixelProximity);
 				collisionBodiesP[i].bottom = collisionBodies[i].bottom + new Vector2(0, -pixelProximity);
 				collisionBodiesP[i].left = collisionBodies[i].left + new Vector2(-2 * pixelProximity, 0);

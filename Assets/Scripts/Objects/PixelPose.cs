@@ -6,7 +6,7 @@ namespace Objects
 {
 	public enum Direction
     {
-        NE, SE, NW, SW, All
+        NE, SE, NW, SW, NEandSW, NWandSE, All
     }
 
 	public class PixelPose
