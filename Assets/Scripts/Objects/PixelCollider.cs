@@ -321,37 +321,25 @@ namespace Objects
 				Direction direction = Direction.All;
 				List<PixelCollider> pixelColliders = new List<PixelCollider>();
 
-				if (DistanceBetween4pointsOrthographic(leftWorld, topWorld, otherbottomWorld, otherrightWorld) < 5 &&
-				    DistanceBetween4pointsOrthographic(leftWorld, topWorld, otherbottomWorld, otherrightWorld) > -10.0 &&
-					leftWorld.x < (otherrightWorld.x) && topWorld.x > (otherbottomWorld.x) &&
-					leftWorld.y < (otherrightWorld.y) && topWorld.y > (otherbottomWorld.y))
+				if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, 5.0f))
 				{
 					direction = Direction.NW;
 					pixelColliders.Add(otherPixelCollider);
 					pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
 				}
-				else if (DistanceBetween4pointsOrthographic(topWorld, rightWorld, otherleftWorld, otherbottomWorld) < 5 &&
-				         DistanceBetween4pointsOrthographic(topWorld, rightWorld, otherleftWorld, otherbottomWorld) > -10.0 &&
-						 topWorld.x < (otherbottomWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-						 topWorld.y > (otherbottomWorld.y) && rightWorld.y < (otherleftWorld.y))
+				else if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, 5.0f))
 				{
 					direction = Direction.NE;
 					pixelColliders.Add(otherPixelCollider);
 					pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
 				}
-				else if (DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, othertopWorld, otherrightWorld) > -5 &&
-				         DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, othertopWorld, otherrightWorld) < 10.0 &&
-						 leftWorld.x < (otherrightWorld.x) && bottomWorld.x > (othertopWorld.x) &&
-						 leftWorld.y > (otherrightWorld.y) && bottomWorld.y < (othertopWorld.y))
+				else if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, 5.0f))
 				{
 					direction = Direction.SW;
 					pixelColliders.Add(otherPixelCollider);
 					pixelColliders.AddRange(otherPixelCollider.GetChildColliders());
 				}
-				else if (DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, otherleftWorld, othertopWorld) > -5 &&
-				         DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, otherleftWorld, othertopWorld) < 10.0 &&
-						 bottomWorld.x < (othertopWorld.x) && rightWorld.x > (otherleftWorld.x) &&
-						 bottomWorld.y < (othertopWorld.y) && rightWorld.y > (otherleftWorld.y))
+				else if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, 5.0f))
 				{
 					direction = Direction.SE;
 					pixelColliders.Add(otherPixelCollider);
@@ -380,13 +368,13 @@ namespace Objects
 			RaycastHit2D[] castStar = Physics2D.CircleCastAll(castStart, GameSettings.inspectRadius * 10.0f, Vector2.zero);
 
 			MovementRestriction restriction = new MovementRestriction();
-
+            
 			// Collided with floor
             PixelRoom floor = transform.parent.parent.GetComponent<PixelRoom>();
             Debug.Assert(floor != null);
             Debug.Assert(floor.colliderPoints.Length == 4);
 
-            CollisionBodyComparison cbc = PixelBox.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, 0.4f);
+            CollisionBodyComparison cbc = PixelBox.CompareTwoCollisionBodies(collisionBodyWorld, floor.collisionbodyWorld, -2.0f);
             if (!cbc.NWinside) restriction.restrictSE = true;
             if (!cbc.NEinside) restriction.restrictSW = true;
             if (!cbc.SWinside) restriction.restrictNE = true;
@@ -571,54 +559,7 @@ namespace Objects
 				return withinBody;
 			}
 		}
-
-		public static float DistanceBetween4points(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
-		{
-			float m = (a2.y - a1.y) / (a2.x - a1.x); // Slope of parallel lines
-			float i1 = a1.y - a1.x * m; // Intercept 1
-			float i2 = b1.y - b1.x * m; // Intercept 2
-			float dist = (i2 - i1) / Mathf.Sqrt(m * m + 1);
-			return dist;
-		}
-
-		public static float DistanceBetween4pointsOrthographic(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
-		{
-			float m = (a2.y - a1.y) / (a2.x - a1.x); // Slope of parallel lines
-			float i1 = a1.y - a1.x * m; // Intercept 1
-			float i2 = b1.y - b1.x * m; // Intercept 2
-			float dist = (i2 - i1) / 2 / Mathf.Abs(m / Mathf.Sqrt(m * m + 1));
-			return dist;
-		}
-
-		public static float DistanceBetween4pointsAbs(Vector2 a1, Vector2 a2, Vector2 b1, Vector2 b2)
-		{
-			return Mathf.Abs(DistanceBetween4points(a1, a2, b1, b2));
-		}
-
-		public static float DistanceBetween2pointsOrthographic(Vector2 a, Vector2 b, Direction direction)
-		{
-			float m = 0.0f;
-			Debug.Assert(direction != Direction.All);
-			if (direction == Direction.NE)
-				m = 0.5f;
-			else if (direction == Direction.NW)
-				m = -0.5f;
-			else if (direction == Direction.SE)
-				m = -0.5f;
-			else if (direction == Direction.SW)
-				m = 0.5f;
-
-			float i1 = a.y - a.x * m; // Intercept 1
-			float i2 = b.y - b.x * m; // Intercept 2
-			float dist = (i2 - i1) / 2 / Mathf.Abs(m / Mathf.Sqrt(m * m + 1));
-			return dist;
-		}
-
-		public static float DistanceBetween2pointsOrthographicAbs(Vector2 a, Vector2 b, Direction direction)
-		{
-			return Mathf.Abs(DistanceBetween2pointsOrthographicAbs(a, b, direction));
-		}
-
+              
 		// Returns 1 if in front of the other, returns 1 if object is in front of other
 		public int CompareTo(PixelCollider other)
 		{
@@ -720,7 +661,7 @@ namespace Objects
 				PixelBox a = collisionBodyWorld;
 				PixelBox b = other.collisionBodyWorld;
 
-				comparison = PixelBox.CompareTwoCollisionBodies(a, b, 2.0f).inFront;
+				comparison = PixelBox.CompareTwoCollisionBodies(a, b, 10.0f).inFront;
 			}
 			return comparison;
 		}

@@ -139,7 +139,7 @@ namespace Objects
 			else if (direction == Direction.NE)
 			{
 				if (PixelLine.DistanceOrthographic(lineNE, other.lineSW) < distance &&
-				    PixelLine.DistanceOrthographic(lineNE, other.lineSW) < -negDistance &&
+				    PixelLine.DistanceOrthographic(lineNE, other.lineSW) > -negDistance &&
 				    top.x < (other.bottom.x) && right.x > (other.left.x) &&
 				    top.y > (other.bottom.y) && right.y < (other.left.y))
 					return true;
@@ -193,16 +193,16 @@ namespace Objects
         // Within the body
 		public bool WithinCollisionBody(Vector2 position, float margin = 0.0f) {
 			
-			if (PixelCollider.DistanceBetween4pointsOrthographic(left, top, position, position) >= margin)
+			if (PixelLine.DistanceOrthographic(lineNW, position) >= margin)
                 return false;
 
-			if (PixelCollider.DistanceBetween4pointsOrthographic(top, right, position, position) >= margin)
+            if (PixelLine.DistanceOrthographic(lineNE, position) >= margin)
                 return false;
 
-			if (PixelCollider.DistanceBetween4pointsOrthographic(left, bottom, position, position) <= -margin)
+            if (PixelLine.DistanceOrthographic(lineSW, position) <= -margin)
                 return false;
 
-			if (PixelCollider.DistanceBetween4pointsOrthographic(bottom, right, position, position) <= -margin)
+            if (PixelLine.DistanceOrthographic(lineSE, position) <= -margin)
                 return false;
 
 			return true;

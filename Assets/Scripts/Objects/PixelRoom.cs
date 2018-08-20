@@ -310,17 +310,13 @@ namespace Objects
 			Debug.Assert(bottom != Vector2.zero);
 			Debug.Assert(left != Vector2.zero);
 			Debug.Assert(right != Vector2.zero);
-			Vector2 topWorld = top + (Vector2) transform.position;
-			Vector2 bottomWorld = bottom + (Vector2)transform.position;
-			Vector2 leftWorld = left + (Vector2)transform.position;
-			Vector2 rightWorld = right + (Vector2) transform.position;
 
             // Should all be positive
-			float topLeftDist = -PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, topWorld, startPosition, startPosition);
-			float topRightDist = -PixelCollider.DistanceBetween4pointsOrthographic(topWorld, rightWorld, startPosition, startPosition);
-			float bottomLeftDist = PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, startPosition, startPosition);
-			float bottomRightDist = PixelCollider.DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, startPosition, startPosition);
-            
+			float topLeftDist = -PixelLine.DistanceOrthographic(collisionbodyWorld.lineNW, startPosition);
+			float topRightDist = -PixelLine.DistanceOrthographic(collisionbodyWorld.lineNE, startPosition);
+			float bottomLeftDist = PixelLine.DistanceOrthographic(collisionbodyWorld.lineSW, startPosition);
+			float bottomRightDist = PixelLine.DistanceOrthographic(collisionbodyWorld.lineSE, startPosition);
+   
 			Debug.DrawLine(topWorld, leftWorld, Color.blue, 10.0f);
 			Debug.DrawLine(leftWorld, bottomWorld, Color.blue, 10.0f);
 			Debug.DrawLine(bottomWorld, rightWorld, Color.blue, 10.0f);

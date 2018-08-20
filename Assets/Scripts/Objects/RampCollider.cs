@@ -6,20 +6,6 @@ using System.Linq;
 
 namespace Objects
 {
-	public class Segment2 {
-		public Vector2 p1;
-		public Vector2 p2;
-
-		public Segment2(Vector2 p1, Vector2 p2) {
-			this.p1 = p1;
-			this.p2 = p2;         
-		}
-
-		public bool AboveSegment(PixelBox body) {
-			return PixelCollider.DistanceBetween4points(p1, p2, body.center, Vector2.zero) > 0;
-		}
-	}
-
 	// Basically the same as a pixel collider, but with an additional choice
 	public class RampCollider : PixelCollider
 	{
@@ -57,6 +43,8 @@ namespace Objects
 			}
 		}
 
+        public PixelBox collisionBodyRampedWorld => new PixelBox(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
+
 		public bool OnFarSide(PixelBox body)
 		{
 			bool onTop = centerSegment.AboveSegment(body);
@@ -67,8 +55,6 @@ namespace Objects
 				return true;
 			return false;
 		}
-
-		public PixelBox collisionBodyRampedWorld => new PixelBox(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
         
 		public override void OnDrawGizmos()
 		{
