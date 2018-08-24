@@ -43,7 +43,40 @@ namespace Objects
 			}
 		}
 
+		public PixelLine bottomSegment{
+            get {
+				if (rampDirection == Direction.NE)
+					return collisionBodyWorld.lineSW;
+				else if (rampDirection == Direction.NW)
+					return collisionBodyWorld.lineSE;
+				else if (rampDirection == Direction.SW)
+					return collisionBodyWorld.lineNE;
+				else if (rampDirection == Direction.SE)
+					return collisionBodyWorld.lineNW;
+				else return null;
+            }
+        }
+
         public PixelBox collisionBodyRampedWorld => new PixelBox(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
+              
+		public PixelBox proximityBodyWorld {
+			get {
+				PixelCollider playerCollider = GameObject.Find("Player").GetComponentInChildren<PixelCollider>();
+				float navMargin = playerCollider.navigationMargin * 3;
+
+				if (rampDirection == Direction.NE || rampDirection == Direction.SW) {
+					PixelLine pl1 = bottomSegment.Shift(Direction.NE, navMargin);
+					PixelLine pl2 = bottomSegment.Shift(Direction.SW, navMargin);
+					return new PixelBox(pl1.p1, pl2.p1, pl1.p2, pl2.p2);
+				}
+				else if (rampDirection == Direction.NW || rampDirection == Direction.SE) {
+					PixelLine pl1 = bottomSegment.Shift(Direction.NW, navMargin);
+					PixelLine pl2 = bottomSegment.Shift(Direction.SE, navMargin);
+                    return new PixelBox(pl1.p2, pl1.p1, pl2.p2, pl2.p1);
+				}
+				return null;
+			}
+		}
 
 		public bool OnFarSide(PixelBox body)
 		{
@@ -65,6 +98,12 @@ namespace Objects
 			Gizmos.DrawLine(rightWorldElevated, topWorldElevated);
    
 			Gizmos.DrawLine(centerSegment.p1, centerSegment.p2);
+
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawLine(proximityBodyWorld.top, proximityBodyWorld.right);
+			Gizmos.DrawLine(proximityBodyWorld.right, proximityBodyWorld.bottom);
+			Gizmos.DrawLine(proximityBodyWorld.bottom, proximityBodyWorld.left);
+			Gizmos.DrawLine(proximityBodyWorld.left, proximityBodyWorld.top);
 
 			base.OnDrawGizmos();
 		}

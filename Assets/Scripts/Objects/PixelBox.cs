@@ -39,7 +39,7 @@ namespace Objects
 			this.bottom = bottom;
 		}
 
-		public static CollisionBodyComparison CompareTwoCollisionBodies(PixelBox a, PixelBox b, float margin = 0.0f, bool debug = false) {
+		public static PixelBoxComparison CompareTwoCollisionBodies(PixelBox a, PixelBox b, float margin = 0.0f, bool debug = false) {
 			Vector2 atopWorld = a.top;
             Vector2 abottomWorld = a.bottom;
             Vector2 aleftWorld = a.left;
@@ -50,29 +50,29 @@ namespace Objects
             Vector2 bleftWorld = b.left;
             Vector2 brightWorld = b.right;
 
-            CollisionBodyComparison collisionBodyComparision = new CollisionBodyComparison();
+            PixelBoxComparison collisionBodyComparision = new PixelBoxComparison();
 
 			bool aTopLeft = PixelLine.DistanceOrthographic(a.lineNW, b.lineSE) >= -margin;
 			bool aTopRight = PixelLine.DistanceOrthographic(a.lineNE, b.lineSW) >= -margin;
 			bool aBottomRight = PixelLine.DistanceOrthographic(b.lineNW, a.lineSE) >= -margin;
 			bool aBottomLeft = PixelLine.DistanceOrthographic(b.lineNE, a.lineSW) >= -margin;
 
-			bool bTopRightWithin = PixelLine.DistanceOrthographic(b.lineSW, a.lineSW) >= -margin;
-			bool bTopLeftWithin = PixelLine.DistanceOrthographic(b.lineSE, a.lineSE) >= -margin;
-			bool bBottomLeftWithin = PixelLine.DistanceOrthographic(a.lineNE, b.lineNE) >= -margin;
-			bool bBottomRightWithin = PixelLine.DistanceOrthographic(a.lineNW, b.lineNW) >= -margin;
+			bool aTopRightWithin = PixelLine.DistanceOrthographic(b.lineNE, a.lineNE) <= margin;
+			bool aTopLeftWithin = PixelLine.DistanceOrthographic(b.lineNW, a.lineNW) <= margin;
+			bool aBottomLeftWithin = PixelLine.DistanceOrthographic(a.lineSW, b.lineSW) <= margin;
+			bool aBottomRightWithin = PixelLine.DistanceOrthographic(a.lineSE, b.lineSE) <= margin;
             
-			collisionBodyComparision.NEinside = bTopRightWithin;
-			collisionBodyComparision.NWinside = bTopLeftWithin;
-			collisionBodyComparision.SEinside = bBottomRightWithin;
-			collisionBodyComparision.SWinside = bBottomLeftWithin;
+			collisionBodyComparision.NEinside = aTopRightWithin;
+			collisionBodyComparision.NWinside = aTopLeftWithin;
+			collisionBodyComparision.SEinside = aBottomRightWithin;
+			collisionBodyComparision.SWinside = aBottomLeftWithin;
 
 			// Debugging Tools
 			if (debug) {
-				if (bTopRightWithin) b.lineNE.Draw(Color.blue, 1.0f);
-				if (bTopLeftWithin) b.lineSW.Draw(Color.blue, 1.0f);
-				if (bBottomLeftWithin) b.lineNW.Draw(Color.blue, 1.0f);
-				if (bBottomRightWithin) b.lineSE.Draw(Color.blue, 1.0f);
+				if (aTopRightWithin) b.lineNE.Draw(Color.blue, 1.0f);
+				if (aTopLeftWithin) b.lineNW.Draw(Color.blue, 1.0f);
+				if (aBottomLeftWithin) b.lineSW.Draw(Color.blue, 1.0f);
+				if (aBottomRightWithin) b.lineSE.Draw(Color.blue, 1.0f);
 			}
 
 			// Sides Vertical
@@ -95,10 +95,10 @@ namespace Objects
             if (aBottomRight && aTopRight) collisionBodyComparision.Eexclusive = true;
 
 			// Sides Inclusive
-			if (aTopLeft && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.NWinclusive = true;
-			if (aBottomRight && (bBottomLeftWithin || bTopRightWithin)) collisionBodyComparision.SEinclusive = true;
-			if (aTopRight && (bTopLeftWithin || bBottomRightWithin)) collisionBodyComparision.NEinclusive = true;
-			if (aBottomLeft && (bBottomRightWithin || bTopLeftWithin)) collisionBodyComparision.SWinclusive = true;
+			if (aTopLeft && (aBottomLeftWithin || aTopRightWithin)) collisionBodyComparision.NWinclusive = true;
+			if (aBottomRight && (aBottomLeftWithin || aTopRightWithin)) collisionBodyComparision.SEinclusive = true;
+			if (aTopRight && (aTopLeftWithin || aBottomRightWithin)) collisionBodyComparision.NEinclusive = true;
+			if (aBottomLeft && (aBottomRightWithin || aTopLeftWithin)) collisionBodyComparision.SWinclusive = true;
 
             // Sides Exclusive
             if (aTopLeft && !aTopRight && !aBottomLeft) collisionBodyComparision.NWexclusive = true;
@@ -107,25 +107,24 @@ namespace Objects
             if (aBottomRight && !aBottomLeft && !aTopRight) collisionBodyComparision.SWexclusive = true;
 
 			// Above and Below
-			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bTopLeftWithin && bTopRightWithin))
+			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (aBottomLeftWithin && aBottomRightWithin))
 				collisionBodyComparision.aAbove = true;
 
-			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (bBottomLeftWithin && bBottomRightWithin))
+			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (aTopLeftWithin && aTopRightWithin))
 				collisionBodyComparision.aBelow = true;
-            
-
+                     
             return collisionBodyComparision;
 		}
 
-		public CollisionBodyComparison CompareWith(PixelBox other, float margin = 0.0f) {
-			CollisionBodyComparison bodyComparison = CompareTwoCollisionBodies(this, other, margin);
+		public PixelBoxComparison CompareWith(PixelBox other, float margin = 0.0f) {
+			PixelBoxComparison bodyComparison = CompareTwoCollisionBodies(this, other, margin);
                      
 			return bodyComparison;
 		}
 
         // Within Range of a collisionBody
 		public bool WithinRange(PixelBox other, Direction direction, float distance = 0.4f, float negDistance = 2.0f) {
-			CollisionBodyComparison comparison = this.CompareWith(other);
+			PixelBoxComparison comparison = this.CompareWith(other);
             
 			if (direction == Direction.NW)
 			{
@@ -223,7 +222,7 @@ namespace Objects
 		}
     }
 
-    public class CollisionBodyComparison
+    public class PixelBoxComparison
     {
         // Vertical For Sorting
         public bool NEvertical;

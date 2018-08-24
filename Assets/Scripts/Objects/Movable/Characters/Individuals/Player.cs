@@ -63,27 +63,20 @@ namespace Objects.Movable.Characters.Individuals
 					step = step + 1;
 					int newAccumulator = (int)(step * Mathf.Abs(mr.slope) * 2);
 
-					if (mr.slopeDirection == Direction.NE || mr.slopeDirection == Direction.SW)
-					{
-						if (newAccumulator != stepAccumulator) {
-							if (mr.slope > 0)
-								UD1 = UD1 + (newAccumulator - stepAccumulator);
-							else
-								UD1 = UD1 - (newAccumulator - stepAccumulator);
-							stepAccumulator = newAccumulator;
-						}
-					}
-					else {
-						if (newAccumulator != stepAccumulator) {
-							if (mr.slope > 0)
-                                UD2 = UD2 + (newAccumulator - stepAccumulator);
-                            else
-                                UD2 = UD2 - (newAccumulator - stepAccumulator);
-
-                            stepAccumulator = newAccumulator;
-                        }
+					if (newAccumulator != stepAccumulator)
+                    {
+						if (mr.slopeDirection == Direction.NE && mr.slope > 0 || mr.slopeDirection == Direction.SW && mr.slope < 0)
+							UD1 = UD1 + (newAccumulator - stepAccumulator);
+						else if (mr.slopeDirection == Direction.NE && mr.slope < 0 || mr.slopeDirection == Direction.SW && mr.slope > 0)
+							UD1 = UD1 - (newAccumulator - stepAccumulator);
+						else if (mr.slopeDirection == Direction.NW && mr.slope > 0 || mr.slopeDirection == Direction.SE && mr.slope < 0)
+							UD2 = UD2 + (newAccumulator - stepAccumulator);
+						else if (mr.slopeDirection == Direction.NW && mr.slope > 0 || mr.slopeDirection == Direction.NE && mr.slope < 0)
+							UD2 = UD2 - (newAccumulator - stepAccumulator);
 					}
 
+		             stepAccumulator = newAccumulator;
+                
 					if (mr.enteredDoor != null) {
 						EnterDoor(mr.enteredDoor);
 					}
