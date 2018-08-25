@@ -443,22 +443,21 @@ namespace Objects
 					bool closeToRamp = proximityDirection != Direction.All;
 
                     // Free the character to go in that direction
-					if (proximityDirection == Direction.SE && bodyComparison.NEandSWinside)
-						restriction.restrictSE = false;
-					else if (proximityDirection == Direction.SW && bodyComparison.NWandSEinside)
-						restriction.restrictSW = false;
-					else if (proximityDirection == Direction.NE && bodyComparison.NWandSEinside)
-                        restriction.restrictNE = false;
-					else if (proximityDirection == Direction.NW && bodyComparison.NEandSWinside)
-                        restriction.restrictNW = false;
+					if (proximityComparison.inside) {
+						if (rampCollider.rampDirection == Direction.NE)
+							restriction.restrictNE = false;
+						else if (rampCollider.rampDirection == Direction.NW)
+                            restriction.restrictNW = false;
+						else if (rampCollider.rampDirection == Direction.SE)
+                            restriction.restrictSE = false;
+						else if (rampCollider.rampDirection == Direction.SW)
+                            restriction.restrictSW = false;
+					}
 
 					// Check if entered ramp
 					bool withinProximityBox = rampCollider.proximityBodyWorld.WithinCollisionBody(transform.position);
 					if (withinProximityBox) {
-						withinRamp = ((rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparison.aAbove && rampCollider.slope > 0 ||
-						              (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparison.aBelow && rampCollider.slope > 0 ||
-						              (rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.NW) && bodyComparison.aBelow && rampCollider.slope < 0 ||
-									  (rampCollider.rampDirection == Direction.SE || rampCollider.rampDirection == Direction.SW) && bodyComparison.aAbove && rampCollider.slope < 0);
+						withinRamp = rampCollider.collisionBodyWorld.WithinCollisionBody(transform.position);
                         
 						// Remove glitch caused by going to the side of the walls
 						if (rampCollider.rampDirection == Direction.NE || rampCollider.rampDirection == Direction.SW)
@@ -474,7 +473,7 @@ namespace Objects
                                 restriction.restrictNE = true;
 							if (!proximityComparison.SWinside)
                                 restriction.restrictSW = true;
-                        }                  
+                        }
 					}
      
 					if (withinRamp) {

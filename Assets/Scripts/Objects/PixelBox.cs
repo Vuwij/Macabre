@@ -265,8 +265,16 @@ namespace Objects
 		public bool NEandSWinside => NEinside && SWinside;
         public bool NWandSEinside => NWinside && SEinside;
 
+		public bool inside => NEandSWinside && NWandSEinside;
+
 		public bool NEandSWoutside => NEoutside && SWoutside;
 		public bool NWandSEoutside => NWoutside && SEoutside;
+        
+		// Overlap
+		public bool NEoverlap => !NWandSEoutside && SWinside && !NEexclusive;
+		public bool SWoverlap => !NWandSEoutside && NEinside && !SWexclusive;
+		public bool NWoverlap => !NEandSWoutside && SEinside && !NWexclusive;
+		public bool SEoverlap => !NEandSWoutside && NWinside && !SEexclusive;
 
         // Above and below, for ramps
 		public bool aAbove;

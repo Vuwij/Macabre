@@ -62,7 +62,7 @@ namespace Objects
 		public PixelBox proximityBodyWorld {
 			get {
 				PixelCollider playerCollider = GameObject.Find("Player").GetComponentInChildren<PixelCollider>();
-				float navMargin = playerCollider.navigationMargin * 3;
+				float navMargin = playerCollider.navigationMargin * 5;
 
 				if (rampDirection == Direction.NE || rampDirection == Direction.SW) {
 					PixelLine pl1 = bottomSegment.Shift(Direction.NE, navMargin);
