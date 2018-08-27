@@ -67,6 +67,12 @@ namespace Objects
 			collisionBodyComparision.SEinside = aBottomRightWithin;
 			collisionBodyComparision.SWinside = aBottomLeftWithin;
 
+			collisionBodyComparision.NEoutside = aTopRight;
+			collisionBodyComparision.NWoutside = aTopLeft;
+			collisionBodyComparision.SEoutside = aBottomRight;
+			collisionBodyComparision.SWoutside = aBottomLeft;
+
+
 			// Debugging Tools
 			if (debug) {
 				if (aTopRightWithin) b.lineNE.Draw(Color.blue, 1.0f);
@@ -257,24 +263,26 @@ namespace Objects
 		public bool SEinside;
 		public bool SWinside;
 
-		public bool NEoutside => !NEinside;
-		public bool NWoutside => !NWinside;
-		public bool SEoutside => !SEinside;
-		public bool SWoutside => !SWinside;
+		public bool NEoutside;
+		public bool NWoutside;
+		public bool SEoutside;
+		public bool SWoutside;
 
 		public bool NEandSWinside => NEinside && SWinside;
         public bool NWandSEinside => NWinside && SEinside;
 
 		public bool inside => NEandSWinside && NWandSEinside;
 
-		public bool NEandSWoutside => NEoutside && SWoutside;
-		public bool NWandSEoutside => NWoutside && SEoutside;
+		public bool NEandSWoutside => NEoutside || SWoutside;
+		public bool NWandSEoutside => NWoutside || SEoutside;
         
 		// Overlap
 		public bool NEoverlap => !NWandSEoutside && SWinside && !NEexclusive;
 		public bool SWoverlap => !NWandSEoutside && NEinside && !SWexclusive;
 		public bool NWoverlap => !NEandSWoutside && SEinside && !NWexclusive;
 		public bool SEoverlap => !NEandSWoutside && NWinside && !SEexclusive;
+
+		public bool overlap => NEoverlap || SWoverlap || NWoverlap || SEoverlap;
 
         // Above and below, for ramps
 		public bool aAbove;

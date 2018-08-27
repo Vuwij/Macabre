@@ -139,30 +139,13 @@ namespace Objects
 
 		public void OnEnable()
 		{
-			SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
-			foreach (SpriteRenderer sr in spriteRenderers)
-			{
-				SetSortingLayer(Layer.World, sr);
-				if (sr.sortingLayerName.Contains("Foreground"))
-					sr.gameObject.SetActive(true);
-			}
-
-			foreach (OtherVisibleRoom room in GetAllConnectedRooms())
-			{
-				room.room.gameObject.SetActive(true);
-				SpriteRenderer[] srs = room.room.GetComponentsInChildren<SpriteRenderer>(true);
-				foreach (SpriteRenderer sr in srs)
-				{
-					SetSortingLayer(room.layer, sr);
-					if (sr.sortingLayerName.Contains("Foreground"))
-						sr.gameObject.SetActive(false);
-				}
-			}
+			if (GetComponentInChildren<Player>() != null)
+				SetRoomSortingLayer(Layer.World);
 		}
 
 		public void OnDisable()
 		{
-			OtherVisibleRoom[] allOtherVisibleRooms = GetAllConnectedRooms();
+			OtherVisibleRoom[] allOtherVisibleRooms = ConnectedRooms;
 			foreach (OtherVisibleRoom room in allOtherVisibleRooms)
 			{
 				if(room.room != null)
@@ -170,21 +153,47 @@ namespace Objects
 			}
 		}
 
-		OtherVisibleRoom[] GetAllConnectedRooms()
-		{
-			List<OtherVisibleRoom> rooms = new List<OtherVisibleRoom>();
+		public void SetRoomSortingLayer(Layer layer) {
 
-			for (int i = 0; i < transform.childCount; ++i)
+			SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+
+			foreach (SpriteRenderer sr in spriteRenderers)
+            {
+				SetSortingLayer(layer, sr);
+                if (sr.sortingLayerName.Contains("Foreground"))
+                    sr.gameObject.SetActive(true);
+            }
+
+			foreach (OtherVisibleRoom room in ConnectedRooms)
 			{
-				Transform child = transform.GetChild(i);
-				PixelExterior pixelExterior = child.GetComponent<PixelExterior>();
-				if(pixelExterior != null) {
-					rooms.AddRange(pixelExterior.otherVisibleRooms.ToList());
+				if (room.room.gameObject.activeInHierarchy == false)
+				{
+					room.room.gameObject.SetActive(true);
+					SpriteRenderer[] srs = room.room.GetComponentsInChildren<SpriteRenderer>(true);
+					room.room.SetRoomSortingLayer(room.layer);
 				}
-		    }
-			rooms.AddRange(otherVisibleRooms.ToList());
+			}
+		}
 
-			return rooms.ToArray();
+		OtherVisibleRoom[] ConnectedRooms
+		{
+			get
+			{
+				List<OtherVisibleRoom> rooms = new List<OtherVisibleRoom>();
+
+				for (int i = 0; i < transform.childCount; ++i)
+				{
+					Transform child = transform.GetChild(i);
+					PixelExterior pixelExterior = child.GetComponent<PixelExterior>();
+					if (pixelExterior != null)
+					{
+						rooms.AddRange(pixelExterior.otherVisibleRooms.ToList());
+					}
+				}
+				rooms.AddRange(otherVisibleRooms.ToList());
+
+				return rooms.ToArray();
+			}
 		}
 
 
