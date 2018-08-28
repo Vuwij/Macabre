@@ -6,7 +6,7 @@ using Objects.Immovable;
 
 namespace Objects.Movable
 {
-    public abstract class MovableObject : Object
+    public abstract class MovableObject : PixelObject
     {
 		protected override void Start() {
 			base.Start();
