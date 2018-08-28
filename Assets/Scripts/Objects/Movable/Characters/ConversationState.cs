@@ -13,15 +13,15 @@ namespace Objects.Movable.Characters
 {
     public class ConversationState
     {
-		public Character character;
+        public Character character;
 
-		public string stateName;
+        public string stateName;
         public List<ConversationState> nextStates = new List<ConversationState>();
         public string updateCondition;
         public string requireCondition;
         public Character speaker;
         public string dialogue;
-		public List<string> actionString;
+        public List<string> conversationActions = new List<string>();
 
         ConversationDialogue conversationDialogue
         {
@@ -34,141 +34,170 @@ namespace Objects.Movable.Characters
             }
         }
 
-		public List<ConversationState> enabledNextStates {
-			get {
-				List<ConversationState> conversationStates = new List<ConversationState>();
-				foreach(ConversationState c in nextStates) {
-					Dictionary<string, string> conditionList = ParseConditionList(c.requireCondition);
+        public List<ConversationState> enabledNextStates {
+            get {
+                List<ConversationState> conversationStates = new List<ConversationState>();
+                foreach(ConversationState c in nextStates) {
+                    Dictionary<string, string> conditionList = ParseConditionList(c.requireCondition);
 
-					bool passConditions = true;
-					foreach(KeyValuePair<string, string> kvp in conditionList) {
-						// Check Temporary Events
-						if(!kvp.Key.Contains("Game.")) {
-							if (character.characterEvents.ContainsKey(kvp.Key)) {
-								if (character.characterEvents[kvp.Key] != kvp.Value) {
-									passConditions = false;
+                    bool passConditions = true;
+                    foreach(KeyValuePair<string, string> kvp in conditionList) {
+                        // Check Temporary Events
+                        if(!kvp.Key.Contains("Game.")) {
+                            if (character.characterEvents.ContainsKey(kvp.Key)) {
+                                if (character.characterEvents[kvp.Key] != kvp.Value) {
+                                    passConditions = false;
                                     continue;
                                 }
                             }
-						}
-						else {
+                        }
+                        else {
                             GameManager gameManager = UnityEngine.Object.FindObjectOfType<GameManager>();
                             Debug.Assert(gameManager != null);
 
-							string gameKey = kvp.Key.Replace("Game.", "");
+                            string gameKey = kvp.Key.Replace("Game.", "");
 
-							if (gameManager.gameEvents.ContainsKey(gameKey)) {
-								if (gameManager.gameEvents[gameKey] != kvp.Value) {
-									passConditions = false;
+                            if (gameManager.gameEvents.ContainsKey(gameKey)) {
+                                if (gameManager.gameEvents[gameKey] != kvp.Value) {
+                                    passConditions = false;
                                     continue;
                                 }
                             }
-						}
-					}
+                        }
+                    }
 
-					if (passConditions)
-						conversationStates.Add(c);
-				}
+                    if (passConditions)
+                        conversationStates.Add(c);
+                }
 
-				return conversationStates;
-			}
-		}
+                return conversationStates;
+            }
+        }
         
-		Dictionary<string, string> ParseConditionList(string s) {
-			Dictionary<string, string> conditionList = new Dictionary<string, string>();
+        Dictionary<string, string> ParseConditionList(string s) {
+            Dictionary<string, string> conditionList = new Dictionary<string, string>();
 
-			string[] conditions = s.Split('\n');
-			if (conditions[0] == "")
-				return conditionList;
-			
-			foreach(var cond in conditions) {
-				string c = cond.Replace(" ", "");
-				Debug.Assert(c.Contains("="));
-				string[] statement = c.Split('=');
-				Debug.Assert(statement.Length == 2);
-				conditionList.Add(statement[0], statement[1]);
-			}
+            string[] conditions = s.Split('\n');
+            if (conditions[0] == "")
+                return conditionList;
+            
+            foreach(var cond in conditions) {
+                string c = cond.Replace(" ", "");
+                Debug.Assert(c.Contains("="));
+                string[] statement = c.Split('=');
+                Debug.Assert(statement.Length == 2);
+                conditionList.Add(statement[0], statement[1]);
+            }
 
-			return conditionList;
-		}
+            return conditionList;
+        }
         
-		public void UpdateConversationConditions() {
-			Dictionary<string, string> conditionList = ParseConditionList(updateCondition);
+        public void UpdateConversationConditions() {
+            Dictionary<string, string> conditionList = ParseConditionList(updateCondition);
             foreach (KeyValuePair<string, string> kvp in conditionList)
             {
                 // Check Temporary Events
                 if (!kvp.Key.Contains("Game.")) {
-					if (character.characterEvents.ContainsKey(kvp.Key))
-						character.characterEvents[kvp.Key] = kvp.Value;
-					else
-						character.characterEvents.Add(kvp.Key, kvp.Value);
+                    if (character.characterEvents.ContainsKey(kvp.Key))
+                        character.characterEvents[kvp.Key] = kvp.Value;
+                    else
+                        character.characterEvents.Add(kvp.Key, kvp.Value);
                 }
                 else
                 {
                     GameManager gameManager = UnityEngine.Object.FindObjectOfType<GameManager>();
                     Debug.Assert(gameManager != null);
 
-					string gameKey = kvp.Key.Replace("Game.", "");
-					if (gameManager.gameEvents.ContainsKey(gameKey))
-						gameManager.gameEvents[gameKey] = kvp.Value;
+                    string gameKey = kvp.Key.Replace("Game.", "");
+                    if (gameManager.gameEvents.ContainsKey(gameKey))
+                        gameManager.gameEvents[gameKey] = kvp.Value;
                     else
-						gameManager.gameEvents.Add(gameKey, kvp.Value);
+                        gameManager.gameEvents.Add(gameKey, kvp.Value);
                 }
             }
-		}
+        }
 
-		public void DisplayCurrent()
-		{
-			conversationDialogue.Reset();
-			conversationDialogue.gameObject.SetActive(true);
+        public void DisplayCurrent()
+        {
+            conversationDialogue.Reset();
+            conversationDialogue.gameObject.SetActive(true);
 
-			SpriteRenderer spriteRenderer = speaker.GetComponentInChildren<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = speaker.GetComponentInChildren<SpriteRenderer>();
             conversationDialogue.mainImage = spriteRenderer.sprite;
             conversationDialogue.titleText = speaker.name;
             conversationDialogue.mainText = dialogue;
-		}
-
+        }
+        
         public void Display()
         {
-			conversationDialogue.Reset();
+            conversationDialogue.Reset();
 
-			if (nextStates.Count == 1) {
-				ConversationState nextState = enabledNextStates[0];
+            if(stateName == "" || stateName == "Silent")
+                LockCharacterPositions();
+
+            if (enabledNextStates.Count == 1) {
+                ConversationState nextState = enabledNextStates[0];
                 if (nextState.stateName == "" || nextState.stateName == "Silent") {
                     conversationDialogue.gameObject.SetActive(false);
-					character.characterEvents.Clear();
+                    character.characterEvents.Clear();
+                    UnlockCharacterPositions();
                 }
                 else
                 {
-					SpriteRenderer spriteRenderer = nextState.speaker.GetComponentInChildren<SpriteRenderer>();
+                    SpriteRenderer spriteRenderer = nextState.speaker.GetComponentInChildren<SpriteRenderer>();
                     Debug.Assert(spriteRenderer != null);
-					conversationDialogue.gameObject.SetActive(true);
-					conversationDialogue.mainImage = spriteRenderer.sprite;
+                    conversationDialogue.gameObject.SetActive(true);
+                    conversationDialogue.mainImage = spriteRenderer.sprite;
                     conversationDialogue.titleText = nextState.speaker.name;
                     conversationDialogue.mainText = nextState.dialogue;
                 }
             }
             else
             {
-				conversationDialogue.gameObject.SetActive(true);
+                conversationDialogue.gameObject.SetActive(true);
 
-				SpriteRenderer spriteRenderer = enabledNextStates[0].speaker.GetComponentInChildren<SpriteRenderer>();
+                SpriteRenderer spriteRenderer = enabledNextStates[0].speaker.GetComponentInChildren<SpriteRenderer>();
                 Debug.Assert(spriteRenderer != null);
                 conversationDialogue.mainImage = spriteRenderer.sprite;
 
                 List<string> responsetexts = new List<string>();
-				foreach (ConversationState state in enabledNextStates)
+                foreach (ConversationState state in enabledNextStates)
                     responsetexts.Add(state.dialogue);
                     
                 conversationDialogue.responseTexts = responsetexts.ToArray();            
             }
         }
 
-		public ConversationState NextState(int option = 1) {
-			if (enabledNextStates.Count == 1)
-				return enabledNextStates[0];
-			if (option > enabledNextStates.Count) return null;
-			return enabledNextStates[option - 1];
-		}
+        public void AnimateConversationActions()
+        {         
+            foreach (string conversationAction in conversationActions)
+            {
+                Debug.Assert(conversationAction != "");
+                GameManager.main.AddGameTask(conversationAction);
+            }
+        }
+
+        public void LockCharacterPositions()
+        {
+            Debug.Log("Locking Character Positions");
+			Character mainCharacter = GameObject.Find("Player").GetComponent<Character>();
+			Debug.Assert(mainCharacter != null);
+			mainCharacter.currentlySpeakingTo = character;
+        }
+
+
+        public void UnlockCharacterPositions()
+        {
+			Debug.Log("Locking Character Positions");
+            Character mainCharacter = GameObject.Find("Player").GetComponent<Character>();
+            Debug.Assert(mainCharacter != null);
+        }
+
+        public ConversationState NextState(int option = 1) {
+            if (enabledNextStates.Count == 1)
+                return enabledNextStates[0];
+            if (option > enabledNextStates.Count) return null;
+            return enabledNextStates[option - 1];
+        }
     }
 }

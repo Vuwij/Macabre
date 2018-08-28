@@ -25,16 +25,16 @@ namespace Objects.Movable.Characters.Individuals
 			}
 		}
 
+		bool controllable => !positionLocked && currentlySpeakingTo == null;
+
+		int step = 0;
+		int stepAccumulator = 0;
 		protected override Vector2 inputVelocity
 		{
 			get {
-                PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
-                PixelCollider.MovementRestriction mr = new PixelCollider.MovementRestriction();
-                mr.restrictNE = false;
-                mr.restrictNW = false;
-                mr.restrictSE = false;
-                mr.restrictSW = false;
-
+				// Check if movable
+				if (!controllable) return Vector2.zero;
+                
                 AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
                 if (!state.IsName("Idle") && !state.IsName("Move") && !state.IsName("Look"))
                     return Vector2.zero;
@@ -45,31 +45,64 @@ namespace Objects.Movable.Characters.Individuals
 				if (DebugWindowOpen)
 					return Vector2.zero;
 
+                // Check Collisions
+				PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+                PixelCollider.MovementRestriction mr = new PixelCollider.MovementRestriction();
+
                 if (pixelCollider != null)
                     mr = pixelCollider.CheckForCollision();
 
+                // 1 applies to going NW or SE, 2 applies to going NE or SW
+				int LR1 = 2;
+				int LR2 = 2;
+				int UD1 = 1;
+				int UD2 = 1;
+
+                // Ramps
+				if (mr.slopeDirection != Direction.All) {
+					step = step + 1;
+					int newAccumulator = (int)(step * Mathf.Abs(mr.slope) * 2);
+
+					if (newAccumulator != stepAccumulator)
+                    {
+						if (mr.slopeDirection == Direction.NE && mr.slope > 0 || mr.slopeDirection == Direction.SW && mr.slope < 0)
+							UD1 = UD1 + (newAccumulator - stepAccumulator);
+						else if (mr.slopeDirection == Direction.NE && mr.slope < 0 || mr.slopeDirection == Direction.SW && mr.slope > 0)
+							UD1 = UD1 - (newAccumulator - stepAccumulator);
+						else if (mr.slopeDirection == Direction.NW && mr.slope > 0 || mr.slopeDirection == Direction.SE && mr.slope < 0)
+							UD2 = UD2 + (newAccumulator - stepAccumulator);
+						else if (mr.slopeDirection == Direction.NW && mr.slope > 0 || mr.slopeDirection == Direction.NE && mr.slope < 0)
+							UD2 = UD2 - (newAccumulator - stepAccumulator);
+					}
+
+		             stepAccumulator = newAccumulator;
+                
+					if (mr.enteredDoor != null) {
+						EnterDoor(mr.enteredDoor);
+					}
+				}
+
 				if (Input.GetAxisRaw("Horizontal") > 0 && mr.restrictNE)
-					facingDirection = new Vector2(2, 1);
+					facingDirection = new Vector2(LR1, UD1);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && mr.restrictSW)
-					facingDirection = new Vector2(-2, -1);
+					facingDirection = new Vector2(-LR1, -UD1);
                 else if (Input.GetAxisRaw("Vertical") > 0 && mr.restrictNW)
-					facingDirection = new Vector2(-2, 1);
+					facingDirection = new Vector2(-LR2, UD2);
                 else if (Input.GetAxisRaw("Vertical") < -0 && mr.restrictSE)
-					facingDirection = new Vector2(2, -1);
-
-
+					facingDirection = new Vector2(LR2, -LR2);
+                
                 if (Input.GetAxisRaw("Horizontal") > 0 && !mr.restrictNE)
-                    return new Vector2(2, 1);
+                    return new Vector2(LR1, UD1);
                 else if (Input.GetAxisRaw("Horizontal") < 0 && !mr.restrictSW)
-                    return new Vector2(-2, -1);
+                    return new Vector2(-LR1, -UD1);
                 else if (Input.GetAxisRaw("Vertical") > 0 && !mr.restrictNW)
-                    return new Vector2(-2, 1);
+					return new Vector2(-LR2, UD2);
                 else if (Input.GetAxisRaw("Vertical") < -0 && !mr.restrictSE)
-                    return new Vector2(2, -1);
+					return new Vector2(LR2, -UD2);
                 return Vector2.zero;
 			}
 		}
-
+        
 		Vector2 mousePosition
         {
             get {
@@ -90,9 +123,11 @@ namespace Objects.Movable.Characters.Individuals
         
 		void Update()
 		{
-			MouseClicked();
-            KeyPressed();
-			HoverOverObject();
+			if (controllable)
+				MouseClicked();
+			
+			KeyPressed();
+            HoverOverObject();
 		}
 
 		void KeyPressed() {
@@ -101,37 +136,47 @@ namespace Objects.Movable.Characters.Individuals
 				// Console
 				if (DebugWindowOpen)
 					return;
-                
-                // Inventory
-                if (Input.GetButtonDown("Inventory"))
-                {
-                    UIScreenManager screenManager = FindObjectOfType<UIScreenManager>();
-                    InventoryPanel panel = screenManager.GetComponentInChildren<InventoryPanel>(true);
-                    Debug.Assert(panel != null);
-                    if (!panel.gameObject.activeInHierarchy)
-                        panel.gameObject.SetActive(true);
-                    else
-                        panel.gameObject.SetActive(false);
-                }
 
-                // Inspection
-                else if (Input.GetButtonDown("Inspect"))
-                {
-                    Inspect();
-                }
+				if (controllable)
+				{
+					// Inventory
+					if (Input.GetButtonDown("Inventory"))
+					{
+						UIScreenManager screenManager = FindObjectOfType<UIScreenManager>();
+						InventoryPanel panel = screenManager.GetComponentInChildren<InventoryPanel>(true);
+						Debug.Assert(panel != null);
+						if (!panel.gameObject.activeInHierarchy)
+							panel.gameObject.SetActive(true);
+						else
+							panel.gameObject.SetActive(false);
+					}
 
-                // Conversation
-                int selection = 0;
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                    selection = 1;
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
-                    selection = 2;
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
-                    selection = 3;
-                else if (Input.GetKeyDown(KeyCode.Alpha4))
-                    selection = 4;
-                if(selection != 0)
-                    Talk(selection);
+					// Inspection
+					else if (Input.GetButtonDown("Inspect"))
+					{
+						Inspect();
+					}
+				}
+				else
+				{
+					// Conversation
+					if (Input.GetButtonDown("Inspect"))
+						Talk();
+					else {
+						int selection = 0;
+						if (Input.GetKeyDown(KeyCode.Alpha1))
+							selection = 1;
+						else if (Input.GetKeyDown(KeyCode.Alpha2))
+							selection = 2;
+						else if (Input.GetKeyDown(KeyCode.Alpha3))
+							selection = 3;
+						else if (Input.GetKeyDown(KeyCode.Alpha4))
+							selection = 4;
+
+						if (selection != 0)
+							Talk(selection);
+					}
+				}
 			}
             
 		}
@@ -158,12 +203,15 @@ namespace Objects.Movable.Characters.Individuals
 						if (pixelCollider.inspectChildObjects) continue;
 						PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
 						if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
+						if (pixelCollider.transform.parent.name == "VirtualObject") continue;
+						if (pixelCollider.transform.parent.name == "Player") continue;
 
 						bool withinCollider = pixelCollider.CheckForWithinCollider(mousePosition);                  
 						if (withinCollider)
 						{
 							Debug.Log(pixelCollider.transform.parent.name);
-							WalkToObject(pixelCollider, transform.position, mousePosition);
+                            
+							NavigateObject(pixelCollider.GetPixelRoom(), pixelCollider);
 
                             // Inspect Object
 							PixelCollision pc = new PixelCollision();
@@ -217,6 +265,7 @@ namespace Objects.Movable.Characters.Individuals
                 if (pixelCollider != null)
                 {
 					if (pixelCollider.inspectChildObjects) continue;
+					if (pixelCollider.transform.parent.name == "Player") continue;
 					PixelCollider characterCollider = this.GetComponentInChildren<PixelCollider>();
                     if (pixelCollider.GetPixelRoom() != characterCollider.GetPixelRoom()) continue;
 

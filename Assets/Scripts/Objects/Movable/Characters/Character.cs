@@ -11,17 +11,29 @@ namespace Objects.Movable.Characters
 {
 	public abstract class Character : MovableObject
     {
-		protected Animator animator
-		{
-			get
-			{
-				return GetComponentInChildren<Animator>();
+		protected Animator animator { get { return GetComponentInChildren<Animator>(); }}
+
+		protected virtual Vector2 inputVelocity { get; set; }
+
+		public PixelPose pose {
+			get {
+				PixelPose p = new PixelPose();
+				PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+				p.pixelRoom = pixelCollider.GetPixelRoom();
+				p.position = pixelCollider.transform.position;
+
+				if (facingDirection.x > 0 && facingDirection.y > 0)
+					p.direction = Direction.NE;
+				else if (facingDirection.x > 0 && facingDirection.y < 0)
+					p.direction = Direction.SE;
+				else if (facingDirection.x < 0 && facingDirection.y > 0)
+                    p.direction = Direction.NW;
+				else if (facingDirection.x < 0 && facingDirection.y < 0)
+                    p.direction = Direction.SW;
+
+				return p;
 			}
 		}
-
-        protected virtual Vector2 inputVelocity {
-            get; set;
-        }
 
 		public int orientationX
 		{
@@ -72,7 +84,7 @@ namespace Objects.Movable.Characters
 		List<WayPoint> wayPoints;
 		public Vector2 wayPointVelocity;
 
-        bool positionLocked;
+		public bool positionLocked = false;
 
         [HideInInspector]
         public string description;
@@ -94,10 +106,17 @@ namespace Objects.Movable.Characters
         protected Vector2 characterVelocity;
 		protected Vector2 facingDirection;
 
+		public Character currentlySpeakingTo;
+        public ConversationState currentConversationState;
+        public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
+        public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
+
+		public CharacterStatistics statistics = new CharacterStatistics();
+
         protected override void Start()
         {
             UpdateFromPrefab();
-   
+			UpdateSortingLayer();
             base.Start();         
         }
         
@@ -119,40 +138,36 @@ namespace Objects.Movable.Characters
 				Debug.LogError(name + " not found in prefab");
 				Debug.Assert(prefab != null);
 			}
-            conversationStates = prefab.conversationStates;
-            currentConversationState = prefab.currentConversationState;
         }
 
         void Movement()
         {
-			if(!positionLocked) {
-				if (inputVelocity != Vector2.zero)
+			if (inputVelocity != Vector2.zero && !positionLocked)
+            {
+                Vector2 pos = transform.position;
+                pos.x = pos.x + inputVelocity.x;
+                pos.y = pos.y + inputVelocity.y;
+                transform.position = pos;
+                UpdateSortingLayer();
+                characterVelocity = inputVelocity;
+                if (wayPoints != null)
                 {
-                    Vector2 pos = transform.position;
-                    pos.x = pos.x + inputVelocity.x;
-                    pos.y = pos.y + inputVelocity.y;
-                    transform.position = pos;
-                    UpdateSortingLayer();
-					characterVelocity = inputVelocity;
-					if (wayPoints != null)
-					{
-						wayPoints.Clear();
-						wayPointVelocity = Vector2.zero;
-					}
+                    wayPoints.Clear();
+                    wayPointVelocity = Vector2.zero;
                 }
-                else if (wayPointVelocity != Vector2.zero)
-                {
-                    Vector2 pos = transform.position;
-                    pos.x = pos.x + wayPointVelocity.x;
-                    pos.y = pos.y + wayPointVelocity.y;
-                    transform.position = pos;
-                    UpdateSortingLayer();
-					characterVelocity = wayPointVelocity;
-                }
-				else
-				{
-					characterVelocity = Vector2.zero;
-				}
+            }
+			else if (wayPointVelocity != Vector2.zero)
+			{
+				Vector2 pos = transform.position;
+				pos.x = pos.x + wayPointVelocity.x;
+				pos.y = pos.y + wayPointVelocity.y;
+				transform.position = pos;
+				UpdateSortingLayer();
+				characterVelocity = wayPointVelocity;
+			}
+			else
+			{
+				characterVelocity = Vector2.zero;
 			}
                      
 			if(characterVelocity != Vector2.zero)
@@ -177,19 +192,14 @@ namespace Objects.Movable.Characters
 			animator.SetFloat(Animator.StringToHash("MoveSpeed-x"), facingDirection.x);
 			animator.SetFloat(Animator.StringToHash("MoveSpeed-y"), facingDirection.y);
 		}
-
-		public Character currentlySpeakingTo;
-		public ConversationState currentConversationState;
-        public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
-		public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
-
+        
 		public void Inspect()
 		{
             PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
             var objects = pixelCollider.CheckForInspection();
 			foreach(PixelCollision pc in objects) {
 				Debug.Log(pc.pixelCollider.transform.parent.name);
-				InspectObject(pc);
+ 				InspectObject(pc);
             }
 		}
 
@@ -216,7 +226,7 @@ namespace Objects.Movable.Characters
             PixelItem item = pc.pixelCollider.transform.parent.GetComponent<PixelItem>();
             if (item != null)
             {
-                PixelInventory inv = GetComponentInChildren<PixelInventory>();
+                CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
                 Debug.Assert(inv != null);
 
                 bool succeed = inv.AddItem(item);
@@ -233,21 +243,16 @@ namespace Objects.Movable.Characters
 
             // Inspected object is a character
 			currentlySpeakingTo = pc.pixelCollider.transform.parent.GetComponent<Character>();
-            if (currentlySpeakingTo != null)
-            {
-                currentlySpeakingTo.currentConversationState.Display();
-                if (currentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
-                {
-                    currentlySpeakingTo.currentConversationState = currentlySpeakingTo.currentConversationState.NextState();
-                    currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
-                }
-            }
+			if (currentlySpeakingTo == this) currentlySpeakingTo = null; // Cannot talk to one self
+			if (currentlySpeakingTo != null)
+				Talk();
 		}
 
 		public void EnterDoor(PixelDoor door) {
 			PixelRoom room = door.destination;
             Transform originalroom = transform.parent;
 
+			Vector2 originalposition = transform.position;
 			transform.parent = null; // Prevents disabling the player
 
 			originalroom.gameObject.SetActive(false);
@@ -255,9 +260,11 @@ namespace Objects.Movable.Characters
 
 			Vector2 destinationOffset = door.dropOffWorldLocation;
             facingDirection = destinationOffset - (Vector2)transform.position;
-            transform.position = destinationOffset;
+			if (!(door is PixelStair))
+				transform.position = destinationOffset;
+
             transform.parent = room.transform;
-                     
+
             room.OnEnable();
 
             UpdateSortingLayer();
@@ -266,30 +273,74 @@ namespace Objects.Movable.Characters
             AnimateMovement();
             InvokeRepeating("Movement", 0.0f, 1.0f / room.RoomWalkingSpeed);
 
+			if (door is PixelStair)
+                transform.position = originalposition;
+
             return;
 		}
 
-        public void Talk(int selection) {
-			if (currentlySpeakingTo == null)
-				return;            
+         public void Talk(int selection = 0) {
+			if (selection == 0)
+			{
+				// Do the talk
+				currentlySpeakingTo.currentConversationState.Display();
+				if (currentlySpeakingTo != null && currentlySpeakingTo.currentConversationState.nextStates.Count <= 1)
+				{
+					currentlySpeakingTo.currentConversationState = currentlySpeakingTo.currentConversationState.NextState();
+					currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+					currentlySpeakingTo.currentConversationState.AnimateConversationActions();
+					if (currentlySpeakingTo.currentConversationState.stateName == "Silent")
+						currentlySpeakingTo = null;
+				}
+			}
+			else
+			{
+				if (currentlySpeakingTo == null)
+					return;
 
-			if (currentlySpeakingTo.currentConversationState.nextStates.Count == 1)
-				return;
+				if (currentlySpeakingTo.currentConversationState.nextStates.Count == 1)
+					return;
 
-			ConversationState nextState = currentlySpeakingTo.currentConversationState.NextState(selection);
-			if (nextState == null) 
-				return;
-			else 
-				currentlySpeakingTo.currentConversationState = nextState;
-			
-			currentlySpeakingTo.currentConversationState.DisplayCurrent();     
-			currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+				ConversationState nextState = currentlySpeakingTo.currentConversationState.NextState(selection);
+
+				if (nextState == null)
+					return;
+				else
+					currentlySpeakingTo.currentConversationState = nextState;
+
+				currentlySpeakingTo.currentConversationState.DisplayCurrent();
+				currentlySpeakingTo.currentConversationState.UpdateConversationConditions();
+				currentlySpeakingTo.currentConversationState.AnimateConversationActions();
+			}
         }
         
+        // Walking in a room
+		public void WalkInRoom(PixelRoom room, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
+        {
+			if (walkToPosition == default(Vector2))
+                walkToPosition = room.center;
+
+            PixelCollider pixelCollider = GetComponentInChildren<PixelCollider>();
+
+            if (room != pixelCollider.GetPixelRoom())
+                room.gameObject.SetActive(true);
+            
+			HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(pixelCollider, walkFromPosition);
+			WayPoint closest = navigationMesh.Aggregate((i1, i2) => Vector2.Distance(i1.position, walkToPosition) < Vector2.Distance(i2.position, walkToPosition) ? i1 : i2);
+
+            if (room != pixelCollider.GetPixelRoom())
+                room.gameObject.SetActive(false);
+
+			Debug.DrawLine(transform.position, closest.position, Color.magenta, 10.0f);
+
+            CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
+            characterTasks.Enqueue(characterTask);
+        }
+
         // Navigates in the current room only
 		public bool WalkTo(Vector2 destination)
 		{
-            // Find and draw the navigational path
+			// Find and draw the navigational path
 			if(wayPoints == null) {
 				wayPoints = FindPathToLocation(destination);
 				if (wayPoints.Count != 0)
@@ -348,7 +399,7 @@ namespace Objects.Movable.Characters
 			float minDistanceToTarget = stepSize * 2;
 
 			// Initialization
-			HashSet<WayPoint> Q = pixelRoom.GetNavigationalMesh(transform.position, stepSize);
+			HashSet<WayPoint> Q = pixelRoom.GetNavigationalMesh(pixelCollider);
 			WayPoint target = new WayPoint
             {
 				position = destination,
@@ -390,34 +441,127 @@ namespace Objects.Movable.Characters
 			return new List<WayPoint>();
 		}
 
-		public bool Navigate(PixelRoom room, PixelCollider pixelCollider) {
+		public bool NavigateObject(PixelRoom room, PixelCollider pixelCollider, Direction direction = Direction.All) {
+            
+			PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
+            PixelCollider playerCollider = GetComponentInChildren<PixelCollider>();
 
+			// Find last location
+			// Closest from the door or the players position
+            List<PixelDoor> path = FindPathToRoom(room);
+
+            Vector2 startPosition;
+            if (path.Count != 0)
+            {
+                room.gameObject.SetActive(true);                
+                room.GetNavigationalMesh(playerCollider, path.Last().dropOffWorldLocation);
+				room.gameObject.SetActive(false);
+                startPosition = path.Last().dropOffWorldLocation;
+            }
+            else
+            {
+                startPosition = transform.position;
+            }
+
+            // Navigate from the last location to find the pixel pose
+			PixelPose pixelPose;
+			if (pixelCollider != null)
+            {
+				pixelRoom.GetNavigationalMesh(playerCollider, startPosition);
+    
+				// Object is movable
+                if (pixelCollider.transform.parent.GetComponent<MovableObject>())
+                {
+                    if (direction != Direction.All)
+					{
+						WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
+						pixelPose = new PixelPose(pixelRoom, direction, wayPoint.position);
+					}
+					else
+					{
+                        // Player moves to the characters position first                  
+						KeyValuePair<PixelPose, float> bestPlayerMovementWayPoint = pixelCollider.FindBestWayPoint();
+						pixelPose = bestPlayerMovementWayPoint.Key;
+
+						Debug.DrawLine(transform.position, pixelPose.position, Color.red, 10.0f);                  
+
+						// Character enqueues a movement to the best place for that position
+						Character character = pixelCollider.GetComponentInParent<Character>();
+						if(character != null) {
+							PixelPose translatedPose = pixelPose.TranslatePose(2*(pixelCollider.navigationMargin + playerCollider.navigationMargin));
+							PixelPose flippedPose = translatedPose.Flip();
+
+							GameTask characterNavTask = new GameTask(GameTask.TaskType.NAVIGATE);
+                            characterNavTask.character = character;
+							characterNavTask.arguments.Add(flippedPose);
+							character.characterTasks.Enqueue(characterNavTask);                   
+						}
+					}
+                }
+                else
+                {
+					if (direction != Direction.All)
+                    {
+                        WayPoint wayPoint = pixelCollider.FindWayPointInDirection(direction);
+						pixelPose = new PixelPose(pixelRoom, direction, wayPoint.position);
+                    }
+                    else
+                    {
+                        PixelCollider characterCollider = GetComponentInChildren<PixelCollider>();
+						pixelPose = pixelCollider.FindBestWayPointPosition(startPosition);
+                    }
+                }
+				Navigate(pixelPose);            
+            }
+            return true;         
+		}
+
+		public bool Navigate(PixelPose pose) {
 			// Find a list of doors to navigate to
-			List<PixelDoor> path = FindPathToRoom(room);
-			if(path != null) {
-				foreach(PixelDoor door in path) {
-					Debug.Log("Take " + door.name + " to " + door.destination);
-				}
-			}
+			List<PixelDoor> path = FindPathToRoom(pose.pixelRoom);
+            if (path != null)
+            {
+                foreach (PixelDoor door in path)
+                {
+                    Debug.Log("Take " + door.name + " to " + door.destination);
+                }
+            }
 
             // Enqueue walkto tasks
-			foreach(PixelDoor door in path) {
-				CharacterTask walkToDoorTask = new CharacterTask(GameTask.TaskType.WALKTO, door.dropInWorldLocation);
-				CharacterTask enterDoorTask = new CharacterTask(GameTask.TaskType.ENTERDOOR, door);
-				characterTasks.Enqueue(walkToDoorTask);
-				characterTasks.Enqueue(enterDoorTask);
-			}
+            foreach (PixelDoor door in path)
+            {
+                CharacterTask walkToDoorTask = new CharacterTask(GameTask.TaskType.WALKTO, door.dropInWorldLocation);
+                CharacterTask enterDoorTask = new CharacterTask(GameTask.TaskType.ENTERDOOR, door);
+                characterTasks.Enqueue(walkToDoorTask);
+                characterTasks.Enqueue(enterDoorTask);
+            }
 
-			Vector2 lastPosition;
-			if (path.Count == 0)
-				lastPosition = transform.position;
-			else
-				lastPosition = path.Last().dropOffWorldLocation;
+            Vector2 lastPosition;
+            if (path.Count == 0)
+                lastPosition = transform.position;
+            else
+                lastPosition = path.Last().dropOffWorldLocation;
 
+			WalkInRoom(pose.pixelRoom, lastPosition, pose.position);
 
-			if (pixelCollider != null)
-				WalkToObject(pixelCollider, lastPosition, pixelCollider.transform.position);
+			CharacterTask faceTask = new CharacterTask(GameTask.TaskType.FACEDIRECTION, pose.direction);
+			faceTask.character = this;
+			characterTasks.Enqueue(faceTask);
 
+			return true;
+		}
+
+		public bool FaceDirection(Direction direction) {
+			if (direction == Direction.All) return true;
+			characterVelocity = Vector2.zero;
+			if (direction == Direction.NE)
+				facingDirection = new Vector2(2, 1);
+			else if (direction == Direction.NW)
+                facingDirection = new Vector2(-2, 1);
+			else if (direction == Direction.SE)
+                facingDirection = new Vector2(2, -1);
+			else if (direction == Direction.SW)
+                facingDirection = new Vector2(-2, -1);
 			return true;
 		}
 
@@ -467,26 +611,6 @@ namespace Objects.Movable.Characters
 			return null;
 		}
 
-		public void WalkToObject(PixelCollider pixelCollider, Vector2 walkFromPosition, Vector2 walkToPosition = default(Vector2))
-		{
-			if (walkToPosition == default(Vector2))
-                walkToPosition = pixelCollider.transform.position;
-            PixelRoom room = pixelCollider.GetPixelRoom();
-            PixelCollider currentLocation = this.GetComponentInChildren<PixelCollider>();
-
-            if (room != currentLocation.GetPixelRoom())
-                room.gameObject.SetActive(true);
-
-            HashSet<WayPoint> navigationMesh = room.GetNavigationalMesh(walkFromPosition);
-            WayPoint closest = navigationMesh.Aggregate((i1, i2) => (i1.position - walkToPosition).sqrMagnitude < (i2.position - walkToPosition).sqrMagnitude ? i1 : i2);
-
-            if (room != currentLocation.GetPixelRoom())
-                room.gameObject.SetActive(false);
-
-            CharacterTask characterTask = new CharacterTask(GameTask.TaskType.WALKTO, closest.position);
-            characterTasks.Enqueue(characterTask);
-		}
-
 		public void CreateItem(GameObject item, int quantity = 1)
 		{
 			Debug.Assert(quantity >= 1 && quantity <= 4);
@@ -494,8 +618,9 @@ namespace Objects.Movable.Characters
 			for (int i = 0; i < quantity; ++i)
 			{
 				GameObject newObj = Instantiate(item);
+				newObj.gameObject.name = item.name;
 
-				PixelInventory inv = GetComponentInChildren<PixelInventory>();
+				CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
 				Debug.Assert(inv != null);
 
 				PixelItem pixelItem = newObj.GetComponent<PixelItem>();
@@ -503,7 +628,6 @@ namespace Objects.Movable.Characters
 				bool succeed = inv.AddItem(pixelItem);
 				if (succeed)
 				{
-					newObj.gameObject.name = item.name;
 					newObj.gameObject.SetActive(false);
 					newObj.transform.parent = inv.transform;
 				}
@@ -516,7 +640,7 @@ namespace Objects.Movable.Characters
 		}
 
 		public void Puts(int number, string item, PixelStorage pixelStorage) {
-			PixelInventory inv = GetComponentInChildren<PixelInventory>();
+			CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
 			bool hasItem = inv.HasItem(item, number);
@@ -536,7 +660,7 @@ namespace Objects.Movable.Characters
 
 		public void Takes(int number, string item, PixelStorage pixelStorage)
         {
-            PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
 			bool hasItem = pixelStorage.HasObject(item, number);
@@ -570,7 +694,7 @@ namespace Objects.Movable.Characters
 
 		public void Gives(int number, string item, Character character)
 		{
-			PixelInventory inv = GetComponentInChildren<PixelInventory>();
+			CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
             bool hasItem = inv.HasItem(item, number);
@@ -582,7 +706,7 @@ namespace Objects.Movable.Characters
 
             Debug.Assert(number >= 1 && number <= 24);
 
-			PixelInventory toInv = character.GetComponentInChildren<PixelInventory>();
+			CharacterInventory toInv = character.GetComponentInChildren<CharacterInventory>();
 			Debug.Assert(toInv != null);
 
 			animator.SetTrigger(Animator.StringToHash("IsInteract"));
@@ -598,7 +722,7 @@ namespace Objects.Movable.Characters
 
 		public void Steals(int number, string item, Character character)
         {
-            PixelInventory inv = GetComponentInChildren<PixelInventory>();
+            CharacterInventory inv = GetComponentInChildren<CharacterInventory>();
             Debug.Assert(inv != null);
 
             bool hasItem = inv.HasItem(item, number);
@@ -610,7 +734,7 @@ namespace Objects.Movable.Characters
 
             Debug.Assert(number >= 1 && number <= 24);
 
-            PixelInventory toInv = character.GetComponent<PixelInventory>();
+			CharacterInventory toInv = character.GetComponentInChildren<CharacterInventory>();
             Debug.Assert(toInv != null);
 
 			animator.SetTrigger(Animator.StringToHash("IsInteract"));
@@ -618,11 +742,23 @@ namespace Objects.Movable.Characters
             for (int i = 0; i < number; ++i)
             {
 				GameObject obj = toInv.GetItem(item);
+				Debug.Assert(obj != null);
                 PixelItem pixelItem = obj.GetComponent<PixelItem>();
-                inv.AddItem(pixelItem);
-				obj.transform.parent = inv.transform;
+				toInv.AddItem(pixelItem);
+				obj.transform.parent = toInv.transform;
             }
         }
+
+        // TODO 3. There is no mount function yet. Create the mount function to mount onto chairs and beds. Determine if something is mountable or not
+		public bool Mount()
+		{
+			// The mount function must have arguments that include the object to be mounted, and the destination object to be mounted. 
+			// It should call PixelMount.Mount() and PixelMount.Dismount() and it should change the characters sprite to a sitting position via an animation
+			// The foot of the character is a seperate sprite and should be created and located to the precise location of the character's position when mounting and dismounting
+			// The seperate sprite gameobject should be deleted when it is finished dismounting from the object to mount
+			// The function should return true if the object to mount is unsuccesful
+			return true;
+		}
 
 		IEnumerator UpdateCharacterAction()
 		{
@@ -638,17 +774,38 @@ namespace Objects.Movable.Characters
                 
 				if (t.taskType == GameTask.TaskType.NAVIGATE)
 				{
-					Debug.Assert(t.arguments.Count() == 2);
-					bool completed = Navigate((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1]);
-                    if (completed)
+					Debug.Assert(t.arguments.Count() >= 1 && t.arguments.Count() <= 3);
+
+					bool completed;
+					positionLocked = true;
+					if (t.arguments.Count() == 1)
+					{
+						PixelPose pixelPose = (PixelPose)t.arguments[0];
+						completed = Navigate(pixelPose);
+					}
+					else
+					{
+						Direction direction = Direction.All;
+						if (t.arguments.Count() == 3)
+							direction = (Direction)t.arguments[2];
+						completed = NavigateObject((PixelRoom)t.arguments[0], (PixelCollider)t.arguments[1], direction);
+					}
+					if (completed)
+					{
+						positionLocked = false;
 						characterTasks.Dequeue();
+					}
 				}
 				else if (t.taskType == GameTask.TaskType.WALKTO)
                 {
                     Debug.Assert(t.arguments.Count() == 1);
+					positionLocked = true;
 					bool completed = WalkTo((Vector2)t.arguments[0]);
-                    if (completed)
+					if (completed)
+					{
+						positionLocked = false;
 						characterTasks.Dequeue();
+					}
                 }
 				else if (t.taskType == GameTask.TaskType.ENTERDOOR)
 				{
@@ -692,6 +849,16 @@ namespace Objects.Movable.Characters
 					Steals((int)t.arguments[0], (string)t.arguments[1], (Character) t.arguments[2]);
                     characterTasks.Dequeue();
                 }
+				else if (t.taskType == GameTask.TaskType.FACEDIRECTION)
+                {
+                    Debug.Assert(t.arguments.Count() == 1);
+					FaceDirection((Direction)t.arguments[0]);
+					characterTasks.Dequeue();
+                }
+				else if (t.taskType == GameTask.TaskType.MOUNT)
+				{
+					// TODO 2. Create a function here that calls the mount function
+				}
 				yield return new WaitForFixedUpdate();
 			}
 		}

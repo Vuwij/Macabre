@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using Objects;
+using Objects.Movable.Characters;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,10 +24,10 @@ public class NavigationTest {
     public IEnumerator PlayerMovement2() {
         SceneManager.LoadScene("Game");
         yield return null;
-        GameObject.Find("Game Manager").SendMessage("AddGameTask", "goto 'Inn Floor 2 Balcony' 'Railings Left'");
+        GameObject.Find("Game Manager").SendMessage("AddGameTask", "goto 'Inn Floor 2 Room 4' 'Writing Desk'");
         yield return new WaitForSeconds(15.0f);
         string parent = GameObject.Find("Player").transform.parent.name;
-		Assert.AreEqual(parent, "Inn Floor 2 Balcony");
+		Assert.AreEqual(parent, "Inn Floor 2 Room 4");
     }
 
 	[UnityTest]
@@ -55,6 +56,29 @@ public class NavigationTest {
 		Assert.AreEqual(parent, "Blacksmith Floor 2 Room 1");
 	}
     
+	[UnityTest]
+    [Timeout(100000)]
+    public IEnumerator PlayerMovementFaceDirection()
+    {
+        SceneManager.LoadScene("Game");
+        yield return null;
+        GameObject.Find("Game Manager").SendMessage("AddGameTask", "goto 'Inn Floor 1 Room 1' 'Table' NE");
+        yield return new WaitForSeconds(5.0f);
+		Character character = GameObject.Find("Player").GetComponentInChildren<Character>();
+    }
+
+	[UnityTest]
+    [Timeout(100000)]
+    public IEnumerator PlayerMount()
+    {
+        SceneManager.LoadScene("Game");
+        yield return null;
+        GameObject.Find("Game Manager").SendMessage("AddGameTask", "mount 'Inn Floor 1 Room 1' 'Chair Front' NE");
+        yield return new WaitForSeconds(5.0f);      
+        Character character = GameObject.Find("Player").GetComponentInChildren<Character>();
+        // TODO 6. Assert that the character has mounted on the chair correctly
+    }
+
 	[UnityTest]
     [Timeout(10000000)]
     public IEnumerator PlayerMovementAll()

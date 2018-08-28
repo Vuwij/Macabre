@@ -133,15 +133,54 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    // Similar to the GameObject Find, but includes everything
+	static Transform Find<T>(Transform parent, string name) {
+		if (parent == null)
+			return null;
+
+		if (parent.name == name && parent.GetComponent<T>() != null)
+			return parent;
+
+        // Recursively find
+		for (int i = 0; i < parent.childCount; ++i) {
+			Transform t = Find<T>(parent.GetChild(i), name);
+			if (t != null) return t;
+		}
+		return null;
+	}
+    
+    // Find all
+	public static T FindAll<T>(string name) {
+		GameObject[] objects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+		foreach(GameObject go in objects) {
+			Transform transform = Find<T>(go.transform, name);
+			if (transform != null)
+				return transform.GetComponent<T>();
+		}
+		return default(T);
+	}
+
     void LoadConversationInformation() {
         Character[] characters = Resources.LoadAll<Character>("Characters");
-        List<Character> characterList = characters.ToList();
-        Debug.Assert(characters.Length != 0);
+		List<Character> characterList = new List<Character>();
 
+		// Load characters in the scene if they exist, otherwise use the prefabs
+		foreach(Character c in characters) {
+			Character cc = FindAll<Character>(c.name);
+			if(cc != default(Character)) {
+				characterList.Add(cc);
+			}
+			else {
+				characterList.Add(c);
+			}
+		}
+
+		Debug.Assert(characterList.Count != 0);
+        
         // Character information
-        using (var reader = new StreamReader(@"Assets/Configuration/Characters.csv")) {
-
-			using (var csvreader = new CsvReader(reader))
+        using (var reader = new StreamReader(@"Assets/Configuration/Characters.csv"))
+		{
+        	using (var csvreader = new CsvReader(reader))
 			{
 				while (csvreader.Read())
 				{
@@ -150,6 +189,7 @@ public class GameManager : MonoBehaviour {
 					string attackdamage = csvreader.GetField(2);
 					string health = csvreader.GetField(3);
 					string shortnames = csvreader.GetField(4);
+					string startingInventory = csvreader.GetField(5);
 
 					if (characterName == "Name")
 						continue;
@@ -167,6 +207,16 @@ public class GameManager : MonoBehaviour {
 						characterNameTranslations.Add(s, characterName);
 					}
 					characterNameTranslations.Add(characterName, characterName);
+
+					if (startingInventory != "") {
+						string[] invItems = startingInventory.Split('\n');
+						foreach (string actItem in invItems)
+						{
+							if (actItem == "") continue;
+							string action = "'" + characterName + "' create " + actItem;
+							AddGameTask(action);
+						}
+					}
 				}
 			}
         }
@@ -204,7 +254,11 @@ public class GameManager : MonoBehaviour {
 							conversationState.stateName = stateName;
 							conversationState.updateCondition = updateCondition;
 							conversationState.requireCondition = requireCondition;
-							conversationState.actionString = action.Split('\n').ToList();
+							string[] conversationActions = action.Split('\n');
+							foreach (string c in conversationActions) {
+								if (c == "") continue;
+								conversationState.conversationActions.Add(c);
+							}
 
 							Character speakerCharacter = characterList.Find((obj) => obj.name == speaker);
 							if (stateName != "Silent")
