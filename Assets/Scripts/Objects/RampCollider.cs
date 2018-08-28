@@ -7,7 +7,7 @@ using System.Linq;
 namespace Objects
 {
 	// Basically the same as a pixel collider, but with an additional choice
-	public class RampCollider : PixelCollider
+	public class RampCollider : EffectorCollider
 	{
         // The direction that is going up
 		public Direction rampDirection;

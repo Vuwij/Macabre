@@ -491,9 +491,15 @@ namespace Objects
 						if (otherPixelCollider.effectorSprite != null && sr != null)
                         {
 							if (within)
+							{
 								sr.sprite = otherPixelCollider.effectorSprite;
+								rampCollider.OnEffectorEnter();
+							}
 							else
+							{
 								sr.sprite = otherPixelCollider.originalSprite;
+								rampCollider.OnEffectorExit();
+							}
                         }
 
 					}

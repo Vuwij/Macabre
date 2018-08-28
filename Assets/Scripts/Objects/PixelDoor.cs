@@ -21,7 +21,16 @@ namespace Objects
 
 		public Vector2 dropOffWorldLocation {
 			get {
-				return (Vector2) transform.position + dropOffLocation;
+				PixelCollider px = GetComponentInChildren<PixelCollider>();
+				Vector2 s1;
+				if (px != null)
+				    s1 = PixelPoint.Shift(px.centerWorld, Direction.NE, dropOffLocation.y);
+				else
+					s1 = PixelPoint.Shift(transform.position, Direction.NE, dropOffLocation.y);
+				
+				Vector2 s2 = PixelPoint.Shift(s1, Direction.SE, dropOffLocation.x);
+
+				return s2;
 			}
 		}
 
@@ -43,7 +52,7 @@ namespace Objects
 		{
 #if UNITY_EDITOR
 			Gizmos.color = Color.white;
-			Gizmos.DrawSphere(transform.position + (Vector3)dropOffLocation, 1.0f);
+			Gizmos.DrawSphere(dropOffWorldLocation, 1.0f);
 #endif
 		}
 	}
