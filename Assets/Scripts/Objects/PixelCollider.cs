@@ -49,7 +49,7 @@ namespace Objects
 
 		public PixelBox collisionBody => new PixelBox(top, left, right, bottom);
 		public PixelBox collisionBodyWorld => new PixelBox(topWorld, leftWorld, rightWorld, bottomWorld);
-		      
+
 		public float navigationMargin {
 			get {
 				float topLeftSpace = Vector2.Distance(topLeft, center);
@@ -75,7 +75,10 @@ namespace Objects
 		protected int pixelProximity = 4; // 3 pixels away from the object
 
 		public bool withinProximityBox;
-		public bool withinRamp;
+		public bool within;
+
+		public Sprite effectorSprite; // Sprite that shows up when you are within the object
+		public Sprite originalSprite;
 
 		protected virtual void Awake()
 		{
@@ -111,6 +114,10 @@ namespace Objects
 			bottom += collider2D.offset;
 			left += collider2D.offset;
 			right += collider2D.offset;
+
+			SpriteRenderer sr = GetComponent<SpriteRenderer>();
+			if (sr != null)
+			    originalSprite = sr.sprite;
 		}
 
 		public void TopologicalSortNearbySortingLayers()
@@ -458,11 +465,8 @@ namespace Objects
 					// Check if entered ramp
 					withinProximityBox = rampCollider.proximityBodyWorld.WithinCollisionBody(transform.position);
 					if (withinProximityBox) {
-						withinRamp = rampCollider.collisionBodyWorld.WithinCollisionBody(transform.position);
+						within = rampCollider.collisionBodyWorld.WithinCollisionBody(transform.position);
 
-						Debug.Log(bodyComparison.NEoutside.ToString() + " " + bodyComparison.NWoutside.ToString() + " " + bodyComparison.SEoutside.ToString() + " " + bodyComparison.SWoutside.ToString());
-						//Debug.Log(bodyComparison.NEinside.ToString() + " " + bodyComparison.NWinside.ToString() + " " + bodyComparison.SEinside.ToString() + " " + bodyComparison.SWinside.ToString());
-						//Debug.Log(bodyComparison.NWandSEoutside.ToString() + " " + bodyComparison.NEandSWoutside.ToString());
 						if (bodyComparison.overlap)
 						{
 							// Remove glitch caused by going to the side of the walls
@@ -481,9 +485,20 @@ namespace Objects
 									restriction.restrictSW = true;
 							}
 						}
+
+						SpriteRenderer sr = otherPixelCollider.transform.parent.GetComponent<SpriteRenderer>();
+						Debug.Log(sr.name);
+						if (otherPixelCollider.effectorSprite != null && sr != null)
+                        {
+							if (within)
+								sr.sprite = otherPixelCollider.effectorSprite;
+							else
+								sr.sprite = otherPixelCollider.originalSprite;
+                        }
+
 					}
      
-					if (withinRamp) {
+					if (within) {
 
                         // Draw the ramps
                         rampCollider.collisionBodyRampedWorld.Draw(Color.magenta, 2.0f);
@@ -534,6 +549,12 @@ namespace Objects
 			}
          
 			return restriction;
+		}
+
+		public bool CheckForEffector()
+		{
+			Debug.Assert(!(this is MultiBodyPixelCollider));
+			return false;
 		}
 
 		public bool CheckForWithinCollider(Vector2 position, float margin = 0.0f)
@@ -637,7 +658,7 @@ namespace Objects
 				PixelCollider characterCollider = (other is RampCollider) ? this : other;
 				PixelBoxComparison bodyComparision = PixelBox.CompareTwoCollisionBodies(characterCollider.collisionBodyWorld, rampCollider.collisionBodyWorld, 0.0f);
 
-				if (characterCollider.withinRamp || characterCollider.withinProximityBox)
+				if (characterCollider.within || characterCollider.withinProximityBox)
 				{
 					if (other is RampCollider)
 						comparison = 1;

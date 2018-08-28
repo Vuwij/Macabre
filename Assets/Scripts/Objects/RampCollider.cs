@@ -11,7 +11,7 @@ namespace Objects
 	{
         // The direction that is going up
 		public Direction rampDirection;
-		public int height = 0;
+        public int height = 0;
 
 		public float lengthE => Vector2.Distance(bottomWorld, rightWorld);
 		public float lengthW => Vector2.Distance(bottomWorld, leftWorld);
@@ -61,8 +61,13 @@ namespace Objects
               
 		public PixelBox proximityBodyWorld {
 			get {
-				PixelCollider playerCollider = GameObject.Find("Player").GetComponentInChildren<PixelCollider>();
-				float navMargin = playerCollider.navigationMargin * 5;
+				GameObject player = GameObject.Find("Player");
+				float navMargin = 20.0f;
+				if (player != null)
+				{
+					PixelCollider playerCollider = GameObject.Find("Player").GetComponentInChildren<PixelCollider>();
+					navMargin = playerCollider.navigationMargin * 5;
+				}
 
 				if (rampDirection == Direction.NE || rampDirection == Direction.SW) {
 					PixelLine pl1 = bottomSegment.Shift(Direction.NE, navMargin);
@@ -108,7 +113,7 @@ namespace Objects
 			base.OnDrawGizmos();
 		}
 
-		public PixelBox MatchCollisionBody(PixelBox input) {
+		public PixelBox MatchCollisionBody(PixelBox input, bool center = true) {
 			float h = 0.0f;
 			if (rampDirection == Direction.NE || rampDirection == Direction.SW)
 				h = slope * Vector2.Distance(input.bottom, input.right);
@@ -119,6 +124,13 @@ namespace Objects
 			Vector2 inputbottomWorldElevated = (rampDirection == Direction.SW || rampDirection == Direction.SE) ? input.bottom + new Vector2(0.0f, h) : input.bottom;
 			Vector2 inputleftWorldElevated = (rampDirection == Direction.NW || rampDirection == Direction.SW) ? input.left + new Vector2(0.0f, h) : input.left;
 			Vector2 inputrightWorldElevated = (rampDirection == Direction.NE || rampDirection == Direction.SE) ? input.right + new Vector2(0.0f, h) : input.right;
+
+			if (center) {
+				inputTopWorldElevated.y = inputTopWorldElevated.y - h / 2;
+				inputbottomWorldElevated.y = inputbottomWorldElevated.y - h / 2;
+				inputleftWorldElevated.y = inputleftWorldElevated.y - h / 2;
+				inputrightWorldElevated.y = inputrightWorldElevated.y - h / 2;
+			}
 
 			PixelBox cbody = new PixelBox(inputTopWorldElevated, inputleftWorldElevated, inputrightWorldElevated, inputbottomWorldElevated);
 			return cbody;
