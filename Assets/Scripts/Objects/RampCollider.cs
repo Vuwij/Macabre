@@ -6,26 +6,12 @@ using System.Linq;
 
 namespace Objects
 {
-	public class Segment2 {
-		public Vector2 p1;
-		public Vector2 p2;
-
-		public Segment2(Vector2 p1, Vector2 p2) {
-			this.p1 = p1;
-			this.p2 = p2;         
-		}
-
-		public bool AboveSegment(CollisionBody body) {
-			return PixelCollider.DistanceBetween4points(p1, p2, body.center, Vector2.zero) > 0;
-		}
-	}
-
 	// Basically the same as a pixel collider, but with an additional choice
 	public class RampCollider : PixelCollider
 	{
         // The direction that is going up
 		public Direction rampDirection;
-		public int height = 0;
+        public int height = 0;
 
 		public float lengthE => Vector2.Distance(bottomWorld, rightWorld);
 		public float lengthW => Vector2.Distance(bottomWorld, leftWorld);
@@ -48,16 +34,56 @@ namespace Objects
 		public Vector2 bottomRightWorldElevated => (bottomWorldElevated + rightWorldElevated) / 2;
         public Vector2 centerElevated => (topWorldElevated + bottomWorldElevated + leftWorldElevated + rightWorldElevated) / 4;
 
-		public Segment2 centerSegment {
+		public PixelLine centerSegment {
 			get {
 				if (rampDirection == Direction.NE || rampDirection == Direction.SW)
-					return new Segment2(topLeftWorldElevated, bottomRightWorldElevated);
+					return new PixelLine(topLeftWorldElevated, bottomRightWorldElevated);
 				else
-					return new Segment2(bottomLeftWorldElevated, topRightWorldElevated);
+					return new PixelLine(bottomLeftWorldElevated, topRightWorldElevated);
 			}
 		}
 
-		public bool OnFarSide(CollisionBody body)
+		public PixelLine bottomSegment{
+            get {
+				if (rampDirection == Direction.NE)
+					return collisionBodyWorld.lineSW;
+				else if (rampDirection == Direction.NW)
+					return collisionBodyWorld.lineSE;
+				else if (rampDirection == Direction.SW)
+					return collisionBodyWorld.lineNE;
+				else if (rampDirection == Direction.SE)
+					return collisionBodyWorld.lineNW;
+				else return null;
+            }
+        }
+
+        public PixelBox collisionBodyRampedWorld => new PixelBox(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
+              
+		public PixelBox proximityBodyWorld {
+			get {
+				GameObject player = GameObject.Find("Player");
+				float navMargin = 20.0f;
+				if (player != null)
+				{
+					PixelCollider playerCollider = GameObject.Find("Player").GetComponentInChildren<PixelCollider>();
+					navMargin = playerCollider.navigationMargin * 5;
+				}
+
+				if (rampDirection == Direction.NE || rampDirection == Direction.SW) {
+					PixelLine pl1 = bottomSegment.Shift(Direction.NE, navMargin);
+					PixelLine pl2 = bottomSegment.Shift(Direction.SW, navMargin);
+					return new PixelBox(pl1.p1, pl2.p1, pl1.p2, pl2.p2);
+				}
+				else if (rampDirection == Direction.NW || rampDirection == Direction.SE) {
+					PixelLine pl1 = bottomSegment.Shift(Direction.NW, navMargin);
+					PixelLine pl2 = bottomSegment.Shift(Direction.SE, navMargin);
+                    return new PixelBox(pl1.p2, pl1.p1, pl2.p2, pl2.p1);
+				}
+				return null;
+			}
+		}
+
+		public bool OnFarSide(PixelBox body)
 		{
 			bool onTop = centerSegment.AboveSegment(body);
 			if (Math.Abs(slope) < float.Epsilon) return false;
@@ -67,8 +93,6 @@ namespace Objects
 				return true;
 			return false;
 		}
-
-		public CollisionBody collisionBodyRampedWorld => new CollisionBody(topWorldElevated, leftWorldElevated, rightWorldElevated, bottomWorldElevated);
         
 		public override void OnDrawGizmos()
 		{
@@ -80,10 +104,16 @@ namespace Objects
    
 			Gizmos.DrawLine(centerSegment.p1, centerSegment.p2);
 
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawLine(proximityBodyWorld.top, proximityBodyWorld.right);
+			Gizmos.DrawLine(proximityBodyWorld.right, proximityBodyWorld.bottom);
+			Gizmos.DrawLine(proximityBodyWorld.bottom, proximityBodyWorld.left);
+			Gizmos.DrawLine(proximityBodyWorld.left, proximityBodyWorld.top);
+
 			base.OnDrawGizmos();
 		}
 
-		public CollisionBody MatchCollisionBody(CollisionBody input) {
+		public PixelBox MatchCollisionBody(PixelBox input, bool center = true) {
 			float h = 0.0f;
 			if (rampDirection == Direction.NE || rampDirection == Direction.SW)
 				h = slope * Vector2.Distance(input.bottom, input.right);
@@ -95,8 +125,19 @@ namespace Objects
 			Vector2 inputleftWorldElevated = (rampDirection == Direction.NW || rampDirection == Direction.SW) ? input.left + new Vector2(0.0f, h) : input.left;
 			Vector2 inputrightWorldElevated = (rampDirection == Direction.NE || rampDirection == Direction.SE) ? input.right + new Vector2(0.0f, h) : input.right;
 
-			CollisionBody cbody = new CollisionBody(inputTopWorldElevated, inputleftWorldElevated, inputrightWorldElevated, inputbottomWorldElevated);
+			if (center) {
+				inputTopWorldElevated.y = inputTopWorldElevated.y - h / 2;
+				inputbottomWorldElevated.y = inputbottomWorldElevated.y - h / 2;
+				inputleftWorldElevated.y = inputleftWorldElevated.y - h / 2;
+				inputrightWorldElevated.y = inputrightWorldElevated.y - h / 2;
+			}
+
+			PixelBox cbody = new PixelBox(inputTopWorldElevated, inputleftWorldElevated, inputrightWorldElevated, inputbottomWorldElevated);
 			return cbody;
+		}
+
+		public bool WithinRampCollider(PixelBox body) {
+			return false;
 		}
 	}
 }

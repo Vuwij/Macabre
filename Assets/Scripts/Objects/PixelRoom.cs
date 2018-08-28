@@ -54,8 +54,8 @@ namespace Objects
 		public Vector2 bottomWorld => bottom + (Vector2)transform.position;
 		public Vector2 leftWorld => left + (Vector2)transform.position;
 		public Vector2 rightWorld => right + (Vector2)transform.position;
-		public CollisionBody collisionbody => new CollisionBody(top, left, right, bottom);
-		public CollisionBody collisionbodyWorld => new CollisionBody(topWorld, leftWorld, rightWorld, bottomWorld);
+		public PixelBox collisionbody => new PixelBox(top, left, right, bottom);
+		public PixelBox collisionbodyWorld => new PixelBox(topWorld, leftWorld, rightWorld, bottomWorld);
   		public Vector2 topLeft => (top + left) / 2;
         public Vector2 topRight => (top + right) / 2;
         public Vector2 bottomLeft => (bottom + left) / 2;
@@ -68,6 +68,7 @@ namespace Objects
 		public int stepSize = 1; // How much steps for the navigation mesh
 
 		public HashSet<WayPoint> navigationMesh = new HashSet<WayPoint>();
+		[HideInInspector]
 		public PixelCollider navigationMeshObject = null;
 
 		public List<PixelDoor> pixelDoors {
@@ -138,30 +139,13 @@ namespace Objects
 
 		public void OnEnable()
 		{
-			SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
-			foreach (SpriteRenderer sr in spriteRenderers)
-			{
-				SetSortingLayer(Layer.World, sr);
-				if (sr.sortingLayerName.Contains("Foreground"))
-					sr.gameObject.SetActive(true);
-			}
-
-			foreach (OtherVisibleRoom room in GetAllConnectedRooms())
-			{
-				room.room.gameObject.SetActive(true);
-				SpriteRenderer[] srs = room.room.GetComponentsInChildren<SpriteRenderer>(true);
-				foreach (SpriteRenderer sr in srs)
-				{
-					SetSortingLayer(room.layer, sr);
-					if (sr.sortingLayerName.Contains("Foreground"))
-						sr.gameObject.SetActive(false);
-				}
-			}
+			if (GetComponentInChildren<Player>() != null)
+				SetRoomSortingLayer(Layer.World);
 		}
 
 		public void OnDisable()
 		{
-			OtherVisibleRoom[] allOtherVisibleRooms = GetAllConnectedRooms();
+			OtherVisibleRoom[] allOtherVisibleRooms = ConnectedRooms;
 			foreach (OtherVisibleRoom room in allOtherVisibleRooms)
 			{
 				if(room.room != null)
@@ -169,21 +153,47 @@ namespace Objects
 			}
 		}
 
-		OtherVisibleRoom[] GetAllConnectedRooms()
-		{
-			List<OtherVisibleRoom> rooms = new List<OtherVisibleRoom>();
+		public void SetRoomSortingLayer(Layer layer) {
 
-			for (int i = 0; i < transform.childCount; ++i)
+			SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+
+			foreach (SpriteRenderer sr in spriteRenderers)
+            {
+				SetSortingLayer(layer, sr);
+                if (sr.sortingLayerName.Contains("Foreground"))
+                    sr.gameObject.SetActive(true);
+            }
+
+			foreach (OtherVisibleRoom room in ConnectedRooms)
 			{
-				Transform child = transform.GetChild(i);
-				PixelExterior pixelExterior = child.GetComponent<PixelExterior>();
-				if(pixelExterior != null) {
-					rooms.AddRange(pixelExterior.otherVisibleRooms.ToList());
+				if (room.room.gameObject.activeInHierarchy == false)
+				{
+					room.room.gameObject.SetActive(true);
+					SpriteRenderer[] srs = room.room.GetComponentsInChildren<SpriteRenderer>(true);
+					room.room.SetRoomSortingLayer(room.layer);
 				}
-		    }
-			rooms.AddRange(otherVisibleRooms.ToList());
+			}
+		}
 
-			return rooms.ToArray();
+		OtherVisibleRoom[] ConnectedRooms
+		{
+			get
+			{
+				List<OtherVisibleRoom> rooms = new List<OtherVisibleRoom>();
+
+				for (int i = 0; i < transform.childCount; ++i)
+				{
+					Transform child = transform.GetChild(i);
+					PixelExterior pixelExterior = child.GetComponent<PixelExterior>();
+					if (pixelExterior != null)
+					{
+						rooms.AddRange(pixelExterior.otherVisibleRooms.ToList());
+					}
+				}
+				rooms.AddRange(otherVisibleRooms.ToList());
+
+				return rooms.ToArray();
+			}
 		}
 
 
@@ -309,17 +319,13 @@ namespace Objects
 			Debug.Assert(bottom != Vector2.zero);
 			Debug.Assert(left != Vector2.zero);
 			Debug.Assert(right != Vector2.zero);
-			Vector2 topWorld = top + (Vector2) transform.position;
-			Vector2 bottomWorld = bottom + (Vector2)transform.position;
-			Vector2 leftWorld = left + (Vector2)transform.position;
-			Vector2 rightWorld = right + (Vector2) transform.position;
 
             // Should all be positive
-			float topLeftDist = -PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, topWorld, startPosition, startPosition);
-			float topRightDist = -PixelCollider.DistanceBetween4pointsOrthographic(topWorld, rightWorld, startPosition, startPosition);
-			float bottomLeftDist = PixelCollider.DistanceBetween4pointsOrthographic(leftWorld, bottomWorld, startPosition, startPosition);
-			float bottomRightDist = PixelCollider.DistanceBetween4pointsOrthographic(bottomWorld, rightWorld, startPosition, startPosition);
-            
+			float topLeftDist = -PixelLine.DistanceOrthographic(collisionbodyWorld.lineNW, startPosition);
+			float topRightDist = -PixelLine.DistanceOrthographic(collisionbodyWorld.lineNE, startPosition);
+			float bottomLeftDist = PixelLine.DistanceOrthographic(collisionbodyWorld.lineSW, startPosition);
+			float bottomRightDist = PixelLine.DistanceOrthographic(collisionbodyWorld.lineSE, startPosition);
+   
 			Debug.DrawLine(topWorld, leftWorld, Color.blue, 10.0f);
 			Debug.DrawLine(leftWorld, bottomWorld, Color.blue, 10.0f);
 			Debug.DrawLine(bottomWorld, rightWorld, Color.blue, 10.0f);
