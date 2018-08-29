@@ -74,11 +74,10 @@ namespace Objects
 		public bool inspectChildObjects = false;
 		protected int pixelProximity = 4; // 3 pixels away from the object
 
+		[HideInInspector]
 		public bool withinProximityBox;
+		[HideInInspector]
 		public bool within;
-
-		public Sprite effectorSprite; // Sprite that shows up when you are within the object
-		public Sprite originalSprite;
 
 		protected virtual void Awake()
 		{
@@ -114,10 +113,6 @@ namespace Objects
 			bottom += collider2D.offset;
 			left += collider2D.offset;
 			right += collider2D.offset;
-
-			SpriteRenderer sr = GetComponent<SpriteRenderer>();
-			if (sr != null)
-			    originalSprite = sr.sprite;
 		}
 
 		public void TopologicalSortNearbySortingLayers()
@@ -485,22 +480,11 @@ namespace Objects
 									restriction.restrictSW = true;
 							}
 						}
-
-						SpriteRenderer sr = otherPixelCollider.transform.parent.GetComponent<SpriteRenderer>();
-						Debug.Log(sr.name);
-						if (otherPixelCollider.effectorSprite != null && sr != null)
-                        {
-							if (within)
-							{
-								sr.sprite = otherPixelCollider.effectorSprite;
-								rampCollider.OnEffectorEnter();
-							}
-							else
-							{
-								sr.sprite = otherPixelCollider.originalSprite;
-								rampCollider.OnEffectorExit();
-							}
-                        }
+                        
+						if (within)
+							rampCollider.OnEffectorEnter();
+						else
+							rampCollider.OnEffectorExit();
 
 					}
      
@@ -519,10 +503,10 @@ namespace Objects
                         
                         // Collision with side of ramp
                         PixelBoxComparison cbcRamp = PixelBox.CompareTwoCollisionBodies(cramped, rampCollider.collisionBodyRampedWorld, -2.0f);
-						if (!cbcRamp.SEinside && rampCollider.rampDirection != Direction.SE && rampCollider.rampDirection != Direction.NW) restriction.restrictSE = true;
-						if (!cbcRamp.SWinside && rampCollider.rampDirection != Direction.SW && rampCollider.rampDirection != Direction.NE) restriction.restrictSW = true;
-						if (!cbcRamp.NEinside && rampCollider.rampDirection != Direction.NE && rampCollider.rampDirection != Direction.SW) restriction.restrictNE = true;
-						if (!cbcRamp.NWinside && rampCollider.rampDirection != Direction.NW && rampCollider.rampDirection != Direction.SE) restriction.restrictNW = true;
+						if (!cbcRamp.SEinside && rampCollider.rampDirection != Direction.NW) restriction.restrictSE = true;
+						if (!cbcRamp.SWinside && rampCollider.rampDirection != Direction.NE) restriction.restrictSW = true;
+						if (!cbcRamp.NEinside && rampCollider.rampDirection != Direction.SW) restriction.restrictNE = true;
+						if (!cbcRamp.NWinside && rampCollider.rampDirection != Direction.SE) restriction.restrictNW = true;
 
                         restriction.slopeDirection = rampCollider.rampDirection;
                         restriction.slope = rampCollider.slope;
