@@ -4,7 +4,6 @@ using System.Collections;
 using Objects.Movable.Characters;
 using Data;
 using Objects;
-using Environment;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -348,7 +347,7 @@ public class GameManager : MonoBehaviour {
                 result.Add(g.Value);
             }
         }
-
+        
         return result.ToArray();
     }
 
@@ -363,6 +362,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator GameTaskUpdate() {
 		while(true) {
 			if (gameTasks.Count == 0) {
+				clock.Tick();
 				yield return new WaitForSeconds(0.1f);
 				continue;
 			}
