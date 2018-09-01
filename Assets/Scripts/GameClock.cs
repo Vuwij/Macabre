@@ -8,6 +8,7 @@ using UI.Panels;
 public class GameClock
 {
 	public int totalSeconds = 0;
+	public const int timeSpeed = 600;
 
 	public enum MIndicator { AM = 0, PM = 1 };
 	public enum DayOfWeek { Monday = 0, Tuesday = 1, Wednesday = 2, Thursday = 3, Friday = 4, Saturday = 5, Sunday = 6 };
@@ -15,11 +16,11 @@ public class GameClock
 
 	public int second => totalSeconds % 60;
 	public int minute => (totalSeconds / 60) % 60;
-	public int hour => (totalSeconds / 3600) % 60;
-	public int day => (totalSeconds / (24 * 36000) % 24);
-	public int week => (totalSeconds / (24 * 36000 * 7) % 7);
-	public int monthnum => (totalSeconds / (24 * 36000 * 7 * 4) % 4);
-	public int year => (totalSeconds / (24 * 36000 * 7 * 52) % 52);
+	public int hour => (totalSeconds / 60 / 60) % 24;
+	public int day => (totalSeconds / 60 / 60 / 24);
+	public int week => day / 7;
+	public int monthnum => day / 30;
+	public int year => day / 365;
 	public MIndicator cycle => (MIndicator)(hour % 12);
 	public DayOfWeek dayOfWeek => (DayOfWeek)(day % 7);
 	public Month month => (Month)(monthnum % 12);
@@ -32,9 +33,15 @@ public class GameClock
 		else return "0" + time.ToString();
 	}
 
+	Light environmentLight;
+	Light characterLight;
+
+	float maxEnvironmentLight = 1.0f;
+	float maxCharacterLight = 25.0f;
+
     public void Tick()
     {
-		totalSeconds++;
+		totalSeconds = totalSeconds + timeSpeed;
 
 		// Update UI
 		GameObject statsPanelObj = GameObject.Find("Stats Panel");
@@ -42,15 +49,25 @@ public class GameClock
 		statsPanel.Date = "Week " + week.ToString() + ", " + dayOfWeekString;
 		statsPanel.Time = hour.ToString() + ":" + formatTime(minute) + ":" + formatTime(second);
 
-		// Lighting of the overworld
-        //var backgroundobj = GameObject.Find("Background");
-        //var playerobj = GameObject.Find("Player");
-        //if(backgroundobj != null && playerobj != null) {
-        //  var background = backgroundobj.GetComponentInChildren<SpriteRenderer>();
-        //  var player = playerobj.GetComponent<Player>();
-        //  if(player.isInsideBuilding) return;
-        //  float brightness = 0.6f + 0.4f * (float) Math.Cos((double) totalSeconds / 50.0f );
-        //  background.color = new Color(brightness, brightness, brightness);
-        //}
+        // Update lighting
+		if (environmentLight == null) {
+			GameObject cameraObj = GameObject.Find("Main Camera");
+			environmentLight = cameraObj.GetComponent<Light>();
+			Debug.Assert(environmentLight != null);
+		}
+
+		if (characterLight == null) {
+            GameObject characterObj = GameObject.Find("Player");
+			characterLight = characterObj.GetComponentInChildren<Light>();
+			Debug.Assert(characterLight != null);
+        }
+
+		float lightPhase = (float)hour / 24 * 2 * Mathf.PI;
+		float worldBrightness = Mathf.Cos(lightPhase + Mathf.PI) * maxEnvironmentLight / 2 + maxEnvironmentLight / 2;
+		float lampBrightness = Mathf.Cos(lightPhase + 2 * Mathf.PI) * maxCharacterLight / 2 + maxCharacterLight / 2;
+
+		environmentLight.intensity = worldBrightness;
+		characterLight.intensity = lampBrightness;
+
     }
 }
