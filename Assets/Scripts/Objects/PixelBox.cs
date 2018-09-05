@@ -40,16 +40,7 @@ namespace Objects
 		}
 
 		public static PixelBoxComparison CompareTwoCollisionBodies(PixelBox a, PixelBox b, float margin = 0.0f, bool debug = false) {
-			Vector2 atopWorld = a.top;
-            Vector2 abottomWorld = a.bottom;
-            Vector2 aleftWorld = a.left;
-            Vector2 arightWorld = a.right;
-
-            Vector2 btopWorld = b.top;
-            Vector2 bbottomWorld = b.bottom;
-            Vector2 bleftWorld = b.left;
-            Vector2 brightWorld = b.right;
-
+         
             PixelBoxComparison collisionBodyComparision = new PixelBoxComparison();
 
 			bool aTopLeft = PixelLine.DistanceOrthographic(a.lineNW, b.lineSE) >= -margin;
@@ -83,16 +74,16 @@ namespace Objects
 
 			// Sides Vertical
             if (aTopLeft)
-                collisionBodyComparision.NWvertical |= (aleftWorld.x < brightWorld.x && aleftWorld.y < brightWorld.y);
+				collisionBodyComparision.NWvertical |= (a.left.x < b.right.x && a.left.y < b.right.y);
 
             if (aTopRight)
-                collisionBodyComparision.NEvertical |= (arightWorld.x > bleftWorld.x && arightWorld.y < bleftWorld.y);
+				collisionBodyComparision.NEvertical |= (a.right.x > b.left.x && a.right.y < b.left.y);
 
             if (aBottomRight)
-                collisionBodyComparision.SEvertical |= (bleftWorld.x < arightWorld.x && bleftWorld.y < arightWorld.y);
+				collisionBodyComparision.SEvertical |= (a.left.x < a.right.x && b.left.y < a.right.y);
 
             if (aBottomLeft)
-                collisionBodyComparision.SWvertical |= (brightWorld.x > aleftWorld.x && brightWorld.y < aleftWorld.y);
+				collisionBodyComparision.SWvertical |= (b.right.x > a.left.x && b.right.y < a.left.y);
                 
             // Corners Exclusive
             if (aTopLeft && aTopRight) collisionBodyComparision.Nexclusive = true;
@@ -113,10 +104,10 @@ namespace Objects
             if (aBottomRight && !aBottomLeft && !aTopRight) collisionBodyComparision.SWexclusive = true;
 
 			// Above and Below
-			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (aBottomLeftWithin && aBottomRightWithin))
+			if (a.right.x < b.right.x && a.left.x > b.left.x && (aBottomLeftWithin && aBottomRightWithin))
 				collisionBodyComparision.aAbove = true;
 
-			if (arightWorld.x < brightWorld.x && aleftWorld.x > bleftWorld.x && (aTopLeftWithin && aTopRightWithin))
+			if (a.right.x < b.right.x && a.left.x > b.left.x && (aTopLeftWithin && aTopRightWithin))
 				collisionBodyComparision.aBelow = true;
                      
             return collisionBodyComparision;
@@ -130,8 +121,7 @@ namespace Objects
 
         // Within Range of a collisionBody
 		public bool WithinRange(PixelBox other, Direction direction, float distance = 0.4f, float negDistance = 2.0f) {
-			PixelBoxComparison comparison = this.CompareWith(other);
-            
+
 			if (direction == Direction.NW)
 			{
 				if (PixelLine.DistanceOrthographic(lineNW, other.lineSE) < distance &&

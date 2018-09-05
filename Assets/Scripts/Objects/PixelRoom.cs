@@ -169,7 +169,6 @@ namespace Objects
 				if (room.room.gameObject.activeInHierarchy == false)
 				{
 					room.room.gameObject.SetActive(true);
-					SpriteRenderer[] srs = room.room.GetComponentsInChildren<SpriteRenderer>(true);
 					room.room.SetRoomSortingLayer(room.layer);
 				}
 			}
@@ -331,10 +330,10 @@ namespace Objects
 			Debug.DrawLine(bottomWorld, rightWorld, Color.blue, 10.0f);
 			Debug.DrawLine(rightWorld, topWorld, Color.blue, 10.0f);
 
-			Vector2 topLeftPoint = startPosition + new Vector2(-topLeftDist / 2.23606f * 2, topLeftDist / 2.23606f);
-			Vector2 topRightPoint = startPosition + new Vector2(topRightDist / 2.23606f * 2, topRightDist / 2.23606f);
-			Vector2 bottomLeftPoint = startPosition + new Vector2(-bottomLeftDist / 2.23606f * 2, -bottomLeftDist / 2.23606f);
-			Vector2 bottomRightPoint = startPosition + new Vector2(bottomRightDist / 2.23606f * 2, -bottomRightDist / 2.23606f);
+			//Vector2 topLeftPoint = startPosition + new Vector2(-topLeftDist / 2.23606f * 2, topLeftDist / 2.23606f);
+			//Vector2 topRightPoint = startPosition + new Vector2(topRightDist / 2.23606f * 2, topRightDist / 2.23606f);
+			//Vector2 bottomLeftPoint = startPosition + new Vector2(-bottomLeftDist / 2.23606f * 2, -bottomLeftDist / 2.23606f);
+			//Vector2 bottomRightPoint = startPosition + new Vector2(bottomRightDist / 2.23606f * 2, -bottomRightDist / 2.23606f);
             
 			Debug.Assert(topLeftDist >= 0);
 			Debug.Assert(topRightDist >= 0);
@@ -394,7 +393,6 @@ namespace Objects
 				{
 					if (pixelCollider != null && pixelCollider.isActiveAndEnabled)
 					{
-						List<WayPoint> badWayPoints = new List<WayPoint>();
 						for (int i = -bottomLeftSteps; i <= topRightSteps; ++i)
 						{
 							for (int j = -bottomRightSteps; j <= topLeftSteps; ++j)

@@ -429,22 +429,7 @@ namespace Objects
 					// Comparison with actual box
 					PixelBoxComparison bodyComparison = PixelBox.CompareTwoCollisionBodies(collisionBodyWorld, rampCollider.collisionBodyWorld, 0.0f, true);
 					PixelBoxComparison proximityComparison = PixelBox.CompareTwoCollisionBodies(collisionBodyWorld, rampCollider.proximityBodyWorld, 0.0f, true);
-                    
-					// Close to the ramp collision (remove the wall collision) and prevent glitches
-					Direction proximityDirection = Direction.All;
-
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SE, navigationMargin, navigationMargin) &&
-					    rampCollider.rampDirection == Direction.SE) proximityDirection = Direction.SE;
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.SW, navigationMargin, navigationMargin) &&
-					    rampCollider.rampDirection == Direction.SW) proximityDirection = Direction.SW;
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NE, navigationMargin, navigationMargin) &&
-					    rampCollider.rampDirection == Direction.NE) proximityDirection = Direction.NE;
-					if (collisionBodyWorld.WithinRange(otherPixelCollider.collisionBodyWorld, Direction.NW, navigationMargin, navigationMargin) && 
-					    rampCollider.rampDirection == Direction.NW) proximityDirection = Direction.NW;
-
-					// Entered the ramp
-					bool closeToRamp = proximityDirection != Direction.All;
-
+                        
                     // Free the character to go in that direction
 					if (proximityComparison.inside) {
                         if (rampCollider.rampDirection == Direction.NE)
@@ -644,9 +629,8 @@ namespace Objects
 			}
 			else if (other is RampCollider && transform.parent.GetComponent<Character>() != null || this is RampCollider && other.transform.parent.GetComponent<Character>() != null)
 			{
-				RampCollider rampCollider = (RampCollider)((other is RampCollider) ? other : this);
+				//RampCollider rampCollider = (RampCollider)((other is RampCollider) ? other : this);
 				PixelCollider characterCollider = (other is RampCollider) ? this : other;
-				PixelBoxComparison bodyComparision = PixelBox.CompareTwoCollisionBodies(characterCollider.collisionBodyWorld, rampCollider.collisionBodyWorld, 0.0f);
 
 				if (characterCollider.within || characterCollider.withinProximityBox)
 				{

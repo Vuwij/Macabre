@@ -28,8 +28,11 @@ namespace Objects
 			foreach (GameObject g in disabledWhenInside)
 				g.SetActive(false);
 
-			SpriteRenderer sr = this.transform.parent.GetComponent<SpriteRenderer>();
-			sr.sprite = effectorSprite;
+			if (effectorSprite != null)
+			{
+				SpriteRenderer sr = this.transform.parent.GetComponent<SpriteRenderer>();
+				sr.sprite = effectorSprite;
+			}
 		}
 
         public void OnEffectorExit()
@@ -40,8 +43,11 @@ namespace Objects
             foreach (GameObject g in disabledWhenInside)
 				g.SetActive(true);
 
-			SpriteRenderer sr = this.transform.parent.GetComponent<SpriteRenderer>();
-			sr.sprite = originalSprite;
+			if (effectorSprite != null)
+			{
+				SpriteRenderer sr = this.transform.parent.GetComponent<SpriteRenderer>();
+				sr.sprite = originalSprite;
+			}
 		}
 	}
 }

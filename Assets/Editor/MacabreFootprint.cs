@@ -211,7 +211,6 @@ public class MacabreFootprint : EditorWindow {
 				}
 
                 // Make a copy of the texture's normal map
-				AssetImporter normalMapImporter = AssetImporter.GetAtPath(normalMapTextureName);            
 				TextureImporter normalMapTextureImporter = (TextureImporter)AssetImporter.GetAtPath(normalMapTextureName);
 
 				if (normalMapTextureImporter.textureType != TextureImporterType.NormalMap)

@@ -9,31 +9,32 @@ public sealed class MainCamera : MonoBehaviour
 {
     public static MainCamera main = null;
 
-    Vector2 playerPosition
+    Vector3 destinationPosition
     {
         get
         {
-            var p = GameObject.Find("Player");
-            if (p == null) return Vector2.zero;
-            else return p.transform.position;
+			Vector3 position;
+			var p = GameObject.Find(followObject);
+			if (p == null) position = transform.position;
+			else position = p.transform.position;
+			position.z = -10;
+			return position;
         }
     }
 
-    Vector2 destination;
+	public string followObject = "Player";
 
     void Start()
     {
         if (main == null) main = this;
         else if (main != null) Destroy(gameObject);
         DontDestroyOnLoad(this);
+
+		GameObject go = GameObject.Find(followObject);
     }
 
     void LateUpdate()
     {
-        destination = playerPosition;
-        Vector3 pos = transform.position;
-        pos.x = playerPosition.x;
-        pos.y = playerPosition.y;
-        transform.position = pos;
+		gameObject.transform.position = destinationPosition;
     }
 }

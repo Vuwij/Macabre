@@ -111,11 +111,10 @@ namespace Objects.Movable.Characters
         public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();
         public Dictionary<string, string> characterEvents = new Dictionary<string, string>(); // Temporary, per conversation
 
-		public CharacterStatistics statistics = new CharacterStatistics();
+        public CharacterStatistics statistics = new CharacterStatistics();
 
         protected override void Start()
         {
-            UpdateFromPrefab();
 			UpdateSortingLayer();
             base.Start();         
         }
@@ -131,14 +130,6 @@ namespace Objects.Movable.Characters
 		{
 			CancelInvoke("Movement");
 		}
-
-		void UpdateFromPrefab() {
-            Character prefab = Resources.Load<Character>("Characters/" + name);
-			if(prefab == null) {
-				Debug.LogError(name + " not found in prefab");
-				Debug.Assert(prefab != null);
-			}
-        }
 
         void Movement()
         {
@@ -366,8 +357,6 @@ namespace Objects.Movable.Characters
 
 			PixelCollider pixelCollider = transform.GetComponentInChildren<PixelCollider>();
             Debug.Assert(pixelCollider != null);
-            PixelRoom pixelRoom = pixelCollider.GetPixelRoom();
-			int stepSize = pixelRoom.stepSize;
             
 			if (direction.sqrMagnitude < 2.5f) {
 				wayPointVelocity = Vector2.zero;
@@ -508,7 +497,7 @@ namespace Objects.Movable.Characters
                     else
                     {
                         PixelCollider characterCollider = GetComponentInChildren<PixelCollider>();
-						pixelPose = pixelCollider.FindBestWayPointPosition(startPosition);
+						pixelPose = characterCollider.FindBestWayPointPosition(startPosition);
                     }
                 }
 				Navigate(pixelPose);            

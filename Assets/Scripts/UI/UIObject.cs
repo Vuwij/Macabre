@@ -34,8 +34,6 @@ namespace UI
 
         protected virtual void OnDisable()
         {
-            CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
-
             UIScreenManager screenManager = transform.parent.GetComponent<UIScreenManager>();
             Debug.Assert(screenManager != null);
             Debug.Assert(screenManager.panelStack.Peek() == this);

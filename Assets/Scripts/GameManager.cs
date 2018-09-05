@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using Objects.Movable.Characters;
 using Data;
 using Objects;
@@ -24,6 +25,19 @@ public class GameManager : MonoBehaviour {
 	public Queue<GameTask> gameTasks = new Queue<GameTask>();
 	public List<GameTask> activeTasks = new List<GameTask>();
 
+	public List<PixelRoom> rooms {
+		get {
+			GameObject[] rootObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+			List<PixelRoom> roomList = new List<PixelRoom>();
+			foreach(GameObject go in rootObjects) {
+				PixelRoom pixelRoom = go.GetComponent<PixelRoom>();
+				if (pixelRoom != null)
+					roomList.Add(pixelRoom);
+			}
+			return roomList;
+		}
+	}
+
 	void Awake()
     {
         if (main == null) main = this;
@@ -32,13 +46,27 @@ public class GameManager : MonoBehaviour {
 
 		dataPath = Application.dataPath;
 		saves = new Saves();
-
-        LoadInventoryInformation();
-        LoadConversationInformation();
     }
+
 
 	void Start()
 	{
+        // Activate all the rooms
+		Dictionary<PixelRoom, bool> activeStatus = new Dictionary<PixelRoom, bool>();
+		foreach(PixelRoom r in rooms) {
+			activeStatus.Add(r, r.gameObject.activeInHierarchy);
+			r.gameObject.SetActive(true);
+		}
+
+        // Loads the world
+		LoadInventoryInformation();
+        LoadConversationInformation();
+
+        // Deactivate all the rooms
+		foreach (PixelRoom r in rooms){
+			r.gameObject.SetActive(activeStatus[r]);
+        }
+
 		// Update game tasks every second
 		StartCoroutine(GameTaskUpdate());
 	}
@@ -197,6 +225,11 @@ public class GameManager : MonoBehaviour {
 					if (character != null)
 					{
 						character.description = description;
+						int num;
+						if (int.TryParse(attackdamage, out num))
+							character.statistics.attackDamage = num;
+						if (int.TryParse(health, out num))
+							character.statistics.health = num;
 					}
 
 					string[] snames = shortnames.Replace(" ", "").Split();
@@ -237,7 +270,6 @@ public class GameManager : MonoBehaviour {
 						while (csvreader.Read())
 						{
 							string stateName = csvreader.GetField(0);
-							string nextState = csvreader.GetField(1);
 							string updateCondition = csvreader.GetField(2);
 							string requireCondition = csvreader.GetField(3);
 							string speaker = csvreader.GetField(4);
@@ -319,6 +351,8 @@ public class GameManager : MonoBehaviour {
 
             Debug.Assert(character.conversationStates["Silent"] != null);
             character.currentConversationState = character.conversationStates["Silent"];
+			if (character.conversationStates["Silent"] != null)
+			    Debug.Assert(character.currentConversationState != null);
         }
     }
 
