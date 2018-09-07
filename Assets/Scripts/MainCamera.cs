@@ -29,8 +29,6 @@ public sealed class MainCamera : MonoBehaviour
         if (main == null) main = this;
         else if (main != null) Destroy(gameObject);
         DontDestroyOnLoad(this);
-
-		GameObject go = GameObject.Find(followObject);
     }
 
     void LateUpdate()

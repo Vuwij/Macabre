@@ -82,6 +82,7 @@ namespace Objects.Movable.Characters
 		public Queue<GameTask> characterTasks = new Queue<GameTask>();
 
 		List<WayPoint> wayPoints;
+		[HideInInspector]
 		public Vector2 wayPointVelocity;
 
 		public bool positionLocked = false;
@@ -106,6 +107,7 @@ namespace Objects.Movable.Characters
         protected Vector2 characterVelocity;
 		protected Vector2 facingDirection;
 
+		[HideInInspector]
 		public Character currentlySpeakingTo;
         public ConversationState currentConversationState;
         public Dictionary<string, ConversationState> conversationStates = new Dictionary<string, ConversationState>();

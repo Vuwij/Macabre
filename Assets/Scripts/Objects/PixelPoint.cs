@@ -26,24 +26,24 @@ namespace Objects
 		public static float DistanceOrthographicAbs(Vector2 p1, Vector2 p2, Direction direction) => Mathf.Abs(DistanceOrthographic(p1, p2, direction));
 
 		public static Vector2 Shift(Vector2 p, Direction direction, float distance) {
-			Debug.Assert(direction != Direction.All && direction != Direction.NEandSW && direction != Direction.NWandSE);
+			Debug.Assert(direction != Direction.All && direction != Direction.NESW && direction != Direction.NWSE);
 
 			Vector2 pp = new Vector2(p.x, p.y);
 
 			if (direction == Direction.NE)
 			{
 				pp.x = p.x + distance / Mathf.Sqrt(5);
-				pp.y = p.y +  distance / Mathf.Sqrt(5) / 2;
+				pp.y = p.y + distance / Mathf.Sqrt(5) / 2;
 			}
 			else if (direction == Direction.NW)
 			{
-				pp.x = p.x + distance / Mathf.Sqrt(5);
-                pp.y = p.y - distance / Mathf.Sqrt(5) / 2;
+				pp.x = p.x - distance / Mathf.Sqrt(5);
+                pp.y = p.y + distance / Mathf.Sqrt(5) / 2;
 			}
 			else if (direction == Direction.SE)
             {
-                pp.x = p.x - distance / Mathf.Sqrt(5);
-                pp.y = p.y + distance / Mathf.Sqrt(5) / 2;
+                pp.x = p.x + distance / Mathf.Sqrt(5);
+                pp.y = p.y - distance / Mathf.Sqrt(5) / 2;
             }
 			else if (direction == Direction.SW)
             {

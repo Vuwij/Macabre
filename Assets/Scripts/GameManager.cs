@@ -225,6 +225,7 @@ public class GameManager : MonoBehaviour {
 					if (character != null)
 					{
 						character.description = description;
+						character.interactionText = description;
 						int num;
 						if (int.TryParse(attackdamage, out num))
 							character.statistics.attackDamage = num;
